@@ -16,6 +16,7 @@ There is no `elements-of-style` or generic `writing-editor` skill.
 
 ## Start here
 
+- [Before-and-after gallery](examples/before-and-after.md): 14 single-skill demonstrations plus one coordinated portfolio pass.
 - `RESEARCH_REPORT.md` — Parts I–XIV in the requested order.
 - `source-manifest.md`, `source-access-ledger.csv`, `source-coverage-ledger.csv` — editions, lawful access, and every visible chapter/page/category.
 - `principle-registry.json` / `.csv` — 252 fully fielded, explicitly disposed principles.
