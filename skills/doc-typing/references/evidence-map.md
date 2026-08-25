@@ -1,0 +1,7 @@
+# Evidence map
+
+All 18 English pages in the official navigation were fully inspected as public HTML on 2026-08-25; cutoff 2026-08-19 23:59 America/Chicago. The [News page](https://diataxis.fr/news/) records pre-cutoff updates on 4 and 6 August 2026. No official dated snapshot for 19 August was available; confidence in cutoff identity is high, not absolute.
+
+Core IDs map to: [Home](https://diataxis.fr/), [Start here](https://diataxis.fr/start-here/), [Applying](https://diataxis.fr/application/), [Tutorials](https://diataxis.fr/tutorials/), [How-to](https://diataxis.fr/how-to-guides/), [Reference](https://diataxis.fr/reference/), [Explanation](https://diataxis.fr/explanation/), [Compass](https://diataxis.fr/compass/), [Workflow](https://diataxis.fr/how-to-use-diataxis/), [Theory](https://diataxis.fr/theory/), [Foundations](https://diataxis.fr/foundations/), [Map](https://diataxis.fr/map/), [Quality](https://diataxis.fr/quality/), [Tutorial/how-to boundary](https://diataxis.fr/tutorials-how-to/), [Reference/explanation boundary](https://diataxis.fr/reference-explanation/), [Colophon](https://diataxis.fr/colophon/), [Translation](https://diataxis.fr/translation/), and [News](https://diataxis.fr/news/).
+
+Daniele Procida is the identified author. “Intentional mixed documents with explicit boundaries” is a portfolio inference from scale-sensitive classification and iterative architecture; it is labeled as such.

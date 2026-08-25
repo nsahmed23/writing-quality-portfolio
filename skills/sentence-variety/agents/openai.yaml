@@ -1,0 +1,14 @@
+interface:
+  display_name: Sentence Variety
+  short_description: Choose syntax that serves rhetorical purpose
+  default_prompt: Use $sentence-variety to repair syntactic monotony without ornamental
+    rewriting.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

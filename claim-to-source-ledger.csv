@@ -1,0 +1,11 @@
+claim_id,claim,source_ids,source_or_artifact,support_type,confidence
+CL-001,"Basics fifth is the baseline edition; Lessons thirteenth is a current related flagship, not the same edition line",WB5;WBL13,https://www.pearson.com/en-us/subject-catalog/p/style-the-basics-of-clarity-and-grace/P200000002141/9780134109749,direct publisher metadata,high
+CL-002,"Lanham fifth contains eight chapters and an eight-step method spanning action, attention, and voice",LAN5,https://www.pearson.com/en-us/subject-catalog/p/revising-prose/P200000002251/9780321441690,publisher TOC + peer-reviewed review,medium-high
+CL-003,"Gopen–Swan's principles are rhetorical heuristics, not a reported controlled experiment",GS90,https://people.tamu.edu/~khuffenberger/resources/science-of-writing.pdf,full article and methods absence,high
+CL-004,"Virginia Tufte was Edward Rolf Tufte's mother, not wife",TUF,https://www.edwardtufte.com/notebook/artful-sentences-syntax-as-style-by-virginia-tufte-now-published/,first-party statement + USC obituary,very high
+CL-005,Minto 2026 is latest publisher-numbered edition; 1996 is latest author-designated expanded text visible on her site,MIN26;MIN96,https://www.pearson.com/en-gb/subject-catalog/p/the-pyramid-principle/P200000015259/9781292763255,publisher + author metadata,high; relation unresolved
+CL-006,Diátaxis current site exposes 18 English navigation pages and four needs/forms,DIA,https://diataxis.fr/,full site/navigation inspection,high
+CL-007,Garner fifth (2022) is current and full A–Z access was unavailable,GAR5,https://global.oup.com/academic/product/garners-modern-english-usage-9780197599020,OUP/Oxford Reference access audit,high
+CL-008,Strunk 1918/1920 are fully public-domain; White fourth is only TOC-accessible here,STR18;STR20;SW4,https://www.pearson.com/en-au/subject-catalog/p/elements-of-style-the/P200000002160/9780205309023,full public texts + publisher metadata,high
+CL-009,OpenAI requires SKILL.md name/description and recommends focused skills with description-driven activation,PLAT,https://learn.chatgpt.com/docs/build-skills,official documentation,high current; cutoff caveat
+CL-010,Global-to-local pass order minimizes invalidated local edits,portfolio synthesis,portfolio-pass-order.md,dependency inference tested in fixtures,high design

@@ -1,0 +1,14 @@
+interface:
+  display_name: Usage Adjudicator
+  short_description: Resolve disputed usage by evidence and context
+  default_prompt: Use $usage-adjudicator to evaluate this disputed usage for the stated
+    register and audience.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

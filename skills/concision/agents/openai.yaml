@@ -1,0 +1,14 @@
+interface:
+  display_name: Concision
+  short_description: Remove genuine wordiness without losing meaning
+  default_prompt: Use $concision to shorten this prose while preserving necessary
+    detail and qualification.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,50 @@
+skill: sentence-clarity
+fixtures:
+  - id: sc-positive-buried-action
+    kind: positive_activation
+    prompt: "Clarify: A review of the logs was conducted by SRE."
+    expect: [activate, "SRE reviewed the logs", buried_action]
+  - id: sc-positive-question
+    kind: semantic_trigger
+    prompt: "Who is actually doing what in this sentence?"
+    expect: [activate]
+  - id: sc-negative-shorter
+    kind: negative_activation
+    prompt: "Make this paragraph 25% shorter."
+    expect: [defer_to_concision]
+  - id: sc-negative-flow
+    kind: collision
+    prompt: "These paragraphs do not flow."
+    expect: [defer_to_cohesion_emphasis]
+  - id: sc-boundary-technical-noun
+    kind: minimal_intervention
+    input: "Authentication precedes authorization."
+    expect: [no_change, no_clarity_fault]
+  - id: sc-boundary-passive-topic
+    kind: legitimate_passive
+    input: "The request enters the gateway. It is validated before routing."
+    expect: [retain_passive]
+  - id: sc-boundary-unknown-agent
+    kind: semantic_preservation
+    input: "Three audit records were deleted overnight."
+    expect: [do_not_invent_agent]
+  - id: sc-hedge
+    kind: semantic_preservation
+    input: "The intervention may reduce latency in lightly loaded regions."
+    expect: [preserve, may, lightly_loaded]
+  - id: sc-citation
+    kind: semantic_preservation
+    input: "A weak association was observed (Lee 2024, p. 9)."
+    expect: [preserve_citation, preserve_caution]
+  - id: sc-regression-old-new
+    kind: cross_skill
+    input: "The broker emits an event. This event is retained for seven days."
+    expect: [do_not_force_active, cohesion_controls]
+  - id: sc-opener
+    kind: positive_activation
+    input: "After review of the five reports submitted after the incident by every regional team and its counsel, the board approved the plan."
+    expect: [diagnose_opener_or_gap, preserve_conditions]
+  - id: sc-clean-email
+    kind: negative_activation
+    input: "Please send the signed form by Friday."
+    expect: [no_change]

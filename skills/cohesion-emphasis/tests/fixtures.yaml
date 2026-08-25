@@ -1,0 +1,50 @@
+skill: cohesion-emphasis
+fixtures:
+  - id: ce-flow
+    kind: positive_activation
+    prompt: "These paragraphs do not flow."
+    expect: [activate, map_topics_and_links]
+  - id: ce-buried-point
+    kind: positive_activation
+    prompt: "The important point gets buried."
+    expect: [activate, check_hierarchy_and_stress]
+  - id: ce-passive-topic
+    kind: legitimate_passive
+    input: "The request enters the gateway. It is validated before routing."
+    expect: [retain_passive, topic_continuity]
+  - id: ce-nominalization-topic
+    kind: boundary
+    input: "The board decided to pause. This decision protects the pilot."
+    expect: [retain_decision, backward_link]
+  - id: ce-transition-gap
+    kind: adversarial
+    input: "Latency fell. Therefore, the product is secure."
+    expect: [logical_gap, do_not_fix_with_transition]
+  - id: ce-pronoun
+    kind: positive_activation
+    input: "The proxy notified the controller after it failed."
+    expect: [ambiguous_referent, request_or_name_supported_antecedent]
+  - id: ce-new-first
+    kind: boundary
+    input: "Only one fact changed the decision: the key had leaked."
+    expect: [allow_contrastive_structure]
+  - id: ce-chronology
+    kind: boundary
+    input: "First isolate the host; then rotate the key; finally verify recovery."
+    expect: [preserve_chronological_order]
+  - id: ce-hedge
+    kind: semantic_preservation
+    input: "The pattern may indicate a regional effect."
+    expect: [preserve_may]
+  - id: ce-collision-clarity
+    kind: collision
+    prompt: "Clarify this isolated sentence: who did what?"
+    expect: [defer_to_sentence_clarity]
+  - id: ce-clean
+    kind: negative_activation
+    input: "A paragraph with a stable topic string, clear progression, and intentional closure."
+    expect: [no_change]
+  - id: ce-empty-transition
+    kind: regression
+    prompt: "Add more transition words to make it flow."
+    expect: [diagnose_structure_first, add_only_if_relation_real]

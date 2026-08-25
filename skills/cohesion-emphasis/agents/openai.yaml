@@ -1,0 +1,14 @@
+interface:
+  display_name: Cohesion and Emphasis
+  short_description: Repair information flow and structural emphasis
+  default_prompt: Use $cohesion-emphasis to repair paragraph flow, topic continuity,
+    and buried emphasis.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

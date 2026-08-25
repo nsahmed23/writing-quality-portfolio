@@ -1,0 +1,50 @@
+skill: doc-typing
+fixtures:
+  - id: dt-tutorial
+    kind: positive_activation
+    prompt: "Is this quickstart really a tutorial? It gives novices one guided first deployment."
+    expect: [activate, tutorial, reader_activity]
+  - id: dt-howto
+    kind: classification
+    input: "Goal: rotate a production key. Prerequisite: administrator access. Steps branch by KMS provider."
+    expect: [how_to]
+  - id: dt-reference
+    kind: classification
+    input: "GET /jobs/{id}; parameters; response schema; error codes."
+    expect: [reference]
+  - id: dt-explanation
+    kind: classification
+    input: "Why the scheduler uses leases instead of locks."
+    expect: [explanation]
+  - id: dt-mixed-legitimate
+    kind: boundary
+    input: "Page sections: Configure OAuth; Scope reference; Why PKCE matters."
+    expect: [intentional_mix, require_explicit_boundaries]
+  - id: dt-mixed-accidental
+    kind: positive_activation
+    input: "In the middle of endpoint parameters, a 900-word history explains REST."
+    expect: [reference_intruded_by_explanation, move_or_link]
+  - id: dt-heading-trap
+    kind: adversarial
+    input: "Title: Tutorial. Content: all endpoint fields alphabetically."
+    expect: [reference, ignore_heading]
+  - id: dt-advanced-trap
+    kind: boundary
+    input: "A guided, safe advanced lab teaches failover through one managed exercise."
+    expect: [tutorial, not_how_to_by_difficulty]
+  - id: dt-no-minto
+    kind: collision
+    prompt: "Put the recommendation first in this executive brief."
+    expect: [defer_to_memo_structure]
+  - id: dt-preserve-code
+    kind: semantic_preservation
+    input: "curl -H 'Authorization: Bearer $TOKEN' https://api.example.test/v1/jobs"
+    expect: [preserve_command]
+  - id: dt-clean
+    kind: negative_activation
+    input: "A complete, consistent endpoint reference with no reader-contract mismatch."
+    expect: [no_restructure]
+  - id: dt-runbook
+    kind: classification
+    input: "For on-call engineers: contain a leaked key, then rotate and verify it."
+    expect: [how_to]

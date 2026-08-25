@@ -1,0 +1,14 @@
+interface:
+  display_name: Sentence Clarity
+  short_description: Repair actor-action alignment in unclear sentences
+  default_prompt: Use $sentence-clarity to diagnose and revise sentence-level clarity
+    faults.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

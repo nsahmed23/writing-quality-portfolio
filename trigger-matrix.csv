@@ -1,0 +1,9 @@
+primary_skill,strong_activation,weak_activation,do_not_activate,ownership_and_sequence,explicit_wording_rule
+sentence-clarity,clarify this sentence; who is doing what; buried action,awkward/bureaucratic sentence without explicit fault,make shorter; paragraphs do not flow; vary syntax,cohesion controls old/new and passive-for-flow; concision controls excess,explicit user wording controls
+concision,make shorter; wordy; bureaucratic; tighten,simplify,who is doing what; flat syntax; usage question,after clarity; before variety; preserve hedges,explicit length request controls
+cohesion-emphasis,paragraphs do not flow; point buried; topic shifts,improve readability across passage,isolated actor-action; make shorter,before clarity/concision; owns old/new and stress,explicit flow request controls
+sentence-variety,flat; repetitive architecture; choppy; all built same,improve rhythm,same length only; clean repetition; shorten,after concision; only form-purpose mismatch,explicit variety request still preserves clarity
+memo-structure,executive memo; recommendation first; SCQ/SCQA; MECE,organize report,tutorial; reference; incident chronology,global argument pass before prose,explicit conversion allowed if evidence/genre preserved
+doc-typing,tutorial or how-to; API page mixes explanation/reference,organize docs,memo logic; sentence polish,first for technical docs; classify by task not heading,explicit labels do not override reader evidence
+usage-adjudicator,which usage is correct; accepted in formal English,grammar check,general rewrite; shorter/flow,last after wording stabilizes; exact issue only,explicit issue/context controls
+coordinated portfolio,edit/polish this whole document,make this better,narrow targeted request,diagnose levels once; run only nonempty passes global-to-local,explicit narrow wording prevents portfolio fan-out

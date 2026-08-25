@@ -1,0 +1,13 @@
+interface:
+  display_name: Documentation Typing
+  short_description: Classify and repair documentation by reader need
+  default_prompt: Use $doc-typing to classify this documentation and repair type mismatches.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

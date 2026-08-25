@@ -1,0 +1,14 @@
+interface:
+  display_name: Memo Structure
+  short_description: Build answer-first memo and argument hierarchies
+  default_prompt: Use $memo-structure to structure this memo around its governing
+    question and answer.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

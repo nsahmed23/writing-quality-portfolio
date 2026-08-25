@@ -1,0 +1,42 @@
+# Purpose-driven syntax catalog
+
+`Tufte chapter` means the form is named or securely housed by a visible chapter title. `Derived` means the portfolio supplies standard grammatical detail because full chapter text was unavailable; do not attribute that detail verbatim to Tufte.
+
+| Form | Definition / pattern | Purpose & placement | Registers | Professional example | Technical example | Failure mode | Provenance |
+|---|---|---|---|---|---|---|---|
+| Short independent | One compact main clause | Decision, contrast, closure | All | “We declined.” | “The key expired.” | Choppy equal-weight sequence | Tufte ch. 1 |
+| Noun phrase | Head noun with dependents | Name/pack established concepts | All | “the revised retention policy” | “a 256-bit tenant key” | Dense premodification hides relations | Tufte ch. 2 |
+| Verb phrase | Finite verb plus auxiliaries/complements | Encode action, time, modality | All | “may approve the request” | “has retried three times” | Auxiliary stack obscures force | Tufte ch. 3 |
+| Adjective phrase | Modifier headed by adjective | Compact quality/evaluation | All | “ready for review” | “compatible with v3” | Vague decoration: “very innovative” | Tufte ch. 4 |
+| Adverbial modifier | Word/phrase modifying event/clause | Calibrate manner, stance, time | All | “The board provisionally approved it.” | “The cache refreshes hourly.” | Ambiguous scope or mannerism | Tufte ch. 4 |
+| Prepositional phrase | Preposition + complement | Relation, setting, means | All | “under the revised policy” | “with the tenant key” | Long chain with unclear attachment | Tufte ch. 5 |
+| Coordination | Equal units linked by conjunction | Equality, addition, choice | All | “We tested and approved the plan.” | “The worker parses, validates, and stores events.” | False equality or mixed forms | Tufte ch. 6 |
+| Asyndeton | Coordinated items without conjunction | Speed, accumulation, severity | Marked | “Costs rose; service fell; trust eroded.” | “Parse, validate, commit.” | Breathless list without logic | Derived under ch. 6/12 |
+| Polysyndeton | Repeated conjunctions | Deliberate accumulation/weight | Marked | “It costs time and money and attention.” | “The fault affects reads and writes and backups.” | Theatrical drag | Derived under ch. 6/12 |
+| Relative clause | `who/which/that` clause modifying noun | Identify or supplement entity | All | “The vendor that passed the audit…” | “The shard, which is read-only,…” | Unclear antecedent / restrictive mismatch | Tufte ch. 7 |
+| Adverbial clause | `if/because/although/when` clause | Condition, cause, concession, time | All | “Although demand fell, costs rose.” | “If validation fails, reject the token.” | Buried main point / scope error | Tufte ch. 7 |
+| Noun clause | Clause functioning as NP | Represent claim/question/content | All | “What the audit found matters.” | “Whether the node recovers depends on quorum.” | Abstract nesting | Tufte ch. 7 |
+| Participial phrase | Nonfinite `-ing/-ed` clause | Controlled secondary event/state | Formal-neutral | “Recognizing the risk, we paused.” | “Signed by KMS, the token remains verifiable.” | Dangling or false simultaneity | Derived under ch. 3/7/9 |
+| Infinitive phrase | `to` + base verb clause | Purpose, result, complement | All | “To reduce risk, we staged the launch.” | “To retry, send the same idempotency key.” | Purpose attributed to wrong actor | Derived under ch. 3/7 |
+| Appositive | NP renames adjacent NP | Identify, define, elaborate | All | “Mara Chen, the audit lead, signed.” | “Kestrel, our queue service, recovered.” | Referents not truly coreferential | Tufte ch. 10 |
+| Absolute | NP + nonfinite predicate, detached | Frame circumstance | Formal/marked | “The vote complete, the chair adjourned.” | “The lock released, the worker resumed.” | Unclear temporal/causal relation | Derived under ch. 9 |
+| Cumulative / right-branching | Main kernel followed by modifiers | Core first, layered specification | Professional/technical | “We approved the plan, limiting rollout to two regions.” | “The gateway rejected the token, recording the issuer and scope.” | Tacked-on sprawl/ambiguous attachment | Tufte ch. 9; label partly derived |
+| Periodic / left-branching | Context/modifiers precede main kernel | Suspense, condition, culmination | Formal/marked | “After two audits and a pilot, we approved the plan.” | “If quorum holds after restart, the node rejoins.” | Kernel delayed beyond working memory | Tufte ch. 8–9; label derived |
+| Mid-branch / interruption | Modifier inserted inside kernel | Local qualification | All | “The board, after a short recess, approved it.” | “The node—if quorum holds—rejoins.” | Separates subject/verb too far | Tufte ch. 9; label derived |
+| Inversion | Noncanonical predicate/adjunct before subject | Contrast, scene, emphasis | Literary/marked professional | “Only then did the risk become clear.” | “Under no condition may the root key leave KMS.” | Grandiosity or parsing cost | Tufte ch. 8 |
+| Delayed subject | Extraposition/existential postpones heavy subject | Manage weight or introduce entity | All | “It remains unclear whether demand will recover.” | “There are three failure modes.” | Empty `it/there` hides responsible claim | Derived under ch. 8 |
+| Delayed predicate | Subject elaborated before predicate | Build controlled suspense | Marked | “The proposal, after months of review, failed.” | “The controller, despite three retries, stopped.” | Obstructive subject–verb gap | Derived under ch. 8–9 |
+| Fragment | Deliberately incomplete clause | Label, answer, warning, punch | Informal/marked | “One condition: independent review.” | “Never in source control.” | Accidental incompleteness or vague referent | Derived under ch. 1/11 |
+| Interrogative | Question form | Solicit/organize inquiry | All | “What decision must we make?” | “Which scope does the token require?” | Rhetorical clutter or hidden assertion | Tufte ch. 11 |
+| Imperative | Base verb with understood `you` | Instruction/request | Procedural | “Approve the budget by Friday.” | “Rotate the key, then verify the signature.” | Abruptness or missing condition | Tufte ch. 11 |
+| Exclamatory | Marked exclamation | Strong affect/alert | Limited | “What a costly delay!” | “Do not expose the root key!” | Alarm fatigue / unprofessional tone | Tufte ch. 11 |
+| Parallelism | Similar form for comparable ideas | Comparison, memory, rhythm | All | “Lower cost, faster review, safer release.” | “Parse the input, validate the schema, store the event.” | Grammatical symmetry masks logical mismatch | Tufte ch. 12 |
+| Balance | Matched units of comparable weight | Deliberation, equivalence | Formal | “We can ship quickly, or we can ship safely.” | “Replicate on write; reconcile on read.” | False dichotomy | Derived under ch. 12 |
+| Antithesis | Parallel contrast | Sharpen real opposition | Formal/marked | “The issue is not speed but control.” | “Cache metadata, not secrets.” | Manufactured binary | Derived under ch. 12 |
+| Repetition / anaphora | Recurrence of word/form | Cohesion, emphasis, sequence | All | “We tested. We measured. We learned.” | “Retry on timeout; retry on reset; stop on denial.” | Monotony without function | Tufte ch. 12–13 |
+| Ellipsis | Omit recoverable repeated material | Compression, balance | All | “Finance approved; Legal, declined.” | “Region A passed; Region B, failed.” | Ambiguity or garden path | Derived under ch. 12 |
+| Parenthetic interruption | Parentheses or paired dashes | Secondary aside/qualification | All | “The pilot (not the contract) ends Friday.” | “The cache—unlike the database—is disposable.” | Main fact buried as aside | Derived under ch. 5/9 |
+| Punctuation-controlled closure | Colon/semicolon/dash creates unit boundary | Hierarchy, anticipation, stress | All | “One risk remains: vendor lock-in.” | “The token is valid; its scope is not.” | Decorative punctuation or comma splice | Derived; ch. 5–7/14 context |
+| Syntactic symbolism | Form enacts semantic movement | Iconic emphasis | Creative/high-judgment | “The delay lengthened, widened, and finally broke the plan.” | “The queue grew—ten, then a hundred, then ten thousand jobs.” | Ornament, imitation, obscurity | Tufte ch. 14 |
+
+Interaction rule: clarity controls attachment and recoverability; cohesion controls information order; concision controls genuine excess. Use the catalog only after those constraints are satisfied.

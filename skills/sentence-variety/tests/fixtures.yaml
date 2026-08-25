@@ -1,0 +1,50 @@
+skill: sentence-variety
+fixtures:
+  - id: sv-monotony
+    kind: positive_activation
+    input: "The team tested. The team found a leak. The team disabled the route."
+    expect: [diagnose_repeated_svo, select_form_by_relation]
+  - id: sv-length-only
+    kind: negative_activation
+    prompt: "Three sentences have the same word count; vary them."
+    expect: [do_not_activate_without_functional_problem]
+  - id: sv-deliberate-repetition
+    kind: boundary
+    input: "No data left. No key leaked. No control failed."
+    expect: [retain_if_parallel_emphasis]
+  - id: sv-choppy
+    kind: positive_activation
+    input: "The key expired. Requests failed. The queue grew."
+    expect: [ask_or_infer_relation_cautiously, subordinate_or_coordinate]
+  - id: sv-sprawl
+    kind: positive_activation
+    input: "A long sentence with five ambiguously attached trailing modifiers."
+    expect: [repair_architecture, not_length_quota]
+  - id: sv-technical
+    kind: semantic_preservation
+    input: "Authentication precedes authorization."
+    expect: [no_ornament, retain_terms]
+  - id: sv-passive
+    kind: boundary
+    input: "The token is signed by KMS and verified by the gateway."
+    expect: [do_not_change_voice_for_variety_alone]
+  - id: sv-fragment
+    kind: boundary
+    input: "One rule: never log the secret."
+    expect: [retain_purposeful_fragment_or_label]
+  - id: sv-false-parallel
+    kind: adversarial
+    input: "Lower cost, faster deployment, and we should approve it."
+    expect: [detect_logical_mismatch]
+  - id: sv-collision-concision
+    kind: collision
+    prompt: "This is too wordy."
+    expect: [defer_to_concision]
+  - id: sv-after-cutting
+    kind: sequence
+    prompt: "Run variety before the concision pass."
+    expect: [reject_sequence, concision_first]
+  - id: sv-clean
+    kind: negative_activation
+    input: "A clear passage whose repeated imperatives guide a safety procedure."
+    expect: [no_change]

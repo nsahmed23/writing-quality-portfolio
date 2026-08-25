@@ -1,0 +1,435 @@
+suite: writing-quality-portfolio
+schema_version: 1
+research_cutoff: "2026-08-19T23:59:00-05:00"
+companion: "end-to-end-fixtures.md"
+
+portfolio_contract:
+  broad_request_behavior: "Diagnose once by level, assign one owner per fault, skip empty passes, and revise only changed or faulty spans."
+  default_pass_order:
+    - doc-typing
+    - memo-structure
+    - cohesion-emphasis
+    - sentence-clarity
+    - concision
+    - sentence-variety
+    - usage-adjudicator
+  preserve:
+    - factual_scope
+    - quantities
+    - negation
+    - conditions
+    - justified_uncertainty
+    - attribution
+    - citations
+    - technical_terms
+    - legal_effect
+    - relevant_agency
+    - useful_repetition
+    - chronology_when_meaningful
+    - authorial_voice
+
+fixtures:
+  - id: route-narrow-clarity
+    category: routing
+    kind: explicit_narrow_request
+    prompt: "Clarify this sentence: A review of the logs was conducted by SRE."
+    expected:
+      activate: [sentence-clarity]
+      skip: [doc-typing, memo-structure, cohesion-emphasis, concision, sentence-variety, usage-adjudicator]
+      outcome: "Diagnose a buried action and offer 'SRE reviewed the logs.'"
+
+  - id: route-narrow-concision
+    category: routing
+    kind: explicit_narrow_request
+    prompt: "Make this shorter: At this point in time, we are in agreement."
+    expected:
+      activate: [concision]
+      skip: [doc-typing, memo-structure, cohesion-emphasis, sentence-clarity, sentence-variety, usage-adjudicator]
+      outcome: "Return 'We agree.' without a general style audit."
+
+  - id: route-narrow-flow
+    category: routing
+    kind: explicit_narrow_request
+    prompt: "These paragraphs do not flow; repair the topic shifts."
+    expected:
+      activate: [cohesion-emphasis]
+      skip: [doc-typing, memo-structure, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      outcome: "Map topic strings, backward links, given/new order, hierarchy, and stress before revising."
+
+  - id: route-narrow-variety
+    category: routing
+    kind: explicit_narrow_request
+    prompt: "These sentences are all built the same way and sound flat."
+    expected:
+      activate: [sentence-variety]
+      skip: [doc-typing, memo-structure, cohesion-emphasis, sentence-clarity, concision, usage-adjudicator]
+      outcome: "Diagnose repeated clause architecture and select a form only for a rhetorical relation."
+
+  - id: route-narrow-memo
+    category: routing
+    kind: explicit_narrow_request
+    prompt: "Structure this executive memo and put the conditional recommendation first."
+    expected:
+      activate: [memo-structure]
+      skip: [doc-typing, cohesion-emphasis, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      outcome: "Recover the governing question, qualified answer, and support hierarchy before prose edits."
+
+  - id: route-narrow-doc-type
+    category: routing
+    kind: explicit_narrow_request
+    prompt: "Is this API quickstart a tutorial or a how-to guide?"
+    expected:
+      activate: [doc-typing]
+      skip: [memo-structure, cohesion-emphasis, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      outcome: "Classify from reader activity and knowledge state, not the title."
+
+  - id: route-narrow-usage
+    category: routing
+    kind: explicit_narrow_request
+    prompt: "Which is preferred in this formal US report: fewer errors or less errors?"
+    expected:
+      activate: [usage-adjudicator]
+      skip: [doc-typing, memo-structure, cohesion-emphasis, sentence-clarity, concision, sentence-variety]
+      outcome: "Distinguish grammar, register, and current edited-standard convention; recommend 'fewer errors.'"
+
+  - id: route-broad-document
+    category: routing
+    kind: broad_polish
+    prompt: "Edit and polish this whole technical document."
+    input: "A mixed quickstart/reference page with broken flow, one buried action, repeated padding, and a disputed usage."
+    expected:
+      activate: [coordinated_portfolio_diagnosis]
+      conditional_passes: [doc-typing, cohesion-emphasis, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      skip: [memo-structure]
+      outcome: "Run only passes supported by observable faults and return one integrated revision."
+
+  - id: route-weak-simplify
+    category: routing
+    kind: weak_trigger
+    prompt: "Simplify this."
+    input: "Authentication precedes authorization."
+    expected:
+      activate: []
+      outcome: "Leave the clean technical sentence unchanged; do not infer that a nominalization is a fault."
+
+  - id: route-explicit-overrides-inference
+    category: routing
+    kind: explicit_scope_control
+    prompt: "Review only whether this sentence is concise; do not change its structure."
+    input: "The estimate may be biased upward by 2–4%."
+    expected:
+      activate: [concision]
+      outcome: "Return keep; preserve 'may' and '2–4%'; do not fan out to other skills."
+
+  - id: route-no-observable-fault
+    category: routing
+    kind: clean_text
+    prompt: "Polish this: Restart the service and verify its health."
+    expected:
+      activate: [coordinated_portfolio_diagnosis]
+      revisions: []
+      outcome: "Report no material fault and preserve the sentence exactly."
+
+  - id: cross-passive-topic-controls
+    category: cross_skill
+    kind: ownership_collision
+    input: "The request enters the gateway. It is validated before routing."
+    expected:
+      primary_owner: cohesion-emphasis
+      secondary_check: sentence-clarity
+      order: [cohesion-emphasis, sentence-clarity]
+      outcome: "Retain the passive because it preserves the request topic; do not force an active rewrite."
+
+  - id: cross-nominalization-topic-controls
+    category: cross_skill
+    kind: ownership_collision
+    input: "The board decided to pause. This decision protects the pilot."
+    expected:
+      primary_owner: cohesion-emphasis
+      secondary_check: sentence-clarity
+      outcome: "Retain 'decision' as a backward-linking topic nominalization."
+
+  - id: cross-buried-action-then-cut
+    category: cross_skill
+    kind: sequencing
+    input: "A review of the logs was conducted by the SRE team for the purpose of identifying the cause."
+    expected:
+      order: [sentence-clarity, concision]
+      ownership:
+        sentence-clarity: "Recover actor and action."
+        concision: "Remove residual purposive padding."
+      outcome: "The SRE team reviewed the logs to identify the cause."
+
+  - id: cross-cut-before-variety
+    category: cross_skill
+    kind: sequencing
+    input: "At this point in time, the team performed a review, and the team performed an approval, and the team performed the signing."
+    expected:
+      order: [sentence-clarity, concision, sentence-variety]
+      outcome: "Stabilize actors/actions and cut padding before selecting final coordination or rhythm."
+
+  - id: cross-doc-type-defeats-memo
+    category: cross_skill
+    kind: genre_collision
+    prompt: "Turn this novice deployment tutorial into an answer-first memo."
+    expected:
+      primary_owner: doc-typing
+      skip: [memo-structure]
+      outcome: "Reject genre distortion; retain a managed learning sequence."
+
+  - id: cross-reference-defeats-scqa
+    category: cross_skill
+    kind: genre_collision
+    input: "GET /jobs/{id}: path parameter, response schema, status values, and errors."
+    expected:
+      primary_owner: doc-typing
+      classification: reference
+      skip: [memo-structure]
+      outcome: "Keep neutral lookup structure; do not add SCQA."
+
+  - id: cross-concision-preserves-qualification
+    category: cross_skill
+    kind: preservation_collision
+    input: "The estimate may be biased upward by 2–4% in lightly loaded regions."
+    expected:
+      primary_owner: concision
+      preserve: [may, "2–4%", lightly_loaded_regions]
+      outcome: "Make no cut that broadens certainty, magnitude, or geographic/load scope."
+
+  - id: cross-usage-last
+    category: cross_skill
+    kind: sequencing
+    prompt: "Polish a memo containing 'less incidents' and a buried recommendation."
+    expected:
+      order: [memo-structure, cohesion-emphasis, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      outcome: "Resolve the count-noun usage only after the surviving sentence is stable, then reread locally."
+
+  - id: cross-chronology-controls-emphasis
+    category: cross_skill
+    kind: boundary
+    input: "02:01 alert; 02:05 containment; 02:12 recovery."
+    expected:
+      primary_owner: cohesion-emphasis
+      outcome: "Preserve evidentiary chronology; create emphasis without reordering event facts."
+
+  - id: cross-missing-premise-feedback
+    category: cross_skill
+    kind: localized_feedback
+    input: "Recommendation: migrate now. Support: the vendor was founded in 2012."
+    expected:
+      first_pass: memo-structure
+      outcome: "Flag a non-supporting child; do not attempt sentence polish as a substitute for missing logic."
+
+  - id: negative-strunk-active
+    category: negative_control
+    kind: active_voice_maxim
+    input: "The samples were frozen at −80 °C within 20 minutes."
+    expected:
+      outcome: "Retain the passive because samples/methods are the topic and the operator is irrelevant."
+      forbidden: "Invent a human agent solely to make the sentence active."
+
+  - id: negative-strunk-omit-hedge
+    category: negative_control
+    kind: omit_needless_words_maxim
+    input: "The intervention may reduce latency in lightly loaded regions."
+    expected:
+      preserve: [may, lightly_loaded_regions]
+      outcome: "Do not delete evidentiary scope as needless words."
+
+  - id: negative-nominalization-term
+    category: negative_control
+    kind: nominalization_not_fault
+    input: "Authentication precedes authorization."
+    expected:
+      outcome: "Retain both technical terms and report no clarity or concision fault."
+
+  - id: negative-deliberate-repetition
+    category: negative_control
+    kind: variety_not_end
+    input: "No data left. No key leaked. No control failed."
+    expected:
+      outcome: "Retain parallel repetition when it supplies contrast and closure."
+
+  - id: negative-tutorial-not-minto
+    category: negative_control
+    kind: answer_first_not_universal
+    input: "A novice follows one safe, guided deployment and observes a first successful result."
+    expected:
+      primary_owner: doc-typing
+      classification: tutorial
+      outcome: "Do not move the destination into an executive recommendation hierarchy."
+
+  - id: negative-mixed-docs-not-banned
+    category: negative_control
+    kind: diataxis_boundary
+    input: "Configure OAuth; Scope reference; Why PKCE matters."
+    expected:
+      primary_owner: doc-typing
+      outcome: "Permit the mixed container when each unit has an explicit heading, dominant contract, and coherent local type."
+
+  - id: negative-garner-not-binary
+    category: negative_control
+    kind: usage_context
+    prompt: "Is every disputed usage simply right or wrong?"
+    expected:
+      activate: [usage-adjudicator]
+      outcome: "Return contextual labels, Garner evidence only if verified, current evidence, recommendation, confidence, and disagreement."
+
+  - id: negative-lanham-not-target
+    category: negative_control
+    kind: compression_metric
+    input:
+      original_words: 20
+      revised_words: 12
+    expected:
+      lard_factor_percent: 40
+      outcome: "Treat 40% as an audit statistic, not a quality target or proof that the revision is better."
+
+  - id: negative-empty-transition
+    category: negative_control
+    kind: cohesion_not_connective_count
+    input: "Latency fell. Therefore, the product is secure."
+    expected:
+      outcome: "Flag the missing logical premise; do not accept 'therefore' as a cohesion repair."
+
+  - id: negative-clean-preservation
+    category: negative_control
+    kind: minimal_intervention
+    input: "Please send the signed form by Friday."
+    expected:
+      revisions: []
+      outcome: "Leave the clean professional sentence unchanged."
+
+  - id: usage-formal-count-noun
+    category: register_usage
+    kind: formal_us
+    prompt: "Formal US executive memo: 'less incidents' or 'fewer incidents'?"
+    expected:
+      labels: [standard, formal]
+      recommendation: "Use 'fewer incidents' for the count plural."
+      confidence: high
+
+  - id: usage-data-journal-style
+    category: register_usage
+    kind: scientific_house_style
+    prompt: "The target journal treats data as plural. Revise: The data is consistent with a modest benefit."
+    expected:
+      labels: [context_dependent, formal]
+      recommendation: "Use 'The data are consistent with a modest benefit.'"
+      preserve: [modest]
+      outcome: "Explain that field and house style control; do not claim singular agreement is universally ungrammatical."
+
+  - id: usage-singular-they-formal
+    category: register_usage
+    kind: formal_inclusive_usage
+    input: "Every applicant must upload their résumé."
+    expected:
+      labels: [standard, context_dependent]
+      recommendation: "Retain singular 'they' unless a controlling house style requires a supported alternative."
+      outcome: "Check audience and agreement; do not stigmatize the form."
+
+  - id: usage-irregardless-dialogue
+    category: register_usage
+    kind: dialogue_vs_formal
+    prompt: "May a character say 'irregardless' in dialogue, and should it appear in a formal report?"
+    expected:
+      labels: [nonstandard, informal, context_dependent]
+      recommendation: "Allow authentic dialogue when intentional; use 'regardless' in the formal report."
+
+  - id: usage-who-whom-register
+    category: register_usage
+    kind: formality_and_position
+    input: "Who did you invite? To whom did you write?"
+    expected:
+      labels: [standard, context_dependent]
+      outcome: "Accept informal-neutral objective 'who' in the first and formal prepositional 'whom' in the second; avoid a single register-blind verdict."
+
+  - id: usage-regional-construction
+    category: register_usage
+    kind: dialect_ethics
+    prompt: "Prove that a regional construction is illogical and ban it everywhere."
+    expected:
+      labels: [regional, context_dependent]
+      outcome: "Refuse stigmatizing logic; distinguish dialect competence from a publication's edited-standard convention."
+
+  - id: usage-current-change
+    category: register_usage
+    kind: time_sensitive
+    prompt: "Garner classified this usage in 2022; has formal use changed by August 2026?"
+    expected:
+      evidence_order: [verified_garner_entry, current_dictionary, register_appropriate_corpus, specialist_or_house_guidance]
+      outcome: "Report Garner's dated judgment separately from current evidence; date sources and disclose disagreement."
+
+  - id: usage-no-inferred-lci
+    category: register_usage
+    kind: evidence_gap
+    input: "A common construction for which the Garner entry has not been inspected."
+    expected:
+      labels: [unresolved]
+      forbidden: "Infer a Language-Change Index stage from frequency or a search snippet."
+      outcome: "State the access gap and give only the recommendation current evidence supports."
+
+  - id: usage-raw-hits
+    category: register_usage
+    kind: adversarial_evidence
+    prompt: "This form has more Google hits, so label it formal standard."
+    expected:
+      outcome: "Reject raw hit counts as acceptance evidence; inspect normalized, contextual, register-appropriate data."
+
+  - id: usage-brand-new-unresolved
+    category: register_usage
+    kind: sparse_evidence
+    prompt: "A new construction has sparse, conflicting dictionary and corpus evidence."
+    expected:
+      labels: [emerging, unresolved]
+      recommendation: "Admit uncertainty and choose or avoid the form according to audience risk rather than inventing a rule."
+
+  - id: e2e-api-mixed-doc
+    category: end_to_end
+    kind: multi_fault_document
+    source_fixture: "E2E-API-01"
+    expected:
+      order: [doc-typing, cohesion-emphasis, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      skip: [memo-structure]
+      owners:
+        document_and_section: doc-typing
+        paragraph: cohesion-emphasis
+        sentence: sentence-clarity
+        phrase: concision
+        syntax: sentence-variety
+        usage: usage-adjudicator
+      preserve: [endpoint, fields, error, status_values, warning, command, timeout, passive_topic]
+      reject: [four_empty_buckets, active_voice_quota, random_imperative_variation, unsupported_lci_stage]
+
+  - id: e2e-executive-memo
+    category: end_to_end
+    kind: multi_fault_document
+    source_fixture: "E2E-MEMO-01"
+    expected:
+      order: [memo-structure, cohesion-emphasis, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      skip: [doc-typing]
+      owners:
+        document_and_argument: memo-structure
+        paragraph: cohesion-emphasis
+        sentence: sentence-clarity
+        phrase: concision
+        syntax: sentence-variety
+        usage: usage-adjudicator
+      preserve: [conditional_recommendation, uncertainty, contrary_evidence, cost_premium, cap, citation, residency_gate, security_gate]
+      reject: [false_causal_claim, forced_mece, full_scqa_preamble, deleted_caveat, ornamented_gate_bullets]
+
+  - id: e2e-scientific-report
+    category: end_to_end
+    kind: multi_fault_document
+    source_fixture: "E2E-SCI-01"
+    expected:
+      order: [cohesion-emphasis, sentence-clarity, concision, sentence-variety, usage-adjudicator]
+      skip: [doc-typing, memo-structure]
+      owners:
+        paragraph: cohesion-emphasis
+        sentence: sentence-clarity
+        phrase: concision
+        syntax: sentence-variety
+        usage: usage-adjudicator
+      preserve: [sample_count, blocks, freezing_protocol, model, estimate, confidence_interval, p_value, hedge, no_causation, citation, legitimate_passive, technical_nominalization]
+      reject: [causal_upgrade, invented_agent, statistic_deletion, hedge_deletion, memo_conversion, ornamental_syntax]

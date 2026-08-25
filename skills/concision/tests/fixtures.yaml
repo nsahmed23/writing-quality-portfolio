@@ -1,0 +1,51 @@
+skill: concision
+fixtures:
+  - id: co-wordy
+    kind: positive_activation
+    prompt: "Make this shorter: At this point in time, we are in agreement."
+    expect: [activate, "We agree"]
+  - id: co-bureaucratic
+    kind: semantic_trigger
+    prompt: "This sounds bureaucratic and padded."
+    expect: [activate]
+  - id: co-clean
+    kind: negative_activation
+    input: "Restart the service and verify its health."
+    expect: [no_change]
+  - id: co-hedge
+    kind: semantic_preservation
+    input: "The estimate may be biased upward by 2–4%."
+    expect: [preserve_may, preserve_range]
+  - id: co-legal
+    kind: semantic_preservation
+    input: "Access may be revoked if the holder materially breaches Section 8."
+    expect: [preserve_modal, preserve_condition, preserve_reference]
+  - id: co-passive
+    kind: boundary
+    input: "Samples were frozen at −80 °C."
+    expect: [do_not_delete_passive_merely_for_brevity]
+  - id: co-technical-nominalization
+    kind: boundary
+    input: "Authentication precedes authorization."
+    expect: [retain_terms]
+  - id: co-safety-repetition
+    kind: adversarial
+    input: "Do not rotate the root key until the backup is verified. After verification, confirm again before rotation."
+    expect: [retain_functional_safety_repetition]
+  - id: co-courtesy
+    kind: boundary
+    input: "Could you please send the signed form by Friday?"
+    expect: [preserve_appropriate_courtesy]
+  - id: co-lard
+    kind: metric
+    original_words: 20
+    revised_words: 12
+    expect: [lard_factor_40_percent, not_quality_score]
+  - id: co-collision-clarity
+    kind: collision
+    prompt: "Who is doing what in this sentence?"
+    expect: [defer_to_sentence_clarity]
+  - id: co-rhythm
+    kind: regression
+    input: "The team reviewed, approved, signed, shipped."
+    expect: [repair_telegraphic_result_if_cutting_created_it]

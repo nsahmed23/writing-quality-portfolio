@@ -1,0 +1,50 @@
+skill: memo-structure
+fixtures:
+  - id: ms-recommendation
+    kind: positive_activation
+    prompt: "Structure this executive memo and put the recommendation first."
+    expect: [activate, governing_question, answer, support_hierarchy]
+  - id: ms-horizontal
+    kind: positive_activation
+    input: "Reasons: lower cost; faster; we should sign today."
+    expect: [detect_mixed_logical_kind]
+  - id: ms-vertical
+    kind: boundary
+    input: "Parent: migrate now. Child: the vendor was founded in 2012."
+    expect: [child_does_not_answer_why_or_how]
+  - id: ms-mece-overlap
+    kind: adversarial
+    input: "Classify all failures as people, process, or technology, although several span all three."
+    expect: [disclose_overlap, do_not_force_false_exclusivity]
+  - id: ms-uncertainty
+    kind: semantic_preservation
+    input: "The pilot suggests, but does not establish, a 5–8% gain."
+    expect: [preserve_suggests, preserve_range, no_false_answer]
+  - id: ms-tutorial
+    kind: negative_activation
+    prompt: "Turn this novice quickstart into an answer-first memo."
+    expect: [reject_genre_distortion, defer_to_doc_typing]
+  - id: ms-incident
+    kind: negative_activation
+    input: "02:01 alert; 02:05 containment; 02:12 recovery."
+    expect: [preserve_chronology_if_evidentiary]
+  - id: ms-scq-not-forced
+    kind: boundary
+    input: "Email: Please approve the attached $500 purchase by Friday."
+    expect: [compact_answer_first, no_full_scqa]
+  - id: ms-contrary-evidence
+    kind: semantic_preservation
+    input: "Option A is cheapest, but it fails the residency requirement in Canada."
+    expect: [preserve_contrary_evidence]
+  - id: ms-bottom-up
+    kind: positive_activation
+    prompt: "I have findings but no settled conclusion; organize them without inventing one."
+    expect: [bottom_up, conditional_or_unresolved_answer]
+  - id: ms-clean
+    kind: negative_activation
+    input: "A memo with a supported answer and coherent hierarchy."
+    expect: [minimal_intervention]
+  - id: ms-collision-flow
+    kind: collision
+    prompt: "The hierarchy is fine, but these paragraphs do not flow."
+    expect: [defer_to_cohesion_emphasis]

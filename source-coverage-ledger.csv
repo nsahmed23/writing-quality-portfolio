@@ -1,0 +1,322 @@
+source_id,order,chapter_or_section,page_or_location,access,operational_disposition,skill_owner,notes
+WB5,1,Preface,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,reference-only,Full lesson unavailable; no fifth-edition page claim
+WB5,2,Lesson 1 Understanding Style,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,shared-reference,Full lesson unavailable; no fifth-edition page claim
+WB5,3,Lesson 2 Actions,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,sentence-clarity,Full lesson unavailable; no fifth-edition page claim
+WB5,4,Lesson 3 Characters,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,sentence-clarity,Full lesson unavailable; no fifth-edition page claim
+WB5,5,Lesson 4 Cohesion and Coherence,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,cohesion-emphasis,Full lesson unavailable; no fifth-edition page claim
+WB5,6,Lesson 5 Emphasis,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,cohesion-emphasis,Full lesson unavailable; no fifth-edition page claim
+WB5,7,Lesson 6 Global Coherence,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,memo-structure/shared-reference,Full lesson unavailable; no fifth-edition page claim
+WB5,8,Lesson 7 Concision,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,concision,Full lesson unavailable; no fifth-edition page claim
+WB5,9,Lesson 8 Shape,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,sentence-clarity/sentence-variety,Full lesson unavailable; no fifth-edition page claim
+WB5,10,Lesson 9 Elegance,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,sentence-variety,Full lesson unavailable; no fifth-edition page claim
+WB5,11,Lesson 10 The Ethics of Style,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,shared ethics,Full lesson unavailable; no fifth-edition page claim
+WB5,12,Index,official TOC,partial,Chapter accounted; accessible operational principles registered where supported,reference-only,Full lesson unavailable; no fifth-edition page claim
+WBL13,1,Preface,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,2,In Memoriam,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,3,Introduction,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,4,Part One: Style as Choice,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,5,Lesson One: Correctness and Style,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,6,Part Two: Clarity,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,7,Lesson Two: Actions,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,8,Lesson Three: Characters,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,9,Lesson Four: Cohesion and Coherence,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,10,Lesson Five: Emphasis,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,11,Part Three: Clarity of Form,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,12,Lesson Six: Framing Documents,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,13,Lesson Seven: Framing Sections,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,14,Part Four: Grace,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,15,Lesson Eight: Concision,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,16,Lesson Nine: Shape,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,17,Lesson Ten: Elegance,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,18,Part Five: Ethics,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,19,Lesson Eleven: The Ethics of Clarity,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,20,Lesson Twelve: Beyond Clarity,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,21,Appendix I: Punctuation,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,22,Appendix II: Using Sources,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,23,Glossary,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,24,Suggested Answers,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,25,Acknowledgments,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+WBL13,26,Index,official Pearson TOC,partial-related,Related-edition location accounted; used only to distinguish the current Lessons line and corroborate architecture,shared-reference,Not substituted for Basics fifth; full chapter unavailable
+LAN5,1,Preface,review page spans/official TOC,partial,Chapter-level method/disposition registered,reference-only,Full chapter unavailable
+LAN5,2,1 Action,review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,3,2 Attention,review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,4,3 Voice,review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,5,4 Skotison! (Intentional Obscurity),review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,6,5 Business Prose,review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,7,6 Professional Prose,review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,8,7 Electronic Prose,review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,9,8 Why Bother?,review page spans/official TOC,partial,Chapter-level method/disposition registered,concision,Full chapter unavailable
+LAN5,10,Appendix of Terms,review page spans/official TOC,partial,Chapter-level method/disposition registered,reference-only,Full chapter unavailable
+LAN5,11,Exercises,review page spans/official TOC,partial,Chapter-level method/disposition registered,reference-only,Full chapter unavailable
+LAN5,12,Index,review page spans/official TOC,partial,Chapter-level method/disposition registered,reference-only,Full chapter unavailable
+GOPEN,1,1 The Complexity of the English Sentence,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,2,"1.1 Tools, Not Rules",publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,3,1.2 Anatomy of a Sentence’s Meaning from the Reader’s Perspective,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,4,2 A Structural Anatomy of the English Sentence,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,5,2.1 Fallacy of Good and Bad Sentences,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,6,2.2 Reader Expectations at Sentence Level,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,7,3 Weights and Balances; Motions and Connections,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,8,3.1 Artificial Emphasis and When to Use It,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,9,3.2 Fred and His Dog: Competition for Emphasis,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,10,3.3 Moments of Truth,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,11,3.4 Backwards Link of Topic Position,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,12,3.5 Functions of Stress Position,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,13,3.6 Flow of Thought from Sentence to Sentence,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,14,"4 Whose Paragraph Is It, Anyway?",publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,15,4.1 Procrustean Problems,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,16,4.2 Issue,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,17,4.3 Point,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,18,4.4 Pointless Paragraphs,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,19,4.5 Connections Between Paragraphs,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,20,4.6 Summarizing Paragraph Structures,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,21,4.7 Note on Whole Documents,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,22,5 Write the Way You Speak and Other Bad Advice,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,23,5.1 Bad Advice,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,24,5.2 Toll Booth Syndrome,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,cohesion-emphasis,Full book text unavailable
+GOPEN,25,6 Mark My Words: Punctuation,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,26,6.1 Punctuation as power,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,27,6.2 Semicolon/history,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,28,6.3 Colon,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,29,6.4 Dashes-parentheses-commas-brackets,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,30,6.5 Hyphen,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,31,6.6 Question mark,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,32,6.7 Exclamation/artificial emphasis,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,33,6.8 Quotation marks,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,34,6.9 Apostrophe,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,35,6.10 Ellipsis,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,36,6.11 Period,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GOPEN,37,6.12 Comma,publisher-supplied TOC,partial,Mapped to cohesion/emphasis or usage reference where supported by full companion article,usage-adjudicator/reference,Full book text unavailable
+GS90,1,Structural locations and reader roles,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,2,Subject–verb proximity,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,3,Stress position,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,4,One unit/one principal stress,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,5,Topic position,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,6,Given/new placement,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,7,No mechanical old/new rule,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,8,Passive for topic continuity,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,9,Context before details,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,10,Actions in verbs,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,11,Clause hierarchy,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,12,Logical gaps,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,13,Topic strings,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,14,Paragraph progression,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,15,Syntax before typography,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,16,Seven closing principles,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+GS90,17,Principles-not-rules limitations,pp. 550–558,full,Operational heuristic extracted and evidence status qualified,cohesion-emphasis,
+TUF,1,Short Sentences,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,2,Noun Phrases,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,3,Verb Phrases,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,4,Adjectives and Adverbs,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,5,Prepositions,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,6,Conjunctions and Coordination,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,7,Dependent Clauses,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,8,Sentence Openers and Inversion,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,9,Free Modifiers: Branching Sentences,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,10,The Appositive,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,11,"Interrogative, Imperative, Exclamatory",catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,12,Parallelism,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,13,Cohesion,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,14,Syntactic Symbolism,catalog TOC,partial,Chapter accounted; purpose-driven catalog marks derived detail,sentence-variety,Full chapter unavailable
+TUF,15,Bibliography,pp. 275–299/index,partial,Chapter accounted; purpose-driven catalog marks derived detail,reference-only,Full chapter unavailable
+TUF,16,Index,pp. 275–299/index,partial,Chapter accounted; purpose-driven catalog marks derived detail,reference-only,Full chapter unavailable
+MIN96,1,Part I Logic in Writing,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,2,1 Why a Pyramid Structure?,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,3,2 Substructures Within the Pyramid,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,4,3 How to Build a Pyramid Structure,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,5,4 Fine Points of Introductions,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,6,5 Deduction and Induction,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,7,Part II Logic in Thinking,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,8,6 Imposing Logical Order,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,9,7 Summarizing Grouped Ideas,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,10,Part III Logic in Problem Solving,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,11,8 Defining the Problem,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,12,9 Structuring Analysis,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,13,Part IV Logic in Presentation,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,reference-only,Full chapter unavailable
+MIN96,14,10 Reflecting the Pyramid on the Page,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,reference-only,Full chapter unavailable
+MIN96,15,11 Reflecting the Pyramid on the Screen,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,reference-only,Full chapter unavailable
+MIN96,16,12 Reflecting the Pyramid in Prose,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,17,Appendix A Structureless Situations,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,18,Appendix B Introductory Structures,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN96,19,Appendix C Key Points,catalog TOC,partial,Chapter accounted; accessible method mapped where supported,memo-structure,Full chapter unavailable
+MIN26,1,Part I Logic in Writing,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,2,1 Why the pyramid structure,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,3,2 Substructures,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,4,3 Build,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,5,4 Fine points of introductions,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,6,5 Deduction and induction,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,7,6 Highlight structure,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,8,Part II Logic in Thinking,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,9,7 Question order/grouping,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,10,8 Question problem-solving process,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,11,9 Question summary statement,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,12,10 Putting into readable words,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+MIN26,13,Appendix Problem Solving in Structureless Situations,official TOC,partial,Current-edition section accounted; content relation to 1996 unresolved,memo-structure,Full text unavailable
+DIA,1,Home,https://diataxis.fr/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,2,Start here,https://diataxis.fr/start-here/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,3,Applying Diátaxis,https://diataxis.fr/application/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,4,Tutorials,https://diataxis.fr/tutorials/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,5,How-to guides,https://diataxis.fr/how-to-guides/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,6,Reference,https://diataxis.fr/reference/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,7,Explanation,https://diataxis.fr/explanation/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,8,The compass,https://diataxis.fr/compass/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,9,Workflow,https://diataxis.fr/how-to-use-diataxis/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,10,Understanding Diátaxis,https://diataxis.fr/theory/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,11,Foundations,https://diataxis.fr/foundations/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,12,The map,https://diataxis.fr/map/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,13,Quality,https://diataxis.fr/quality/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,14,Tutorials and how-to guides,https://diataxis.fr/tutorials-how-to/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,15,Reference and explanation,https://diataxis.fr/reference-explanation/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,16,Colophon,https://diataxis.fr/colophon/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,17,Help translate,https://diataxis.fr/translation/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+DIA,18,News & Updates,https://diataxis.fr/news/,full,Complete page extracted; principle/type/architecture/change disposition recorded,doc-typing,
+GAR5,1,Preface and edition method,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,2,List of Essay Entries,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,3,Abbreviations,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,4,Pronunciation Key,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,5,Key to Language-Change Index,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,6,Glossary of grammatical/rhetorical terms,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,7,Timeline of usage books,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,8,Select bibliography,Oxford Reference/front matter,partial,Meta-method/taxonomy disposition recorded,usage-adjudicator,Some items subscription-protected
+GAR5,9,A–Z entries: A,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,10,A–Z entries: B,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,11,A–Z entries: C,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,12,A–Z entries: D,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,13,A–Z entries: E,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,14,A–Z entries: F,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,15,A–Z entries: G,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,16,A–Z entries: H,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,17,A–Z entries: I,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,18,A–Z entries: J,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,19,A–Z entries: K,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,20,A–Z entries: L,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,21,A–Z entries: M,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,22,A–Z entries: N,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,23,A–Z entries: O,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,24,A–Z entries: P,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,25,A–Z entries: Q,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,26,A–Z entries: R,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,27,A–Z entries: S,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,28,A–Z entries: T,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,29,A–Z entries: U,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,30,A–Z entries: V,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,31,A–Z entries: W,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,32,A–Z entries: X,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,33,A–Z entries: Y,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+GAR5,34,A–Z entries: Z,Oxford Reference browse,unavailable-full,Letter category explicitly accounted; no exhaustive headword extraction claimed,usage-adjudicator,Subscription barrier; issue index is schema plus verified seeds only
+STR18,1,Introductory,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,2,1 Possessive singular,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,3,2 Serial comma,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,4,3 Parenthetic commas,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,5,4 Comma before coordinate clause,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,6,5 No comma splice,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,7,6 Do not break sentences,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,8,7 Opening participial phrase attachment,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,9,8 Paragraph unit,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,10,9 Topic sentence/end conformity,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,11,10 Active voice,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,12,11 Positive form,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,13,12 Definite/specific/concrete,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,14,13 Omit needless words,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,15,14 Avoid succession of loose sentences,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,16,15 Parallel coordinate ideas,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,17,16 Keep related words together,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,18,17 One tense in summaries,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,19,18 Emphatic words at end,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,20,Matters of Form,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,21,Words and Expressions Commonly Misused,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,22,Words Commonly Misspelled,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR18,23,Exercises,full public-domain text,full,Rule classified in exclusion dossier,negative-control,
+STR20,1,Introductory,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,2,1 Possessive singular,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,3,2 Serial comma,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,4,3 Parenthetic commas,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,5,4 Comma before coordinate clause,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,6,5 No comma splice,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,7,6 Do not break sentences,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,8,7 Opening participial phrase attachment,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,9,8 Paragraph unit,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,10,9 Topic sentence/end conformity,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,11,10 Active voice,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,12,11 Positive form,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,13,12 Definite/specific/concrete,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,14,13 Omit needless words,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,15,14 Avoid succession of loose sentences,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,16,15 Parallel coordinate ideas,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,17,16 Keep related words together,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,18,17 One tense in summaries,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,19,18 Emphatic words at end,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,20,Matters of Form,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,21,Words and Expressions Commonly Misused,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,22,Words Commonly Misspelled,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+STR20,23,Exercises,full Project Gutenberg trade text,full,Rule/section classified in exclusion dossier; unchanged operational content maps to the corresponding SW-NEG principle,negative-control,Trade-edition renumbering and exercise addition are recorded; duplicated rules are not duplicated as principles
+SW4,1,Introduction,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,2,Usage rule 1,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,3,Usage rule 2,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,4,Usage rule 3,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,5,Usage rule 4,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,6,Usage rule 5,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,7,Usage rule 6,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,8,Usage rule 7,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,9,Usage rule 8,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,10,Usage rule 9,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,11,Usage rule 10,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,12,Usage rule 11,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,13,Composition rule 12,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,14,Composition rule 13,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,15,Composition rule 14,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,16,Composition rule 15,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,17,Composition rule 16,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,18,Composition rule 17,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,19,Composition rule 18,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,20,Composition rule 19,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,21,Composition rule 20,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,22,Composition rule 21,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,23,Composition rule 22,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,24,A Few Matters of Form,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,25,Words and Expressions Commonly Misused,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,26,Approach to Style reminder 1,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,27,Approach to Style reminder 2,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,28,Approach to Style reminder 3,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,29,Approach to Style reminder 4,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,30,Approach to Style reminder 5,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,31,Approach to Style reminder 6,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,32,Approach to Style reminder 7,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,33,Approach to Style reminder 8,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,34,Approach to Style reminder 9,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,35,Approach to Style reminder 10,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,36,Approach to Style reminder 11,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,37,Approach to Style reminder 12,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,38,Approach to Style reminder 13,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,39,Approach to Style reminder 14,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,40,Approach to Style reminder 15,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,41,Approach to Style reminder 16,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,42,Approach to Style reminder 17,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,43,Approach to Style reminder 18,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,44,Approach to Style reminder 19,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,45,Approach to Style reminder 20,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,46,Approach to Style reminder 21,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,47,Afterword,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+SW4,48,Glossary,official TOC,partial,Heading classified in exclusion dossier,negative-control,Full prose and Chapter IV inventory unavailable
+PULLUM,1,Introduction/edition history,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,2,Inaccuracy,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,3,Verb agreement/none,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,4,Pronoun agreement/singular they,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,5,Split infinitives,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,6,Gerund-participial subjects,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,7,Restrictive which and however,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,8,Passive-voice analysis,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,9,Internal rule contradictions,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,10,Keep-related-words qualification,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,11,Conclusion,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PULLUM,12,References,author manuscript HTML,full-author-manuscript,Critical claim classified and qualified,negative-control,
+PLAT,1,Skill directory structure,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,2,Required SKILL.md name/description,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,3,Progressive disclosure,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,4,Explicit activation,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,5,Implicit description matching,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,6,Optional agents/openai.yaml,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,7,Local discovery scopes,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,8,Plugin distribution,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,9,API upload limits,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,10,Best practices/testing,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat
+PLAT,11,Help Center creation/install/admin behavior,official docs,full-current,Packaging decision encoded,portfolio-infrastructure,Six-day post-cutoff retrieval caveat

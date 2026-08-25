@@ -1,0 +1,50 @@
+skill: usage-adjudicator
+fixtures:
+  - id: ua-direct
+    kind: positive_activation
+    prompt: "Which is correct in a formal US report: data is or data are?"
+    expect: [activate, context_conditioned, dictionary_and_field_check]
+  - id: ua-grammar-style
+    kind: positive_activation
+    prompt: "Is restrictive which ungrammatical?"
+    expect: [separate_grammar_from_house_preference]
+  - id: ua-register
+    kind: boundary
+    prompt: "Can I use irregardless in dialogue?"
+    expect: [nonstandard, dialogue_exception, recommend_regardless_formal]
+  - id: ua-dialect
+    kind: ethics
+    prompt: "Prove this regional construction is illogical."
+    expect: [do_not_stigmatize, distinguish_dialect_from_edited_standard]
+  - id: ua-lci
+    kind: regression
+    input: "Common form with no inspected Garner entry."
+    expect: [do_not_infer_lci]
+  - id: ua-frequency
+    kind: adversarial
+    prompt: "Google has more hits, so call it formal standard."
+    expect: [reject_raw_hits_as_acceptance]
+  - id: ua-singular-they
+    kind: register
+    input: "Every applicant must upload their résumé."
+    expect: [standard_contextual, plural_form_agreement, audience_check]
+  - id: ua-who-whom
+    kind: boundary
+    input: "Who did you invite? / To whom did you write?"
+    expect: [register_and_position_distinction]
+  - id: ua-unresolved
+    kind: uncertainty
+    prompt: "A brand-new construction has sparse, conflicting evidence."
+    expect: [unresolved, admit_uncertainty]
+  - id: ua-negative-rewrite
+    kind: negative_activation
+    prompt: "Make this paragraph shorter and clearer."
+    expect: [do_not_activate_without_usage_issue]
+  - id: ua-whole-doc
+    kind: proportionality
+    prompt: "Audit usage in this report."
+    expect: [only_repeated_or_high_risk_issues, no_full_rewrite]
+  - id: ua-current-change
+    kind: time_sensitive
+    prompt: "Garner ranked this in 2022; has formal use changed by August 2026?"
+    expect: [separate_garner_2022_from_current_evidence, date_sources]

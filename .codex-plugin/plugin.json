@@ -1,0 +1,6 @@
+{
+  "name": "writing-quality-portfolio",
+  "version": "1.0.0",
+  "description": "Seven distinct, evidence-traceable writing-quality skills with coordinated global-to-local routing.",
+  "skills": "./skills/"
+}
