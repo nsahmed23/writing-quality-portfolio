@@ -8,7 +8,7 @@ Stage 2 remains locked. Nothing in this branch changes the seven published skill
 
 ## Start here
 
-1. Read the independent [Claude review](CLAUDE_REVIEW.md) and the [Codex validation response](CODEX_RESPONSE_TO_CLAUDE.md).
+1. Read the independent [Claude review](CLAUDE_REVIEW.md), the [Codex validation response](CODEX_RESPONSE_TO_CLAUDE.md), and the [second-round Claude review](CLAUDE_REVIEW_2.md) of that integration.
 2. Read [benchmark-validity-erratum.md](docs/benchmark-validity-erratum.md) before relying on the original report.
 3. Review [reoptimization-proposal.md](docs/reoptimization-proposal.md).
 4. Use [CLAUDE_REVIEW_HANDOFF.md](CLAUDE_REVIEW_HANDOFF.md) to reproduce the adversarial review protocol.
@@ -21,6 +21,7 @@ Stage 2 remains locked. Nothing in this branch changes the seven published skill
 |---|---|
 | `CLAUDE_REVIEW.md` | Independent adversarial recount and design review supplied by Claude. |
 | `CODEX_RESPONSE_TO_CLAUDE.md` | Codex reproduction record, including the correction from 80 to 84 structurally unmatchable-code predictions. |
+| `CLAUDE_REVIEW_2.md` | Second-round Claude review verifying the integration, conceding the F4 correction, and flagging the platform-dependent test-count wording. |
 | `docs/source-investigation.md` | Evidence-backed review of the nine requested GitHub sources. |
 | `docs/evaluation-plan.md` | Original two-stage evaluation plan. |
 | `docs/stage1-provisional-report.md` | Original readable Stage 1 report, preserved without retrospective edits. |
@@ -64,6 +65,7 @@ Some preserved resume and delivery records point to the original local task `out
 - Comparative ranking claim: withdrawn.
 - Benchmark-validity audit: complete enough to block rankings.
 - Independent Claude review: completed and preserved; its central verdict is confirmed, with one quantitative correction recorded in the Codex response.
+- Second-round Claude review of the integration: completed; every integrated number reproduced independently, the F4 correction is conceded, and one test-count wording defect is flagged for fix.
 - Reoptimization: revised after adversarial review, not implemented.
 - Human adjudication: not performed.
 - Stage 2: not eligible and not run.
