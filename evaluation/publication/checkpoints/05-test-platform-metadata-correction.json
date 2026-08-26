@@ -1,0 +1,62 @@
+{
+  "checkpoint": "05-test-platform-metadata-correction",
+  "date": "2026-08-26",
+  "supersedes": {
+    "path": "evaluation/publication/checkpoints/04-feedback-publication-readiness.json",
+    "sha256": "c81bf10182be0cd58ddf739df360dc0d2e5ca7b84230af0e2a0026391184384f",
+    "scope": "tests block only; all other checkpoint 04 content stands",
+    "modification_policy": "checkpoint 04 is preserved unmodified for audit continuity"
+  },
+  "correction_trigger": {
+    "source": "Codex adversarial response to PR #3 and second-round Claude review (evaluation/CLAUDE_REVIEW_2.md, R3)",
+    "defects": [
+      "Checkpoint 04 recorded tests: 198, skipped: 2 without naming the operating system, and the skip profile is platform-dependent",
+      "The PR #2 description phrased the result as '198 passed with 2 expected skips', conflating tests run (198) with tests passed (196); since corrected in the PR description"
+    ]
+  },
+  "windows_runs": {
+    "evidence_status": "reported by Codex in the PR #3 adversarial response; not independently observed",
+    "os": {
+      "name": "Microsoft Windows 11 Pro",
+      "architecture": "64-bit",
+      "build": "10.0.26200"
+    },
+    "framework_and_command": "unittest discovery over evaluation/pilot/tests",
+    "runs": [
+      {"python": "CPython 3.11.9", "top_level_cases": 198, "passed": 196, "skipped": 2, "failed": 0, "errored": 0},
+      {"python": "CPython 3.14.4", "top_level_cases": 198, "passed": 196, "skipped": 2, "failed": 0, "errored": 0}
+    ],
+    "skipped_tests": [
+      {
+        "id": "tests.test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_file_symlink_to_an_outside_artifact",
+        "reason": "symlink creation privilege unavailable (WinError 1314)"
+      },
+      {
+        "id": "tests.test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_inbox_directory_symlink_to_an_outside_directory",
+        "reason": "symlink creation privilege unavailable (WinError 1314)"
+      }
+    ]
+  },
+  "linux_run": {
+    "evidence_status": "observed by the Claude reviewer on this branch",
+    "attribution": "Claude (Anthropic), second-round review",
+    "os": {"name": "Linux", "architecture": "64-bit"},
+    "python": "CPython 3.11.15",
+    "framework_and_command": "PYTHONPATH=src python3 -m pytest tests -q; PYTHONPATH=src python3 -m unittest discover -s tests (from evaluation/pilot)",
+    "top_level_cases": 198,
+    "passed": 187,
+    "skipped": 11,
+    "failed": 0,
+    "errored": 0,
+    "skipped_tests_guard": "all 11 are @unittest.skipUnless(os.name == \"nt\") guards: 2 in tests/test_ingest_paths.py, 2 in tests/test_job_publication.py, 7 in tests/test_storage_and_paths.py; one-to-one with the static guard count",
+    "windows_skipped_tests_status_on_linux": "both symlink tests listed above pass on Linux"
+  },
+  "union_claim": {
+    "statement": "Across the reported Windows runs and the observed Linux run, every one of the 198 top-level test cases passed at least once with zero failures or errors.",
+    "limits": [
+      "This is coverage across the specific observed and reported runs only; it does not establish that every test passes on every OS or Python version.",
+      "No subtest, branch, or platform-behavior coverage is claimed.",
+      "It does not claim single-environment union coverage is unachievable; a Windows host with symlink privilege could plausibly run all 198."
+    ]
+  }
+}

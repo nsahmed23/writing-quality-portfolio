@@ -65,7 +65,7 @@ Some preserved resume and delivery records point to the original local task `out
 - Comparative ranking claim: withdrawn.
 - Benchmark-validity audit: complete enough to block rankings.
 - Independent Claude review: completed and preserved; its central verdict is confirmed, with one quantitative correction recorded in the Codex response.
-- Second-round Claude review of the integration: completed; every integrated number reproduced independently, the F4 correction is conceded, and one test-count wording defect is flagged for fix.
+- Second-round Claude review of the integration: completed; every substantive benchmark recount reproduced independently and the F4 correction is conceded. A test-metadata correction (run environment and passed-versus-ran accounting) is recorded separately in the review's revision note and checkpoint 05.
 - Reoptimization: revised after adversarial review, not implemented.
 - Human adjudication: not performed.
 - Stage 2: not eligible and not run.
