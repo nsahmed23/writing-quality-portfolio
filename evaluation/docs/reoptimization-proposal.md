@@ -6,6 +6,12 @@ Repair the benchmark and build an executable routed portfolio before adding more
 
 This proposal is not implemented on this branch.
 
+## Minimal Stage 1 benchmark core
+
+Benchmark validity does not depend on the full routed portfolio architecture. The smallest defensible Stage 1 comparison sends one case per fresh request with an opaque identifier, asks each applicable surface for quote-anchored findings in its native vocabulary, and has blinded humans judge native problem acceptance. A system need not emit exact KEEP regions in this core lane; false positives on clean cases measure conservative silence directly. Taxonomy mapping is post-hoc analysis rather than a scored generation contract.
+
+The routed architecture below remains the intended executable design for the seven-skill portfolio. Evaluate its routing and arbitration as properties of that system, not as machinery every external comparison surface must adopt.
+
 ## Target architecture
 
 ```text
@@ -69,6 +75,8 @@ A routed lane may cover numbers, dates, actors, attribution, modality, negation,
 
 Real humans independently propose issues in native language before seeing system output. Adjudicators resolve validity, protected regions, severity, and allowed operations. Store multiple accepted exact anchors when boundaries are genuinely equivalent. Record disputed cases rather than forcing artificial certainty.
 
+Before gold freezes, preregister reviewer training and calibration, a minimum inter-annotator reliability rule, the minimum number of opportunities required to apply it, and the resolution path when the rule fails. Agreement remains distinct from finding validity and cannot substitute for the complete-acceptance gate.
+
 ### Scoring decomposition
 
 Report these separately:
@@ -83,8 +91,13 @@ Report these separately:
 8. severity calibration;
 9. explicit KEEP preservation;
 10. serialization and run reliability.
+11. routing correctness and routing-error attribution for routed systems.
 
 Do not turn one mismatch into multiple hidden penalties without showing the decomposition.
+
+Score conservative silence and explicit protected-region localization in separate lanes. The minimal comparison lane allows abstention and does not require exact KEEP emission. A protection-aware system may enter the explicit KEEP lane, where quote anchoring and preservation accuracy are evaluated separately.
+
+Every rate gate, including the critical-miss gate, requires a preregistered minimum number of eligible opportunities. Below that minimum, report counts and uncertainty descriptively rather than converting a small subset into a hidden zero-miss requirement.
 
 ### System fidelity
 
@@ -115,7 +128,11 @@ Write each test before implementation.
 - One malformed record cannot erase valid records.
 - Native and F2 tracks cannot be mislabeled.
 - Router tests prove minimal activation, empty-pass skipping, and collision ownership.
+- Routed-system tests score route selection separately and attribute downstream errors to routing, specialist diagnosis, adaptation, or arbitration.
 - Arbitration tests preserve code, tables, links, quotations, facts, modality, negation, and author quirks.
+- Gold-freeze tests enforce the preregistered reviewer-calibration and minimum-opportunity rules.
+- KEEP-lane tests distinguish conservative silence, explicit preservation findings, and abstention.
+- Critical-gate tests refuse inferential pass or fail decisions below the frozen opportunity minimum.
 - Duplicate findings cannot inflate recall.
 - Stage 2 remains mechanically locked without a new sealed holdout and verified human gates.
 - Production code maintains at least 80 percent branch-relevant coverage.

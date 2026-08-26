@@ -1,9 +1,13 @@
+d24e374aa8a7519a9a9558086899ece9408813ece3a20ba6ff360a2f5fd88887  ./CLAUDE_REVIEW.md
 c38d6ed2010aec79f8e3886e23e8efe81f01f2c5a50463376f690b79671871bd  ./CLAUDE_REVIEW_HANDOFF.md
-c06f450ecc03f93611e5b29e2c4efe59cf8b78ec61256c7f79f30acccfc90725  ./docs/benchmark-validity-erratum.md
+e98e34af70d1c9c2b7350daf84f4fba5465722a697e6443386d5b1db48d0250d  ./CODEX_RESPONSE_TO_CLAUDE.md
+6248f04428ba95f22f12e7920ddce54c6b992d3656084604bd680bf35e395fdf  ./README.md
+21007f4f264b2d70d3841a4024fcf033b61aa27dbcb6a286aad2adb75d6ada9a  ./THIRD_PARTY_BOUNDARY.md
+f4a099f74aa97d36cc34f835626f5c73e262ffbcca43caac7b84c41b7a61e817  ./docs/benchmark-validity-erratum.md
 14c6106f5077b10837376d92565e68cae1ef9b1942f19dd51638568f7d5bf3fa  ./docs/evaluation-plan.md
 34cf5776c3b9ee2c41b9ebb102f56d0a9155d82e6693e950d73211cd0ceaccf2  ./docs/human-review-gate-hardening-record.md
-e7c5ada905e612dbc71bcd9a31a77cb2f9a764aac5074e2945a4d8d1ecb59984  ./docs/portfolio-root-cause-analysis.md
-e923bcb596c24c1f1828e4e8813486073b8661932c202691e5b3bf7c784c47d9  ./docs/reoptimization-proposal.md
+3c3c61bf97ed15100427e13bcd41069370fe4ebb729e4479b1132ffc6372d3ff  ./docs/portfolio-root-cause-analysis.md
+713f4bd173b1cd7a5eec21c5248de54e122505cf5c7cec73a65730bc07ec6154  ./docs/reoptimization-proposal.md
 2a4251cf223420863776dc20cb33808b67c6caac53c653ca8154544a28bb9981  ./docs/source-investigation.md
 2959e43b1c2a4f6fd640b549fdd1ec15def5c8dd78548dd554f00e93b02eb49e  ./docs/stage1-provisional-report.json
 e01f770d51d7fd49f2d4d9e83e16771508ddd7182b728161121ac63679ef9c9f  ./docs/stage1-provisional-report.md
@@ -22,6 +26,7 @@ d4d9d0463bf455fc4be9fd1f639be609965c701cb367ca3365e1a366364e5896  ./pilot/.check
 995c8fb7badd131ca9bd9e10532498836be60bb95d2268f5389fc5e2545f331d  ./pilot/.checkpoints/09_provisional_report_anchor.json
 695592b7a5d898a4f41f9bb172d97c9f3fd86f9e633fc5928b08766cc7632a4d  ./pilot/.checkpoints/10_final_verification.json
 dc53c6719437902b532d812e5c5f1999055ccf865b9da07ee92706db55fd959a  ./pilot/.checkpoints/11_delivery.json
+b792f84c8e01479f117eb8fba2f94735b2b3aab3576f38c1503fb353590c794f  ./pilot/README.md
 2959e43b1c2a4f6fd640b549fdd1ec15def5c8dd78548dd554f00e93b02eb49e  ./pilot/artifacts/stage1-sealed-v1/reports/stage1-provisional-report.json
 4989a41cb2f2ea7a315f0503c71216dea4fbf16963af8f13883be7e3df004097  ./pilot/artifacts/stage1-sealed-v1/tree-manifest.json
 b23f1e835de9aec4df7d1a2769d07aacb7dcedaaccca005864571d2b9fb0efab  ./pilot/config/run.json
@@ -51,7 +56,6 @@ f31a5b7aaa2e98df98f0dcd0afe0c7729962e2fc1b60face6883c59d184b2253  ./pilot/privat
 94d4b4f1a91f63b2535dccfc49977c5a5512ca8b9f06f98ae19d98b08cdf33b7  ./pilot/private/gold/gold.test.jsonl
 22cf9ab6cc19b271cc8bd09217b0a6c3001451e7b4b66c55107554b0aecc00e6  ./pilot/private/gold/scoring.dev.jsonl
 f31a5b7aaa2e98df98f0dcd0afe0c7729962e2fc1b60face6883c59d184b2253  ./pilot/private/gold/scoring.test.jsonl
-b792f84c8e01479f117eb8fba2f94735b2b3aab3576f38c1503fb353590c794f  ./pilot/README.md
 adb654b511f24dba8358680820df8fe4f642d30fd052019ab21cdfbf8f89f075  ./pilot/research_run/agent_ledger.csv
 d71571036f9ad92c4523c0a45e31a182da9df3db4cc5ba624e7c9ca956792c28  ./pilot/research_run/assumptions_log.md
 f8d9d4f0f871ce5ba59fcdd56159a69f31c30685d81d5a2304d1c35c44699fa4  ./pilot/research_run/calculation_ledger.csv
@@ -366,8 +370,8 @@ e91b9780e9a8b19b37656a80d698f4a8ac249c2d86568f34fa4f4e6fcf4ff5d3  ./pilot/runs/s
 e66e7cc3fcc807832352ab4ff764034b579fe3280593759727883a86e90ac1c7  ./pilot/src/wqeval/__init__.py
 f9f1414ab01b540bd3b45790f7ee4f810a4b42cbd264b27782540bcac9a8c2c5  ./pilot/src/wqeval/blinding.py
 bb5346e4a9fb4f81567521f4955d5e566fcc73ae62a83dd1fcfc9f6adc94fad0  ./pilot/src/wqeval/cli.py
-20eb814c67ecf71fd80f90ca318225c21203ead7235850341d3b3ec88971219f  ./pilot/src/wqeval/corpus_evidence.py
 53d169fb4b8309c436bfdc0deba814945de52c4f31db4f6eb87269e6085c442b  ./pilot/src/wqeval/corpus.py
+20eb814c67ecf71fd80f90ca318225c21203ead7235850341d3b3ec88971219f  ./pilot/src/wqeval/corpus_evidence.py
 b6db4570a30500d7762284efdbee4b8372ce405233ba13dadf15b93afafc8076  ./pilot/src/wqeval/evaluation.py
 e78a1a0a5e4cb0d479c60577d39cbca48ded077903faf5a02dc8928fa584b714  ./pilot/src/wqeval/gates.py
 92067304ce61c58a6718edaecaf1a3aa401bb75518190ad09d85fe063be0dd58  ./pilot/src/wqeval/human_review.py
@@ -401,9 +405,9 @@ f11f4684d44010533990d6a617d1373032583816ab468506ca159767fdd6ada6  ./pilot/tests/
 28fa7e7ac80a0556b3edf0c300f427903855ec17d5456a11b4d4c06184e4771d  ./pilot/tests/test_diagnostic_outputs.py
 46a8861504e3f27db6b5f1bae182906c157ed4e820596449f4237fa4ddc4f10c  ./pilot/tests/test_finalize_stage1_output_tool.py
 c36bcd4877a75b6e8c440d1d078b0a63182dbb14778645c083c2324bccb77547  ./pilot/tests/test_human_review_integrity.py
+cafba7861847b15c59878a3c536e6500f802066a649aec760238509ab8e1cc0d  ./pilot/tests/test_ingest.py
 6ea6ce210cbaa9db8635dfd56b0221eada7f26aef0ef23c7738167b0c7dc6166  ./pilot/tests/test_ingest_paths.py
 fb9bd12688ba22af8631e732664c69414ac54f42fd42b41a8beeb6d86aa29590  ./pilot/tests/test_ingest_recovery.py
-cafba7861847b15c59878a3c536e6500f802066a649aec760238509ab8e1cc0d  ./pilot/tests/test_ingest.py
 496e171ce778bd5d8bda8eb01d218f1407ceb540c187b238ee25fd819d68ff78  ./pilot/tests/test_job_publication.py
 8c21c2b6d0f51a5351be792c30cd0e01ebbfc02acc35f3b51948534bf24f5550  ./pilot/tests/test_jobs_and_gates.py
 268e746ae79cc638e588a0a9460a31df81c8ab74c52110859aeb54d2cde710a1  ./pilot/tests/test_materialize_stage1_results.py
@@ -429,8 +433,9 @@ b242be8b30b6ab6eb7245c089e61cb48056c0b81453a73751d83818425d60d07  ./pilot/tools/
 2b92a65c38aea97cc52558f58f6d1ad9c4061709f83e44330807913ccc4bd21d  ./pilot/tools/prepare_stage1_jobs.py
 38cb56baf06b34be88c0479e17cad67b02c5af43a30091a5cd7aafedcd28bac5  ./publication/checkpoints/01-package-created.json
 6d3c2e97dbf02a6b1ac8f04042d6fa263aec3daaafa76789597b1553090707cd  ./publication/checkpoints/02-local-verification.json
-bf2a604c031f39fe66628ae2be1edbc4a00dc6b9074b002999fac1e85cadf9a9  ./publication/resume.md
-8138fe5dd384151c04bb6fff081815f90c716fe103261cc65e8c03ef0de42a04  ./README.md
+f2e99fcc6030402f882f8b6e73d8cca7edfa78d14116bb85a30fa3cd0296a82f  ./publication/checkpoints/03-claude-review-integration.json
+c81bf10182be0cd58ddf739df360dc0d2e5ca7b84230af0e2a0026391184384f  ./publication/checkpoints/04-feedback-publication-readiness.json
+76dfe532214e2da4137c06bdd3ee441ac7c4c8214f61d729dd7bf33ca58ef98a  ./publication/resume.md
 95cfe25cfe5b216a13443c3f71760b44041367d897adff5be78f478a38fe13a8  ./source-review/.checkpoints/01-scope.json
 505ce731a22d4305cc018d27b256d9db60e5084d297e20b8e7d00abdac336667  ./source-review/.checkpoints/02-sources.json
 df380f144c4a603fb940595941337f6ba8eefa97f17864c26af5a999e9b0fd77  ./source-review/.checkpoints/03-analysis.json
@@ -466,4 +471,3 @@ b155651b708966c61a4f8ffdf2213b42d7830d9b2effcd8e52ea3a243972c9ad  ./source-revie
 4983aac2ea9123f6a48d075a2a36dd5ae12abc891daf9d17dc5c70003d6477e0  ./source-review/research_run/worker_returns/WS-006.yaml
 11332fa0e2502484133604110d99ed7bf983ed52fddff5747319ab59e2cb3e35  ./source-review/research_run/workstreams.csv
 7b90f935a908736eb9b35399fc4814d6784d3b45c7ef72885fe2a034b8fc3fff  ./source-review/resume.md
-21007f4f264b2d70d3841a4024fcf033b61aa27dbcb6a286aad2adb75d6ada9a  ./THIRD_PARTY_BOUNDARY.md

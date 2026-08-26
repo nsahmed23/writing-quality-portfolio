@@ -8,7 +8,7 @@ The portfolio's low exact scores therefore combine adapter, routing, span, taxon
 
 ## Observed behavior
 
-The three portfolio runs localized a CHANGE somewhere in 31, 33, and 34 of the 36 provisional CHANGE cases. They made one clean-case error across the three runs. These are descriptive counts only because the public identifiers disclosed which cases were positive.
+Using case-level localization to mean at least one predicted CHANGE finding anywhere in a provisional CHANGE case, the three portfolio runs localized 31, 33, and 34 of 36 cases. If localization instead requires the predicted CHANGE span to overlap a gold CHANGE finding, the counts are 31, 32, and 33. Across the three runs, exactly one provisional KEEP case received any CHANGE finding (`WQ-S001-007` in run 1). These are descriptive counts only because the public identifiers disclosed which cases were positive.
 
 Exact finding precision and recall were much lower. The gap between case localization and exact credit came largely from boundary and label choices. For example, a predicted span that included terminal punctuation received no exact credit, and `unjustified_certainty` received no credit when gold used `claim_evidence_mismatch` for the same assertion.
 

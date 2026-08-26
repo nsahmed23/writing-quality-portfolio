@@ -64,7 +64,7 @@ These examples do not prove the predictions are correct. They prove that one exa
 
 All public cases expose `protected_regions: []`. Private provisional gold contains 97 protected regions across 41 of the 72 sealed cases. Generators therefore received an affirmative-looking empty field while the scorer retained hidden KEEP regions.
 
-Across valid outputs, 110 CHANGE findings overlapped both a gold CHANGE region and a separate KEEP region. Natural sentence-level findings could therefore incur an exact false positive, exact false negative, and KEEP penalty at once.
+Across valid outputs, 170 predicted CHANGE findings overlapped both a gold CHANGE region and at least one hidden preservation target: 110 overlapped a KEEP-decision gold finding, 116 overlapped an explicit protected region, and 56 overlapped both. KEEP-decision findings and protected regions are distinct concepts and should not both be called KEEP regions. Natural sentence-level findings could therefore incur an exact false positive, exact false negative, and preservation penalty at once.
 
 ### 6. The shared taxonomy changed the task
 
@@ -77,15 +77,17 @@ This creates two problems:
 
 The one-label contract had no alias, hierarchy, secondary label, or abstention mechanism.
 
+The asymmetry is structural. The public vocabulary contains 47 normalized codes, while the private native map has only 37 distinct outputs. Ten public CHANGE codes can never appear in gold: `causal_overclaim`, `complex_sentence`, `dangling_modifier`, `misplaced_modifier`, `negation_ambiguity`, `nominalization`, `noun_stack`, `overgeneralization`, `repetitive_conclusion`, and `synonym_cycling`. Across the 33 valid runs, systems emitted 84 CHANGE findings using these unreachable labels: 46 `causal_overclaim`, 13 `synonym_cycling`, 12 `nominalization`, 5 `overgeneralization`, 4 `misplaced_modifier`, 3 `complex_sentence`, and 1 `negation_ambiguity`. Each is necessarily an exact false positive because no gold finding can carry that normalized code. A unique paired false negative cannot be assigned to every such prediction because only 64 of the 84 overlapped any gold CHANGE region. Separately, the private map collapses 24 canonical issue families into `protected_region` and 11 into `author_quirk`, obscuring materially different native judgments behind two exact labels.
+
 ### 7. Most external surfaces were adaptations
 
 Only `no-ai-slop` and `avoid-ai-writing` were classified as native F1 diagnostic modes. Eight of ten external surfaces were F2 projections from rewriting, generation, or reference material. The current portfolio was also evaluated through an F2 projection. This is not a clean “as authored” comparison.
 
 The adapter burden is part of what the pilot measured. A rewrite-only source should be marked not applicable for a native diagnostic ranking unless a separately defined projection is the intended object of study.
 
-### 8. Five malformed records invalidated three full runs
+### 8. Five malformed findings invalidated three full runs
 
-One bad offset, one span mismatch, and three missing operations caused three 72-case runs to be marked invalid. Five malformed records out of 2,592 discarded 216 otherwise present records. The remaining valid runs for those systems still failed the exact thresholds, so this did not cause the universal failure. It did make worst-run summaries less informative about diagnostic content and serialization reliability.
+One out-of-bounds offset, one span-to-offset mismatch, and three malformed field mappings whose `suggested_operation` objects lacked the required `instruction` key caused three 72-case runs to be marked invalid. These were `S005-004-F001` in avoid-ai-writing run 2, `WQ-S003-007-f1` in kami-writing run 3, and `S004-005-F001`, `WQ-S002-002-F001`, and `WQ-S003-007-F001` in no-ai-slop run 1. Five malformed findings across 2,592 case records excluded all 216 case records in those runs from normalized and scored evidence, although the raw outputs remain preserved. The remaining valid runs for those systems still failed the exact thresholds, so this did not cause the universal failure. It did make worst-run summaries less informative about diagnostic content and serialization reliability.
 
 ### 9. Reproducibility metadata is incomplete
 

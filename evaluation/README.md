@@ -8,16 +8,19 @@ Stage 2 remains locked. Nothing in this branch changes the seven published skill
 
 ## Start here
 
-1. Read [CLAUDE_REVIEW_HANDOFF.md](CLAUDE_REVIEW_HANDOFF.md).
+1. Read the independent [Claude review](CLAUDE_REVIEW.md) and the [Codex validation response](CODEX_RESPONSE_TO_CLAUDE.md).
 2. Read [benchmark-validity-erratum.md](docs/benchmark-validity-erratum.md) before relying on the original report.
 3. Review [reoptimization-proposal.md](docs/reoptimization-proposal.md).
-4. Inspect the immutable pilot evidence under [pilot/](pilot/).
-5. Inspect the separate nine-source research record under [source-review/](source-review/).
+4. Use [CLAUDE_REVIEW_HANDOFF.md](CLAUDE_REVIEW_HANDOFF.md) to reproduce the adversarial review protocol.
+5. Inspect the immutable pilot evidence under [pilot/](pilot/).
+6. Inspect the separate nine-source research record under [source-review/](source-review/).
 
 ## Directory map
 
 | Path | Purpose |
 |---|---|
+| `CLAUDE_REVIEW.md` | Independent adversarial recount and design review supplied by Claude. |
+| `CODEX_RESPONSE_TO_CLAUDE.md` | Codex reproduction record, including the correction from 80 to 84 structurally unmatchable-code predictions. |
 | `docs/source-investigation.md` | Evidence-backed review of the nine requested GitHub sources. |
 | `docs/evaluation-plan.md` | Original two-stage evaluation plan. |
 | `docs/stage1-provisional-report.md` | Original readable Stage 1 report, preserved without retrospective edits. |
@@ -60,6 +63,7 @@ Some preserved resume and delivery records point to the original local task `out
 - Original pilot: frozen and preserved.
 - Comparative ranking claim: withdrawn.
 - Benchmark-validity audit: complete enough to block rankings.
-- Reoptimization: proposed, not implemented.
+- Independent Claude review: completed and preserved; its central verdict is confirmed, with one quantitative correction recorded in the Codex response.
+- Reoptimization: revised after adversarial review, not implemented.
 - Human adjudication: not performed.
 - Stage 2: not eligible and not run.
