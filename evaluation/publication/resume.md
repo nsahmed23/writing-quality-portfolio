@@ -16,12 +16,20 @@ Publish the complete first-party writing-quality audit bundle on `codex/evaluati
 - Passed the portfolio validator, secret and private-data scans, and third-party boundary review.
 - Completed a broad security scan with zero findings. Its snapshot warning is preserved in `checkpoints/02-local-verification.json`; the exact final tree still requires a fresh scan.
 - Generated and independently verified both integrity manifests, with portable paths, exact file-set equality, and zero hash mismatches.
+- Received and preserved the independent Claude adversarial review of commit `5d1f2b4cf83c54b5b70e5d10f16a85cbc07b9ba4`.
+- Independently confirmed the F1, F2, and F3 recounts, including the exact malformed finding IDs and both portfolio-localization definitions.
+- Corrected F4 from 80 to 84 predictions using structurally unmatchable public codes. Of those 84, 64 overlap any gold CHANGE region and 19 use exact gold boundaries, so a universal paired-FN claim is not supported.
+- Confirmed all 36 sealed `raw/` and `inbox/` file pairs are byte-identical.
+- Revised the reoptimization proposal to add reviewer reliability, scored routing, minimum-opportunity, KEEP-lane, and lean Stage 1 core requirements.
+- Reran the portfolio validator successfully and ran all 198 evaluator tests on Python 3.11 and Python 3.14, with zero failures and two expected skips on each runtime.
+- Reverified 419 pilot files and 35 source-review files byte for byte, with zero differences from the reviewed commit.
+- Passed final JSON, JSONL, local-link, repository-hygiene, secret, whitespace, and new-writing punctuation checks with zero actionable findings.
+- Regenerated both integrity manifests using ordinal path ordering and independently verified exact file-set equality and every listed SHA-256 digest.
 
 ## In progress
 
-- Freeze and security-scan the exact final tree.
-- Obtain the final independent code-review verdict.
-- Commit, push, open the draft pull request, and verify the remote publication.
+- Obtain the final independent code-review verdict on the frozen feedback tree.
+- Commit and push `codex/claude-review-feedback`, open a draft pull request into `codex/evaluation-audit-bundle`, and verify the remote publication.
 
 ## Hard boundaries
 
