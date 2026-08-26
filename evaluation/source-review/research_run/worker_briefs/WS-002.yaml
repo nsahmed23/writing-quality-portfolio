@@ -1,0 +1,28 @@
+agent_id: AG-002
+workstream_id: WS-002
+role: primary-source-researcher
+assignment_mode: distinct
+overlap_with_workstream_ids: []
+replication_rationale: ""
+do_not_repeat_query_ids: [Q-002, Q-005]
+do_not_repeat_source_ids: []
+recovery_of_agent_id: ""
+objective: "Identify concrete writing mechanisms, safeguards, tests, risks, and license constraints in no-ai-slop and humanizer."
+scope_in:
+  - "S-003 at work/research-writing-repos/sources/no-ai-slop"
+  - "S-004 at work/research-writing-repos/sources/humanizer"
+scope_out:
+  - "Network access"
+  - "Executing repository code or installing dependencies"
+  - "Editing any file except worker_returns/WS-002.yaml"
+  - "Recommendations not grounded in inspected source lines"
+known_claim_ids: [C-201, C-202, C-203, C-204, C-205]
+required_source_classes: [P2]
+allowed_capabilities: [local-read-only-shell, apply-patch-for-assigned-return]
+required_outputs: [sources, evidence, claims, contradictions, unknowns, calculations, targeted_followups]
+completion_criteria:
+  - "Inspect relevant README, rule or prompt files, implementation, tests or fixtures, and license files in both repositories."
+  - "Give exact repo-relative path and line ranges for every finding."
+  - "Separate documented mechanism from any inferred benefit."
+  - "Identify false-positive, voice-preservation, factuality, and license risks."
+  - "Save valid worker-return-template YAML to worker_returns/WS-002.yaml using evidence IDs E-201 through E-249 and claim IDs C-201 through C-249."

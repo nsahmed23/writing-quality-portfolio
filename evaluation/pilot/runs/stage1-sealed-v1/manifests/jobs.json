@@ -1,0 +1,207 @@
+{
+  "case_file": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\corpus\\cases.test.jsonl",
+  "case_file_sha256": "e0b2071dae4e383efdeb8ce8e26e657a5978d98ffc324fe196332a98a2e7916f",
+  "corpus_freeze_manifest_sha256": "a583433921a732140b53de300506775fef29a729024909c910d0fe3dde9a2197",
+  "job_count": 36,
+  "jobs": [
+    {
+      "bytes": 37360,
+      "path": "jobs/stage1-anti-ai-slop-writing-run-01.json",
+      "sha256": "99d044e5d708ec7132d7c9c2bc5d17ccd337318b44e702750b417bb51875f08f"
+    },
+    {
+      "bytes": 37360,
+      "path": "jobs/stage1-anti-ai-slop-writing-run-02.json",
+      "sha256": "29a93091f63c5b505026298c23970b2f299d6f241533c0124bf8adb0ee5dc4dc"
+    },
+    {
+      "bytes": 37360,
+      "path": "jobs/stage1-anti-ai-slop-writing-run-03.json",
+      "sha256": "d4c40b24b3d64b124fd233f5874ef5b9c8498d2982e2f2d2928c52a60bfc1883"
+    },
+    {
+      "bytes": 37347,
+      "path": "jobs/stage1-avoid-ai-writing-run-01.json",
+      "sha256": "d7a3d29e77c25519ce607c9c2a23740f5b1399e39191a22d6d08cef6ea4854de"
+    },
+    {
+      "bytes": 37347,
+      "path": "jobs/stage1-avoid-ai-writing-run-02.json",
+      "sha256": "836460d16b8f0d582e90a523584575e72d117b675f4e2337f85f20efea44019a"
+    },
+    {
+      "bytes": 37347,
+      "path": "jobs/stage1-avoid-ai-writing-run-03.json",
+      "sha256": "795d548de27385730a9daabfe6625093e31399629208b82160576a9ac46522be"
+    },
+    {
+      "bytes": 37275,
+      "path": "jobs/stage1-humanizer-run-01.json",
+      "sha256": "0a132c9c08f7bef8361ae4c37776c31e8637b78d8d6bd1244218e9e4dafb9bd4"
+    },
+    {
+      "bytes": 37275,
+      "path": "jobs/stage1-humanizer-run-02.json",
+      "sha256": "4a276466b273f4c4a314c6de6fec5f30a7d8b97e86d3ff514e28cf5560c3bf6f"
+    },
+    {
+      "bytes": 37275,
+      "path": "jobs/stage1-humanizer-run-03.json",
+      "sha256": "4a1fbf868956dae21b7ba9fc186b72f6bc6d959f1332f132dceb2335db603533"
+    },
+    {
+      "bytes": 37331,
+      "path": "jobs/stage1-kami-anti-patterns-run-01.json",
+      "sha256": "46219a3150e0c6f1959a3657d13e68bfa43a03331f53032149f71fca7d33abc5"
+    },
+    {
+      "bytes": 37331,
+      "path": "jobs/stage1-kami-anti-patterns-run-02.json",
+      "sha256": "537e403efaca13b09b4f6bfdfb3187024b49af58a06945cb52e4a416cd3b3e73"
+    },
+    {
+      "bytes": 37331,
+      "path": "jobs/stage1-kami-anti-patterns-run-03.json",
+      "sha256": "5112fce83ef56b429acb39bac3d727bc0cd2b1dd1217149d022d6aea994439ad"
+    },
+    {
+      "bytes": 37310,
+      "path": "jobs/stage1-kami-writing-run-01.json",
+      "sha256": "8d81ae142da2152b783b4816d312c3563aa64eb1247bf3550dce04be5757d571"
+    },
+    {
+      "bytes": 37310,
+      "path": "jobs/stage1-kami-writing-run-02.json",
+      "sha256": "7ec21e2464ecc34e887484f201851e6c7689eb9cc6c90b50aadb4ba9a8aeb3a2"
+    },
+    {
+      "bytes": 37310,
+      "path": "jobs/stage1-kami-writing-run-03.json",
+      "sha256": "c339971b5a6584c811ae807e1126b6caf889018ae3fbfe07fc5d63f0bef4bae2"
+    },
+    {
+      "bytes": 37306,
+      "path": "jobs/stage1-no-ai-slop-run-01.json",
+      "sha256": "a72dfe9ae29ee251d30b856f0046fad1a884d714a72691ced462456787f0501b"
+    },
+    {
+      "bytes": 37306,
+      "path": "jobs/stage1-no-ai-slop-run-02.json",
+      "sha256": "19c0731142d28b0825c9889919869b2e794a7d1f46e2238ce01499ae77bfcbea"
+    },
+    {
+      "bytes": 37306,
+      "path": "jobs/stage1-no-ai-slop-run-03.json",
+      "sha256": "21be8d326516cef9f649b0637dac8097c91bca89cdd4d41098b7058fe82e27c0"
+    },
+    {
+      "bytes": 37333,
+      "path": "jobs/stage1-normalized-union-run-01.json",
+      "sha256": "b749fd1900c2e01f1767821bcdcce9f5b51d6f366652ba7e785564b5cbbc52c2"
+    },
+    {
+      "bytes": 37333,
+      "path": "jobs/stage1-normalized-union-run-02.json",
+      "sha256": "2746dab876c1675ecaab8b9508a84fab1203f63e854f865c6d9875c61fd76b56"
+    },
+    {
+      "bytes": 37333,
+      "path": "jobs/stage1-normalized-union-run-03.json",
+      "sha256": "c3310408cc7711c1cb4fbe06172fc317c953e1a5b690e56066db4472781e76cc"
+    },
+    {
+      "bytes": 39377,
+      "path": "jobs/stage1-portfolio-current-run-01.json",
+      "sha256": "def3eae20acfeeb85cca3cd48168db80e764639836d494e69681a236a5436156"
+    },
+    {
+      "bytes": 39377,
+      "path": "jobs/stage1-portfolio-current-run-02.json",
+      "sha256": "69fc0cb5f498820aa60aeaa8ae9b57517f810b427f725b22be82f2b02bc2e92b"
+    },
+    {
+      "bytes": 39377,
+      "path": "jobs/stage1-portfolio-current-run-03.json",
+      "sha256": "59d0ce24479d06494540cd7044bec1b1e70786f7fb6a5e573fdf3636a54430f2"
+    },
+    {
+      "bytes": 37296,
+      "path": "jobs/stage1-slopbeth-run-01.json",
+      "sha256": "e21e44c13e96e9066ebe6d0ff79fa688fdb2221afe1358fd7c6592c25f681b21"
+    },
+    {
+      "bytes": 37296,
+      "path": "jobs/stage1-slopbeth-run-02.json",
+      "sha256": "0d208d1cfdc0e2423eb8576c83cf91b3122b7d42efc4b21b93140f851a6cd6f5"
+    },
+    {
+      "bytes": 37296,
+      "path": "jobs/stage1-slopbeth-run-03.json",
+      "sha256": "f2d67b1da16cc12fb9a7c6eae8597213d5dff96b9e42a2941bd06c026f715f3f"
+    },
+    {
+      "bytes": 37307,
+      "path": "jobs/stage1-slopgent-run-01.json",
+      "sha256": "f28aca5d776aa1205643aea55057a61ef45e4ca3973a7cf751cf735cbe76ef1f"
+    },
+    {
+      "bytes": 37307,
+      "path": "jobs/stage1-slopgent-run-02.json",
+      "sha256": "f377619b96a0a32fcd2be8161729f105851542ea3ff044a22f66d89ba377cf6c"
+    },
+    {
+      "bytes": 37307,
+      "path": "jobs/stage1-slopgent-run-03.json",
+      "sha256": "33e2e4410df23f425271cf502d38dbcf6d707a01a878f97071b9caa9f633117c"
+    },
+    {
+      "bytes": 37285,
+      "path": "jobs/stage1-soundshuman-run-01.json",
+      "sha256": "18fcd1aa4c758a08a324e6469139fb432a219056c0fa353c6ce915b10f539128"
+    },
+    {
+      "bytes": 37285,
+      "path": "jobs/stage1-soundshuman-run-02.json",
+      "sha256": "b354915b9d8b83679036c12a3ae9e32cd05e9e73bbc94451e2759d11ee69b4b8"
+    },
+    {
+      "bytes": 37285,
+      "path": "jobs/stage1-soundshuman-run-03.json",
+      "sha256": "c64677156fe44064f56f354945497c25b1757133a06ff076e9958cb1381bd1c9"
+    },
+    {
+      "bytes": 37275,
+      "path": "jobs/stage1-stop-slop-run-01.json",
+      "sha256": "76943ac9eb8012e9931ac899255101eb097ea9f40c56ed1a4d39f1a68c8ade68"
+    },
+    {
+      "bytes": 37275,
+      "path": "jobs/stage1-stop-slop-run-02.json",
+      "sha256": "e13f3aaf9f6931ad3cd13355bcd5d8cbbe9bf5de8683d599fc61f47c6e2f74f7"
+    },
+    {
+      "bytes": 37275,
+      "path": "jobs/stage1-stop-slop-run-03.json",
+      "sha256": "faa4513d3b233b6627a4f34cf87d4c86a2a9382b1bcecdbceb2d8c84d632d95f"
+    }
+  ],
+  "mode": "confirmatory",
+  "model": {
+    "exact_model_exposed_to_harness": false,
+    "max_output_tokens": "not_exposed",
+    "override": false,
+    "reasoning_setting": "inherited_no_override",
+    "seed_support": "not_exposed",
+    "selection": "session_inherited",
+    "temperature": "not_exposed",
+    "top_p": "not_exposed"
+  },
+  "prompt_manifest_sha256": "ce6edc80b761ed4deef52bcc388e68216187ab7cb04991ea72309c4754407f27",
+  "random_seed": 20260825,
+  "run_config_sha256": "b23f1e835de9aec4df7d1a2769d07aacb7dcedaaccca005864571d2b9fb0efab",
+  "runs": 3,
+  "schema_version": "1.0",
+  "stage": 1,
+  "systems_manifest_sha256": "232331cd080ecbfc57b80b97d1880ccec562bc318725bfb73fe43f1ad6c63dbc",
+  "thresholds_sha256": "999af2af659efe9be367210b8e7c76d4f31c08032e282b75cff493339bda0ceb"
+}

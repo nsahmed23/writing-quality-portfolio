@@ -1,0 +1,11 @@
+{
+  "stage": "analysis",
+  "status": "complete",
+  "completed_at": "2026-08-25T18:55:27Z",
+  "completed_workstreams": ["WS-001", "WS-002", "WS-003", "WS-004", "WS-005"],
+  "outputs": [
+    "research_run/evidence_register.csv",
+    "research_run/claim_evidence_matrix.csv",
+    "research_run/final_artifacts/coverage-map.md"
+  ]
+}

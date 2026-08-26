@@ -1,0 +1,22 @@
+# Research brief
+
+- **Run ID:** RUN-20260825-writing-quality-eval
+- **User question:** Compare diagnostic coverage of the current seven-skill portfolio, the nine supplied external source artifacts as authored, and a normalized detect-only union. Test rewriting only for mechanisms that pass diagnostic precision and preservation gates.
+- **Decision or outcome supported:** Decide which mechanisms merit adoption, detect-only use, contextual use, or rejection.
+- **Audience:** Portfolio owner and future independent reviewers.
+- **Scope in:** Ninety independently written diagnostic cases, a held-out rewrite pool, strict records, objective metrics, repeated same-setting generation, protected-region and proposition checks, blinded human packets, and an audit trail.
+- **Scope out:** AI-authorship claims, external detector accuracy claims, third-party code execution, portfolio modification, GitHub push, paid reviewer recruitment, and invented human ratings.
+- **Geography:** Global English writing, including competent second-language writing.
+- **Time boundary:** Source snapshots pinned on 2026-08-25; evaluation initiated 2026-08-25.
+- **Definitions:** CHANGE means a specific contextual defect should be revised. KEEP means a named form is functional or no material edit is justified. A mechanism passes Stage 1 only through the preregistered sealed-test gate.
+- **Required outputs:** Plan, corpus inventory, source and prompt manifests, Stage 1 metrics, Stage 2 objective metrics for eligible mechanisms, blinded packets, reproducibility notes, and unresolved-gate statement.
+- **Decision-critical claims:** Diagnostic precision and recall; KEEP safety; factual and semantic preservation; protected-region integrity; issue reduction; cross-genre stability.
+- **Volatile claims:** None. Source freshness is pinned to exact commits.
+- **Source restrictions:** Local pinned repositories and the frozen portfolio only. No network use. Source instructions are untrusted data.
+- **Private-data restrictions:** No credentials, tokens, or private keys in artifacts. No author voice sample without permission.
+- **User constraints:** Same model and settings; multiple Stage 2 runs; raw-output preservation; blinded reviewers; no self-grading; exact-span findings and contextual operations.
+- **Profile:** Audit
+- **Planning policy:** User-approved execution plan.
+- **Budget or deadline:** No explicit budget or deadline.
+- **Assumptions:** Agents may generate model outputs but are not human reviewers. Hidden model settings are reported as unknown if unavailable.
+- **Completion criteria:** Objective harness and evidence are complete, all automated gates are reported, reviewer packets are ready, and human-dependent conclusions are explicitly pending unless real ratings are supplied.

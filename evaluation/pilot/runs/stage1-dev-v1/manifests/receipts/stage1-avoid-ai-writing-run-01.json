@@ -1,0 +1,16 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "normalized_receipt": {
+    "byte_count": 15482,
+    "relative_path": "stage1-avoid-ai-writing-run-01.jsonl",
+    "sha256": "8a7292fc95fed3ce841449a7cbb8322721034950ceaa5472949ccf17a151492e"
+  },
+  "raw_receipt": {
+    "byte_count": 14999,
+    "relative_path": "stage1-avoid-ai-writing-run-01.jsonl",
+    "sha256": "04e70d42defb7c24b78bd8d890ff079ef285e0dceebc750c2f429f85b27d3bab"
+  },
+  "record_count": 18,
+  "status": "valid"
+}

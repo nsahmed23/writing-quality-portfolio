@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "status": "frozen_before_stage1_generation",
+  "candidate_count": 12,
+  "common_envelope_sha256": "228765ea46b0639134ff4abad92fd817ca8b96905b20d096b4fe7572eed2e251",
+  "problem_families": {
+    "path": "taxonomy/problem-families.json",
+    "sha256": "c7cbfb2006d0cc01d3b47e22416cdd3da52fd9d87748ba2b97420b3c18464c9a"
+  },
+  "native_map": {
+    "path": "taxonomy/native-map.json",
+    "sha256": "bee53185a5b86699bc57f0f73e9e7370d582a630dfa0fe8913df5e53cef6caba",
+    "generator_visible": false,
+    "purpose": "evaluator_private_provisional_gold_mapping"
+  },
+  "systems_sha256": "232331cd080ecbfc57b80b97d1880ccec562bc318725bfb73fe43f1ad6c63dbc",
+  "run_config_sha256": "b23f1e835de9aec4df7d1a2769d07aacb7dcedaaccca005864571d2b9fb0efab",
+  "thresholds_sha256": "999af2af659efe9be367210b8e7c76d4f31c08032e282b75cff493339bda0ceb",
+  "corpus_freeze_manifest_sha256": "a583433921a732140b53de300506775fef29a729024909c910d0fe3dde9a2197",
+  "rules": {
+    "source_files_loaded_completely": true,
+    "silent_truncation_allowed": false,
+    "gold_available_to_generator": false,
+    "other_system_outputs_available": false,
+    "review_output_available": false,
+    "native_output_preserved": true,
+    "common_record_repairs_after_sealed_run": false,
+    "unknown_normalized_mapping": "UNMAPPED",
+    "generator_case_projection": "allowlisted_public_fields_only"
+  },
+  "settings_source": "config/run.json",
+  "systems_source": "systems/systems.json"
+}

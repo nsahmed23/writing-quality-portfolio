@@ -1,0 +1,81 @@
+{
+  "dev_cases": 18,
+  "factual_exposures": {
+    "actor": 19,
+    "attribution": 10,
+    "date": 13,
+    "modality": 12,
+    "negation": 11,
+    "number": 18,
+    "quantity": 7
+  },
+  "factual_trap_cases": 47,
+  "keep_control_exposures": {
+    "author_quirk": 7,
+    "em_dash": 8,
+    "fragment": 5,
+    "passive": 8,
+    "repetition": 6,
+    "technical_term": 4,
+    "triad": 9
+  },
+  "normalization_repairs": 635,
+  "operational_definitions": {
+    "factual_trap_case": "features, finding families, native labels, problem names, or proposition types name a registered factual trap",
+    "structured_case": "one or more exact protected regions in provisional gold"
+  },
+  "quota_summary": {
+    "by_author_profile": {
+      "brand_marketer": 13,
+      "domain_expert": 12,
+      "institutional_executive": 19,
+      "personal_author": 12,
+      "reference_editor": 22,
+      "second_language_professional": 12
+    },
+    "by_decision": {
+      "S-001:CHANGE": 5,
+      "S-001:KEEP": 5,
+      "S-002:CHANGE": 5,
+      "S-002:KEEP": 5,
+      "S-003:CHANGE": 5,
+      "S-003:KEEP": 5,
+      "S-004:CHANGE": 5,
+      "S-004:KEEP": 5,
+      "S-005:CHANGE": 5,
+      "S-005:KEEP": 5,
+      "S-006:CHANGE": 5,
+      "S-006:KEEP": 5,
+      "S-007:CHANGE": 5,
+      "S-007:KEEP": 5,
+      "S-008:CHANGE": 5,
+      "S-008:KEEP": 5,
+      "S-009:CHANGE": 5,
+      "S-009:KEEP": 5
+    },
+    "by_genre": {
+      "executive": 18,
+      "marketing": 12,
+      "personal": 12,
+      "reference": 19,
+      "second_language": 12,
+      "technical": 17
+    },
+    "by_source": {
+      "S-001": 10,
+      "S-002": 10,
+      "S-003": 10,
+      "S-004": 10,
+      "S-005": 10,
+      "S-006": 10,
+      "S-007": 10,
+      "S-008": 10,
+      "S-009": 10
+    },
+    "total_cases": 90
+  },
+  "schema_version": "1.0",
+  "status": "PROVISIONAL_GOLD_FROZEN_FOR_GENERATION",
+  "structured_cases": 51,
+  "test_cases": 72
+}

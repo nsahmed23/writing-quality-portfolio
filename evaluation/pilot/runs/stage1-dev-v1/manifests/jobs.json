@@ -1,0 +1,81 @@
+{
+  "case_file": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\corpus\\cases.dev.jsonl",
+  "case_file_sha256": "9c05468c185dc3a8d30b5e5812affc002371ff0eb38e1211eb661cca5c510f14",
+  "job_count": 12,
+  "jobs": [
+    {
+      "bytes": 22557,
+      "path": "jobs/stage1-anti-ai-slop-writing-run-01.json",
+      "sha256": "e0b79ce4b97be4d22b24226f48d91ecb0e037301a8f180b2a4a1e396b31900c0"
+    },
+    {
+      "bytes": 22544,
+      "path": "jobs/stage1-avoid-ai-writing-run-01.json",
+      "sha256": "e62bd5b50391cb036239dea39d7aa82e61777f34a42fdca4c0e7efdcaa456d5c"
+    },
+    {
+      "bytes": 22472,
+      "path": "jobs/stage1-humanizer-run-01.json",
+      "sha256": "e64054df6a58cc055f9e94a0a4aaabe5661e22c1dd5bf23a1c5ddd7d48a382f1"
+    },
+    {
+      "bytes": 22528,
+      "path": "jobs/stage1-kami-anti-patterns-run-01.json",
+      "sha256": "f59feb971803cb32de6ac8c190a58845662271a2bdd597fe7d5baeac2d7e58f3"
+    },
+    {
+      "bytes": 22507,
+      "path": "jobs/stage1-kami-writing-run-01.json",
+      "sha256": "e668c2a035aba12e122d570b879deb22a864318ab67b9f62e994b66b12aec85b"
+    },
+    {
+      "bytes": 22503,
+      "path": "jobs/stage1-no-ai-slop-run-01.json",
+      "sha256": "8e6787d87ded10d9466917f34f0e6056226443252c3464f73315a86ee5aa0966"
+    },
+    {
+      "bytes": 22530,
+      "path": "jobs/stage1-normalized-union-run-01.json",
+      "sha256": "ed7d07d8852bb7b59e0980e8fabf9894c6b77401a0c2bc797b6cbb3a44f45114"
+    },
+    {
+      "bytes": 24574,
+      "path": "jobs/stage1-portfolio-current-run-01.json",
+      "sha256": "48857bb90d9f09287c0eba66aa8a4a642b3060591477deba1b5c2eac5b239091"
+    },
+    {
+      "bytes": 22493,
+      "path": "jobs/stage1-slopbeth-run-01.json",
+      "sha256": "1a7ca6787a31019df00b1721f53b2964dad70494c04592ba304f1f1fce906df0"
+    },
+    {
+      "bytes": 22504,
+      "path": "jobs/stage1-slopgent-run-01.json",
+      "sha256": "4b06923850a2a9292bc7920fb7779a6c8529f41938df060d37ff894d3d0ff756"
+    },
+    {
+      "bytes": 22482,
+      "path": "jobs/stage1-soundshuman-run-01.json",
+      "sha256": "6b955d2d50a3fef2f0d40d6e5ec92238cb22229ea0890f61775e31c27760d5c6"
+    },
+    {
+      "bytes": 22472,
+      "path": "jobs/stage1-stop-slop-run-01.json",
+      "sha256": "d9e0582d323f35157f72b4eda151b84faf4b92cf339cdb81e972713f7bdd322a"
+    }
+  ],
+  "model": {
+    "exact_model_exposed_to_harness": false,
+    "max_output_tokens": "not_exposed",
+    "override": false,
+    "reasoning_setting": "inherited_no_override",
+    "seed_support": "not_exposed",
+    "selection": "session_inherited",
+    "temperature": "not_exposed",
+    "top_p": "not_exposed"
+  },
+  "random_seed": 20260825,
+  "runs": 1,
+  "schema_version": "1.0",
+  "stage": 1
+}

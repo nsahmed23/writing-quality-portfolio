@@ -1,0 +1,87 @@
+{
+  "case_file": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\corpus\\cases.dev.jsonl",
+  "case_file_sha256": "11323ede63bc6b48b54028e7525cfccb101fc0b4b669144aba1163feca404bde",
+  "corpus_freeze_manifest_sha256": "a583433921a732140b53de300506775fef29a729024909c910d0fe3dde9a2197",
+  "job_count": 12,
+  "jobs": [
+    {
+      "bytes": 10746,
+      "path": "jobs/stage1-anti-ai-slop-writing-run-01.json",
+      "sha256": "eb986e5b658decac8167c611e2937bebf3562f2531bf167d0b345c6f82f7ade3"
+    },
+    {
+      "bytes": 10733,
+      "path": "jobs/stage1-avoid-ai-writing-run-01.json",
+      "sha256": "6505206edb283c17daa6848559c581b5dd8d6542ceed6b12ce8d56ecfa03f298"
+    },
+    {
+      "bytes": 10661,
+      "path": "jobs/stage1-humanizer-run-01.json",
+      "sha256": "cd1503d7ab6a96a61babc6aa46fde7f8364862ca0c8e75d4adc5d6c99b925dd2"
+    },
+    {
+      "bytes": 10717,
+      "path": "jobs/stage1-kami-anti-patterns-run-01.json",
+      "sha256": "125af1137afcd8e68bdb0cbc8a3f573c43d5ecda1b44994b6b2f8965c9e6ec64"
+    },
+    {
+      "bytes": 10696,
+      "path": "jobs/stage1-kami-writing-run-01.json",
+      "sha256": "9aa163f7ef79238974fe952046547fe8061c00c1afb56f91000d46dd59cfe89f"
+    },
+    {
+      "bytes": 10692,
+      "path": "jobs/stage1-no-ai-slop-run-01.json",
+      "sha256": "581980dbba4a841ec1a445941d73b88edaa8020edc1a22c355bc7ef8915c9e44"
+    },
+    {
+      "bytes": 10719,
+      "path": "jobs/stage1-normalized-union-run-01.json",
+      "sha256": "0edba23b342e3debfd115be22c870fe08ed1a30f5d97440ca74ca23e6aea9b0c"
+    },
+    {
+      "bytes": 12763,
+      "path": "jobs/stage1-portfolio-current-run-01.json",
+      "sha256": "90ca3fab2727b4db27bcc914942581dfc414be8ee7d9e182f7f9751d87ba3b7a"
+    },
+    {
+      "bytes": 10682,
+      "path": "jobs/stage1-slopbeth-run-01.json",
+      "sha256": "6c26526431c1b1ac4a93a3277b0c34228f3b52c4cf6a2ca9800d9a75eff76c30"
+    },
+    {
+      "bytes": 10693,
+      "path": "jobs/stage1-slopgent-run-01.json",
+      "sha256": "9e6ec479ddf582f8099f8a5af705e9772eb8de0b95d7af1eec79dacdbc23efcb"
+    },
+    {
+      "bytes": 10671,
+      "path": "jobs/stage1-soundshuman-run-01.json",
+      "sha256": "71d4963343d22daf9e60f58ae1fa96693e1be900b45daec8f152ebd2c7bd3f5e"
+    },
+    {
+      "bytes": 10661,
+      "path": "jobs/stage1-stop-slop-run-01.json",
+      "sha256": "9166e8fca5e4592c7ac4253f7b25fb25177b298e3b6de9167a4aab08bb24294e"
+    }
+  ],
+  "mode": "development",
+  "model": {
+    "exact_model_exposed_to_harness": false,
+    "max_output_tokens": "not_exposed",
+    "override": false,
+    "reasoning_setting": "inherited_no_override",
+    "seed_support": "not_exposed",
+    "selection": "session_inherited",
+    "temperature": "not_exposed",
+    "top_p": "not_exposed"
+  },
+  "prompt_manifest_sha256": "ce6edc80b761ed4deef52bcc388e68216187ab7cb04991ea72309c4754407f27",
+  "random_seed": 20260825,
+  "run_config_sha256": "b23f1e835de9aec4df7d1a2769d07aacb7dcedaaccca005864571d2b9fb0efab",
+  "runs": 1,
+  "schema_version": "1.0",
+  "stage": 1,
+  "systems_manifest_sha256": "232331cd080ecbfc57b80b97d1880ccec562bc318725bfb73fe43f1ad6c63dbc",
+  "thresholds_sha256": "999af2af659efe9be367210b8e7c76d4f31c08032e282b75cff493339bda0ceb"
+}

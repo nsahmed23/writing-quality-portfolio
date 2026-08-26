@@ -27,6 +27,7 @@ There is no `elements-of-style` or generic `writing-editor` skill.
 - `negative-control/strunk-white-exclusion-dossier.md` — rule-level exclusion.
 - `defect-and-change-report.md` — baseline audit, semantic diff, change IDs, consequences, tests, and residual uncertainty.
 - `MANIFEST.sha256` — integrity hashes for every other packaged file.
+- [`evaluation/`](evaluation/): full nine-source investigation, Stage 1 evaluator and pilot evidence, benchmark-validity erratum, reoptimization proposal, and independent Claude Code review handoff.
 
 ## Completeness label
 

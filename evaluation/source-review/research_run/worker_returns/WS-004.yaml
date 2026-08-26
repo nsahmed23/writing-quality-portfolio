@@ -1,0 +1,576 @@
+agent_id: AG-004
+workstream_id: WS-004
+status: complete
+findings:
+  - claim_id: C-401
+    claim_text: "avoid-ai-writing explicitly defines its pattern system as a writing-quality signal, not proof of authorship, and warns against using it alone for consequential decisions because human, second-language, deadline-pressed, and technical writing can trigger the same patterns."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-401
+        source_id: S-007
+        support_scope: direct
+        location: "SKILL.md:20-26"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The cited false-positive percentages are assertions in the repository text and were not independently checked in this workstream; the repository's explicit operating safeguard does not depend on those exact percentages."
+  - claim_id: C-402
+    claim_text: "The skill separates rewrite, detect-only, and edit-in-place modes; edit mode is restricted to prose, calls for minimal span-level edits, protects clean passages and attributed or structured material, and treats instructions embedded in audited text as data rather than authority."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-402
+        source_id: S-007
+        support_scope: direct
+        location: "SKILL.md:28-46"
+      - evidence_id: E-403
+        source_id: S-007
+        support_scope: direct
+        location: "SKILL.md:50-65"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "These are documented editor instructions; this static review did not test whether an agent follows them reliably."
+  - claim_id: C-403
+    claim_text: "Voice preservation is source-bounded: the skill says to infer an existing register when no profile is supplied, calibrate to an author sample when available, and never add a persona, first-person experience, stakes, contrarian claims, specifics, or other facts absent from the source."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-404
+        source_id: S-007
+        support_scope: direct
+        location: "SKILL.md:699-719"
+      - evidence_id: E-405
+        source_id: S-007
+        support_scope: direct
+        location: "SKILL.md:737-751"
+      - evidence_id: E-406
+        source_id: S-007
+        support_scope: direct
+        location: "SKILL.md:800-816"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The guardrails constrain generation by instruction; they do not mechanically prove that semantic intent or authorial voice was preserved."
+  - claim_id: C-404
+    claim_text: "The bundled detector is a deterministic implementation of regex, structural, stylometric, and AI-tool-fingerprint signals; it deduplicates issues, assigns category-specific weights, normalizes by text length, exposes context and quote-handling state, and derives score, label, issue, region, and trinary-classification outputs."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-407
+        source_id: S-007
+        support_scope: direct
+        location: "detector/patterns.js:1-24"
+      - evidence_id: E-408
+        source_id: S-007
+        support_scope: direct
+        location: "detector/patterns.js:268-349"
+      - evidence_id: E-409
+        source_id: S-007
+        support_scope: direct
+        location: "detector/patterns.js:1117-1179"
+      - evidence_id: E-410
+        source_id: S-007
+        support_scope: direct
+        location: "detector/patterns.js:1795-1881"
+      - evidence_id: E-411
+        source_id: S-007
+        support_scope: direct
+        location: "detector/patterns.js:1999-2079"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The implementation proves what the local code computes, not that the score or trinary labels are calibrated measures of authorship."
+  - claim_id: C-405
+    claim_text: "The preservation validator hard-fails changes to fenced code, frontmatter, blockquotes, tables, inline code, URLs, paths, heading count or nesting, and increased residual-pattern counts; missing numbers and large shrinkage are warnings rather than blocking errors, and fixtures cover both destructive changes and allowed carve-outs."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-412
+        source_id: S-007
+        support_scope: direct
+        location: "detector/validate.js:175-290"
+      - evidence_id: E-413
+        source_id: S-007
+        support_scope: direct
+        location: "detector/validate.test.js:36-107"
+      - evidence_id: E-414
+        source_id: S-007
+        support_scope: direct
+        location: "detector/validate.test.js:109-198"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The validator checks selected structural invariants and missing-token classes; it does not establish full semantic equivalence, factual correctness, or voice fidelity."
+  - claim_id: C-406
+    claim_text: "The repository's own documented corpus evaluation reports weak authorship separation, including paragraph-level ROC-AUC 0.501 and document-level ROC-AUC 0.623, says no useful threshold was found, reports lexical Tier 1 lift below one and an inverted em-dash signal, and limits the results because the machine corpora predate 2025 and fail its release-ready register test."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-415
+        source_id: S-007
+        support_scope: direct
+        location: "corpus/README.md:114-145"
+      - evidence_id: E-416
+        source_id: S-007
+        support_scope: direct
+        location: "corpus/README.md:147-177"
+      - evidence_id: E-417
+        source_id: S-007
+        support_scope: direct
+        location: "corpus/README.md:194-212"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "These are repository-reported results, not a reproduced evaluation in this workstream; they address authorship discrimination rather than whether individual edits improve prose."
+  - claim_id: C-407
+    claim_text: "The snapshot defines five local test suites and includes executable anti-drift checks that require every detector type to appear in the category map and every mapped type to exist in code; this workstream inspected but did not execute those tests."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-418
+        source_id: S-007
+        support_scope: direct
+        location: "package.json:18-25"
+      - evidence_id: E-419
+        source_id: S-007
+        support_scope: direct
+        location: "detector/categories.test.js:1-11"
+      - evidence_id: E-420
+        source_id: S-007
+        support_scope: direct
+        location: "detector/categories.test.js:50-67"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "Static presence of tests and assertions does not show that the pinned snapshot currently passes them."
+  - claim_id: C-408
+    claim_text: "avoid-ai-writing is MIT-licensed, permitting use, modification, publication, distribution, sublicensing, and sale when the copyright and permission notice are retained; it carries the standard as-is warranty disclaimer, and the repository intentionally does not bundle or claim verified compliance with paywalled style guides."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-421
+        source_id: S-007
+        support_scope: direct
+        location: "LICENSE:1-20"
+      - evidence_id: E-422
+        source_id: S-007
+        support_scope: direct
+        location: "README.md:407-438"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "This records repository license text and its own guide-bundling policy, not legal advice about every upstream influence named in credits."
+  - claim_id: C-409
+    claim_text: "Kami's writing reference prioritizes numeric evidence, distinct phrasing, honest scope and attribution, source verification before time-sensitive claims, explicit conflict reporting, precision matched to evidence, and marked gaps instead of invented facts or imagery."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-423
+        source_id: S-009
+        support_scope: direct
+        location: "references/writing.md:9-52"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "These are prescriptive project rules; the scoped files do not supply outcome tests showing that following them improves writing quality."
+  - claim_id: C-410
+    claim_text: "Kami's anti-pattern reference operationalizes factuality and privacy risks by requiring source-matched precision, named comparison baselines, explicit time windows, verified versions and platforms, sanitized demo data, synchronized public fact surfaces, and dated or dynamically fetched counts."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-424
+        source_id: S-008
+        support_scope: direct
+        location: "references/anti-patterns.md:15-23"
+      - evidence_id: E-425
+        source_id: S-008
+        support_scope: direct
+        location: "references/anti-patterns.md:44-52"
+      - evidence_id: E-426
+        source_id: S-008
+        support_scope: direct
+        location: "references/anti-patterns.md:75-86"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The table supplies failure examples and remedies, not evidence that automated checks enforce each remedy."
+  - claim_id: C-411
+    claim_text: "Kami's portfolio guidance specifies a case-study structure, requires stated role, challenge, outcome, decision points, tradeoffs, exact ownership, measured resolution, and real imagery or an explicit material gap; its quantification pressure must be read together with the nonfabrication rules."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-427
+        source_id: S-009
+        support_scope: direct
+        location: "references/writing.md:119-137"
+      - evidence_id: E-428
+        source_id: S-009
+        support_scope: direct
+        location: "references/writing.md:235-252"
+      - evidence_id: E-423
+        source_id: S-009
+        support_scope: direct
+        location: "references/writing.md:30-42"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The requirement that every project outcome be quantifiable can invite fabricated precision unless the honest-boundary and source-first constraints control."
+  - claim_id: C-412
+    claim_text: "Kami adds a human pre-ship checklist for jargon, claim-bearing paragraph openings, number and current-fact verification, missing materials, formatting consistency, AI clichés, term re-annotation, and native-reader localization with reported rewrite counts."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-429
+        source_id: S-009
+        support_scope: direct
+        location: "references/writing.md:447-465"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The scoped Kami references state the checklist but do not include an executable test harness for it."
+contradictions:
+  - contradiction_id: CTR-401
+    claim_ids: [C-401, C-404, C-406]
+    source_ids: [S-007]
+    nature: "The prose disclaims authorship proof and the bundled corpus reports weak separation, but the public detector API still emits categorical HUMAN_ONLY, MIXED, and AI_ONLY labels plus probability-shaped values."
+    possible_explanation: "The labels are retained for integration compatibility and are intended as heuristic UI output rather than validated authorship probabilities."
+    resolution_attempts: "Compared SKILL.md caveats, detector implementation thresholds, and the repository's corpus limitations within the pinned snapshot."
+    current_verdict: "Unresolved product-language tension. Treat the trinary output as an uncalibrated heuristic and never as an authorship verdict."
+    confidence: high
+    remaining_uncertainty: "No current independent evaluation was allowed, and the pinned snapshot's tests were not executed."
+    effect_on_conclusion: "Any recommendation should separate writing-assistance value from authorship-detection claims and should avoid exposing categorical labels without the caveat."
+    status: open
+    notes: "The code itself says the soft probabilities are not calibrated against a labeled corpus at detector/patterns.js:2051-2055."
+unknowns:
+  - unknown_id: U-401
+    description: "Whether the pinned avoid-ai-writing test suite passes in the current environment."
+    why_it_matters: "Static test presence does not establish a green build or functioning validator."
+    research_attempted: "Inspected package scripts and representative detector, category-contract, preservation, corpus, and style-check test files."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: false
+    recommended_next_step: "Run the repository's local test command in a separately authorized execution workstream."
+    effect_on_conclusion: "Mechanisms and fixtures are documented, but operational readiness is not observed."
+    status: open
+  - unknown_id: U-402
+    description: "Current false-positive and true-positive behavior against 2026 models and current target registers."
+    why_it_matters: "The repository says its machine corpora predate 2025 and that register coverage fails its own public-claim gate."
+    research_attempted: "Inspected the local human-control corpus design, results, and limitations only."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Use current, provenance-controlled human and machine samples across target registers, publish denominators and confidence intervals, and keep writing-quality evaluation separate from authorship classification."
+    effect_on_conclusion: "No current effectiveness claim is supported."
+    status: open
+  - unknown_id: U-403
+    description: "Whether the rewrite instructions preserve author voice, factual meaning, and uncertainty in practice."
+    why_it_matters: "The strongest voice and factuality protections are model instructions, while the validator checks only selected structural and token-preservation invariants."
+    research_attempted: "Inspected voice profiles, never-inject rules, output contract, validator implementation, and validator fixtures."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Evaluate paired rewrites with author-authenticated voice samples and a proposition-level semantic preservation rubric."
+    effect_on_conclusion: "The safeguards are concrete but their practical benefit remains inferred rather than observed."
+    status: open
+  - unknown_id: U-404
+    description: "The reuse license governing Kami's two scoped reference files."
+    why_it_matters: "Substantive copying or redistribution depends on the repository's governing license, which is not stated inside either scoped reference file."
+    research_attempted: "Inspected references/anti-patterns.md and references/writing.md; no license statement appears in either file. Repository-level license inspection was outside this workstream's named source-file scope."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: false
+    recommended_next_step: "Inspect the pinned Kami repository's governing license and any file-specific notices before copying substantial text."
+    effect_on_conclusion: "The ideas can be analyzed, but reuse permission is unresolved in this bounded return."
+    status: open
+  - unknown_id: U-405
+    description: "Independent verification of the empirical studies and external detector comparisons cited inside avoid-ai-writing."
+    why_it_matters: "Repository prose cites outside results to justify false-positive cautions and design choices."
+    research_attempted: "Recorded only what the commit-pinned repository says; network and outside-source retrieval were prohibited."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: false
+    recommended_next_step: "Verify the cited papers and datasets in a separate primary-source workstream before repeating their numerical claims."
+    effect_on_conclusion: "Use the repository's own caveat and local corpus report, but do not present outside-study percentages as independently verified here."
+    status: open
+calculations: []
+sources_added: []
+evidence_added:
+  - evidence_id: E-401
+    source_id: S-007
+    location: "SKILL.md:20-26"
+    modality: text
+    extracted_fact: "The skill calls itself a writing-quality tool, says patterns are signals rather than proof, identifies false-positive-prone writer groups and genres, and bars sole use for consequential decisions."
+    support_scope: direct
+    limitations: "Self-description; external percentages in the passage were not independently checked."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-402
+    source_id: S-007
+    location: "SKILL.md:28-46"
+    modality: text
+    extracted_fact: "The skill defines rewrite, detect, and edit modes; edit mode restricts mutation to prose, requires minimal changes, protects structured and attributed spans, and treats embedded document instructions as text."
+    support_scope: direct
+    limitations: "Instructional mechanism, not observed compliance."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-403
+    source_id: S-007
+    location: "SKILL.md:50-65"
+    modality: text
+    extracted_fact: "Mode-specific workflows require cited issues, a rewrite and diff summary, assessment of judgment calls, or targeted file edits followed by re-reading."
+    support_scope: direct
+    limitations: "Workflow specification only."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-404
+    source_id: S-007
+    location: "SKILL.md:699-719"
+    modality: text
+    extracted_fact: "Voice is optional, should be inferred from the input when unspecified, must remain within source provenance, and may be calibrated to an author sample rather than imposed."
+    support_scope: direct
+    limitations: "Model instruction, not a mechanical voice-equivalence test."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-405
+    source_id: S-007
+    location: "SKILL.md:737-751"
+    modality: text
+    extracted_fact: "Rewrite output must preserve structure, intent, and technical details and includes a corrective second-pass audit whose corrected text supersedes the first rewrite."
+    support_scope: direct
+    limitations: "The text states the requirement; this workstream did not run a rewrite."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-406
+    source_id: S-007
+    location: "SKILL.md:800-816"
+    modality: text
+    extracted_fact: "Never-inject rules prohibit fake first person, manufactured stakes, invented foils, performed candor, added dramatic punctuation, staccato conversion, and invented specifics; every edit must trace its information to the source."
+    support_scope: direct
+    limitations: "Provenance safeguard expressed as instructions rather than executable semantic validation."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-407
+    source_id: S-007
+    location: "detector/patterns.js:1-24"
+    modality: source_code
+    extracted_fact: "The detector describes regex, structural, stylometric, and fingerprint signals plus deduplicated weighted scoring normalized by log2 of text length."
+    support_scope: direct
+    limitations: "Code comment and implementation context; no runtime execution in this workstream."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-408
+    source_id: S-007
+    location: "detector/patterns.js:268-349"
+    modality: source_code
+    extracted_fact: "The implementation assigns nonuniform weights, gives copyedit-only unnecessary hyphenation zero authorship-score weight, and documents why fingerprints and structural clusters weigh more heavily."
+    support_scope: direct
+    limitations: "Weights are design choices, not empirically validated here."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-409
+    source_id: S-007
+    location: "detector/patterns.js:1117-1179"
+    modality: source_code
+    extracted_fact: "analyzeText validates context modes, strips multi-line blockquotes before scoring, records fallback and quote state, and returns UNSCORED for texts below 10 or above 10,000 words."
+    support_scope: direct
+    limitations: "Static code inspection only."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-410
+    source_id: S-007
+    location: "detector/patterns.js:1795-1881"
+    modality: source_code
+    extracted_fact: "The detector scores deduplicated visible issues, applies a length factor, builds sentence regions, computes a dense-vocabulary corroborator, and returns legacy plus trinary-classification fields."
+    support_scope: direct
+    limitations: "Static code inspection only."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-411
+    source_id: S-007
+    location: "detector/patterns.js:1999-2079"
+    modality: source_code
+    extracted_fact: "The trinary classifier uses explicit strong and weak corroborators and thresholds; its probability-shaped values are explicitly described as not calibrated against a labeled corpus."
+    support_scope: direct
+    limitations: "The comment still references a corpus TODO despite the repository's later corpus documentation, indicating possible documentation drift."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-412
+    source_id: S-007
+    location: "detector/validate.js:175-290"
+    modality: source_code
+    extracted_fact: "The validator enforces protected Markdown and reference structures, warns on missing figures and large shrinkage, and errors if a rewrite increases the issue count."
+    support_scope: direct
+    limitations: "Selected invariants do not prove semantic equivalence or factual accuracy."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-413
+    source_id: S-007
+    location: "detector/validate.test.js:36-107"
+    modality: source_code
+    extracted_fact: "Fixtures assert failures for altered or removed code, quotes, tables, inline code, URLs, paths, headings, and frontmatter."
+    support_scope: direct
+    limitations: "Test definitions were inspected but not executed."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-414
+    source_id: S-007
+    location: "detector/validate.test.js:109-198"
+    modality: source_code
+    extracted_fact: "Fixtures allow documented URL, heading, table-alignment, and prose edits; they also expect warnings for lost numbers and shrinkage and an error for added AI patterns."
+    support_scope: direct
+    limitations: "Test definitions were inspected but not executed."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-415
+    source_id: S-007
+    location: "corpus/README.md:114-145"
+    modality: text
+    extracted_fact: "The repository reports 875 human and 779 machine paragraphs, paragraph ROC-AUC 0.501, document ROC-AUC 0.623, no useful threshold, and a compressed score range caused by its length normalization."
+    support_scope: direct
+    limitations: "Repository-reported analysis was not reproduced; quality-of-edit outcomes were not measured."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-416
+    source_id: S-007
+    location: "corpus/README.md:147-177"
+    modality: text
+    extracted_fact: "The repository reports that structural uniformity had the highest lift, Tier 1 vocabulary lift was 0.9, and em-dash presence was more common in its human documents than machine documents."
+    support_scope: direct
+    limitations: "Results are bounded to the repository's selected corpora and were not reproduced here."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-417
+    source_id: S-007
+    location: "corpus/README.md:194-212"
+    modality: text
+    extracted_fact: "The corpus contains no current model, lacks the target modern register mix, and fails the repository's own multi-register gate for public claims."
+    support_scope: direct
+    limitations: "Repository self-assessment."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-418
+    source_id: S-007
+    location: "package.json:18-25"
+    modality: source_code
+    extracted_fact: "The test script names detector pattern, category-map, preservation, corpus-helper, and style-check suites; separate scripts cover self-scan and corpus operations."
+    support_scope: direct
+    limitations: "Script declarations do not prove successful execution."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-419
+    source_id: S-007
+    location: "detector/categories.test.js:1-11"
+    modality: source_code
+    extracted_fact: "The category contract intends to fail when a detector type lacks documentation or a documented type no longer exists."
+    support_scope: direct
+    limitations: "Test definition inspected, not executed."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-420
+    source_id: S-007
+    location: "detector/categories.test.js:50-67"
+    modality: source_code
+    extracted_fact: "Assertions compare actual detector keys to mapped category keys in both directions."
+    support_scope: direct
+    limitations: "Test definition inspected, not executed."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-421
+    source_id: S-007
+    location: "LICENSE:1-20"
+    modality: text
+    extracted_fact: "The MIT license grants broad reuse rights subject to retaining the copyright and permission notice and disclaims warranties and liability."
+    support_scope: direct
+    limitations: "License text only; not legal advice."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-422
+    source_id: S-007
+    location: "README.md:407-438"
+    modality: text
+    extracted_fact: "The repository separates de-AI rewriting from formal style-guide enforcement, bundles no paywalled guide implementation, and disclaims compliance when falling back to model knowledge."
+    support_scope: direct
+    limitations: "Repository policy; upstream guide and Vale-package licenses were not independently audited."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-423
+    source_id: S-009
+    location: "references/writing.md:9-52"
+    modality: text
+    extracted_fact: "Kami prioritizes data, judgment, distinct phrasing, honest claims, attribution, source verification, conflict disclosure, evidence-matched precision, and marked material gaps."
+    support_scope: direct
+    limitations: "Prescriptive reference without outcome evaluation."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-424
+    source_id: S-008
+    location: "references/anti-patterns.md:15-23"
+    modality: text
+    extracted_fact: "Kami flags unsupported precision, narrative-chart mismatch, unnamed benchmarks, and mixed time periods, prescribing source-matched precision and explicit comparison windows."
+    support_scope: direct
+    limitations: "Prescriptive examples, not observed enforcement."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-425
+    source_id: S-008
+    location: "references/anti-patterns.md:44-52"
+    modality: text
+    extracted_fact: "Kami flags unverified versions, undated latest claims, unsupported market leadership, assumed platform availability, and identity-bearing demo material."
+    support_scope: direct
+    limitations: "Prescriptive examples, not observed enforcement."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-426
+    source_id: S-008
+    location: "references/anti-patterns.md:75-86"
+    modality: text
+    extracted_fact: "Kami requires placeholders instead of real product data in templates, generated-output drift checks, synchronized public fact surfaces and locales, stable local assets, and dated or dynamically fetched counts."
+    support_scope: direct
+    limitations: "Prescriptive examples, not observed enforcement."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-427
+    source_id: S-009
+    location: "references/writing.md:119-137"
+    modality: text
+    extracted_fact: "Kami's portfolio structure includes role, challenge, outcome, images, and a rule that outcomes be quantifiable while missing images remain explicit gaps."
+    support_scope: direct
+    limitations: "The quantification rule is safe only when paired with the document's nonfabrication constraints."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-428
+    source_id: S-009
+    location: "references/writing.md:235-252"
+    modality: text
+    extracted_fact: "Kami's portfolio quality bar calls for problem-and-stakes openings, explicit decisions and tradeoffs, layered outcomes, exact ownership, depth over breadth, measured closure, and real or explicitly missing visuals."
+    support_scope: direct
+    limitations: "Prescriptive reference without outcome evaluation."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+  - evidence_id: E-429
+    source_id: S-009
+    location: "references/writing.md:447-465"
+    modality: text
+    extracted_fact: "Kami's pre-ship checklist covers jargon, paragraph claims, numeric and current-fact sources, missing materials, formatting, AI clichés, terminology half-life, and native-reader localization reporting."
+    support_scope: direct
+    limitations: "Manual checklist in the scoped reference; no test harness inspected."
+    extracted_by: AG-004
+    extracted_at: "2026-08-25T14:41:44-04:00"
+    verification_status: passed
+targeted_followups:
+  - "Run the pinned avoid-ai-writing test suite only in a separately authorized execution lane, and retain raw output."
+  - "Evaluate current-model and current-register false positives independently; do not reuse the repository's trinary labels as ground truth."
+  - "Test paired rewrites against an author-authenticated voice sample and a proposition-level semantic preservation ledger."
+  - "Inspect the pinned Kami repository's governing license before copying substantial text from either reference."
+  - "Audit whether Kami's manual factuality, localization, and cross-surface consistency checks have executable enforcement elsewhere in the pinned repository."
+limitations:
+  - "Local static inspection only; no network access, dependency installation, repository-code execution, or test execution."
+  - "Only S-007 and the two named Kami reference files S-008 and S-009 were treated as research sources."
+  - "All quality benefits remain unevaluated unless the source directly reports a bounded self-test; repository self-reports were not upgraded to observed or reproduced evidence."
+  - "External studies, datasets, issue discussions, and upstream style-guide licenses named by the repositories were not independently verified."

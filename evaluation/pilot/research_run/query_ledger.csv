@@ -1,0 +1,1 @@
+query_id,workstream_id,agent_id,query_text,tool,queried_at,purpose,results_returned,sources_opened,useful_source_ids,rejected_source_ids,new_claim_ids,followup_generated,research_state,notes

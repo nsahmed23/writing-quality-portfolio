@@ -1,0 +1,18 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "job_sha256": "e21e44c13e96e9066ebe6d0ff79fa688fdb2221afe1358fd7c6592c25f681b21",
+  "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+  "normalized_receipt": {
+    "byte_count": 54624,
+    "relative_path": "stage1-slopbeth-run-01.jsonl",
+    "sha256": "2b8b49dd8f69a6bd5efea38058548514aea5daedc3d427d25a818892d51859f0"
+  },
+  "raw_receipt": {
+    "byte_count": 53706,
+    "relative_path": "stage1-slopbeth-run-01.jsonl",
+    "sha256": "227857a242692aff4a0aa09eb28c8ea5726dbb1c7aa6fbcd44fc8f36d742e963"
+  },
+  "record_count": 72,
+  "status": "valid"
+}

@@ -1,0 +1,30 @@
+agent_id: AG-006
+workstream_id: WS-006
+role: independent-evidence-auditor
+assignment_mode: replication
+overlap_with_workstream_ids: [WS-001, WS-002, WS-003, WS-004, WS-005]
+replication_rationale: "A fresh reviewer must verify material claim support, link accuracy, and artifact quality before delivery."
+do_not_repeat_query_ids: [Q-001, Q-002, Q-003, Q-004, Q-005]
+do_not_repeat_source_ids: []
+recovery_of_agent_id: ""
+objective: "Audit the draft report against commit-pinned sources and canonical registers; identify unsupported, overstated, miscited, or generic claims and exact fixes."
+scope_in:
+  - "research_run/final_artifacts/report.md"
+  - "research_run/final_artifacts/coverage-map.md"
+  - "research_run source evidence claim contradiction unknown and calculation registers"
+  - "local pinned source snapshots S-001 through S-010"
+scope_out:
+  - "Network access"
+  - "Executing repository code or installing dependencies"
+  - "Editing the report or portfolio"
+  - "Adding new recommendations unrelated to existing evidence"
+known_claim_ids: [C-001, C-002, C-003, C-004, C-005, C-006, C-007, C-008, C-009, C-010, C-011, C-012]
+required_source_classes: [P1, P2]
+allowed_capabilities: [local-read-only-shell, apply-patch-for-assigned-return]
+required_outputs: [sources, evidence, claims, contradictions, unknowns, calculations, targeted_followups]
+completion_criteria:
+  - "Verify every hidden claim marker maps to the claim-evidence matrix."
+  - "Verify every reader-facing GitHub link path and line range against the local pinned source."
+  - "Check direct versus inferred language, self-report labels, source lineage, license wording, and unknowns."
+  - "Apply the anti-ai-slop artifact standard to the report: specific audience and job, evidence-matched claims, no filler, no fake metrics, no generic recommendations, and bounded action owners."
+  - "Return PASS or actionable exact corrections in valid worker-return YAML at worker_returns/WS-006.yaml."

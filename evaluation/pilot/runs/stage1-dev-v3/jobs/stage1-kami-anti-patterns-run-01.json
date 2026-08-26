@@ -1,0 +1,261 @@
+{
+  "cases": [
+    {
+      "artifact_type": "security_documentation",
+      "author_profile": "second_language_professional",
+      "author_type": "second_language_security_engineer",
+      "case_id": "S005-006",
+      "genre": "second_language",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "In our team, requests are rejected when the nonce is older than 90 seconds, although clocks may differ by up to 4 seconds. We log the key ID, never the token. I say “never the token” exactly because new operators remember this line."
+    },
+    {
+      "artifact_type": "encyclopedic_paragraph",
+      "author_profile": "reference_editor",
+      "author_type": "reference_editor",
+      "case_id": "WQ-S001-001",
+      "genre": "reference",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "The lab opened on 14 March 2019, marking a pivotal moment in municipal water testing. It runs nitrate tests every Tuesday."
+    },
+    {
+      "artifact_type": "resume_bullet",
+      "author_profile": "personal_author",
+      "author_type": "finance_engineer",
+      "case_id": "S009-006",
+      "genre": "personal",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "Reduced invoice reconciliation from 9 hours to 2 by redesigning the matching queue for a six-person finance team, allowing month-end close to finish one day earlier."
+    },
+    {
+      "artifact_type": "board_update",
+      "author_profile": "institutional_executive",
+      "author_type": "executive",
+      "case_id": "WQ-S002-001",
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "Let me be clear: the board deferred the vote from 3 May to 17 May because counsel had not filed the exhibits."
+    },
+    {
+      "artifact_type": "methods_section",
+      "author_profile": "domain_expert",
+      "author_type": "clinical_researcher",
+      "case_id": "WQ-S002-006",
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "The samples were randomized before the analysts saw the group labels; allocation remained concealed until the database was locked."
+    },
+    {
+      "artifact_type": "one_pager",
+      "author_profile": "institutional_executive",
+      "author_type": "operations_director",
+      "case_id": "S009-001",
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "## Operations brief\nIn a rapidly changing environment, teams must continuously adapt to new realities. The queue now delays approvals by 11 days, and the director must choose whether to add a reviewer by October 1."
+    },
+    {
+      "artifact_type": "profile_copy",
+      "author_profile": "brand_marketer",
+      "author_type": "community_organizer",
+      "case_id": "S004-001",
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "Opened in 2018, North Loop Repair Café stands as a pivotal beacon in the evolving landscape of circular living. Its founder still describes Saturdays as “the useful mess—screws everywhere.”"
+    },
+    {
+      "artifact_type": "impact_update",
+      "author_profile": "brand_marketer",
+      "author_type": "communications_writer",
+      "case_id": "WQ-S003-001",
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "We are committed to delivering exceptional solutions that create meaningful outcomes. On 6 August, the support team reduced median wait time from 19 minutes to 11 minutes."
+    },
+    {
+      "artifact_type": "migration_guide",
+      "author_profile": "domain_expert",
+      "author_type": "platform_engineer",
+      "case_id": "S007-001",
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "### Migration note\nThe move to v4.1 is not merely an upgrade; it is a transformative leap for every team. Run `atlas migrate --dry-run` first. The command may report two legacy indexes on clusters created before v4.1."
+    },
+    {
+      "artifact_type": "personal_essay",
+      "author_profile": "personal_author",
+      "author_type": "individual_author",
+      "case_id": "WQ-S001-006",
+      "genre": "personal",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "I still call the spare room the studio — though it contains one chair and a broken lamp — because that is what Nana called it."
+    },
+    {
+      "artifact_type": "market_brief",
+      "author_profile": "institutional_executive",
+      "author_type": "market_analyst",
+      "case_id": "S008-001",
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "## Market note\nOur source gives an approximate share near 24% for Q2 2026. The summary calls it exactly 23.7%, although no measurement supports a decimal."
+    },
+    {
+      "artifact_type": "procedure",
+      "author_profile": "reference_editor",
+      "author_type": "laboratory_writer",
+      "case_id": "S006-006",
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "The specimen is accepted only when the label, consent code, and collection time all match the manifest. Missing any one field requires quarantine."
+    },
+    {
+      "artifact_type": "product_copy",
+      "author_profile": "brand_marketer",
+      "author_type": "product_marketer",
+      "case_id": "S005-001",
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "Pulseboard unlocks seamless alignment and empowers every team to move faster with confidence. It imports a CSV file supplied by the user."
+    },
+    {
+      "artifact_type": "incident_form_help",
+      "author_profile": "institutional_executive",
+      "author_type": "incident_commander",
+      "case_id": "S007-006",
+      "genre": "reference",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "The incident form asks for service name, start time, and customer impact because those are the three fields the on-call lead reviews first."
+    },
+    {
+      "artifact_type": "incident_note",
+      "author_profile": "reference_editor",
+      "author_type": "incident_reporter",
+      "case_id": "S004-006",
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "At 03:12 UTC, the west stairwell was closed after smoke was reported. The report does not identify who closed it or who first saw the smoke."
+    },
+    {
+      "artifact_type": "landing_page_copy",
+      "author_profile": "brand_marketer",
+      "author_type": "startup_marketer",
+      "case_id": "S006-001",
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "Our revolutionary workspace unlocks limitless productivity for ambitious teams. The free plan includes one project and 2 GB of storage."
+    },
+    {
+      "artifact_type": "personal_essay",
+      "author_profile": "personal_author",
+      "author_type": "individual_author",
+      "case_id": "WQ-S003-006",
+      "genre": "personal",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "My first reaction? Nope. Then I read the footnotes and changed my mind."
+    },
+    {
+      "artifact_type": "metric_note",
+      "author_profile": "institutional_executive",
+      "author_type": "research_analyst",
+      "case_id": "S008-006",
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "split": "dev",
+      "text": "The estimate is approximately 10,000 active accounts as of 2026-06; the source reports “around 10K.”"
+    }
+  ],
+  "common_envelope": {
+    "path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\systems\\common-envelope.md",
+    "sha256": "228765ea46b0639134ff4abad92fd817ca8b96905b20d096b4fe7572eed2e251"
+  },
+  "diagnostic_status": "projection_from_reference_material",
+  "expected_case_count": 18,
+  "family": "external_authored",
+  "fidelity_class": "F2",
+  "job_id": "stage1-kami-anti-patterns-run-01",
+  "model": {
+    "exact_model_exposed_to_harness": false,
+    "max_output_tokens": "not_exposed",
+    "override": false,
+    "reasoning_setting": "inherited_no_override",
+    "seed_support": "not_exposed",
+    "selection": "session_inherited",
+    "temperature": "not_exposed",
+    "top_p": "not_exposed"
+  },
+  "output_contract": {
+    "format": "utf8_jsonl",
+    "one_record_per_case": true,
+    "output_path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\runs\\stage1-dev-v3\\inbox\\stage1-kami-anti-patterns-run-01.jsonl",
+    "records": 18,
+    "surrounding_prose": false
+  },
+  "problem_families": {
+    "path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\taxonomy\\problem-families.json",
+    "sha256": "c7cbfb2006d0cc01d3b47e22416cdd3da52fd9d87748ba2b97420b3c18464c9a"
+  },
+  "run_number": 1,
+  "schema_version": "1.0",
+  "source_files": [
+    {
+      "path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\research-writing-repos\\sources\\Kami\\references\\anti-patterns.md",
+      "sha256": "88806a55dfcf6f743365986d7bccf45303133996fb177033cfeab51b966db5c3"
+    }
+  ],
+  "stage": 1,
+  "system_display_name": "Kami anti-patterns",
+  "system_id": "kami-anti-patterns"
+}

@@ -1,0 +1,22 @@
+# Research brief
+
+- **Run ID:** RUN-20260825-1432-writing-repos
+- **User question:** What can nine specified GitHub sources teach us about improving the existing writing-quality portfolio?
+- **Decision or outcome supported:** A prioritized, evidence-backed improvement proposal for the portfolio's seven writing skills.
+- **Audience:** The portfolio owner and future skill maintainers.
+- **Scope in:** The eight named repositories, the two named Kami reference files, their relevant documentation, rules, fixtures, tests, implementation patterns, and licenses; comparison with the local portfolio at commit `74a282108da2a620542556fa001ebcdde0c9be85`.
+- **Scope out:** Executing third-party code, installing dependencies, detector benchmarking, copying licensed text or code, editing the portfolio, or pushing changes.
+- **Geography:** Not applicable.
+- **Time boundary:** Repository state observed on 2026-08-25, pinned to exact commit SHAs.
+- **Definitions:** A useful mechanism has a concrete diagnosis, operation, safeguard, or evaluation method that can improve writing without changing supported meaning. A risky heuristic is overly broad, weakly evidenced, easily gamed, or likely to erase legitimate voice or genre conventions.
+- **Required outputs:** Source-level synthesis; coverage and gap map against seven local skills; ideas to adopt, adapt, or reject; prioritized implementation options; limitations and licensing notes; verified GitHub citations.
+- **Decision-critical claims:** Which mechanisms are genuinely new; which duplicate current capabilities; which introduce material false-positive, preservation, or licensing risk.
+- **Volatile claims:** Repository contents, commit SHAs, licenses, and current file layouts.
+- **Source restrictions:** Use only the user-specified repositories, GitHub's official repository metadata, and the local portfolio for comparison.
+- **Private-data restrictions:** Do not inspect or transmit credentials. Do not mix private sources into the public-source evidence bundle.
+- **User constraints:** Investigate only. Do not modify or push the portfolio during this review.
+- **Profile:** Standard.
+- **Planning policy:** Auto-planned.
+- **Budget or deadline:** Bounded to nine named source targets and the existing seven skills.
+- **Assumptions:** "Our writing skills" refers to `doc-typing`, `memo-structure`, `cohesion-emphasis`, `sentence-clarity`, `concision`, `sentence-variety`, and `usage-adjudicator` in the published portfolio.
+- **Completion criteria:** Every named target is inspected at a pinned revision; material recommendations trace to evidence; overlap, contradictions, unknowns, licenses, and risks are explicit; an independent audit checks the final claims and links.

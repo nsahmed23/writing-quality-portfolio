@@ -1,0 +1,14 @@
+{
+  "error_message": "finding offsets are invalid",
+  "error_type": "ValidationError",
+  "job_sha256": "836460d16b8f0d582e90a523584575e72d117b675f4e2337f85f20efea44019a",
+  "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+  "normalized_receipt": null,
+  "raw_receipt": {
+    "byte_count": 49199,
+    "relative_path": "stage1-avoid-ai-writing-run-02.jsonl",
+    "sha256": "13ba03b26595b9929a2ff242effaddaba2a35b93a70854eab9fa5317c94a6c6b"
+  },
+  "record_count": 0,
+  "status": "invalid"
+}

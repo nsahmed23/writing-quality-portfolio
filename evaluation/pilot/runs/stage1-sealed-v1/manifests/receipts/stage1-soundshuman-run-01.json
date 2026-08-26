@@ -1,0 +1,18 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "job_sha256": "18fcd1aa4c758a08a324e6469139fb432a219056c0fa353c6ce915b10f539128",
+  "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+  "normalized_receipt": {
+    "byte_count": 51678,
+    "relative_path": "stage1-soundshuman-run-01.jsonl",
+    "sha256": "bb7b9c1620889dd21c9dc714d8ee911665fd7a21725e072b36567abc825dd53f"
+  },
+  "raw_receipt": {
+    "byte_count": 51531,
+    "relative_path": "stage1-soundshuman-run-01.jsonl",
+    "sha256": "5e6d71f96578bb92ddadc9061f53e59477e5b4b707b25c7bd700c7e95f66a106"
+  },
+  "record_count": 72,
+  "status": "valid"
+}

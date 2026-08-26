@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "stage1": {
+    "schema_compliance_min": 1.0,
+    "positive_opportunities_min": 10,
+    "keep_opportunities_min": 10,
+    "exact_precision_min": 0.8,
+    "exact_recall_min": 0.6,
+    "keep_accuracy_min": 0.9,
+    "critical_meaning_risk_max": 0,
+    "critical_miss_rate_max": 0.05,
+    "sized_slice_positive_opportunities_min": 5,
+    "sized_slice_precision_min": 0.65,
+    "human_gold_adjudication_required": true
+  },
+  "stage2": {
+    "protected_region_integrity_min": 1.0,
+    "unsupported_factual_additions_max": 0,
+    "critical_proposition_losses_max": 0,
+    "critical_fact_changes_max": 0,
+    "clarity_and_preference": "descriptive_pending_human_noninferiority_margin"
+  }
+}

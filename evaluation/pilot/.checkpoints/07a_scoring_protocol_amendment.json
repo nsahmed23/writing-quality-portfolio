@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "stage1_scoring_protocol_prospective_safety_amendment",
+  "recorded_at_utc": "2026-08-26T07:47:00.6287758Z",
+  "status": "frozen_before_human_review",
+  "original_checkpoint": ".checkpoints/07_scoring_protocol.json",
+  "original_thresholds_sha256": "999af2af659efe9be367210b8e7c76d4f31c08032e282b75cff493339bda0ceb",
+  "trigger": {
+    "source": "independent_silent_failure_review",
+    "finding": "a system could pass when adjudicators rejected every diagnostic finding if critical meaning risk remained zero",
+    "reproduced_before_fix": true
+  },
+  "scope": {
+    "changes_model_outputs": false,
+    "changes_corpus": false,
+    "changes_prompts": false,
+    "changes_objective_metrics": false,
+    "changes_human_stage1_gate": true
+  },
+  "amendment": {
+    "metric": "human_complete_acceptance_rate",
+    "acceptance_definition": "the adjudicator marks finding_valid, span_valid, problem_valid, context_valid, severity_valid, and operation_valid true",
+    "minimum": 0.8,
+    "minimum_derivation": "copied mechanically from the already-frozen stage1.exact_precision_min value",
+    "threshold_source": "config/thresholds.json",
+    "threshold_source_field": "stage1.exact_precision_min",
+    "finding_valid_consistency": "finding_valid must equal the conjunction of span_valid, problem_valid, context_valid, severity_valid, and operation_valid",
+    "zero_change_behavior": "not applicable; retain null acceptance rates and let objective gates control eligibility"
+  },
+  "human_review_state_at_freeze": {
+    "human_ratings_observed": 0,
+    "human_adjudications_observed": 0,
+    "reviewer_identities_confirmed": false
+  },
+  "policy": {
+    "description": "This is a prospective safety amendment, not part of the original preregistration.",
+    "supersedes_original_human_gate_for_stage2_eligibility": true,
+    "stage2_remains_locked": true
+  }
+}

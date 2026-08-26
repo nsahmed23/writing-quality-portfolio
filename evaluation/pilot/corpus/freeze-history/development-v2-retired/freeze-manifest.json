@@ -1,0 +1,57 @@
+{
+  "files": [
+    {
+      "bytes": 7282,
+      "path": "corpus/cases.dev.jsonl",
+      "sha256": "11323ede63bc6b48b54028e7525cfccb101fc0b4b669144aba1163feca404bde"
+    },
+    {
+      "bytes": 29033,
+      "path": "corpus/cases.test.jsonl",
+      "sha256": "e0b2071dae4e383efdeb8ce8e26e657a5978d98ffc324fe196332a98a2e7916f"
+    },
+    {
+      "bytes": 1896,
+      "path": "corpus/coverage-matrix.json",
+      "sha256": "259082a9acc13fe154da259a58a49474fdf5717a75044b5140848b8f523afcbc"
+    },
+    {
+      "bytes": 32157,
+      "path": "corpus/normalization-ledger.jsonl",
+      "sha256": "4481625caf9d8af71a5e2989603ab44fe79294faf2d557bf8b57af60b3d0bfd7"
+    },
+    {
+      "bytes": 35098,
+      "path": "corpus/source-provenance.jsonl",
+      "sha256": "d5cd82810d9a846e3a412d232f5e2429a8ec615f3c96def10ebaa106412ab9d3"
+    },
+    {
+      "bytes": 233536,
+      "path": "private/gold/annotated.canonical.jsonl",
+      "sha256": "03d42ae6b476b6ffeb515f6ace1eae24396d929b85c4bb8f2e40841e6efdd76a"
+    },
+    {
+      "bytes": 30711,
+      "path": "private/gold/gold.dev.jsonl",
+      "sha256": "8cd0d3f98384ef6850fb3058ba5f255f451bb6da04feed1707c1c16998f69aa5"
+    },
+    {
+      "bytes": 131354,
+      "path": "private/gold/gold.test.jsonl",
+      "sha256": "94d4b4f1a91f63b2535dccfc49977c5a5512ca8b9f06f98ae19d98b08cdf33b7"
+    },
+    {
+      "bytes": 18361,
+      "path": "private/gold/scoring.dev.jsonl",
+      "sha256": "22cf9ab6cc19b271cc8bd09217b0a6c3001451e7b4b66c55107554b0aecc00e6"
+    },
+    {
+      "bytes": 77117,
+      "path": "private/gold/scoring.test.jsonl",
+      "sha256": "f31a5b7aaa2e98df98f0dcd0afe0c7729962e2fc1b60face6883c59d184b2253"
+    }
+  ],
+  "gold_status": "provisional_pending_human_adjudication",
+  "schema_version": "1.0",
+  "status": "frozen"
+}
