@@ -1,0 +1,14 @@
+{
+  "error_message": "KEEP findings must use operation_code preserve with a null replacement",
+  "error_type": "ValidationError",
+  "job_sha256": "2407640e905473b03509568b57fd5ff08c0547f6d8e1e19545e960714695db42",
+  "jobs_manifest_sha256": "3dd560c02b44604d44218d1e73e00ebcba5e651f68ab155e36e93aedbcc5afe2",
+  "normalized_receipt": null,
+  "raw_receipt": {
+    "byte_count": 16930,
+    "relative_path": "stage1-humanizer-run-01.jsonl",
+    "sha256": "37dd97a78ef92243a26c2e1cc38f7c8665699793ea9515d244d6c7313b74dbba"
+  },
+  "record_count": 0,
+  "status": "invalid"
+}

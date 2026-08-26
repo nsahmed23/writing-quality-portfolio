@@ -1,0 +1,644 @@
+agent_id: AG-002
+workstream_id: WS-002
+status: complete
+findings:
+  - claim_id: C-201
+    claim_text: "No AI Slop defines separate edit and detect modes: edit makes a minimum effective rewrite and reports changes, while detect names and quotes matched patterns without rewriting, scoring, or guessing AI authorship."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-201
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:12-14"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-202
+    claim_text: "No AI Slop operationalizes voice preservation by retaining distinctive diction, cadence, uncertainty, edge, and useful structure, then identifying three to five voice signals before editing."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-202
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:24-42"
+      - evidence_id: E-203
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:90-97"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-203
+    claim_text: "No AI Slop explicitly forbids inventing claims, examples, statistics, or opinions and instructs the editor to ask when meaning is unclear."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-202
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:24-42"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-204
+    claim_text: "No AI Slop uses an absolute banned-word list, while its adjacent adverb and phrase lists include contextual exceptions."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-204
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:44-50"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-205
+    claim_text: "No AI Slop's concrete-writing examples create a factuality hazard because they introduce precise before-and-after timing figures not present in the abstract source sentences, despite the nearby no-invention rule."
+    evidence_status: I
+    evidence:
+      - evidence_id: E-205
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:30-38"
+    calculation_ids: []
+    confidence: medium
+    alternative_explanation: "The numerical rewrites may be intended only as schematic illustrations, and an agent may prioritize the explicit no-invention instruction over the examples."
+  - claim_id: C-206
+    claim_text: "No AI Slop's checked verification artifacts cover a self-scored editorial checklist, prose test scenarios, and package composition; they do not report measured behavioral outcomes for factuality, voice retention, or false positives."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-206
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/skills/no-ai-slop/eval.md:1-44"
+      - evidence_id: E-207
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/plugin-submission.md:14-26"
+      - evidence_id: E-208
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/scripts/build_plugin.py:25-51,82-107"
+      - evidence_id: E-209
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/.github/workflows/plugin.yml:14-28"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "Behavioral evaluation may exist outside the inspected commit-pinned snapshot, but it is not established by these repository artifacts."
+  - claim_id: C-207
+    claim_text: "No AI Slop's terms make the user responsible for reviewing generated edits before publishing or relying on them."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-211
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/TERMS.md:3-7"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-208
+    claim_text: "Humanizer explicitly requires preserving every claim and forbids adding factual details not supplied by the source or user."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-212
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:19-28"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-209
+    claim_text: "Humanizer uses a supplied writing sample as the primary voice control and otherwise varies personality rules by content type, keeping technical, legal, reference, and factual prose neutral."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-213
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:30-46"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-210
+    claim_text: "Humanizer contains explicit false-positive controls: no single listed trait proves AI use, legitimate punctuation and repetition have exceptions, several patterns should be considered together, and distinctive human details should be retained."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-214
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:393-416"
+      - evidence_id: E-215
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:418-428"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-211
+    claim_text: "Humanizer's process protects non-prose file regions and requires a final comparison for added or removed facts, names, numbers, dates, quotations, citations, rankings, and other claims."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-216
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:432-450"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-212
+    claim_text: "Humanizer's README example is inconsistent with its stated factuality safeguard because the displayed rewrite adds a month, lodging location, activities, observations, and future-trip preferences absent from the displayed source text."
+    evidence_status: I
+    evidence:
+      - evidence_id: E-212
+        source_id: S-004
+        support_scope: contextual
+        location: "sources/humanizer/SKILL.md:19-28"
+      - evidence_id: E-217
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/README.md:117-145"
+      - evidence_id: E-216
+        source_id: S-004
+        support_scope: contextual
+        location: "sources/humanizer/SKILL.md:440-448"
+    calculation_ids: []
+    confidence: medium
+    alternative_explanation: "The README may omit a writer sample or other source material that supplied the added details; the displayed example does not say that such input existed."
+  - claim_id: C-213
+    claim_text: "Humanizer creates a claim-preservation tension by requiring every claim to be kept while separately instructing the editor to delete an unsupported vague-source claim when no named source is present."
+    evidence_status: I
+    evidence:
+      - evidence_id: E-212
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:19-28"
+      - evidence_id: E-218
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:88-97"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The repository may treat an unsupported attribution as removable slop rather than a claim that must be preserved, but it does not state a precedence rule for that case."
+  - claim_id: C-214
+    claim_text: "Humanizer's default prohibition on em and en dashes can alter legitimate authorial punctuation when no sample is supplied, even though its false-positive section says an em dash alone proves nothing."
+    evidence_status: I
+    evidence:
+      - evidence_id: E-213
+        source_id: S-004
+        support_scope: contextual
+        location: "sources/humanizer/SKILL.md:30-46"
+      - evidence_id: E-219
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:181-193"
+      - evidence_id: E-214
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:393-416"
+    calculation_ids: []
+    confidence: medium
+    alternative_explanation: "A supplied writing sample overrides the dash rule, and the rule concerns rewriting rather than authorship detection."
+  - claim_id: C-215
+    claim_text: "Humanizer's automated checks validate metadata, version consistency, package layout, pattern numbering, line count, skill discovery, and marketplace structure rather than rewrite quality or factual fidelity."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-220
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/scripts/validate-package.py:25-86"
+      - evidence_id: E-221
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/.github/workflows/validate.yml:22-29"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "Behavioral tests may exist outside the inspected snapshot, but the repository's visible automated checks do not establish them."
+  - claim_id: C-216
+    claim_text: "Both repositories use the MIT License, which permits broad reuse but requires retaining the copyright and permission notice in copies or substantial portions."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-210
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/LICENSE:1-13"
+      - evidence_id: E-222
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/LICENSE:1-13"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-217
+    claim_text: "Both MIT license texts disclaim warranties and author liability."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-210
+        source_id: S-003
+        support_scope: direct
+        location: "sources/no-ai-slop/LICENSE:15-20"
+      - evidence_id: E-222
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/LICENSE:15-20"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-218
+    claim_text: "Humanizer expressly says its pattern set is based on Wikipedia's Signs of AI writing page and reviews of AI-generated Wikipedia text."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-223
+        source_id: S-004
+        support_scope: direct
+        location: "sources/humanizer/SKILL.md:452-456"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+contradictions:
+  - contradiction_id: CTR-201
+    claim_ids: [C-202, C-204]
+    source_ids: [S-003]
+    nature: "Voice preservation and minimum-edit rules coexist with an absolute banned-word list."
+    possible_explanation: "The ban may target only unquoted generic prose, while nearby non-banned lists include explicit contextual exceptions."
+    resolution_attempts: "Compared the voice-preservation principles at SKILL.md:24-42 with the word rules at SKILL.md:44-50."
+    current_verdict: "Unresolved design tension; the prompt supplies no explicit precedence rule when a banned word is part of the writer's distinctive voice."
+    confidence: medium
+    remaining_uncertainty: "Observed output behavior was not tested."
+    effect_on_conclusion: "Treat voice preservation as a documented intention, not a demonstrated invariant."
+    status: open
+    notes: ""
+  - contradiction_id: CTR-202
+    claim_ids: [C-203, C-205]
+    source_ids: [S-003]
+    nature: "The no-invention rule conflicts with illustrative rewrites that supply precise numerical facts absent from their before text."
+    possible_explanation: "The examples may be placeholders rather than literal end-to-end edits."
+    resolution_attempts: "Inspected the complete rule block at SKILL.md:30-38 and found no label identifying the added numbers as user-supplied placeholders."
+    current_verdict: "Preserved as a factuality-risk contradiction."
+    confidence: medium
+    remaining_uncertainty: "No behavioral evaluation shows which instruction the model follows in practice."
+    effect_on_conclusion: "Concrete-detail guidance should not be treated as safe without a fact-preservation check."
+    status: open
+    notes: ""
+  - contradiction_id: CTR-203
+    claim_ids: [C-208, C-212]
+    source_ids: [S-004]
+    nature: "Humanizer's no-invention instruction conflicts with the added factual details in its displayed README rewrite."
+    possible_explanation: "The example may rely on omitted writer input."
+    resolution_attempts: "Compared README.md:117-145 against SKILL.md:19-28 and SKILL.md:440-448."
+    current_verdict: "The published example is internally inconsistent as displayed; omitted input remains possible."
+    confidence: high
+    remaining_uncertainty: "Whether an unshown source or voice sample supplied the added details."
+    effect_on_conclusion: "This is the strongest observed factuality warning in the two snapshots."
+    status: open
+    notes: ""
+  - contradiction_id: CTR-204
+    claim_ids: [C-208, C-213]
+    source_ids: [S-004]
+    nature: "The instruction to keep every claim conflicts with the instruction to remove an unsupported vague-source claim."
+    possible_explanation: "The maintainer may classify unsupported attribution as a defect outside the protected claim set."
+    resolution_attempts: "Compared SKILL.md:19-28 with SKILL.md:88-97."
+    current_verdict: "Unresolved because no precedence or user-confirmation step is specified before deletion."
+    confidence: high
+    remaining_uncertainty: "How agents resolve the collision in actual edits."
+    effect_on_conclusion: "Claim preservation requires an external ledger or user confirmation when support is unavailable."
+    status: open
+    notes: ""
+  - contradiction_id: CTR-205
+    claim_ids: [C-210, C-214]
+    source_ids: [S-004]
+    nature: "The rewrite rule bans dashes by default, while the false-positive section says em dashes alone are not evidence of AI writing."
+    possible_explanation: "Detection and rewriting use different thresholds, and a writing sample overrides the rewrite ban."
+    resolution_attempts: "Compared SKILL.md:181-193 with SKILL.md:393-416 and the sample-priority rule at SKILL.md:30-38."
+    current_verdict: "Partially resolved for users who supply a sample; otherwise legitimate punctuation may still be normalized."
+    confidence: medium
+    remaining_uncertainty: "Effect on unsampled writers' voice."
+    effect_on_conclusion: "The false-positive safeguards are stronger for detection than for default rewriting."
+    status: partial
+    notes: ""
+unknowns:
+  - unknown_id: U-201
+    description: "No AI Slop's behavioral false-positive rate, factual-preservation rate, and voice-retention rate are not established by the inspected snapshot."
+    why_it_matters: "The repository makes voice and factuality claims that determine whether edits are safe to publish."
+    research_attempted: "Inspected the complete file inventory, eval checklist, prose test cases, package builder, and CI workflow at sources/no-ai-slop/skills/no-ai-slop/eval.md:1-44; sources/no-ai-slop/plugin-submission.md:14-26; sources/no-ai-slop/scripts/build_plugin.py:25-107; sources/no-ai-slop/.github/workflows/plugin.yml:14-28."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Run controlled paired rewrites with fact and voice ledgers, intentional-pattern negative controls, and independently scored outcomes."
+    effect_on_conclusion: "Documented mechanisms can be reported, but effectiveness cannot."
+    status: open
+  - unknown_id: U-202
+    description: "Humanizer's behavioral false-positive rate, factual-preservation rate, and voice-retention rate are not established by the inspected snapshot."
+    why_it_matters: "The core product claim is that the rewrite preserves meaning and the writer's voice."
+    research_attempted: "Inspected the complete prompt, README example, validator, and CI workflow at sources/humanizer/SKILL.md:1-456; sources/humanizer/README.md:1-209; sources/humanizer/scripts/validate-package.py:1-88; sources/humanizer/.github/workflows/validate.yml:1-29."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Add and run behavior tests that compare source and output claims and score voice retention and false positives with and without a writing sample."
+    effect_on_conclusion: "Safeguards are documented but not empirically demonstrated."
+    status: open
+  - unknown_id: U-203
+    description: "It is unknown whether Humanizer's README rewrite used an omitted source or writing sample that supplied the added personal details."
+    why_it_matters: "That missing context would determine whether the example demonstrates fabrication or only incomplete presentation."
+    research_attempted: "Compared the displayed before, warning, and after at sources/humanizer/README.md:117-145 with the prompt safeguards at sources/humanizer/SKILL.md:19-28 and 440-448."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Ask the maintainer for the complete example input or revise the README so every added detail is present in the displayed source."
+    effect_on_conclusion: "Keeps the factuality finding at medium rather than high confidence."
+    status: open
+  - unknown_id: U-204
+    description: "The snapshots do not establish whether Humanizer's Wikipedia-derived pattern wording or examples carry obligations beyond the repository's MIT notice."
+    why_it_matters: "Substantial adaptation from an upstream work can create attribution or share-alike questions not answered by a downstream license label alone."
+    research_attempted: "Inspected Humanizer's declared derivation at sources/humanizer/SKILL.md:452-456 and its MIT license at sources/humanizer/LICENSE:1-20; network comparison to the cited upstream page was excluded."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: false
+    recommended_next_step: "Perform a provenance and license comparison against the exact Wikipedia revision used, then document copied versus independently authored language."
+    effect_on_conclusion: "Report MIT as the repository's declared license while preserving upstream-license compatibility as unresolved."
+    status: open
+calculations: []
+sources_added:
+  - source_id: S-003
+    title: "no-ai-slop repository snapshot d30eddb9e04562234f2070b5ee63ca4649d9a05e"
+    publisher: "petergyang"
+    author: "Peter Yang"
+    url: "https://github.com/petergyang/no-ai-slop/tree/d30eddb9e04562234f2070b5ee63ca4649d9a05e"
+    source_type: repository_snapshot
+    provenance_class: P2
+    primary_or_secondary: primary
+    official_or_independent: official
+    published_date: ""
+    updated_date: "2026-08-05"
+    accessed_at: "2026-08-25"
+    geography: global
+    authority: high
+    relevance: high
+    freshness: "Stable commit-pinned snapshot; upstream currentness not checked."
+    independence: "Distinct repository lineage."
+    upstream_source_id: ""
+    status: included
+    exclusion_reason: ""
+    limitations: "Local shallow snapshot only; no network, dependency installation, repository code execution, or behavioral run."
+    notes: "Clean worktree observed locally; commit date 2026-08-05T21:20:10-07:00."
+  - source_id: S-004
+    title: "humanizer repository snapshot e2e92e7b4b8229253ed5c8e81dc65463fdeddda5"
+    publisher: "blader"
+    author: "Siqi Chen"
+    url: "https://github.com/blader/humanizer/tree/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5"
+    source_type: repository_snapshot
+    provenance_class: P2
+    primary_or_secondary: primary
+    official_or_independent: official
+    published_date: ""
+    updated_date: "2026-08-18"
+    accessed_at: "2026-08-25"
+    geography: global
+    authority: high
+    relevance: high
+    freshness: "Stable commit-pinned snapshot; upstream currentness not checked."
+    independence: "Distinct repository; declared Wikipedia-derived pattern lineage."
+    upstream_source_id: ""
+    status: included
+    exclusion_reason: ""
+    limitations: "Local shallow snapshot only; no network, dependency installation, repository code execution, or behavioral run."
+    notes: "Clean worktree observed locally; commit date 2026-08-18T22:58:53-07:00."
+evidence_added:
+  - evidence_id: E-201
+    source_id: S-003
+    location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:12-14"
+    modality: markdown_prompt
+    extracted_fact: "The prompt defines edit and detect modes with different outputs and forbids authorship guessing in detect mode."
+    support_scope: direct
+    limitations: "Instruction text establishes intended behavior, not actual model compliance."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-202
+    source_id: S-003
+    location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:24-42"
+    modality: markdown_prompt
+    extracted_fact: "The prompt specifies minimum editing, voice and structure preservation, factual non-invention, and retention of meaningful uncertainty and edge."
+    support_scope: direct
+    limitations: "Instruction text only."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-203
+    source_id: S-003
+    location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:90-97"
+    modality: markdown_prompt
+    extracted_fact: "The workflow requires reading the full draft, identifying three to five voice signals, self-checking with eval.md, and returning a change summary."
+    support_scope: direct
+    limitations: "The voice note remains internal and is not externally auditable from the output alone."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-204
+    source_id: S-003
+    location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:44-50"
+    modality: markdown_prompt
+    extracted_fact: "The prompt labels one vocabulary list banned outright and gives contextual keep exceptions only for its adjacent adverb and phrase lists."
+    support_scope: direct
+    limitations: "No precedence rule explains collisions with voice preservation."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-205
+    source_id: S-003
+    location: "sources/no-ai-slop/skills/no-ai-slop/SKILL.md:30-38"
+    modality: markdown_prompt
+    extracted_fact: "The no-invention rule appears near two illustrative rewrites that add exact before-and-after timing figures absent from their source sentences."
+    support_scope: direct
+    limitations: "The examples may be schematic and do not state whether omitted source facts exist."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-206
+    source_id: S-003
+    location: "sources/no-ai-slop/skills/no-ai-slop/eval.md:1-44"
+    modality: markdown_checklist
+    extracted_fact: "The eval is a set of self-answered pass or fail questions covering voice, factuality, pattern removal, and output format."
+    support_scope: direct
+    limitations: "No inputs, expected outputs, scoring code, run record, or measured results are included."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-207
+    source_id: S-003
+    location: "sources/no-ai-slop/plugin-submission.md:14-26"
+    modality: markdown_test_specification
+    extracted_fact: "The submission lists five positive and three negative test scenarios as prose requirements."
+    support_scope: direct
+    limitations: "No execution transcript or outcome is reported."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-208
+    source_id: S-003
+    location: "sources/no-ai-slop/scripts/build_plugin.py:25-51,82-107"
+    modality: python_source
+    extracted_fact: "The builder validates required manifest fields, prompt count and size, required files, exact package membership, byte equality for prompt files, and ZIP validity."
+    support_scope: direct
+    limitations: "Statically inspected only; repository code was not executed."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-209
+    source_id: S-003
+    location: "sources/no-ai-slop/.github/workflows/plugin.yml:14-28"
+    modality: workflow_source
+    extracted_fact: "The validation job builds and uploads the plugin archive; it does not run rewrite behavior cases."
+    support_scope: direct
+    limitations: "Workflow configuration was inspected, not run."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-210
+    source_id: S-003
+    location: "sources/no-ai-slop/LICENSE:1-20"
+    modality: license_text
+    extracted_fact: "The repository carries the MIT License, including notice-retention and as-is warranty/liability clauses."
+    support_scope: direct
+    limitations: "This records license text and is not legal advice."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-211
+    source_id: S-003
+    location: "sources/no-ai-slop/TERMS.md:3-7"
+    modality: terms_text
+    extracted_fact: "The terms say users are responsible for reviewing plugin output before publishing or relying on it."
+    support_scope: direct
+    limitations: "Repository terms text only."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-212
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:19-28"
+    modality: markdown_prompt
+    extracted_fact: "The prompt requires pattern review, preservation of every claim, no invented facts, and voice matching."
+    support_scope: direct
+    limitations: "Instruction text establishes intended behavior, not actual model compliance."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-213
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:30-46"
+    modality: markdown_prompt
+    extracted_fact: "A writer sample takes priority over default style rules; absent a sample, personality is limited by content type and factual prose stays neutral."
+    support_scope: direct
+    limitations: "The repository supplies no behavior results for sample matching."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-214
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:393-416"
+    modality: markdown_prompt
+    extracted_fact: "The false-positive section rejects single-feature AI inference and enumerates legitimate uses of style, punctuation, repetition, limits, alternatives, claims, and formatting."
+    support_scope: direct
+    limitations: "The controls are instructions, not measured classifier behavior."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-215
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:418-428"
+    modality: markdown_prompt
+    extracted_fact: "The prompt names specific detail, mixed feeling, era-bound reference, deliberate choice, varied length, and self-correction as human voice traits to keep."
+    support_scope: direct
+    limitations: "Instruction text only."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-216
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:432-450"
+    modality: markdown_prompt
+    extracted_fact: "File mode preserves code, YAML metadata, data, and link targets, while the final review asks whether any claim-bearing detail was added or removed and treats either as an error."
+    support_scope: direct
+    limitations: "No external ledger or deterministic comparison is specified."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-217
+    source_id: S-004
+    location: "sources/humanizer/README.md:117-145"
+    modality: markdown_example
+    extracted_fact: "The example warns that missing details must come from the writer, but its displayed after text adds multiple personal facts absent from the displayed before text."
+    support_scope: direct
+    limitations: "An omitted source or writing sample may have supplied the details."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-218
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:88-97"
+    modality: markdown_prompt
+    extracted_fact: "The vague-source rule says to name a real source when provided and otherwise remove the unsupported claim."
+    support_scope: direct
+    limitations: "The prompt does not define how this rule ranks against the keep-every-claim rule."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-219
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:181-193"
+    modality: markdown_prompt
+    extracted_fact: "The default rewrite must remove every em or en dash unless the supplied writing sample uses that mark."
+    support_scope: direct
+    limitations: "The sample-based exception does not help when no sample is supplied."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-220
+    source_id: S-004
+    location: "sources/humanizer/scripts/validate-package.py:25-86"
+    modality: python_source
+    extracted_fact: "The validator checks metadata shape, version agreement, package layout, guidance strings, pattern numbering, README pattern coverage, and prompt line count."
+    support_scope: direct
+    limitations: "Statically inspected only; repository code was not executed."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-221
+    source_id: S-004
+    location: "sources/humanizer/.github/workflows/validate.yml:22-29"
+    modality: workflow_source
+    extracted_fact: "CI runs the package validator, skill discovery, and Claude marketplace validation, with no rewrite behavior test."
+    support_scope: direct
+    limitations: "Workflow configuration was inspected, not run."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-222
+    source_id: S-004
+    location: "sources/humanizer/LICENSE:1-20"
+    modality: license_text
+    extracted_fact: "The repository carries the MIT License, including notice-retention and as-is warranty/liability clauses."
+    support_scope: direct
+    limitations: "This records license text and is not legal advice."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+  - evidence_id: E-223
+    source_id: S-004
+    location: "sources/humanizer/SKILL.md:452-456"
+    modality: markdown_prompt
+    extracted_fact: "The prompt declares that its patterns are based on Wikipedia's Signs of AI writing page and reviews of AI-generated Wikipedia text."
+    support_scope: direct
+    limitations: "The cited upstream page and its exact revision were not inspected because network access was excluded."
+    extracted_by: AG-002
+    extracted_at: "2026-08-25"
+    verification_status: passed
+targeted_followups:
+  - "Create a shared adversarial corpus for both skills with an explicit fact ledger and voice markers, including legitimate passives, deliberate repetition, intentional em dashes, quoted watched phrases, technical uses of gated, and unsupported-attribution cases."
+  - "For No AI Slop, replace or label the numerical specificity examples at sources/no-ai-slop/skills/no-ai-slop/SKILL.md:35-38 so the prompt cannot model unsupported fact creation."
+  - "For Humanizer, publish the complete input behind sources/humanizer/README.md:117-145 or revise the after text so every factual detail traces to the displayed before text."
+  - "Add executable behavioral regressions distinct from the package checks identified at sources/no-ai-slop/scripts/build_plugin.py:25-107 and sources/humanizer/scripts/validate-package.py:25-86."
+  - "Perform a provenance and license review against the exact Wikipedia revision cited by sources/humanizer/SKILL.md:452-456 before relying on the downstream MIT label for all adapted prose."
+limitations:
+  - "Inspected only local commit-pinned snapshots S-003 and S-004 plus the controlling worker brief and worker-return schema."
+  - "No network access, dependency installation, third-party code execution, repository script execution, or runtime rewrite test was performed."
+  - "Repository behavior claims are documented or inferred from static source; none are classified as observed."
+  - "License observations report text and provenance risk, not legal advice."

@@ -1,0 +1,14 @@
+{
+  "error_message": "KEEP findings must use operation_code preserve with a null replacement",
+  "error_type": "ValidationError",
+  "job_sha256": "09a31b97e7d06c16ac7c53cfd7857a28eca0f99bc0519df39d3580feaa7eedfa",
+  "jobs_manifest_sha256": "3dd560c02b44604d44218d1e73e00ebcba5e651f68ab155e36e93aedbcc5afe2",
+  "normalized_receipt": null,
+  "raw_receipt": {
+    "byte_count": 12571,
+    "relative_path": "stage1-anti-ai-slop-writing-run-01.jsonl",
+    "sha256": "39319de768cb6985294e0967f0716931ac56e1fceba36f5bffd9fddb32c6ce27"
+  },
+  "record_count": 0,
+  "status": "invalid"
+}

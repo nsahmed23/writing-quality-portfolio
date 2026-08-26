@@ -1,0 +1,14 @@
+{
+  "error_message": "suggested_operation missing fields: ['instruction']",
+  "error_type": "ValidationError",
+  "job_sha256": "a72dfe9ae29ee251d30b856f0046fad1a884d714a72691ced462456787f0501b",
+  "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+  "normalized_receipt": null,
+  "raw_receipt": {
+    "byte_count": 47848,
+    "relative_path": "stage1-no-ai-slop-run-01.jsonl",
+    "sha256": "9f13aaef1cd37421ad25d17da9a81a12ccd487f678aa1deeadbc9f3f42ed8584"
+  },
+  "record_count": 0,
+  "status": "invalid"
+}

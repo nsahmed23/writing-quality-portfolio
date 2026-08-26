@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "02_red_tests",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "recorded_at": "2026-08-26T02:23:00Z",
+  "status": "complete",
+  "command": "py -3 -X utf8 -m unittest discover -s tests -t . -v",
+  "exit_code": 1,
+  "test_methods": 36,
+  "runnable_or_error_groups_before_import": 9,
+  "failures": 3,
+  "errors": 6,
+  "expected_failure": "ModuleNotFoundError: No module named 'wqeval'",
+  "implementation_present": false,
+  "contract_areas": [
+    "strict_json",
+    "schema_validation",
+    "immutable_storage",
+    "path_safety",
+    "stage1_matching_metrics",
+    "agreement",
+    "identity_blinding",
+    "rewrite_reconstruction",
+    "factual_preservation",
+    "stage2_metrics",
+    "cli",
+    "performance"
+  ]
+}

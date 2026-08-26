@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "status_label": "PILOT_UNADJUDICATED",
+  "random_seed": 20260825,
+  "stage1_runs_per_case": 3,
+  "stage2_runs_per_case": 3,
+  "job_order": "deterministic_shuffle",
+  "generator_isolation": "fresh_context_per_system_run",
+  "model": {
+    "selection": "session_inherited",
+    "override": false,
+    "exact_model_exposed_to_harness": false,
+    "reasoning_setting": "inherited_no_override",
+    "temperature": "not_exposed",
+    "top_p": "not_exposed",
+    "seed_support": "not_exposed",
+    "max_output_tokens": "not_exposed"
+  },
+  "network": {
+    "evaluator": "disabled",
+    "source_collection": "disabled",
+    "generator_transport": "internal_session_agents"
+  },
+  "human_review": {
+    "required_reviewers": 2,
+    "required_adjudicators": 1,
+    "agents_count_as_humans": false,
+    "stage2_locked_until_adjudication": true
+  }
+}

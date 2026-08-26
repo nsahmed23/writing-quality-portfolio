@@ -1,0 +1,41 @@
+{
+  "checkpoint": "10_final_verification",
+  "status": "STAGE1_PROVISIONAL_COMPLETE",
+  "verified_at": "2026-08-26",
+  "stage1": {
+    "sealed_jobs": 36,
+    "valid_jobs": 33,
+    "invalid_first_responses": 3,
+    "retries_or_repairs": 0,
+    "objective_systems_passed": 0,
+    "objective_systems_failed": 12,
+    "human_review_status": "PENDING_HUMAN_REVIEW"
+  },
+  "stage2": {
+    "eligible": false,
+    "executed": false,
+    "reason": "No surface passed every frozen Stage 1 objective gate."
+  },
+  "verification": {
+    "python_3_11_tests": 198,
+    "python_3_11_failures": 0,
+    "python_3_11_skips": 2,
+    "python_3_14_tests": 198,
+    "python_3_14_failures": 0,
+    "python_3_14_skips": 2,
+    "coverage_percent": 84.01,
+    "covered_executable_lines": 5784,
+    "total_executable_lines": 6885,
+    "independent_code_review": "APPROVED",
+    "independent_code_review_findings": 0,
+    "independent_security_review": "PASS",
+    "independent_security_review_findings": 0,
+    "security_targeted_tests": 69,
+    "security_targeted_test_failures": 0
+  },
+  "remaining_blockers": [
+    "No evaluated surface passed every frozen objective gate.",
+    "No verified roster of two real reviewers and one separate adjudicator has been anchored.",
+    "Stage 2 rewrite-output and human-rating evidence binding is intentionally unfinished because Stage 1 did not pass."
+  ]
+}

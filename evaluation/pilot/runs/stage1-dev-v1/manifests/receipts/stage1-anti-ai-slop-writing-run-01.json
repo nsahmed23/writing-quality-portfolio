@@ -1,0 +1,16 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "normalized_receipt": {
+    "byte_count": 16693,
+    "relative_path": "stage1-anti-ai-slop-writing-run-01.jsonl",
+    "sha256": "6c990fac7c72ff018e54371d8394e31138ffbc6374d7d781ad7935c34a7d37c0"
+  },
+  "raw_receipt": {
+    "byte_count": 16129,
+    "relative_path": "stage1-anti-ai-slop-writing-run-01.jsonl",
+    "sha256": "664b3ab8dbb11115173c51f074e213f88a35e880483b187b2e2b48e90abe2e8b"
+  },
+  "record_count": 18,
+  "status": "valid"
+}

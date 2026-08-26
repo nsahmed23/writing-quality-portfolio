@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RUN-20260825-1432-writing-repos",
+  "status": "complete",
+  "current_state": "DONE",
+  "profile": "Standard",
+  "planning_policy": "auto-planned",
+  "started_at": "2026-08-25T18:32:32Z",
+  "updated_at": "2026-08-25T19:27:23Z",
+  "last_checkpoint": "2026-08-25T19:27:23Z",
+  "completed_states": ["INTAKE", "CAPABILITY_DISCOVERY", "SCOPE_AND_POLICY", "PLAN_DRAFT", "PLAN_GATE", "WORKSTREAM_DESIGN", "RESEARCH_WAVE", "EVIDENCE_NORMALIZATION", "QUALITY_REVIEW", "GAP_ANALYSIS", "ANALYSIS", "PRE_SYNTHESIS_AUDIT", "SYNTHESIS", "CITATION_AUDIT", "FRESHNESS_RECHECK", "DELIVERABLES", "DONE"],
+  "workstreams": {
+    "completed": ["WS-001", "WS-002", "WS-003", "WS-004", "WS-005", "WS-006", "WS-007"],
+    "active": [],
+    "failed": [],
+    "blocked": []
+  },
+  "unresolved_claim_ids": [],
+  "unresolved_contradiction_ids": [],
+  "blocking_issues": [],
+  "next_action": "No further action required. Implement recommendations only under a separate authorization.",
+  "artifact_paths": {
+    "run_root": "work/research-writing-repos/research_run",
+    "sources": "work/research-writing-repos/sources",
+    "final_report": "work/research-writing-repos/research_run/final_artifacts/report.md",
+    "user_report": "outputs/writing-skills-repository-investigation.md"
+  }
+}

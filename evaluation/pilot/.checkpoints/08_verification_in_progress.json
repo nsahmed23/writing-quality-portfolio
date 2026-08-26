@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "post_hardening_verification_in_progress",
+  "recorded_at_utc": "2026-08-26T06:07:30.8388953Z",
+  "full_suite": {
+    "command": "py -3.11 -X utf8 -m unittest discover -s tests -v",
+    "run_count_after_latest_changes": 1,
+    "tests": 167,
+    "passed": 165,
+    "skipped": 2,
+    "failed": 0,
+    "errors": 0,
+    "skip_reason": "Windows symlink creation privilege unavailable; real-junction attacks ran and passed"
+  },
+  "coverage": {
+    "method": "Python 3.11 standard-library trace line counting",
+    "command": "py -3.11 -X utf8 -m trace --count --missing --summary --coverdir build/tracecov-20260826-01 --ignore-dir <python-standard-library> --module unittest discover -s tests",
+    "executable_source_lines": 4693,
+    "covered_source_lines": 4018,
+    "line_coverage_percent": 85.62,
+    "required_minimum_percent": 80.0,
+    "conservative_note": "The command-line module was counted as zero covered because the standard-library tracer does not follow the subprocesses used by its integration tests."
+  },
+  "independent_review": {
+    "code_review": "in_progress",
+    "security_review": "pending_slot",
+    "silent_failure_review": "pending_slot"
+  },
+  "status": "PILOT_UNADJUDICATED"
+}

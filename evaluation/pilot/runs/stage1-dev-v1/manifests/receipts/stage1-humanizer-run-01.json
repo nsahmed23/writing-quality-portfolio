@@ -1,0 +1,16 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "normalized_receipt": {
+    "byte_count": 15637,
+    "relative_path": "stage1-humanizer-run-01.jsonl",
+    "sha256": "6bbdde50ca0e3296a6c0b1f91af0ad0c9a9f46bc64e81cf3e2da10d3ba55f1a5"
+  },
+  "raw_receipt": {
+    "byte_count": 15388,
+    "relative_path": "stage1-humanizer-run-01.jsonl",
+    "sha256": "c8caecb341cee8c81965be927b83c92b873ac01b814ec19bb4c4e1533af3be1b"
+  },
+  "record_count": 18,
+  "status": "valid"
+}

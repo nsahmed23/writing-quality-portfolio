@@ -1,0 +1,14 @@
+{
+  "error_message": "finding span does not match source offsets",
+  "error_type": "ValidationError",
+  "job_sha256": "c339971b5a6584c811ae807e1126b6caf889018ae3fbfe07fc5d63f0bef4bae2",
+  "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+  "normalized_receipt": null,
+  "raw_receipt": {
+    "byte_count": 47050,
+    "relative_path": "stage1-kami-writing-run-03.jsonl",
+    "sha256": "07dea30b0c3e53186c82568f989c0e37c76a5589fa0b34b6a829e0050ead667e"
+  },
+  "record_count": 0,
+  "status": "invalid"
+}

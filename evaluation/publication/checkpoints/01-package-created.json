@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "stage": "package_created",
+  "status": "complete",
+  "baseline_commit": "74a282108da2a620542556fa001ebcdde0c9be85",
+  "branch": "codex/evaluation-audit-bundle",
+  "publication_root": "evaluation",
+  "included": [
+    "first-party evaluator and tests",
+    "corpus and retired provisional gold",
+    "raw and normalized pilot outputs",
+    "manifests, checkpoints, and research registers",
+    "delivered reports and corrected diagnosis",
+    "Claude Code review handoff"
+  ],
+  "excluded": [
+    "third-party repository clones",
+    "build and coverage output",
+    "test caches and bytecode",
+    "Git metadata and authentication material"
+  ],
+  "next": "verify integrity, tests, secrets, licensing, code, and security before commit"
+}
