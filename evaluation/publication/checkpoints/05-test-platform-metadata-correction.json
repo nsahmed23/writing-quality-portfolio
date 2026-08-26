@@ -11,28 +11,30 @@
     "source": "Codex adversarial response to PR #3 and second-round Claude review (evaluation/CLAUDE_REVIEW_2.md, R3)",
     "defects": [
       "Checkpoint 04 recorded tests: 198, skipped: 2 without naming the operating system, and the skip profile is platform-dependent",
-      "The PR #2 description phrased the result as '198 passed with 2 expected skips', conflating tests run (198) with tests passed (196); since corrected in the PR description"
+      "The PR #2 description phrased the result as '198 passed with 2 expected skips', conflating tests run (198) with tests passed (196); its correction is reported external state on mutable GitHub metadata, not verifiable from this repository tree"
     ]
   },
+  "test_id_convention": "unittest discovery IDs with 'tests' as the top-level directory (python -m unittest discover -s tests), so the tests. prefix is omitted; both platforms use this convention below",
   "windows_runs": {
-    "evidence_status": "reported by Codex in the PR #3 adversarial response; not independently observed",
+    "evidence_status": "reported by Codex in the PR #3 adversarial response; not independently observed; no immutable raw Windows transcript was preserved",
     "os": {
       "name": "Microsoft Windows 11 Pro",
       "architecture": "64-bit",
       "build": "10.0.26200"
     },
-    "framework_and_command": "unittest discovery over evaluation/pilot/tests",
+    "framework_and_command": "python -m unittest discover -s tests",
+    "working_directory": "evaluation/pilot",
     "runs": [
       {"python": "CPython 3.11.9", "top_level_cases": 198, "passed": 196, "skipped": 2, "failed": 0, "errored": 0},
       {"python": "CPython 3.14.4", "top_level_cases": 198, "passed": 196, "skipped": 2, "failed": 0, "errored": 0}
     ],
     "skipped_tests": [
       {
-        "id": "tests.test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_file_symlink_to_an_outside_artifact",
+        "id": "test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_file_symlink_to_an_outside_artifact",
         "reason": "symlink creation privilege unavailable (WinError 1314)"
       },
       {
-        "id": "tests.test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_inbox_directory_symlink_to_an_outside_directory",
+        "id": "test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_inbox_directory_symlink_to_an_outside_directory",
         "reason": "symlink creation privilege unavailable (WinError 1314)"
       }
     ]
@@ -42,19 +44,35 @@
     "attribution": "Claude (Anthropic), second-round review",
     "os": {"name": "Linux", "architecture": "64-bit"},
     "python": "CPython 3.11.15",
-    "framework_and_command": "PYTHONPATH=src python3 -m pytest tests -q; PYTHONPATH=src python3 -m unittest discover -s tests (from evaluation/pilot)",
+    "commands": [
+      {"command": "PYTHONPATH=src python3 -m pytest tests -q", "working_directory": "evaluation/pilot", "exit_code": 0, "result": "187 passed, 11 skipped, 174 subtests passed"},
+      {"command": "PYTHONPATH=src python3 -m unittest discover -s tests", "working_directory": "evaluation/pilot", "exit_code": 0, "result": "Ran 198 tests, OK (skipped=11)"}
+    ],
     "top_level_cases": 198,
     "passed": 187,
     "skipped": 11,
     "failed": 0,
     "errored": 0,
+    "skipped_tests": [
+      {"id": "test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_a_real_junction_at_a_lexical_ancestor_above_run_root", "reason": "Windows junction behavior"},
+      {"id": "test_ingest_paths.RegisteredInboxArtifactTests.test_rejects_inbox_junction_to_an_outside_directory", "reason": "Windows junction behavior"},
+      {"id": "test_job_publication.JobPublicationTests.test_rejects_a_preexisting_junction_at_the_run_parent", "reason": "Windows junction behavior"},
+      {"id": "test_job_publication.JobPublicationTests.test_rename_boundary_swap_cannot_publish_outside", "reason": "Windows rename boundary"},
+      {"id": "test_storage_and_paths.RawStoreTests.test_public_hold_directory_chain_blocks_ancestor_rename", "reason": "Windows directory-handle behavior"},
+      {"id": "test_storage_and_paths.RawStoreTests.test_publication_blocks_a_root_or_parent_swap_to_a_real_junction", "reason": "Windows junction behavior"},
+      {"id": "test_storage_and_paths.RawStoreTests.test_recovery_handles_an_exception_after_atomic_publication", "reason": "Windows atomic rename behavior"},
+      {"id": "test_storage_and_paths.RawStoreTests.test_rejects_a_junction_in_the_receipt_store_ancestor", "reason": "Windows junction behavior"},
+      {"id": "test_storage_and_paths.RawStoreTests.test_rejects_a_junction_inserted_below_an_initialized_store", "reason": "Windows junction behavior"},
+      {"id": "test_storage_and_paths.RawStoreTests.test_rejects_junctions_for_every_stage1_store_parent", "reason": "Windows junction behavior"},
+      {"id": "test_storage_and_paths.RawStoreTests.test_windows_identity_matches_the_32_bit_handle_volume_serial", "reason": "Windows file identity behavior"}
+    ],
     "skipped_tests_guard": "all 11 are @unittest.skipUnless(os.name == \"nt\") guards: 2 in tests/test_ingest_paths.py, 2 in tests/test_job_publication.py, 7 in tests/test_storage_and_paths.py; one-to-one with the static guard count",
-    "windows_skipped_tests_status_on_linux": "both symlink tests listed above pass on Linux"
+    "windows_skipped_tests_status_on_linux": "both Windows-skipped symlink tests pass on Linux"
   },
   "union_claim": {
-    "statement": "Across the reported Windows runs and the observed Linux run, every one of the 198 top-level test cases passed at least once with zero failures or errors.",
+    "statement": "Across the reported Windows runs and the observed Linux run, every one of the 198 top-level test cases passed at least once with zero failures or errors. The claim is derived from reported Windows evidence plus observed Linux evidence.",
     "limits": [
-      "This is coverage across the specific observed and reported runs only; it does not establish that every test passes on every OS or Python version.",
+      "This is coverage across the specific reported and observed runs only; it does not establish that every test passes on every OS or Python version.",
       "No subtest, branch, or platform-behavior coverage is claimed.",
       "It does not claim single-environment union coverage is unachievable; a Windows host with symlink privilege could plausibly run all 198."
     ]
