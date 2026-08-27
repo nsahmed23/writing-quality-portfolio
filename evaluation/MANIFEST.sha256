@@ -1,7 +1,8 @@
 d24e374aa8a7519a9a9558086899ece9408813ece3a20ba6ff360a2f5fd88887  ./CLAUDE_REVIEW.md
+05bd2c532c1c7df128cb94ff27dfd0dd4e14dff53cfa79af5700618984c0ef8d  ./CLAUDE_REVIEW_2.md
 c38d6ed2010aec79f8e3886e23e8efe81f01f2c5a50463376f690b79671871bd  ./CLAUDE_REVIEW_HANDOFF.md
 e98e34af70d1c9c2b7350daf84f4fba5465722a697e6443386d5b1db48d0250d  ./CODEX_RESPONSE_TO_CLAUDE.md
-6248f04428ba95f22f12e7920ddce54c6b992d3656084604bd680bf35e395fdf  ./README.md
+8f0c2c64a15914edf76db5455d9637092395335417a7879766f9adbd6170a84f  ./README.md
 21007f4f264b2d70d3841a4024fcf033b61aa27dbcb6a286aad2adb75d6ada9a  ./THIRD_PARTY_BOUNDARY.md
 f4a099f74aa97d36cc34f835626f5c73e262ffbcca43caac7b84c41b7a61e817  ./docs/benchmark-validity-erratum.md
 14c6106f5077b10837376d92565e68cae1ef9b1942f19dd51638568f7d5bf3fa  ./docs/evaluation-plan.md
@@ -435,6 +436,7 @@ b242be8b30b6ab6eb7245c089e61cb48056c0b81453a73751d83818425d60d07  ./pilot/tools/
 6d3c2e97dbf02a6b1ac8f04042d6fa263aec3daaafa76789597b1553090707cd  ./publication/checkpoints/02-local-verification.json
 f2e99fcc6030402f882f8b6e73d8cca7edfa78d14116bb85a30fa3cd0296a82f  ./publication/checkpoints/03-claude-review-integration.json
 c81bf10182be0cd58ddf739df360dc0d2e5ca7b84230af0e2a0026391184384f  ./publication/checkpoints/04-feedback-publication-readiness.json
+351e346bc4dc7a9b7a9e0b22bdaa0ad5c50f6acc2ccb189b8901d9605cb54fb8  ./publication/checkpoints/05-test-platform-metadata-correction.json
 76dfe532214e2da4137c06bdd3ee441ac7c4c8214f61d729dd7bf33ca58ef98a  ./publication/resume.md
 95cfe25cfe5b216a13443c3f71760b44041367d897adff5be78f478a38fe13a8  ./source-review/.checkpoints/01-scope.json
 505ce731a22d4305cc018d27b256d9db60e5084d297e20b8e7d00abdac336667  ./source-review/.checkpoints/02-sources.json
