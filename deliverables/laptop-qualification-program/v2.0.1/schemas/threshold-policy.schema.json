@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:laptop-qual:threshold-policy:2.0.1",
+  "title": "Threshold Policy",
+  "description": "Versioned, preapproved, frozen threshold and reserve constants with bounded revision and comparability governance.",
+  "type": "object",
+  "required": [
+    "policyId", "schemaVersion", "version", "status", "frozenAt", "approvedBy",
+    "reserves", "thresholds", "revisionPolicy", "nonComparableAfterRevision"
+  ],
+  "properties": {
+    "policyId": { "$ref": "#/$defs/nonEmptyString" },
+    "schemaVersion": { "const": "2.0.1" },
+    "version": { "$ref": "#/$defs/nonEmptyString" },
+    "status": { "const": "frozen" },
+    "frozenAt": { "type": "string", "format": "date-time" },
+    "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+    "reserves": {
+      "type": "object",
+      "required": ["memoryReserveGB", "storageReserveGB"],
+      "properties": {
+        "memoryReserveGB": {
+          "allOf": [
+            { "$ref": "#/$defs/reserveConstant" },
+            { "type": "object", "properties": { "value": { "type": "number", "minimum": 0 }, "unit": { "type": "string", "const": "GB" } } }
+          ]
+        },
+        "storageReserveGB": {
+          "allOf": [
+            { "$ref": "#/$defs/reserveConstant" },
+            { "type": "object", "properties": { "value": { "type": "number", "minimum": 0 }, "unit": { "type": "string", "const": "GB" } } }
+          ]
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "thresholds": {
+      "type": "object",
+      "required": [
+        "idleCpuMedianMaxPct", "idleCpuP95MaxPct", "idleMemoryMaxGB",
+        "sleepDrainMaxPctPer16h", "dockCyclesRequired", "dockFailuresMax",
+        "sustainedPerfDropMaxPct", "benchmarkRepeatabilityMaxCvPct",
+        "minTelemetryCoveragePct", "maxPilotIncidentRate", "appSuccessRateMinPct"
+      ],
+      "properties": {
+        "idleCpuMedianMaxPct": { "$ref": "#/$defs/percentConstant" },
+        "idleCpuP95MaxPct": { "$ref": "#/$defs/percentConstant" },
+        "idleMemoryMaxGB": {
+          "allOf": [
+            { "$ref": "#/$defs/governedConstant" },
+            { "type": "object", "properties": { "value": { "type": "number", "minimum": 0 }, "unit": { "type": "string", "const": "GB" } } }
+          ]
+        },
+        "sleepDrainMaxPctPer16h": {
+          "allOf": [
+            { "$ref": "#/$defs/governedPercentValue" },
+            { "type": "object", "properties": { "unit": { "type": "string", "const": "percent-per-16h" } } }
+          ]
+        },
+        "dockCyclesRequired": {
+          "allOf": [
+            { "$ref": "#/$defs/governedConstant" },
+            { "type": "object", "properties": { "value": { "type": "integer", "minimum": 1 }, "unit": { "type": "string", "const": "cycles" } } }
+          ]
+        },
+        "dockFailuresMax": {
+          "allOf": [
+            { "$ref": "#/$defs/governedConstant" },
+            { "type": "object", "properties": { "value": { "type": "integer", "minimum": 0 }, "unit": { "type": "string", "const": "failures" } } }
+          ]
+        },
+        "sustainedPerfDropMaxPct": { "$ref": "#/$defs/percentConstant" },
+        "benchmarkRepeatabilityMaxCvPct": { "$ref": "#/$defs/percentConstant" },
+        "minTelemetryCoveragePct": { "$ref": "#/$defs/percentConstant" },
+        "maxPilotIncidentRate": {
+          "allOf": [
+            { "$ref": "#/$defs/governedConstant" },
+            { "type": "object", "properties": { "value": { "type": "number", "minimum": 0 } } }
+          ]
+        },
+        "appSuccessRateMinPct": { "$ref": "#/$defs/percentConstant" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "revisionPolicy": {
+      "type": "object",
+      "required": [
+        "authority", "allowedWhen", "requiresNewVersion",
+        "prohibitAfterCandidateResults", "revisionEvidenceRequired"
+      ],
+      "properties": {
+        "authority": { "$ref": "#/$defs/nonEmptyString" },
+        "allowedWhen": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "requiresNewVersion": { "const": true },
+        "prohibitAfterCandidateResults": { "const": true },
+        "revisionEvidenceRequired": { "const": true },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "nonComparableAfterRevision": {
+      "type": "object",
+      "required": ["rule", "comparisonClasses"],
+      "properties": {
+        "rule": { "$ref": "#/$defs/nonEmptyString" },
+        "comparisonClasses": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "extensions": { "$ref": "#/$defs/extensions" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "extensions": { "type": "object", "additionalProperties": true },
+    "governedConstant": {
+      "type": "object",
+      "required": [
+        "value", "unit", "rationale", "selectionMethod", "selectionEvidenceRefs",
+        "appliesTo", "approvedBy"
+      ],
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "$ref": "#/$defs/nonEmptyString" },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "selectionMethod": { "$ref": "#/$defs/nonEmptyString" },
+        "selectionEvidenceRefs": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "appliesTo": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+        "revisableWhen": { "$ref": "#/$defs/nonEmptyString" },
+        "nonComparableComparisonClasses": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "reserveConstant": {
+      "allOf": [
+        { "$ref": "#/$defs/governedConstant" },
+        {
+          "type": "object",
+          "required": ["revisableWhen", "nonComparableComparisonClasses"],
+          "properties": {
+            "revisableWhen": { "$ref": "#/$defs/nonEmptyString" },
+            "nonComparableComparisonClasses": { "$ref": "#/$defs/nonEmptyStringArray" }
+          }
+        }
+      ]
+    },
+    "percentConstant": {
+      "allOf": [
+        { "$ref": "#/$defs/governedPercentValue" },
+        {
+          "type": "object",
+          "properties": { "unit": { "type": "string", "const": "percent" } }
+        }
+      ]
+    },
+    "governedPercentValue": {
+      "allOf": [
+        { "$ref": "#/$defs/governedConstant" },
+        {
+          "type": "object",
+          "properties": { "value": { "type": "number", "minimum": 0, "maximum": 100 } }
+        }
+      ]
+    }
+  }
+}

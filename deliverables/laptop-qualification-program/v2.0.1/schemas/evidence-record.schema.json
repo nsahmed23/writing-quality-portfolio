@@ -1,0 +1,600 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:laptop-qual:evidence-record:2.0.1",
+  "title": "Evidence Record",
+  "description": "A measured result summary or documentary claim with provenance, identity, baseline fingerprint, coverage, missingness, and hashed artifacts.",
+  "type": "object",
+  "required": [
+    "recordId", "schemaVersion", "recordKind", "provenance", "evidenceUse", "subject", "baseline",
+    "tool", "testRef", "conditionRef", "testPackVersion", "timestamp", "admission", "result", "coverage",
+    "dataQuality", "artifacts", "knownLimitations"
+  ],
+  "properties": {
+    "recordId": { "$ref": "#/$defs/nonEmptyString" },
+    "schemaVersion": { "const": "2.0.1" },
+    "recordKind": { "enum": ["measurement-summary", "documentary-claim"] },
+    "provenance": { "enum": ["T0", "T1", "T2"] },
+    "evidenceUse": { "enum": ["hypothesis-only", "context", "gate-or-verdict"] },
+    "corroborationRef": { "$ref": "#/$defs/corroborationReference" },
+    "subject": {
+      "oneOf": [
+        { "$ref": "#/$defs/deviceSubject" },
+        { "$ref": "#/$defs/batchSubject" },
+        { "$ref": "#/$defs/documentarySubject" }
+      ]
+    },
+    "baseline": {
+      "oneOf": [
+        { "$ref": "#/$defs/runtimeBaseline" },
+        { "$ref": "#/$defs/documentaryBaseline" }
+      ]
+    },
+    "tool": { "$ref": "#/$defs/tool" },
+    "testRef": { "$ref": "#/$defs/nonEmptyString" },
+    "conditionRef": { "$ref": "#/$defs/nonEmptyString" },
+    "testPackVersion": { "$ref": "#/$defs/nonEmptyString" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "admission": { "$ref": "#/$defs/admission" },
+    "result": {
+      "type": "object",
+      "minProperties": 1,
+      "description": "Test-specific structured payload.",
+      "additionalProperties": true
+    },
+    "distribution": { "$ref": "#/$defs/distribution" },
+    "coverage": { "$ref": "#/$defs/coverage" },
+    "dataQuality": {
+      "enum": ["direct-attribution", "controlled-delta", "association", "enumeration", "document"]
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/artifact" }
+    },
+    "knownLimitations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "stale": { "$ref": "#/$defs/staleState" },
+    "extensions": { "$ref": "#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "type": "object", "properties": { "provenance": { "const": "T0" } }, "required": ["provenance"] },
+      "then": {
+        "type": "object",
+        "required": ["distribution"],
+        "properties": {
+          "recordKind": { "const": "measurement-summary" },
+          "subject": {
+            "oneOf": [
+              { "$ref": "#/$defs/deviceSubject" },
+              { "$ref": "#/$defs/batchSubject" }
+            ]
+          },
+          "baseline": { "$ref": "#/$defs/runtimeBaseline" },
+          "distribution": { "$ref": "#/$defs/distribution" },
+          "dataQuality": {
+            "enum": ["direct-attribution", "controlled-delta", "association", "enumeration"]
+          }
+        }
+      },
+      "else": {
+        "type": "object",
+        "properties": {
+          "recordKind": { "const": "documentary-claim" },
+          "subject": { "$ref": "#/$defs/documentarySubject" },
+          "baseline": { "$ref": "#/$defs/documentaryBaseline" },
+          "dataQuality": { "const": "document" }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": { "provenance": { "const": "T2" } },
+        "required": ["provenance"]
+      },
+      "then": {
+        "type": "object",
+        "required": ["corroborationRef"],
+        "properties": { "corroborationRef": { "$ref": "#/$defs/corroborationReference" } }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "admission": {
+            "type": "object",
+            "properties": { "mode": { "const": "compatibility-cache" } },
+            "required": ["mode"]
+          }
+        },
+        "required": ["admission"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "provenance": { "const": "T0" },
+          "recordKind": { "const": "measurement-summary" },
+          "evidenceUse": { "const": "gate-or-verdict" }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "provenance": { "const": "T0" },
+          "subject": {
+            "type": "object",
+            "properties": { "kind": { "const": "device" } },
+            "required": ["kind"]
+          }
+        },
+        "required": ["provenance", "subject"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "distribution": {
+            "type": "object",
+            "properties": { "unitCount": { "const": 1 } },
+            "required": ["unitCount"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "provenance": { "const": "T0" },
+          "subject": {
+            "type": "object",
+            "properties": { "kind": { "const": "batch-stratum" } },
+            "required": ["kind"]
+          }
+        },
+        "required": ["provenance", "subject"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "distribution": {
+            "type": "object",
+            "properties": { "unitCount": { "type": "integer", "minimum": 2 } },
+            "required": ["unitCount"]
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+    "extensions": { "type": "object", "additionalProperties": true },
+    "stringMap": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/nonEmptyString" },
+      "additionalProperties": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "deviceSubject": {
+      "type": "object",
+      "required": ["kind", "role", "deviceId", "configurationIdentity", "manifestRef"],
+      "properties": {
+        "kind": { "const": "device" },
+        "role": { "enum": ["candidate", "incumbent", "sibling-or-alternative"] },
+        "deviceId": { "$ref": "#/$defs/nonEmptyString" },
+        "configurationIdentity": { "$ref": "#/$defs/nonEmptyString" },
+        "manifestRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "batchSubject": {
+      "type": "object",
+      "required": [
+        "kind", "stratumId", "role", "configurationIdentity", "manifestRef",
+        "baselineFingerprintSha256", "units"
+      ],
+      "properties": {
+        "kind": { "const": "batch-stratum" },
+        "stratumId": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "enum": ["candidate", "incumbent", "sibling-or-alternative"] },
+        "configurationIdentity": { "$ref": "#/$defs/nonEmptyString" },
+        "manifestRef": { "$ref": "#/$defs/nonEmptyString" },
+        "baselineFingerprintSha256": { "$ref": "#/$defs/sha256" },
+        "units": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/batchUnit" }
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "batchUnit": {
+      "type": "object",
+      "required": [
+        "deviceId", "role", "configurationIdentity", "manifestRef",
+        "baselineFingerprintSha256"
+      ],
+      "properties": {
+        "deviceId": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "enum": ["candidate", "incumbent", "sibling-or-alternative"] },
+        "configurationIdentity": { "$ref": "#/$defs/nonEmptyString" },
+        "manifestRef": { "$ref": "#/$defs/nonEmptyString" },
+        "baselineFingerprintSha256": { "$ref": "#/$defs/sha256" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "documentarySubject": {
+      "type": "object",
+      "required": ["kind", "configurationIdentity", "sourceDocumentRef"],
+      "properties": {
+        "kind": { "const": "configuration" },
+        "configurationIdentity": { "$ref": "#/$defs/nonEmptyString" },
+        "sourceDocumentRef": { "$ref": "#/$defs/nonEmptyString" },
+        "manifestRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "runtimeBaseline": {
+      "type": "object",
+      "required": [
+        "biosVersion", "windowsBuild", "image", "driverVersions", "agentVersions",
+        "baselineFingerprintSha256"
+      ],
+      "properties": {
+        "biosVersion": { "$ref": "#/$defs/nonEmptyString" },
+        "windowsBuild": { "$ref": "#/$defs/nonEmptyString" },
+        "driverVersions": { "$ref": "#/$defs/stringMap" },
+        "agentVersions": { "$ref": "#/$defs/stringMap" },
+        "image": { "enum": ["reference", "corporate"] },
+        "powerMode": { "$ref": "#/$defs/nonEmptyString" },
+        "power": { "enum": ["ac", "battery", "not-applicable"] },
+        "dockState": { "enum": ["docked", "undocked", "not-applicable"] },
+        "agentState": {
+          "enum": [
+            "settled", "av-scan", "patch-window", "inventory", "sync-burst",
+            "meeting-workload", "persona-workload", "not-applicable"
+          ]
+        },
+        "baselineFingerprintSha256": { "$ref": "#/$defs/sha256" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "documentaryBaseline": {
+      "type": "object",
+      "required": ["configurationEnvelopeRef", "platformApplicability", "baselineFingerprintSha256"],
+      "properties": {
+        "configurationEnvelopeRef": { "$ref": "#/$defs/nonEmptyString" },
+        "platformApplicability": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "baselineFingerprintSha256": { "$ref": "#/$defs/sha256" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "corroborationReference": {
+      "type": "object",
+      "required": ["recordRef", "expectedProvenance", "claimScope"],
+      "properties": {
+        "recordRef": { "$ref": "#/$defs/nonEmptyString" },
+        "expectedProvenance": { "enum": ["T0", "T1"] },
+        "claimScope": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "tool": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "version": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "admission": {
+      "type": "object",
+      "required": ["mode", "admittedAt"],
+      "properties": {
+        "mode": { "enum": ["fresh", "compatibility-cache"] },
+        "admittedAt": { "type": "string", "format": "date-time" },
+        "reusePolicyRef": { "$ref": "#/$defs/nonEmptyString" },
+        "cachedReleaseRef": { "$ref": "#/$defs/nonEmptyString" },
+        "dependencySnapshotRef": { "$ref": "#/$defs/nonEmptyString" },
+        "dependencyMatch": { "$ref": "#/$defs/cacheDependencyMatch" },
+        "artifactHashesVerified": { "const": true },
+        "completeEvidenceVerified": { "const": true },
+        "withinMaximumAge": { "const": true },
+        "bridgeEvidenceRefs": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "criticalMatrixRef": { "$ref": "#/$defs/nonEmptyString" },
+        "functionalRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+        "repeatabilityRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+        "driftRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+        "bridgeAccepted": { "const": true },
+        "bridgeAcceptedAt": { "type": "string", "format": "date-time" },
+        "cachePlusBridgeMeetsFloor": { "const": true },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": { "mode": { "const": "compatibility-cache" } },
+            "required": ["mode"]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "reusePolicyRef", "cachedReleaseRef", "dependencySnapshotRef",
+              "dependencyMatch", "artifactHashesVerified", "completeEvidenceVerified",
+              "withinMaximumAge", "bridgeEvidenceRefs", "criticalMatrixRef",
+              "functionalRuleRef", "repeatabilityRuleRef", "driftRuleRef",
+              "bridgeAccepted", "bridgeAcceptedAt", "cachePlusBridgeMeetsFloor"
+            ],
+            "properties": {
+              "reusePolicyRef": true,
+              "cachedReleaseRef": true,
+              "dependencySnapshotRef": true,
+              "dependencyMatch": true,
+              "artifactHashesVerified": true,
+              "completeEvidenceVerified": true,
+              "withinMaximumAge": true,
+              "bridgeEvidenceRefs": true,
+              "criticalMatrixRef": true,
+              "functionalRuleRef": true,
+              "repeatabilityRuleRef": true,
+              "driftRuleRef": true,
+              "bridgeAccepted": true,
+              "bridgeAcceptedAt": true,
+              "cachePlusBridgeMeetsFloor": true
+            }
+          },
+          "else": {
+            "type": "object",
+            "properties": {
+              "reusePolicyRef": false,
+              "cachedReleaseRef": false,
+              "dependencySnapshotRef": false,
+              "dependencyMatch": false,
+              "artifactHashesVerified": false,
+              "completeEvidenceVerified": false,
+              "withinMaximumAge": false,
+              "bridgeEvidenceRefs": false,
+              "criticalMatrixRef": false,
+              "functionalRuleRef": false,
+              "repeatabilityRuleRef": false,
+              "driftRuleRef": false,
+              "bridgeAccepted": false,
+              "bridgeAcceptedAt": false,
+              "cachePlusBridgeMeetsFloor": false
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "cacheDependencyMatch": {
+      "type": "object",
+      "required": [
+        "hardware", "firmware", "operatingSystem", "agents", "applications",
+        "peripherals", "conditions", "testAndPack", "supportCurrency",
+        "thresholdPolicy", "staleness"
+      ],
+      "properties": {
+        "hardware": { "const": true },
+        "firmware": { "const": true },
+        "operatingSystem": { "const": true },
+        "agents": { "const": true },
+        "applications": { "const": true },
+        "peripherals": { "const": true },
+        "conditions": { "const": true },
+        "testAndPack": { "const": true },
+        "supportCurrency": { "const": true },
+        "thresholdPolicy": { "const": true },
+        "staleness": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "distribution": {
+      "type": "object",
+      "required": [
+        "unitCount", "runCount", "runs", "summary", "runVariationPct", "betweenUnitVariationPct", "missingResults",
+        "excludedOutliers"
+      ],
+      "properties": {
+        "unitCount": { "type": "integer", "minimum": 1 },
+        "runCount": { "type": "integer", "minimum": 1 },
+        "runs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/runIdentity" }
+        },
+        "summary": {
+          "oneOf": [
+            { "$ref": "#/$defs/numericSummary" },
+            { "$ref": "#/$defs/categoricalSummary" }
+          ]
+        },
+        "runVariationPct": { "type": "number", "minimum": 0 },
+        "betweenUnitVariationPct": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Variation across distinct units in this baseline stratum; zero is valid for a one-unit engineering record."
+        },
+        "missingResults": { "$ref": "#/$defs/missingResults" },
+        "excludedOutliers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/excludedOutlier" }
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "runIdentity": {
+      "type": "object",
+      "required": ["runId", "deviceId"],
+      "properties": {
+        "runId": { "$ref": "#/$defs/nonEmptyString" },
+        "deviceId": { "$ref": "#/$defs/nonEmptyString" }
+      },
+      "additionalProperties": false
+    },
+    "numericSummary": {
+      "type": "object",
+      "required": ["kind", "median", "spread"],
+      "properties": {
+        "kind": { "const": "numeric" },
+        "median": { "type": "number" },
+        "spread": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["kind", "min", "max"],
+              "properties": {
+                "kind": { "const": "range" },
+                "min": { "type": "number" },
+                "max": { "type": "number" }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": ["kind", "p05", "p95"],
+              "properties": {
+                "kind": { "const": "percentile" },
+                "p05": { "type": "number" },
+                "p95": { "type": "number" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "categoricalSummary": {
+      "type": "object",
+      "required": ["kind", "categoryCounts"],
+      "properties": {
+        "kind": { "const": "categorical" },
+        "categoryCounts": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "$ref": "#/$defs/nonEmptyString" },
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "missingResults": {
+      "type": "object",
+      "required": ["count", "reasons"],
+      "properties": {
+        "count": { "type": "integer", "minimum": 0 },
+        "reasons": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "if": { "type": "object", "properties": { "count": { "type": "integer", "minimum": 1 } }, "required": ["count"] },
+      "then": { "type": "object", "properties": { "reasons": { "type": "array", "minItems": 1 } } },
+      "additionalProperties": false
+    },
+    "excludedOutlier": {
+      "type": "object",
+      "required": ["value", "reason"],
+      "properties": {
+        "value": {
+          "oneOf": [
+            { "type": "number" },
+            { "type": "string" },
+            { "type": "boolean" },
+            { "type": "null" }
+          ]
+        },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["scope", "plannedUnits", "observedUnits", "plannedRuns", "observedRuns", "percent", "gaps"],
+      "properties": {
+        "scope": { "$ref": "#/$defs/nonEmptyString" },
+        "plannedUnits": { "type": "integer", "minimum": 1 },
+        "observedUnits": { "type": "integer", "minimum": 0 },
+        "plannedRuns": { "type": "integer", "minimum": 1 },
+        "observedRuns": { "type": "integer", "minimum": 0 },
+        "percent": { "type": "number", "minimum": 0, "maximum": 100 },
+        "gaps": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256", "bytes"],
+      "properties": {
+        "path": { "$ref": "#/$defs/nonEmptyString" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "staleState": {
+      "type": "object",
+      "required": ["isStale"],
+      "properties": {
+        "isStale": { "type": "boolean" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "since": { "type": "string", "format": "date-time" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "if": { "type": "object", "properties": { "isStale": { "const": true } }, "required": ["isStale"] },
+      "then": {
+        "type": "object",
+        "required": ["reason", "since"],
+        "properties": {
+          "reason": { "$ref": "#/$defs/nonEmptyString" },
+          "since": { "type": "string", "format": "date-time" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,683 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:laptop-qual:test-plan:2.0.1",
+  "title": "Test Plan",
+  "description": "The Phase 0 frozen test definitions and ten class-specific sampling floors.",
+  "type": "object",
+  "required": [
+    "planId", "schemaVersion", "status", "qualificationTier", "manifestRef",
+    "thresholdPolicyRef", "dependencyReviewRef", "omittedClasses", "frozenAt",
+    "approvedBy", "samplingFloors", "evidenceReusePolicy", "tests"
+  ],
+  "properties": {
+    "planId": { "$ref": "#/$defs/nonEmptyString" },
+    "schemaVersion": { "const": "2.0.1" },
+    "status": { "const": "frozen" },
+    "qualificationTier": { "enum": ["full", "delta", "paper"] },
+    "manifestRef": { "$ref": "#/$defs/nonEmptyString" },
+    "thresholdPolicyRef": { "$ref": "#/$defs/nonEmptyString" },
+    "dependencyReviewRef": { "$ref": "#/$defs/nonEmptyString" },
+    "omittedClasses": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/omittedClass" }
+    },
+    "frozenAt": { "type": "string", "format": "date-time" },
+    "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+    "samplingFloors": {
+      "type": "object",
+      "required": [
+        "component-identification", "controlled-benchmark", "sustained-performance",
+        "battery-standby", "dock-reliability", "application-compatibility",
+        "production-pilot", "sentiment", "corporate-floor", "agent-state"
+      ],
+      "properties": {
+        "component-identification": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 5 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 1 },
+                "perRole": { "type": "boolean", "const": true },
+                "requiredStrata": {
+                  "type": "array",
+                  "allOf": [
+                    { "contains": { "const": "known-lot" }, "minContains": 1 },
+                    { "contains": { "const": "supplier" }, "minContains": 1 }
+                  ]
+                }
+              },
+              "required": ["requiredStrata"]
+            }
+          ]
+        },
+        "controlled-benchmark": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 3 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 5 },
+                "perRole": { "type": "boolean", "const": true }
+              }
+            }
+          ]
+        },
+        "sustained-performance": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 3 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 3 },
+                "perRole": { "type": "boolean", "const": true },
+                "stabilizationRule": { "$ref": "#/$defs/nonEmptyString" }
+              },
+              "required": ["stabilizationRule"]
+            }
+          ]
+        },
+        "battery-standby": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 3 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 3 },
+                "perRole": { "type": "boolean", "const": true },
+                "sessionDefinition": { "$ref": "#/$defs/nonEmptyString" }
+              },
+              "required": ["sessionDefinition"]
+            }
+          ]
+        },
+        "dock-reliability": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 3 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 20 },
+                "perRole": { "type": "boolean", "const": true },
+                "matrixCoverageRef": { "$ref": "#/$defs/nonEmptyString" }
+              },
+              "required": ["matrixCoverageRef"]
+            }
+          ]
+        },
+        "application-compatibility": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 2 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 2 },
+                "perRole": { "type": "boolean", "const": false },
+                "matrixCoverageRef": { "$ref": "#/$defs/nonEmptyString" }
+              },
+              "required": ["matrixCoverageRef"]
+            }
+          ]
+        },
+        "production-pilot": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 30 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 10 },
+                "perRole": { "type": "boolean", "const": false },
+                "minEvidenceDays": { "type": "integer", "minimum": 10 },
+                "representative": { "type": "boolean", "const": true },
+                "volunteerOnly": { "type": "boolean", "const": false },
+                "stratumQuotas": { "$ref": "#/$defs/stratumQuotas" }
+              },
+              "required": ["minEvidenceDays", "representative", "volunteerOnly", "stratumQuotas"]
+            }
+          ]
+        },
+        "sentiment": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 24 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 1 },
+                "perRole": { "type": "boolean", "const": false },
+                "minResponseRatePct": { "type": "number", "minimum": 80, "maximum": 100 },
+                "representative": { "type": "boolean", "const": true },
+                "volunteerOnly": { "type": "boolean", "const": false },
+                "stratumQuotas": { "$ref": "#/$defs/stratumQuotas" }
+              },
+              "required": ["minResponseRatePct", "representative", "volunteerOnly", "stratumQuotas"]
+            }
+          ]
+        },
+        "corporate-floor": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 3 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 3 },
+                "perRole": { "type": "boolean", "const": true },
+                "imageBaselinesRef": { "$ref": "#/$defs/nonEmptyString" }
+              },
+              "required": ["imageBaselinesRef"]
+            }
+          ]
+        },
+        "agent-state": {
+          "allOf": [
+            { "$ref": "#/$defs/samplingFloor" },
+            {
+              "type": "object",
+              "properties": {
+                "minUnits": { "type": "integer", "minimum": 3 },
+                "minRepetitionsPerUnit": { "type": "integer", "minimum": 3 },
+                "perRole": { "type": "boolean", "const": true },
+                "agentStateMatrixRef": { "$ref": "#/$defs/nonEmptyString" }
+              },
+              "required": ["agentStateMatrixRef"]
+            }
+          ]
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceReusePolicy": { "$ref": "#/$defs/evidenceReusePolicy" },
+    "tests": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/testDefinition" }
+    },
+    "extensions": { "$ref": "#/$defs/extensions" }
+  },
+  "allOf": [
+    { "$ref": "#/$defs/fullTierCoverage" },
+    { "$ref": "#/$defs/classAccounting" }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "extensions": { "type": "object", "additionalProperties": true },
+    "evidenceReusePolicy": {
+      "type": "object",
+      "required": [
+        "policyVersion", "status", "frozenAt", "approvedBy",
+        "documentaryContext", "compatibilityCache", "dynamicEvidence", "bootstrap"
+      ],
+      "properties": {
+        "policyVersion": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "const": "frozen" },
+        "frozenAt": { "type": "string", "format": "date-time" },
+        "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+        "documentaryContext": {
+          "type": "object",
+          "required": [
+            "countsTowardSamplingFloor", "replacesFreshPhase1",
+            "exactConfigurationRequired", "artifactHashVerificationRequired",
+            "currencyWindowRequired", "unchangedDependenciesRequired"
+          ],
+          "properties": {
+            "countsTowardSamplingFloor": { "const": false },
+            "replacesFreshPhase1": { "const": false },
+            "exactConfigurationRequired": { "const": true },
+            "artifactHashVerificationRequired": { "const": true },
+            "currencyWindowRequired": { "const": true },
+            "unchangedDependenciesRequired": { "const": true }
+          },
+          "additionalProperties": false
+        },
+        "compatibilityCache": {
+          "type": "object",
+          "required": [
+            "eligibleClass", "maximumAgeDays", "requiredDependencyDimensions",
+            "exactSubjectRequired", "artifactHashVerificationRequired",
+            "completeEvidenceRequired", "separateStrataOnMismatch", "bridge"
+          ],
+          "properties": {
+            "eligibleClass": { "const": "application-compatibility" },
+            "maximumAgeDays": { "type": "integer", "minimum": 1 },
+            "requiredDependencyDimensions": { "$ref": "#/$defs/cacheDependencyDimensions" },
+            "exactSubjectRequired": { "const": true },
+            "artifactHashVerificationRequired": { "const": true },
+            "completeEvidenceRequired": { "const": true },
+            "separateStrataOnMismatch": { "const": true },
+            "bridge": {
+              "type": "object",
+              "required": [
+                "minimumCandidateUnits", "minimumRepetitionsPerCriticalCombination",
+                "criticalMatrixRef", "functionalRuleRef", "repeatabilityRuleRef",
+                "driftRuleRef", "cachePlusBridgeMustMeetFullFloor"
+              ],
+              "properties": {
+                "minimumCandidateUnits": { "type": "integer", "minimum": 1 },
+                "minimumRepetitionsPerCriticalCombination": { "type": "integer", "minimum": 1 },
+                "criticalMatrixRef": { "$ref": "#/$defs/nonEmptyString" },
+                "functionalRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+                "repeatabilityRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+                "driftRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+                "cachePlusBridgeMustMeetFullFloor": { "const": true }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "dynamicEvidence": {
+          "type": "object",
+          "required": ["classes", "cachedRecordsCountTowardFloors", "freshConcurrentEvidenceRequired"],
+          "properties": {
+            "classes": { "$ref": "#/$defs/dynamicClasses" },
+            "cachedRecordsCountTowardFloors": { "const": false },
+            "freshConcurrentEvidenceRequired": { "const": true }
+          },
+          "additionalProperties": false
+        },
+        "bootstrap": {
+          "type": "object",
+          "required": [
+            "compatibilityFullFreshFloorRequired", "controlFullFreshClassFloorRequired",
+            "productionTelemetryCountsTowardFloor", "singleAnchorRunSufficient"
+          ],
+          "properties": {
+            "compatibilityFullFreshFloorRequired": { "const": true },
+            "controlFullFreshClassFloorRequired": { "const": true },
+            "productionTelemetryCountsTowardFloor": { "const": false },
+            "singleAnchorRunSufficient": { "const": false }
+          },
+          "additionalProperties": false
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "cacheDependencyDimensions": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "hardware", "firmware", "operating-system", "agents", "applications",
+          "peripherals", "conditions", "test-and-pack", "support-currency",
+          "threshold-policy", "staleness"
+        ]
+      }
+    },
+    "dynamicClasses": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "controlled-benchmark", "sustained-performance", "battery-standby",
+          "dock-reliability", "corporate-floor", "agent-state",
+          "production-pilot", "sentiment"
+        ]
+      }
+    },
+    "stratumQuotas": {
+      "type": "object",
+      "required": ["persona", "region", "workPattern"],
+      "properties": {
+        "persona": { "$ref": "#/$defs/quotaMap" },
+        "region": { "$ref": "#/$defs/quotaMap" },
+        "workPattern": { "$ref": "#/$defs/quotaMap" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "quotaMap": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/nonEmptyString" },
+      "additionalProperties": { "type": "integer", "minimum": 1 }
+    },
+    "samplingFloor": {
+      "type": "object",
+      "required": [
+        "minUnits", "minRepetitionsPerUnit", "perRole", "samplingConcern",
+        "selectionMethod", "repetitionUnit"
+      ],
+      "properties": {
+        "minUnits": { "type": "integer", "minimum": 1 },
+        "minRepetitionsPerUnit": { "type": "integer", "minimum": 1 },
+        "perRole": { "type": "boolean" },
+        "samplingConcern": { "$ref": "#/$defs/nonEmptyString" },
+        "selectionMethod": { "$ref": "#/$defs/nonEmptyString" },
+        "repetitionUnit": { "$ref": "#/$defs/nonEmptyString" },
+        "requiredStrata": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "stabilizationRule": { "$ref": "#/$defs/nonEmptyString" },
+        "sessionDefinition": { "$ref": "#/$defs/nonEmptyString" },
+        "matrixCoverageRef": { "$ref": "#/$defs/nonEmptyString" },
+        "minEvidenceDays": { "type": "integer", "minimum": 1 },
+        "minResponseRatePct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "representative": { "type": "boolean" },
+        "volunteerOnly": { "type": "boolean" },
+        "stratumQuotas": { "$ref": "#/$defs/stratumQuotas" },
+        "imageBaselinesRef": { "$ref": "#/$defs/nonEmptyString" },
+        "agentStateMatrixRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "omittedClass": {
+      "type": "object",
+      "required": ["class", "rationale", "dependenciesUnaffected", "reviewEvidenceRef"],
+      "properties": {
+        "class": {
+          "enum": [
+            "component-identification", "controlled-benchmark", "sustained-performance",
+            "battery-standby", "dock-reliability", "application-compatibility",
+            "production-pilot", "sentiment", "corporate-floor", "agent-state"
+          ]
+        },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "dependenciesUnaffected": { "const": true },
+        "reviewEvidenceRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "fullTierCoverage": {
+      "type": "object",
+      "if": {
+        "type": "object",
+        "properties": { "qualificationTier": { "const": "full" } },
+        "required": ["qualificationTier"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "omittedClasses": { "type": "array", "maxItems": 0 },
+          "tests": {
+            "type": "array",
+            "minItems": 10,
+            "allOf": [
+              { "contains": { "type": "object", "properties": { "class": { "const": "component-identification" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "controlled-benchmark" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "sustained-performance" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "battery-standby" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "dock-reliability" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "application-compatibility" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "production-pilot" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "sentiment" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "corporate-floor" } }, "required": ["class"] }, "minContains": 1 },
+              { "contains": { "type": "object", "properties": { "class": { "const": "agent-state" } }, "required": ["class"] }, "minContains": 1 }
+            ]
+          }
+        }
+      }
+    },
+    "classAccounting": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/componentIdentificationAccounting" },
+        { "$ref": "#/$defs/controlledBenchmarkAccounting" },
+        { "$ref": "#/$defs/sustainedPerformanceAccounting" },
+        { "$ref": "#/$defs/batteryStandbyAccounting" },
+        { "$ref": "#/$defs/dockReliabilityAccounting" },
+        { "$ref": "#/$defs/applicationCompatibilityAccounting" },
+        { "$ref": "#/$defs/productionPilotAccounting" },
+        { "$ref": "#/$defs/sentimentAccounting" },
+        { "$ref": "#/$defs/corporateFloorAccounting" },
+        { "$ref": "#/$defs/agentStateAccounting" }
+      ]
+    },
+    "componentIdentificationAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "component-identification" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "component-identification" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "component-identification" } }, "required": ["class"] } } } } }
+    },
+    "controlledBenchmarkAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "controlled-benchmark" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "controlled-benchmark" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "controlled-benchmark" } }, "required": ["class"] } } } } }
+    },
+    "sustainedPerformanceAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "sustained-performance" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "sustained-performance" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "sustained-performance" } }, "required": ["class"] } } } } }
+    },
+    "batteryStandbyAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "battery-standby" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "battery-standby" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "battery-standby" } }, "required": ["class"] } } } } }
+    },
+    "dockReliabilityAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "dock-reliability" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "dock-reliability" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "dock-reliability" } }, "required": ["class"] } } } } }
+    },
+    "applicationCompatibilityAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "application-compatibility" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "application-compatibility" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "application-compatibility" } }, "required": ["class"] } } } } }
+    },
+    "productionPilotAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "production-pilot" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "production-pilot" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "production-pilot" } }, "required": ["class"] } } } } }
+    },
+    "sentimentAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "sentiment" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "sentiment" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "sentiment" } }, "required": ["class"] } } } } }
+    },
+    "corporateFloorAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "corporate-floor" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "corporate-floor" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "corporate-floor" } }, "required": ["class"] } } } } }
+    },
+    "agentStateAccounting": {
+      "type": "object",
+      "if": { "type": "object", "properties": { "tests": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "agent-state" } }, "required": ["class"] } } } }, "required": ["tests"] },
+      "then": { "type": "object", "properties": { "omittedClasses": { "type": "array", "contains": { "type": "object", "properties": { "class": { "const": "agent-state" } }, "required": ["class"] }, "minContains": 1 } } },
+      "else": { "type": "object", "properties": { "omittedClasses": { "type": "array", "not": { "contains": { "type": "object", "properties": { "class": { "const": "agent-state" } }, "required": ["class"] } } } } }
+    },
+    "testDefinition": {
+      "type": "object",
+      "required": [
+        "testId", "testVersion", "testPackVersion", "phase", "class", "samplingFloorRef", "purpose",
+        "dependencies", "conditions", "appliesTo", "expectedEvidence", "rules",
+        "stalenessDependencies"
+      ],
+      "properties": {
+        "testId": { "$ref": "#/$defs/nonEmptyString" },
+        "testVersion": { "$ref": "#/$defs/nonEmptyString" },
+        "testPackVersion": { "$ref": "#/$defs/nonEmptyString" },
+        "phase": { "type": "integer", "minimum": 0, "maximum": 6 },
+        "class": {
+          "enum": [
+            "component-identification", "controlled-benchmark", "sustained-performance",
+            "battery-standby", "dock-reliability", "application-compatibility",
+            "production-pilot", "sentiment", "corporate-floor", "agent-state"
+          ]
+        },
+        "samplingFloorRef": {
+          "description": "The referenced frozen sampling-floor object is the authoritative source for this test's required units and repetitions.",
+          "enum": [
+            "#/samplingFloors/component-identification",
+            "#/samplingFloors/controlled-benchmark",
+            "#/samplingFloors/sustained-performance",
+            "#/samplingFloors/battery-standby",
+            "#/samplingFloors/dock-reliability",
+            "#/samplingFloors/application-compatibility",
+            "#/samplingFloors/production-pilot",
+            "#/samplingFloors/sentiment",
+            "#/samplingFloors/corporate-floor",
+            "#/samplingFloors/agent-state"
+          ]
+        },
+        "purpose": { "$ref": "#/$defs/nonEmptyString" },
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/testCondition" }
+        },
+        "appliesTo": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["candidate", "incumbent", "sibling-or-alternative"] }
+        },
+        "expectedEvidence": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "rules": {
+          "type": "object",
+          "required": ["pass", "hold", "fail", "inconclusive"],
+          "properties": {
+            "pass": { "$ref": "#/$defs/nonEmptyString" },
+            "hold": { "$ref": "#/$defs/nonEmptyString" },
+            "fail": { "$ref": "#/$defs/nonEmptyString" },
+            "inconclusive": { "$ref": "#/$defs/nonEmptyString" },
+            "extensions": { "$ref": "#/$defs/extensions" }
+          },
+          "additionalProperties": false
+        },
+        "stalenessDependencies": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "bios", "embedded-controller", "gpu-driver", "npu-driver", "wlan-driver",
+              "storage-firmware", "windows-build", "agent-versions", "dock-firmware",
+              "hardware-component", "threshold-policy", "test-pack"
+            ]
+          }
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "phase": { "const": 3 } }, "required": ["phase"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "appliesTo": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "allOf": [
+                  { "contains": { "const": "candidate" }, "minContains": 1 },
+                  { "contains": { "const": "incumbent" }, "minContains": 1 },
+                  { "contains": { "const": "sibling-or-alternative" }, "minContains": 1 }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "component-identification" } }, "required": ["class"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "phase": { "const": 1 },
+              "samplingFloorRef": { "const": "#/samplingFloors/component-identification" },
+              "appliesTo": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "allOf": [
+                  { "contains": { "const": "candidate" }, "minContains": 1 },
+                  { "contains": { "const": "incumbent" }, "minContains": 1 },
+                  { "contains": { "const": "sibling-or-alternative" }, "minContains": 1 }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "controlled-benchmark" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 3 }, "samplingFloorRef": { "const": "#/samplingFloors/controlled-benchmark" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "sustained-performance" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 3 }, "samplingFloorRef": { "const": "#/samplingFloors/sustained-performance" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "battery-standby" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 3 }, "samplingFloorRef": { "const": "#/samplingFloors/battery-standby" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "dock-reliability" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 3 }, "samplingFloorRef": { "const": "#/samplingFloors/dock-reliability" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "application-compatibility" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 2 }, "samplingFloorRef": { "const": "#/samplingFloors/application-compatibility" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "production-pilot" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 4 }, "samplingFloorRef": { "const": "#/samplingFloors/production-pilot" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "sentiment" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 4 }, "samplingFloorRef": { "const": "#/samplingFloors/sentiment" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "corporate-floor" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 3 }, "samplingFloorRef": { "const": "#/samplingFloors/corporate-floor" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "class": { "const": "agent-state" } }, "required": ["class"] },
+          "then": { "type": "object", "properties": { "phase": { "const": 3 }, "samplingFloorRef": { "const": "#/samplingFloors/agent-state" } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "testCondition": {
+      "type": "object",
+      "required": ["conditionId", "description"],
+      "properties": {
+        "conditionId": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "power": { "enum": ["ac", "battery", "not-applicable"] },
+        "dockState": { "enum": ["docked", "undocked", "not-applicable"] },
+        "powerMode": { "$ref": "#/$defs/nonEmptyString" },
+        "image": { "enum": ["reference", "corporate", "not-applicable"] },
+        "agentState": {
+          "enum": [
+            "settled", "av-scan", "patch-window", "inventory", "sync-burst",
+            "meeting-workload", "persona-workload", "not-applicable"
+          ]
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

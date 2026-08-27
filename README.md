@@ -28,10 +28,15 @@ There is no `elements-of-style` or generic `writing-editor` skill.
 - `defect-and-change-report.md` — baseline audit, semantic diff, change IDs, consequences, tests, and residual uncertainty.
 - `MANIFEST.sha256` — integrity hashes for every other packaged file.
 
+## Additional deliverables
+
+- [Enterprise Laptop Qualification Program v2.0.1](deliverables/laptop-qualification-program/v2.0.1/README.md) — the immutable 15-file qualification release, including the authoritative seven-phase playbook, five portable contract schemas, privacy-safe evidence collector, tests, derived stakeholder views, and non-normative tool bindings.
+- [Claude Code review forum](deliverables/laptop-qualification-program/review-forum/README.md) — the non-normative, version-controlled place for independent review findings and questions. Claude Code begins with the scoped [CLAUDE.md](deliverables/laptop-qualification-program/CLAUDE.md).
+
 ## Completeness label
 
 The package is artifact-complete and build-ready. It is **not full-corpus-exhaustive** for copyrighted books that were not lawfully accessible. The completion statement does not convert TOCs, reviews, snippets, or previews into full-text inspection. See Part XIV and the access ledger for the exact acceptance results.
 
 ## Package form
 
-This is a skills-only OpenAI plugin package. Individual skill folders are independently valid, while `.codex-plugin/plugin.json` provides seven-skill distribution. The research infrastructure is not an eighth skill.
+The `.codex-plugin` portion remains a skills-only OpenAI plugin package. Individual skill folders are independently valid, while `.codex-plugin/plugin.json` provides seven-skill distribution. The research infrastructure is not an eighth skill. Standalone material under `deliverables/` is outside the plugin and does not change its skill count or routing contract.
