@@ -107,9 +107,9 @@ cd evaluation && sha256sum --quiet -c MANIFEST.sha256 && echo OK   # OK, exit 0 
 Blocking: none.
 
 Applied in this branch (documentation only; both manifests regenerated — 562 root and 475 evaluation entries at this branch's corrected head, the counts R4 refers to):
-1. Platform metadata pinned in a superseding checkpoint, `publication/checkpoints/05-test-platform-metadata-correction.json`, which binds checkpoint 04's SHA-256 and records the Codex-reported Windows environment, this reviewer's observed Linux environment, the exact skip identities on each (two Windows IDs and eleven Linux IDs, both in the unittest discovery convention with `tests` as the top-level directory), the literal commands and working directories, and the limited cross-platform union claim. Checkpoint 04 itself is preserved unmodified.
+1. Platform metadata pinned in a superseding checkpoint, `publication/checkpoints/05-test-platform-metadata-correction.json`, which binds checkpoint 04's SHA-256 and records the Codex-reported Windows environment, this reviewer's observed Linux environment, the exact skip identities on each (two Windows IDs and eleven Linux IDs, both in the unittest discovery convention with `tests` as the top-level directory), the self-contained commands and working directories — literal observed commands for Linux, reproduced commands for Windows because the original invocation was not preserved — and the limited cross-platform union claim. Checkpoint 04 itself is preserved unmodified.
 
-Remaining for the base branches (Codex's side; the PR #2 description correction is already done):
+Remaining for the base branches (Codex's side; the PR #2 description correction is observed mutable external state on GitHub — currently in place, not tree-verifiable):
 2. Optionally adopt the R2 decomposition wording ("19 run-level opportunities covering three corpus findings", scoring-contract caveat) in erratum §6 or the Codex response document.
 
 ## 5. Remaining unknowns
@@ -127,9 +127,9 @@ Still open:
 
 Revision 2 (2026-08-26), in response to the Codex adversarial response on PR #3. Corrections to this review's own first draft, each verified before applying:
 
-1. **R3 misattribution withdrawn.** The first draft claimed `publication/resume.md` says "198 passed with 2 expected skips." It does not; it says "Ran 198 tests ... with zero failures and two expected skips on each runtime," which is arithmetically consistent though underspecified. The "198 passed" defect existed only in the PR #2 description, which Codex has corrected.
+1. **R3 misattribution withdrawn.** The first draft claimed `publication/resume.md` says "198 passed with 2 expected skips." It does not; it says "Ran 198 tests ... with zero failures and two expected skips on each runtime," which is arithmetically consistent though underspecified. The "198 passed" defect existed only in the PR #2 description, which Codex has corrected (observed mutable external state on GitHub, not tree-verifiable).
 2. **Windows inference downgraded.** `StringComparer.Ordinal` and `reparse_points` in checkpoint 04 are consistent with a Windows toolchain but not probative of one; the first draft's "corroborate a Windows run" overstated them. The environment is now pinned by Codex's attestation (Windows 11 Pro 64-bit build 10.0.26200, CPython 3.11.9 and 3.14.4) and recorded as reported, not observed.
-3. **Union-coverage claim narrowed.** "Neither environment alone can" was not defensible as a capability claim — a Windows host with symlink privilege could plausibly run all 198. The claim is now limited to the observed runs.
+3. **Union-coverage claim narrowed.** "Neither environment alone can" was not defensible as a capability claim — a Windows host with symlink privilege could plausibly run all 198. The claim is now limited to the specific reported and observed runs.
 4. **R2 unit of counting sharpened.** "All 19 gold counterparts" invited misreading as 19 distinct findings; the 19 are run-level scoring opportunities covering three corpus findings (8 + 9 + 2), stated as a scoring-contract result under provisional gold, not diagnostic adjudication.
 5. **Method statement rewritten** to name the actual evidence source per claim family, and the validator command corrected to run from the repository root.
 6. **Manifest counts disambiguated** between the reviewed PR #2 head (560/473) and this branch's own head.
@@ -138,9 +138,17 @@ The verdict is unchanged by every correction.
 
 Revision 3 (2026-08-26), in response to the Codex verification of head `b213ee5`. Four corrections, each verified before applying:
 
-1. **Checkpoint 05 now contains the claimed evidence.** The prior revision stored only aggregate Linux skip counts while the PR description claimed the checkpoint binds the exact skip identities. Checkpoint 05 now stores all 11 Linux skipped-test IDs with reasons and the 2 Windows skipped-test IDs, all in one convention (unittest discovery with `tests` as the top-level directory, so no `tests.` prefix), plus the literal commands and working directories; the Windows command and IDs remain Reported.
+1. **Checkpoint 05 now contains the claimed evidence.** The prior revision stored only aggregate Linux skip counts while the PR description claimed the checkpoint binds the exact skip identities. Checkpoint 05 now stores all 11 Linux skipped-test IDs with reasons and the 2 Windows skipped-test IDs, all in one convention (unittest discovery with `tests` as the top-level directory, so no `tests.` prefix), plus commands and working directories (see revision 4 for the command-provenance correction); the Windows command and IDs remain Reported.
 2. **Reported/Observed no longer mixed:** R3's union sentence now reads "across the reported Windows runs and the observed Linux run" and states its derivation.
 3. **Unknown retirement made consistent:** §5 now explicitly retires the transport-equality unknown that R4 closes, rather than claiming this review "retires none," and adds the Windows-attestation and single-account caveats. The "floor could shrink to 10" statement is qualified as a one-factor conditional sensitivity, not an adjudication-stable lower bound.
 4. **The R4 cross-reference now has a target:** §4 states this branch's corrected-head manifest counts (562 root, 475 evaluation), distinct from the reviewed PR #2 counts (560, 473). The checkpoint's reference to the PR #2 description correction is labeled reported external state on mutable GitHub metadata.
+
+The verdict is again unchanged.
+
+Revision 4 (2026-08-27), in response to the Codex closure audit of head `1b5bd99`. Three defects, dispositions after independent falsification attempts:
+
+1. **D1 CONFIRMED — the recorded Windows command was not self-contained.** The checkpoint's `python -m unittest discover -s tests` omitted the required `PYTHONPATH=src` environment and per-runtime interpreter pinning. Falsification reproduced by this reviewer on Linux in a fresh process with `PYTHONPATH` unset: `Ran 139 tests ... FAILED (errors=9, skipped=9)`, exit 1 — matching the Windows falsification (139 tests, 9 `ModuleNotFoundError: No module named 'wqeval'`). Checkpoint 05 now stores the two exact PowerShell commands with `PYTHONPATH=src` and `py -3.11`/`py -3.14 -X utf8` pinning, labeled **reproduced** rather than original because the original invocation was not preserved, plus a `superseded_command_record` documenting the falsified prior command. The Linux commands were already self-contained (`PYTHONPATH=src` inline) and are labeled observed.
+2. **D2 CONFIRMED — historical wording upgraded Reported to Observed.** Revision 2's note item 3 said the union claim is limited to "the observed runs"; corrected to "the specific reported and observed runs." The two statements that the PR #2 description correction is "done"/"corrected" (§4 preamble and revision 2 item 1) now carry the qualifier: observed mutable external state on GitHub, not tree-verifiable.
+3. **D3 CONFIRMED — the PR #3 body carried stale metadata** (a hard-coded revision number and head SHA). Fixed on the PR body by removing the hard-coded labels; PR metadata only, no repository content involved.
 
 The verdict is again unchanged.

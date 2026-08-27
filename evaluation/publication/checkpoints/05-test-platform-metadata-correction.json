@@ -16,14 +16,18 @@
   },
   "test_id_convention": "unittest discovery IDs with 'tests' as the top-level directory (python -m unittest discover -s tests), so the tests. prefix is omitted; both platforms use this convention below",
   "windows_runs": {
-    "evidence_status": "reported by Codex in the PR #3 adversarial response; not independently observed; no immutable raw Windows transcript was preserved",
+    "evidence_status": "reported by Codex in the PR #3 adversarial responses; not independently observed; no immutable raw Windows transcript was preserved",
     "os": {
       "name": "Microsoft Windows 11 Pro",
       "architecture": "64-bit",
       "build": "10.0.26200"
     },
-    "framework_and_command": "python -m unittest discover -s tests",
-    "working_directory": "evaluation/pilot",
+    "command_provenance": "reproduced, not original: the exact invocation of the original Windows runs was not preserved; the commands below were reported by Codex to reproduce the 198/196/2/0 profile in a fresh process at head 1b5bd994349e1a5d816aa86606d6fa6500f54f53",
+    "commands": [
+      {"command": "$env:PYTHONPATH = 'src'; py -3.11 -X utf8 -m unittest discover -s tests", "working_directory": "evaluation/pilot", "environment": {"PYTHONPATH": "src"}},
+      {"command": "$env:PYTHONPATH = 'src'; py -3.14 -X utf8 -m unittest discover -s tests", "working_directory": "evaluation/pilot", "environment": {"PYTHONPATH": "src"}}
+    ],
+    "superseded_command_record": "an earlier revision of this checkpoint recorded 'python -m unittest discover -s tests' without the PYTHONPATH=src environment or interpreter pinning; that command is not self-contained and was falsified in a fresh process (reported on Windows: 139 tests, 9 ModuleNotFoundError for wqeval, exit 1; reproduced on Linux by the Claude reviewer: Ran 139 tests, FAILED errors=9 skipped=9, exit 1)",
     "runs": [
       {"python": "CPython 3.11.9", "top_level_cases": 198, "passed": 196, "skipped": 2, "failed": 0, "errored": 0},
       {"python": "CPython 3.14.4", "top_level_cases": 198, "passed": 196, "skipped": 2, "failed": 0, "errored": 0}
@@ -44,9 +48,10 @@
     "attribution": "Claude (Anthropic), second-round review",
     "os": {"name": "Linux", "architecture": "64-bit"},
     "python": "CPython 3.11.15",
+    "command_provenance": "observed: these are the literal commands this reviewer executed; PYTHONPATH=src is set inline and is required (without it, discovery runs 139 tests with 9 import errors and exits 1)",
     "commands": [
-      {"command": "PYTHONPATH=src python3 -m pytest tests -q", "working_directory": "evaluation/pilot", "exit_code": 0, "result": "187 passed, 11 skipped, 174 subtests passed"},
-      {"command": "PYTHONPATH=src python3 -m unittest discover -s tests", "working_directory": "evaluation/pilot", "exit_code": 0, "result": "Ran 198 tests, OK (skipped=11)"}
+      {"command": "PYTHONPATH=src python3 -m pytest tests -q", "working_directory": "evaluation/pilot", "environment": {"PYTHONPATH": "src"}, "exit_code": 0, "result": "187 passed, 11 skipped, 174 subtests passed"},
+      {"command": "PYTHONPATH=src python3 -m unittest discover -s tests", "working_directory": "evaluation/pilot", "environment": {"PYTHONPATH": "src"}, "exit_code": 0, "result": "Ran 198 tests, OK (skipped=11)"}
     ],
     "top_level_cases": 198,
     "passed": 187,
