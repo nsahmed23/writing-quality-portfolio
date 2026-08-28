@@ -1,0 +1,949 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:laptop-qual:verdict-record:2.0.1",
+  "title": "Verdict Record",
+  "description": "A stage-conditional immutable pilot-authorization or Phase 5 final verdict record.",
+  "type": "object",
+  "required": [
+    "verdictId", "schemaVersion", "recordStage", "status", "immutableAt",
+    "manifestRef", "qualificationAuthority", "approvers", "evidenceReleases"
+  ],
+  "properties": {
+    "verdictId": { "$ref": "#/$defs/nonEmptyString" },
+    "schemaVersion": { "const": "2.0.1" },
+    "recordStage": { "enum": ["pilot-authorization", "phase5-final"] },
+    "status": { "const": "approved-and-immutable" },
+    "immutableAt": { "type": "string", "format": "date-time" },
+    "manifestRef": { "$ref": "#/$defs/nonEmptyString" },
+    "qualificationAuthority": { "$ref": "#/$defs/nonEmptyString" },
+    "pilotPopulationPlanRef": { "$ref": "#/$defs/nonEmptyString" },
+    "privacyOwner": { "$ref": "#/$defs/nonEmptyString" },
+    "pilotAuthorizationRecordRef": { "$ref": "#/$defs/nonEmptyString" },
+    "provisionalLabVerdict": { "$ref": "#/$defs/verdict" },
+    "pilotAuthorization": { "$ref": "#/$defs/pilotAuthorization" },
+    "pilotCompletion": { "$ref": "#/$defs/pilotCompletion" },
+    "fleetVerdict": { "$ref": "#/$defs/verdict" },
+    "fleetDeploymentDisposition": {
+      "enum": ["APPROVED", "APPROVED_WITH_CONDITIONS", "BLOCKED"]
+    },
+    "personaVerdicts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/personaVerdict" }
+    },
+    "conditions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/condition" }
+    },
+    "exceptions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/exception" }
+    },
+    "arbitration": { "$ref": "#/$defs/arbitration" },
+    "deadlineDecision": { "$ref": "#/$defs/deadlineDecision" },
+    "procurementEnvelope": { "$ref": "#/$defs/procurementEnvelope" },
+    "procurementDisposition": {
+      "enum": ["APPROVED", "APPROVED_WITH_CONDITIONS", "BLOCKED"]
+    },
+    "residualRisks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/residualRisk" }
+    },
+    "requalificationTriggers": { "$ref": "#/$defs/nonEmptyStringArray" },
+    "approvers": { "$ref": "#/$defs/nonEmptyStringArray" },
+    "evidenceReleases": { "$ref": "#/$defs/nonEmptyStringArray" },
+    "extensions": { "$ref": "#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": { "recordStage": { "const": "pilot-authorization" } },
+        "required": ["recordStage"]
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "provisionalLabVerdict", "pilotAuthorization", "pilotPopulationPlanRef",
+          "privacyOwner"
+        ],
+        "properties": {
+          "provisionalLabVerdict": true,
+          "pilotAuthorization": true,
+          "pilotPopulationPlanRef": true,
+          "privacyOwner": true,
+          "pilotCompletion": false,
+          "fleetVerdict": false,
+          "fleetDeploymentDisposition": false,
+          "personaVerdicts": false,
+          "deadlineDecision": false,
+          "procurementEnvelope": false,
+          "procurementDisposition": false
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": { "recordStage": { "const": "phase5-final" } },
+        "required": ["recordStage"]
+      },
+      "then": {
+        "type": "object",
+        "required": [
+          "provisionalLabVerdict", "pilotAuthorization", "pilotAuthorizationRecordRef",
+          "pilotCompletion", "fleetVerdict", "fleetDeploymentDisposition",
+          "personaVerdicts", "conditions", "exceptions", "arbitration",
+          "deadlineDecision", "procurementEnvelope", "procurementDisposition",
+          "residualRisks", "requalificationTriggers"
+        ],
+        "properties": {
+          "provisionalLabVerdict": true,
+          "pilotAuthorization": true,
+          "pilotAuthorizationRecordRef": true,
+          "pilotCompletion": true,
+          "fleetVerdict": true,
+          "fleetDeploymentDisposition": true,
+          "personaVerdicts": true,
+          "conditions": true,
+          "exceptions": true,
+          "arbitration": true,
+          "deadlineDecision": true,
+          "procurementEnvelope": true,
+          "procurementDisposition": true,
+          "residualRisks": true,
+          "requalificationTriggers": true
+        }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "fleetVerdict": { "const": "QUALIFY" } }, "required": ["fleetVerdict"] },
+      "then": { "type": "object", "properties": { "fleetDeploymentDisposition": { "const": "APPROVED" } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "fleetVerdict": { "const": "QUALIFY_WITH_CONDITIONS" } }, "required": ["fleetVerdict"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "fleetDeploymentDisposition": { "const": "APPROVED_WITH_CONDITIONS" },
+          "conditions": { "type": "array", "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "fleetVerdict": { "enum": ["HOLD", "FAIL"] } }, "required": ["fleetVerdict"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "fleetDeploymentDisposition": { "const": "BLOCKED" },
+          "procurementDisposition": { "const": "BLOCKED" }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "fleetVerdict": { "const": "INCONCLUSIVE" },
+          "deadlineDecision": {
+            "type": "object",
+            "properties": { "decision": { "const": "risk-accepted-expiring-exception" } },
+            "required": ["decision"]
+          }
+        },
+        "required": ["fleetVerdict", "deadlineDecision"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "fleetDeploymentDisposition": { "const": "APPROVED_WITH_CONDITIONS" },
+          "procurementDisposition": { "const": "APPROVED_WITH_CONDITIONS" },
+          "conditions": { "type": "array", "minItems": 1 },
+          "exceptions": { "type": "array", "minItems": 1 },
+          "arbitration": {
+            "type": "object",
+            "properties": {
+              "required": { "const": true },
+              "triggers": { "type": "array", "contains": { "const": "deadline-inconclusive" }, "minContains": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "fleetVerdict": { "const": "INCONCLUSIVE" },
+          "deadlineDecision": {
+            "type": "object",
+            "properties": { "decision": { "not": { "const": "risk-accepted-expiring-exception" } } },
+            "required": ["decision"]
+          }
+        },
+        "required": ["fleetVerdict", "deadlineDecision"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "fleetDeploymentDisposition": { "const": "BLOCKED" },
+          "procurementDisposition": { "const": "BLOCKED" }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "fleetVerdict": { "const": "INCONCLUSIVE" },
+          "deadlineDecision": {
+            "type": "object",
+            "properties": { "deadlineStatus": { "const": "deadline-reached" } },
+            "required": ["deadlineStatus"]
+          }
+        },
+        "required": ["fleetVerdict", "deadlineDecision"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "deadlineDecision": {
+            "type": "object",
+            "properties": {
+              "evidenceState": { "const": "inconclusive" },
+              "decision": {
+                "enum": ["risk-accepted-expiring-exception", "no-purchase"]
+              }
+            }
+          },
+          "arbitration": {
+            "type": "object",
+            "properties": {
+              "required": { "const": true },
+              "triggers": { "type": "array", "contains": { "const": "deadline-inconclusive" }, "minContains": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "personaVerdicts": {
+            "type": "array",
+            "contains": {
+              "type": "object",
+              "properties": { "conflictsWithFleetConditions": { "const": true } },
+              "required": ["conflictsWithFleetConditions"]
+            },
+            "minContains": 1
+          }
+        },
+        "required": ["personaVerdicts"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "arbitration": {
+            "type": "object",
+            "properties": {
+              "required": { "const": true },
+              "triggers": { "type": "array", "contains": { "const": "verdict-conflict" }, "minContains": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "procurementEnvelope": {
+            "type": "object",
+            "properties": {
+              "substitutionAssessments": {
+                "type": "array",
+                "contains": {
+                  "type": "object",
+                  "properties": { "identityStatus": { "const": "UNKNOWN" } },
+                  "required": ["identityStatus"]
+                },
+                "minContains": 1
+              }
+            },
+            "required": ["substitutionAssessments"]
+          }
+        },
+        "required": ["procurementEnvelope"]
+      },
+      "then": { "type": "object", "properties": { "procurementDisposition": { "const": "BLOCKED" } } }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "procurementEnvelope": {
+            "type": "object",
+            "properties": {
+              "substitutionAssessments": {
+                "type": "array",
+                "contains": {
+                  "type": "object",
+                  "properties": { "arbitrationRequired": { "const": true } },
+                  "required": ["arbitrationRequired"]
+                },
+                "minContains": 1
+              }
+            },
+            "required": ["substitutionAssessments"]
+          }
+        },
+        "required": ["procurementEnvelope"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "arbitration": {
+            "type": "object",
+            "properties": {
+              "required": { "const": true },
+              "triggers": { "type": "array", "contains": { "const": "substitution-dispute" }, "minContains": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "pilotAuthorization": {
+            "type": "object",
+            "properties": { "status": { "const": "AUTHORIZED" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["pilotAuthorization"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "provisionalLabVerdict": {
+            "enum": ["QUALIFY", "QUALIFY_WITH_CONDITIONS"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "pilotAuthorization": {
+            "type": "object",
+            "properties": { "status": { "const": "AUTHORIZED" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["pilotAuthorization"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "pilotCompletion": {
+            "type": "object",
+            "properties": { "status": { "const": "COMPLETED" } },
+            "required": ["status"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "pilotCompletion": {
+            "type": "object",
+            "properties": { "status": { "const": "NOT_REQUIRED" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["pilotCompletion"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "pilotAuthorization": {
+            "type": "object",
+            "properties": { "status": { "const": "NOT_REQUIRED" } },
+            "required": ["status"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "pilotCompletion": {
+            "type": "object",
+            "properties": { "status": { "const": "COMPLETED" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["pilotCompletion"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "pilotAuthorization": {
+            "type": "object",
+            "properties": { "status": { "const": "AUTHORIZED" } },
+            "required": ["status"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "personaVerdicts": {
+            "type": "array",
+            "contains": {
+              "type": "object",
+              "properties": { "verdict": { "const": "QUALIFY_WITH_CONDITIONS" } },
+              "required": ["verdict"]
+            },
+            "minContains": 1
+          }
+        },
+        "required": ["personaVerdicts"]
+      },
+      "then": { "type": "object", "properties": { "conditions": { "type": "array", "minItems": 1 } } }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": { "procurementDisposition": { "const": "APPROVED_WITH_CONDITIONS" } },
+        "required": ["procurementDisposition"]
+      },
+      "then": { "type": "object", "properties": { "conditions": { "type": "array", "minItems": 1 } } }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "deadlineDecision": {
+            "type": "object",
+            "properties": { "decision": { "const": "risk-accepted-expiring-exception" } },
+            "required": ["decision"]
+          }
+        },
+        "required": ["deadlineDecision"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "deadlineDecision": {
+            "type": "object",
+            "properties": {
+              "deadlineStatus": { "const": "deadline-reached" },
+              "evidenceState": { "const": "inconclusive" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "deadlineDecision": {
+            "type": "object",
+            "properties": {
+              "deadlineStatus": { "const": "deadline-reached" },
+              "evidenceState": { "const": "inconclusive" }
+            },
+            "required": ["deadlineStatus", "evidenceState"]
+          }
+        },
+        "required": ["deadlineDecision"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "fleetVerdict": { "const": "INCONCLUSIVE" },
+          "deadlineDecision": {
+            "type": "object",
+            "properties": {
+              "decision": { "enum": ["risk-accepted-expiring-exception", "no-purchase"] }
+            }
+          },
+          "arbitration": {
+            "type": "object",
+            "properties": {
+              "required": { "const": true },
+              "triggers": { "type": "array", "contains": { "const": "deadline-inconclusive" }, "minContains": 1 }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "procurementEnvelope": {
+            "type": "object",
+            "properties": {
+              "substitutionAssessments": {
+                "type": "array",
+                "contains": {
+                  "type": "object",
+                  "properties": { "materialDifference": { "const": "YES" } },
+                  "required": ["materialDifference"]
+                },
+                "minContains": 1
+              }
+            },
+            "required": ["substitutionAssessments"]
+          }
+        },
+        "required": ["procurementEnvelope"]
+      },
+      "then": { "type": "object", "properties": { "procurementDisposition": { "const": "BLOCKED" } } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "stringArray": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "extensions": { "type": "object", "additionalProperties": true },
+    "verdict": {
+      "enum": ["QUALIFY", "QUALIFY_WITH_CONDITIONS", "HOLD", "FAIL", "INCONCLUSIVE"]
+    },
+    "pilotAuthorization": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["AUTHORIZED", "NOT_REQUIRED"] },
+        "phase2ApprovalRef": { "$ref": "#/$defs/nonEmptyString" },
+        "phase2ApprovalCurrent": { "const": true },
+        "provisionalVerdictRef": { "$ref": "#/$defs/nonEmptyString" },
+        "stopConditionsRef": { "$ref": "#/$defs/nonEmptyString" },
+        "rollbackPlanRef": { "$ref": "#/$defs/nonEmptyString" },
+        "operationalReadiness": { "$ref": "#/$defs/pilotOperationalReadiness" },
+        "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+        "approvedAt": { "type": "string", "format": "date-time" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "status": { "const": "AUTHORIZED" } }, "required": ["status"] },
+          "then": {
+            "type": "object",
+            "required": [
+              "phase2ApprovalRef", "phase2ApprovalCurrent", "provisionalVerdictRef",
+              "stopConditionsRef", "rollbackPlanRef", "operationalReadiness",
+              "approvedBy", "approvedAt"
+            ],
+            "properties": {
+              "phase2ApprovalRef": { "$ref": "#/$defs/nonEmptyString" },
+              "phase2ApprovalCurrent": { "const": true },
+              "provisionalVerdictRef": { "$ref": "#/$defs/nonEmptyString" },
+              "stopConditionsRef": { "$ref": "#/$defs/nonEmptyString" },
+              "rollbackPlanRef": { "$ref": "#/$defs/nonEmptyString" },
+              "operationalReadiness": { "$ref": "#/$defs/pilotOperationalReadiness" },
+              "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+              "approvedAt": { "type": "string", "format": "date-time" }
+            }
+          },
+          "else": {
+            "type": "object",
+            "required": ["reason"],
+            "properties": { "reason": { "$ref": "#/$defs/nonEmptyString" } }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "pilotOperationalReadiness": {
+      "type": "object",
+      "required": [
+        "severityModelRef", "maxIncidentRateThresholdRef", "deviceSwapProcessRef",
+        "sparePoolPlanRef", "serviceDeskBriefingRef", "durationDays",
+        "minEvidenceCoverageThresholdRef"
+      ],
+      "properties": {
+        "severityModelRef": { "$ref": "#/$defs/nonEmptyString" },
+        "maxIncidentRateThresholdRef": { "$ref": "#/$defs/nonEmptyString" },
+        "deviceSwapProcessRef": { "$ref": "#/$defs/nonEmptyString" },
+        "sparePoolPlanRef": { "$ref": "#/$defs/nonEmptyString" },
+        "serviceDeskBriefingRef": { "$ref": "#/$defs/nonEmptyString" },
+        "durationDays": { "type": "integer", "minimum": 1 },
+        "minEvidenceCoverageThresholdRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "pilotCompletion": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["COMPLETED", "NOT_REQUIRED"] },
+        "pilotEvidenceReleaseRef": { "$ref": "#/$defs/nonEmptyString" },
+        "coverageEvidenceRef": { "$ref": "#/$defs/nonEmptyString" },
+        "stopConditionOutcome": { "enum": ["NO_UNRESOLVED_STOP_CONDITION", "ROLLBACK_COMPLETED"] },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "authorityApprovalRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "status": { "const": "COMPLETED" } }, "required": ["status"] },
+          "then": {
+            "type": "object",
+            "required": [
+              "pilotEvidenceReleaseRef", "coverageEvidenceRef", "stopConditionOutcome",
+              "startedAt", "completedAt", "approvedBy"
+            ],
+            "properties": {
+              "pilotEvidenceReleaseRef": { "$ref": "#/$defs/nonEmptyString" },
+              "coverageEvidenceRef": { "$ref": "#/$defs/nonEmptyString" },
+              "stopConditionOutcome": { "enum": ["NO_UNRESOLVED_STOP_CONDITION", "ROLLBACK_COMPLETED"] },
+              "startedAt": { "type": "string", "format": "date-time" },
+              "completedAt": { "type": "string", "format": "date-time" },
+              "approvedBy": { "$ref": "#/$defs/nonEmptyString" }
+            }
+          },
+          "else": {
+            "type": "object",
+            "required": ["reason", "authorityApprovalRef"],
+            "properties": {
+              "reason": { "$ref": "#/$defs/nonEmptyString" },
+              "authorityApprovalRef": { "$ref": "#/$defs/nonEmptyString" }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "personaVerdict": {
+      "type": "object",
+      "required": [
+        "persona", "verdict", "assignmentDisposition", "conflictsWithFleetConditions",
+        "conditionRefs", "capacityWaterfall"
+      ],
+      "properties": {
+        "persona": { "$ref": "#/$defs/nonEmptyString" },
+        "verdict": { "$ref": "#/$defs/verdict" },
+        "assignmentDisposition": {
+          "enum": ["APPROVED", "APPROVED_WITH_CONDITIONS", "BLOCKED"]
+        },
+        "conflictsWithFleetConditions": { "type": "boolean" },
+        "conditionRefs": { "$ref": "#/$defs/stringArray" },
+        "capacityWaterfall": { "$ref": "#/$defs/capacityWaterfall" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "verdict": { "const": "QUALIFY" } }, "required": ["verdict"] },
+          "then": { "type": "object", "properties": { "assignmentDisposition": { "const": "APPROVED" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "verdict": { "const": "QUALIFY_WITH_CONDITIONS" } }, "required": ["verdict"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "assignmentDisposition": { "const": "APPROVED_WITH_CONDITIONS" },
+              "conditionRefs": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "verdict": { "enum": ["HOLD", "FAIL", "INCONCLUSIVE"] } }, "required": ["verdict"] },
+          "then": { "type": "object", "properties": { "assignmentDisposition": { "const": "BLOCKED" } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "capacityWaterfall": {
+      "type": "object",
+      "required": ["thresholdPolicyRef", "calculationEvidenceRef", "memory", "storage"],
+      "properties": {
+        "thresholdPolicyRef": { "$ref": "#/$defs/nonEmptyString" },
+        "calculationEvidenceRef": { "$ref": "#/$defs/nonEmptyString" },
+        "memory": {
+          "type": "object",
+          "required": [
+            "physicalMemoryGB", "corporateFloorGB", "memoryReserveGB",
+            "remainingWorkloadHeadroomGB", "personaRequirementGB", "outcome"
+          ],
+          "properties": {
+            "physicalMemoryGB": { "type": "number", "minimum": 0 },
+            "corporateFloorGB": { "type": "number", "minimum": 0 },
+            "memoryReserveGB": { "type": "number", "minimum": 0 },
+            "remainingWorkloadHeadroomGB": { "type": "number" },
+            "personaRequirementGB": { "type": "number", "minimum": 0 },
+            "outcome": { "enum": ["PASS", "SHORTFALL"] },
+            "extensions": { "$ref": "#/$defs/extensions" }
+          },
+          "additionalProperties": false
+        },
+        "storage": {
+          "type": "object",
+          "required": [
+            "formattedCapacityGB", "corporateImageGB", "storageReserveGB",
+            "personaWorkingSetGB", "remainingWorkloadHeadroomGB", "outcome"
+          ],
+          "properties": {
+            "formattedCapacityGB": { "type": "number", "minimum": 0 },
+            "corporateImageGB": { "type": "number", "minimum": 0 },
+            "storageReserveGB": { "type": "number", "minimum": 0 },
+            "personaWorkingSetGB": { "type": "number", "minimum": 0 },
+            "remainingWorkloadHeadroomGB": { "type": "number" },
+            "outcome": { "enum": ["PASS", "SHORTFALL"] },
+            "extensions": { "$ref": "#/$defs/extensions" }
+          },
+          "additionalProperties": false
+        },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "condition": {
+      "type": "object",
+      "required": ["conditionId", "description", "owner", "expiration", "closureEvidence"],
+      "properties": {
+        "conditionId": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "owner": { "$ref": "#/$defs/nonEmptyString" },
+        "expiration": { "type": "string", "format": "date" },
+        "closureEvidence": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "exception": {
+      "type": "object",
+      "required": [
+        "exceptionId", "owner", "reason", "compensatingControl", "scope",
+        "expiration", "closureEvidence", "approvedBy"
+      ],
+      "properties": {
+        "exceptionId": { "$ref": "#/$defs/nonEmptyString" },
+        "owner": { "$ref": "#/$defs/nonEmptyString" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" },
+        "compensatingControl": { "$ref": "#/$defs/nonEmptyString" },
+        "scope": { "$ref": "#/$defs/nonEmptyString" },
+        "expiration": { "type": "string", "format": "date" },
+        "closureEvidence": { "$ref": "#/$defs/nonEmptyString" },
+        "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "arbitration": {
+      "type": "object",
+      "required": ["required", "triggers"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "triggers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": ["verdict-conflict", "deadline-inconclusive", "substitution-dispute"]
+          }
+        },
+        "authority": { "$ref": "#/$defs/nonEmptyString" },
+        "outcome": { "$ref": "#/$defs/nonEmptyString" },
+        "date": { "type": "string", "format": "date" },
+        "evidenceRefs": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "required": { "const": true } }, "required": ["required"] },
+          "then": {
+            "type": "object",
+            "required": ["authority", "outcome", "date", "evidenceRefs"],
+            "properties": {
+              "authority": { "$ref": "#/$defs/nonEmptyString" },
+              "outcome": { "$ref": "#/$defs/nonEmptyString" },
+              "date": { "type": "string", "format": "date" },
+              "evidenceRefs": { "$ref": "#/$defs/nonEmptyStringArray" },
+              "triggers": { "type": "array", "minItems": 1 }
+            }
+          },
+          "else": { "type": "object", "properties": { "triggers": { "type": "array", "maxItems": 0 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "deadlineDecision": {
+      "type": "object",
+      "required": ["deadlineStatus", "evidenceState", "decision"],
+      "properties": {
+        "deadlineStatus": { "enum": ["before-deadline", "deadline-reached"] },
+        "evidenceState": { "enum": ["conclusive", "inconclusive"] },
+        "decision": {
+          "enum": [
+            "continue-evaluation", "purchase-within-approved-envelope",
+            "risk-accepted-expiring-exception", "no-purchase"
+          ]
+        },
+        "exceptionRef": { "$ref": "#/$defs/nonEmptyString" },
+        "authorityApprovalRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "if": {
+        "type": "object",
+        "properties": { "decision": { "const": "risk-accepted-expiring-exception" } },
+        "required": ["decision"]
+      },
+      "then": {
+        "type": "object",
+        "required": ["exceptionRef", "authorityApprovalRef"],
+        "properties": {
+          "exceptionRef": { "$ref": "#/$defs/nonEmptyString" },
+          "authorityApprovalRef": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "procurementEnvelope": {
+      "type": "object",
+      "required": [
+        "approvedSkus", "requiredMemory", "requiredStorage", "approvedWlanModules",
+        "approvedSsdClasses", "displayRequirements", "batteryRequirements",
+        "warrantyRepairTerms", "assetRegistrationRequirements", "substitutionPolicy",
+        "substitutionAssessments", "pcnRequirement", "quantityScope", "returnRights"
+      ],
+      "properties": {
+        "approvedSkus": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "requiredMemory": { "$ref": "#/$defs/nonEmptyString" },
+        "requiredStorage": { "$ref": "#/$defs/nonEmptyString" },
+        "approvedWlanModules": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "approvedSsdClasses": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "displayRequirements": { "$ref": "#/$defs/nonEmptyString" },
+        "batteryRequirements": { "$ref": "#/$defs/nonEmptyString" },
+        "warrantyRepairTerms": { "$ref": "#/$defs/nonEmptyString" },
+        "assetRegistrationRequirements": { "$ref": "#/$defs/nonEmptyString" },
+        "substitutionPolicy": { "$ref": "#/$defs/substitutionPolicy" },
+        "substitutionAssessments": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/substitutionAssessment" }
+        },
+        "pcnRequirement": { "$ref": "#/$defs/nonEmptyString" },
+        "quantityScope": { "$ref": "#/$defs/nonEmptyString" },
+        "returnRights": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "substitutionPolicy": {
+      "type": "object",
+      "required": [
+        "silentSubstitutionAllowed", "observableEquivalenceEvidenceRequired",
+        "materialDifferenceAction", "unknownIdentityDisposition"
+      ],
+      "properties": {
+        "silentSubstitutionAllowed": { "const": false },
+        "observableEquivalenceEvidenceRequired": { "const": true },
+        "materialDifferenceAction": { "const": "DELTA_QUALIFICATION_REQUIRED" },
+        "unknownIdentityDisposition": { "const": "HOLD" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "substitutionAssessment": {
+      "type": "object",
+      "required": [
+        "substitutionId", "identityStatus", "qualifiedEnvelopeComparison",
+        "observableEquivalenceEvidenceRefs", "differences", "dependencyMappings",
+        "materialDifference", "disposition", "arbitrationRequired"
+      ],
+      "properties": {
+        "substitutionId": { "$ref": "#/$defs/nonEmptyString" },
+        "proposedIdentity": { "$ref": "#/$defs/nonEmptyString" },
+        "identityStatus": { "enum": ["KNOWN", "UNKNOWN"] },
+        "qualifiedEnvelopeComparison": { "$ref": "#/$defs/nonEmptyString" },
+        "observableEquivalenceEvidenceRefs": { "$ref": "#/$defs/stringArray" },
+        "differences": { "$ref": "#/$defs/stringArray" },
+        "dependencyMappings": { "$ref": "#/$defs/stringArray" },
+        "materialDifference": { "enum": ["YES", "NO", "UNKNOWN"] },
+        "disposition": { "enum": ["APPROVED_EQUIVALENT", "DELTA_QUALIFICATION_REQUIRED", "HOLD"] },
+        "deltaQualificationRef": { "$ref": "#/$defs/nonEmptyString" },
+        "arbitrationRequired": { "type": "boolean" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "identityStatus": { "const": "UNKNOWN" } }, "required": ["identityStatus"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "materialDifference": { "const": "UNKNOWN" },
+              "disposition": { "const": "HOLD" }
+            }
+          },
+          "else": {
+            "type": "object",
+            "required": ["proposedIdentity"],
+            "properties": { "proposedIdentity": { "$ref": "#/$defs/nonEmptyString" } }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "materialDifference": { "const": "YES" } }, "required": ["materialDifference"] },
+          "then": {
+            "type": "object",
+            "required": ["deltaQualificationRef"],
+            "properties": {
+              "deltaQualificationRef": { "$ref": "#/$defs/nonEmptyString" },
+              "disposition": { "const": "DELTA_QUALIFICATION_REQUIRED" }
+            }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "disposition": { "const": "APPROVED_EQUIVALENT" } }, "required": ["disposition"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "identityStatus": { "const": "KNOWN" },
+              "materialDifference": { "const": "NO" },
+              "observableEquivalenceEvidenceRefs": { "type": "array", "minItems": 1 }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "residualRisk": {
+      "type": "object",
+      "required": ["riskId", "risk", "owner", "mitigation"],
+      "properties": {
+        "riskId": { "$ref": "#/$defs/nonEmptyString" },
+        "risk": { "$ref": "#/$defs/nonEmptyString" },
+        "owner": { "$ref": "#/$defs/nonEmptyString" },
+        "mitigation": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

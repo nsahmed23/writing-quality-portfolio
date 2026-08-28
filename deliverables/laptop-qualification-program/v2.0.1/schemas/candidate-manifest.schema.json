@@ -1,0 +1,405 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:laptop-qual:candidate-manifest:2.0.1",
+  "title": "Candidate Manifest",
+  "description": "The Phase 0 configuration, control, ownership, pilot, cost, and evidence-reuse lock.",
+  "type": "object",
+  "required": [
+    "manifestId", "schemaVersion", "status", "frozenAt", "approvedBy", "tier", "hardwareEnvelope", "platformBaseline",
+    "personas", "candidateDevices", "controls", "docksAndPeripherals",
+    "pilotPopulationPlan", "procurementDeadline", "evaluationOwner",
+    "qualificationAuthority", "testPlanRef", "thresholdPolicyRef", "programCost",
+    "openItems"
+  ],
+  "properties": {
+    "manifestId": { "$ref": "#/$defs/nonEmptyString" },
+    "schemaVersion": { "const": "2.0.1" },
+    "status": { "const": "frozen" },
+    "frozenAt": { "type": "string", "format": "date-time" },
+    "approvedBy": { "$ref": "#/$defs/nonEmptyString" },
+    "tier": { "enum": ["full", "delta", "paper"] },
+    "hardwareEnvelope": {
+      "type": "object",
+      "required": [
+        "productFamily", "orderableSkus", "cpu", "memory", "storage",
+        "approvedWlanModules", "approvedPanels", "batteryClass"
+      ],
+      "properties": {
+        "productFamily": { "$ref": "#/$defs/nonEmptyString" },
+        "orderableSkus": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "cpu": { "$ref": "#/$defs/nonEmptyString" },
+        "memory": {
+          "type": "object",
+          "required": ["totalGB", "configuration"],
+          "properties": {
+            "totalGB": { "type": "integer", "minimum": 1 },
+            "configuration": { "$ref": "#/$defs/nonEmptyString" },
+            "extensions": { "$ref": "#/$defs/extensions" }
+          },
+          "additionalProperties": false
+        },
+        "storage": {
+          "type": "object",
+          "required": ["minCapacityGB", "approvedSsdClasses"],
+          "properties": {
+            "minCapacityGB": { "type": "integer", "minimum": 1 },
+            "approvedSsdClasses": { "$ref": "#/$defs/nonEmptyStringArray" },
+            "extensions": { "$ref": "#/$defs/extensions" }
+          },
+          "additionalProperties": false
+        },
+        "approvedWlanModules": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "approvedPanels": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "batteryClass": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "platformBaseline": {
+      "type": "object",
+      "required": ["biosVersion", "windowsBuild", "driverBaseline", "agentBaselineRef"],
+      "properties": {
+        "biosVersion": { "$ref": "#/$defs/nonEmptyString" },
+        "windowsBuild": { "$ref": "#/$defs/nonEmptyString" },
+        "driverBaseline": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "agentBaselineRef": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "personas": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["name", "workloadRequirement"],
+        "properties": {
+          "name": { "$ref": "#/$defs/nonEmptyString" },
+          "workloadRequirement": {
+            "$ref": "#/$defs/nonEmptyString",
+            "description": "Measured capacity required beyond the corporate floor and approved reserve."
+          },
+          "extensions": { "$ref": "#/$defs/extensions" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "candidateDevices": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["deviceId"],
+        "properties": {
+          "deviceId": { "$ref": "#/$defs/nonEmptyString" },
+          "serialRef": { "$ref": "#/$defs/nonEmptyString" },
+          "extensions": { "$ref": "#/$defs/extensions" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "controls": {
+      "type": "object",
+      "required": ["incumbent", "sibling-or-alternative"],
+      "properties": {
+        "incumbent": { "$ref": "#/$defs/controlPlan" },
+        "sibling-or-alternative": { "$ref": "#/$defs/controlPlan" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "docksAndPeripherals": { "$ref": "#/$defs/nonEmptyStringArray" },
+    "pilotPopulationPlan": {
+      "type": "object",
+      "required": ["targetCount", "selectionDimensions", "privacyOwner", "volunteerOnly"],
+      "properties": {
+        "targetCount": { "type": "integer", "minimum": 1 },
+        "selectionDimensions": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "persona", "region", "work-pattern", "application-mix", "dock-use",
+              "mobility", "network-environment"
+            ]
+          },
+          "allOf": [
+            { "contains": { "const": "persona" }, "minContains": 1 },
+            { "contains": { "const": "region" }, "minContains": 1 },
+            { "contains": { "const": "work-pattern" }, "minContains": 1 }
+          ]
+        },
+        "privacyOwner": { "$ref": "#/$defs/nonEmptyString" },
+        "volunteerOnly": { "const": false },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "procurementDeadline": { "type": "string", "format": "date" },
+    "evaluationOwner": { "$ref": "#/$defs/nonEmptyString" },
+    "qualificationAuthority": { "$ref": "#/$defs/nonEmptyString" },
+    "testPlanRef": { "$ref": "#/$defs/nonEmptyString" },
+    "thresholdPolicyRef": { "$ref": "#/$defs/nonEmptyString" },
+    "programCost": {
+      "type": "object",
+      "required": ["engineerDays", "labHardwareAmount", "currency", "elapsedDays"],
+      "properties": {
+        "engineerDays": { "type": "number", "minimum": 0 },
+        "labHardwareAmount": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "elapsedDays": { "type": "integer", "minimum": 0 },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "openItems": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/openItem" }
+    },
+    "evidencePath": { "$ref": "#/$defs/nonEmptyString" },
+    "extensions": { "$ref": "#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": { "tier": { "const": "full" } },
+        "required": ["tier"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "pilotPopulationPlan": {
+            "type": "object",
+            "properties": { "targetCount": { "type": "integer", "minimum": 30 } },
+            "required": ["targetCount"]
+          }
+        },
+        "required": ["pilotPopulationPlan"]
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "extensions": { "type": "object", "additionalProperties": true },
+    "openItem": {
+      "type": "object",
+      "required": ["itemId", "description", "owner", "closureDate", "blocking"],
+      "properties": {
+        "itemId": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "owner": { "$ref": "#/$defs/nonEmptyString" },
+        "closureDate": { "type": "string", "format": "date" },
+        "blocking": { "const": true },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "controlPlan": {
+      "type": "object",
+      "required": ["model", "evidencePlan"],
+      "properties": {
+        "model": { "$ref": "#/$defs/nonEmptyString" },
+        "evidencePlan": { "$ref": "#/$defs/controlEvidencePlan" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "additionalProperties": false
+    },
+    "controlEvidencePlan": {
+      "type": "object",
+      "required": ["mode", "contemporaneousControlRun", "reusePolicyRef", "freshClasses"],
+      "properties": {
+        "mode": { "enum": ["fresh", "cache-reuse", "bootstrap"] },
+        "contemporaneousControlRun": { "const": true },
+        "reusePolicyRef": { "$ref": "#/$defs/nonEmptyString" },
+        "freshClasses": { "$ref": "#/$defs/controlFreshClasses" },
+        "reusedClasses": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "const": "application-compatibility" }
+        },
+        "fullFreshFloorRequired": { "type": "boolean" },
+        "cachedReleaseRef": { "$ref": "#/$defs/nonEmptyString" },
+        "cachedArtifactSha256": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+        },
+        "cacheAgeDays": { "type": "integer", "minimum": 0 },
+        "productionTelemetryRef": { "$ref": "#/$defs/nonEmptyString" },
+        "productionTelemetryUse": { "const": "context-only" },
+        "dependencySnapshotRef": { "$ref": "#/$defs/nonEmptyString" },
+        "dependencyMatch": { "$ref": "#/$defs/dependencyMatch" },
+        "stalenessCheckedAt": { "type": "string", "format": "date-time" },
+        "withinMaximumAge": { "const": true },
+        "bridge": { "$ref": "#/$defs/compatibilityBridge" },
+        "bootstrapSelectionMethod": { "$ref": "#/$defs/nonEmptyString" },
+        "extensions": { "$ref": "#/$defs/extensions" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "mode": { "const": "fresh" } }, "required": ["mode"] },
+          "then": {
+            "type": "object",
+            "required": ["fullFreshFloorRequired"],
+            "properties": {
+              "fullFreshFloorRequired": { "const": true },
+              "freshClasses": { "$ref": "#/$defs/controlFullFreshClasses" },
+              "reusedClasses": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "mode": { "const": "cache-reuse" } }, "required": ["mode"] },
+          "then": {
+            "type": "object",
+            "required": [
+              "reusedClasses", "cachedReleaseRef", "cachedArtifactSha256", "cacheAgeDays",
+              "dependencySnapshotRef", "dependencyMatch", "stalenessCheckedAt",
+              "withinMaximumAge", "bridge"
+            ],
+            "properties": {
+              "reusedClasses": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": { "const": "application-compatibility" }
+              },
+              "cachedReleaseRef": { "$ref": "#/$defs/nonEmptyString" },
+              "cachedArtifactSha256": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" }
+              },
+              "cacheAgeDays": { "type": "integer", "minimum": 0 },
+              "dependencySnapshotRef": { "$ref": "#/$defs/nonEmptyString" },
+              "dependencyMatch": { "$ref": "#/$defs/dependencyMatch" },
+              "stalenessCheckedAt": { "type": "string", "format": "date-time" },
+              "withinMaximumAge": { "const": true },
+              "bridge": { "$ref": "#/$defs/compatibilityBridge" }
+            }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "mode": { "const": "bootstrap" } }, "required": ["mode"] },
+          "then": {
+            "type": "object",
+            "required": ["dependencySnapshotRef", "bootstrapSelectionMethod", "fullFreshFloorRequired"],
+            "properties": {
+              "dependencySnapshotRef": { "$ref": "#/$defs/nonEmptyString" },
+              "bootstrapSelectionMethod": { "$ref": "#/$defs/nonEmptyString" },
+              "fullFreshFloorRequired": { "const": true },
+              "freshClasses": { "$ref": "#/$defs/controlFullFreshClasses" },
+              "reusedClasses": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": { "productionTelemetryRef": { "$ref": "#/$defs/nonEmptyString" } },
+            "required": ["productionTelemetryRef"]
+          },
+          "then": {
+            "type": "object",
+            "required": ["productionTelemetryUse"],
+            "properties": { "productionTelemetryUse": { "const": "context-only" } }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "controlFreshClasses": {
+      "type": "array",
+      "minItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "component-identification", "application-compatibility",
+          "controlled-benchmark", "sustained-performance", "battery-standby",
+          "dock-reliability", "corporate-floor", "agent-state"
+        ]
+      },
+      "allOf": [
+        { "contains": { "const": "component-identification" }, "minContains": 1 },
+        { "contains": { "const": "controlled-benchmark" }, "minContains": 1 },
+        { "contains": { "const": "sustained-performance" }, "minContains": 1 },
+        { "contains": { "const": "battery-standby" }, "minContains": 1 },
+        { "contains": { "const": "dock-reliability" }, "minContains": 1 },
+        { "contains": { "const": "corporate-floor" }, "minContains": 1 },
+        { "contains": { "const": "agent-state" }, "minContains": 1 }
+      ]
+    },
+    "controlFullFreshClasses": {
+      "allOf": [
+        { "$ref": "#/$defs/controlFreshClasses" },
+        {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "contains": { "const": "application-compatibility" },
+          "minContains": 1
+        }
+      ]
+    },
+    "dependencyMatch": {
+      "type": "object",
+      "required": [
+        "hardware", "firmware", "operatingSystem", "agents", "applications",
+        "peripherals", "conditions", "testAndPack", "supportCurrency",
+        "thresholdPolicy", "staleness"
+      ],
+      "properties": {
+        "hardware": { "const": true },
+        "firmware": { "const": true },
+        "operatingSystem": { "const": true },
+        "agents": { "const": true },
+        "applications": { "const": true },
+        "peripherals": { "const": true },
+        "conditions": { "const": true },
+        "testAndPack": { "const": true },
+        "supportCurrency": { "const": true },
+        "thresholdPolicy": { "const": true },
+        "staleness": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "compatibilityBridge": {
+      "type": "object",
+      "required": [
+        "candidateUnits", "repetitionsPerCriticalCombination", "criticalMatrixRef",
+        "functionalRuleRef", "repeatabilityRuleRef", "driftRuleRef",
+        "acceptanceEvidenceRef", "accepted", "cachePlusBridgeMeetsFloor"
+      ],
+      "properties": {
+        "candidateUnits": { "type": "integer", "minimum": 1 },
+        "repetitionsPerCriticalCombination": { "type": "integer", "minimum": 1 },
+        "criticalMatrixRef": { "$ref": "#/$defs/nonEmptyString" },
+        "functionalRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+        "repeatabilityRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+        "driftRuleRef": { "$ref": "#/$defs/nonEmptyString" },
+        "acceptanceEvidenceRef": { "$ref": "#/$defs/nonEmptyString" },
+        "accepted": { "const": true },
+        "cachePlusBridgeMeetsFloor": { "const": true }
+      },
+      "additionalProperties": false
+    }
+  }
+}
