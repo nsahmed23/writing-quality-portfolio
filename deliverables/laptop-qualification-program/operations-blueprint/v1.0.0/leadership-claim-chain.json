@@ -1,0 +1,107 @@
+{
+  "chainVersion": "1.0.0",
+  "documentType": "leadership-claim-chain",
+  "status": "NOT_ISSUED",
+  "portableContractRefs": [
+    "../../v2.0.1/NEW_LAPTOP_EVALUATION_PLAYBOOK_v2.md",
+    "../../v2.0.1/schemas/candidate-manifest.schema.json",
+    "../../v2.0.1/schemas/test-plan.schema.json",
+    "../../v2.0.1/schemas/evidence-record.schema.json",
+    "../../v2.0.1/schemas/threshold-policy.schema.json",
+    "../../v2.0.1/schemas/verdict-record.schema.json"
+  ],
+  "personaNeed": null,
+  "currentFleetIssue": null,
+  "candidateComparison": null,
+  "businessEffect": null,
+  "recommendation": null,
+  "lineage": {
+    "generatedAt": null,
+    "validatorReleaseRef": "operations-blueprint-v1.0.0",
+    "semanticValidationRef": null,
+    "semanticValidationDigest": null,
+    "semanticInputDigest": null,
+    "derivedDocumentsAreEvidence": false
+  },
+  "requiredLeadershipLinks": [
+    {
+      "link": "personaNeed",
+      "question": "Which measured persona need exceeds the corporate floor and approved reserve?",
+      "requiredFields": ["personaId", "manifestRef", "personaVerdictPointer", "capacityWaterfallPointer", "evidenceReleaseRef", "evidenceRefs", "provenance", "freshness"],
+      "freshnessRequiredFields": ["status", "observedAt", "admittedAt", "evaluatedAt", "maxAgeDays", "policyRef", "dependencySnapshotRef", "dependencySnapshot", "dependencySnapshotDigest", "dependencyStatus"]
+    },
+    {
+      "link": "currentFleetIssue",
+      "question": "What current, persona-specific problem exists in the incumbent fleet?",
+      "requiredFields": ["incumbentControlRef", "cohortRef", "fleetPortfolioRef", "fleetPortfolioCohortPointer", "statement", "issueStatementPointer", "attributionClass", "observationWindow", "baselineFingerprint", "evidenceReleaseRef", "evidenceRefs", "provenance", "freshness"],
+      "freshnessRequiredFields": ["status", "observedAt", "admittedAt", "evaluatedAt", "maxAgeDays", "policyRef", "dependencySnapshotRef", "dependencySnapshot", "dependencySnapshotDigest", "dependencyStatus"]
+    },
+    {
+      "link": "candidateComparison",
+      "question": "What did the candidate, incumbent, and sibling or alternative show under the same frozen protocol?",
+      "requiredFields": ["candidateRef", "incumbentControlRef", "siblingControlRef", "testPlanRef", "conditionRefs", "evidenceReleaseRef", "evidenceRefs", "provenance", "baselineFingerprint", "testPackVersion", "freshness"],
+      "freshnessRequiredFields": ["status", "observedAt", "admittedAt", "evaluatedAt", "maxAgeDays", "policyRef", "dependencySnapshotRef", "dependencySnapshot", "dependencySnapshotDigest", "dependencyStatus"]
+    },
+    {
+      "link": "businessEffect",
+      "question": "What measured cost or business effect follows, or what is explicitly not yet measured?",
+      "branchSelector": "effectType",
+      "requiredFields": ["status", "effectType", "statement", "decisionImpact", "freshness"],
+      "freshnessRequiredFields": ["status", "observedAt", "admittedAt", "evaluatedAt", "maxAgeDays", "policyRef", "dependencySnapshotRef", "dependencySnapshot", "dependencySnapshotDigest", "dependencyStatus"],
+      "statusByEffectType": {
+        "COST_DELTA": "MEASURED",
+        "NON_PRICE_EFFECT": "MEASURED",
+        "NOT_MEASURED": "NOT_MEASURED"
+      },
+      "requiredByEffectType": {
+        "COST_DELTA": ["businessEffectRef", "businessEffectPointer", "observationWindow", "evidenceReleaseRef", "evidenceRefs", "provenance", "assumptions", "currency", "quantity", "candidateQuoteRef", "controlQuoteRef", "quoteValidUntil", "calculationPointer", "calculationMethod", "calculationResult", "resultUnit", "uncertainty"],
+        "NON_PRICE_EFFECT": ["businessEffectRef", "businessEffectPointer", "observationWindow", "evidenceReleaseRef", "evidenceRefs", "provenance", "metricId", "metricUnit", "metricDirection", "denominator", "distributionRef", "distributionDigest", "coverage", "limitations", "sourceRecordBindings"],
+        "NOT_MEASURED": ["assumptions", "notMeasuredReason", "currency", "quantity", "candidateQuoteRef", "controlQuoteRef", "quoteValidUntil"]
+      },
+      "forbiddenByEffectType": {
+        "COST_DELTA": ["metricId", "metricUnit", "metricDirection", "denominator", "distributionRef", "distributionDigest", "coverage", "limitations", "sourceRecordBindings", "notMeasuredReason"],
+        "NON_PRICE_EFFECT": ["assumptions", "currency", "quantity", "candidateQuoteRef", "controlQuoteRef", "quoteValidUntil", "calculationPointer", "calculationMethod", "calculationResult", "resultUnit", "uncertainty", "notMeasuredReason"],
+        "NOT_MEASURED": ["businessEffectRef", "businessEffectPointer", "observationWindow", "evidenceReleaseRef", "evidenceRefs", "provenance", "calculationPointer", "calculationMethod", "calculationResult", "resultUnit", "uncertainty", "metricId", "metricUnit", "metricDirection", "denominator", "distributionRef", "distributionDigest", "coverage", "limitations", "sourceRecordBindings"]
+      }
+    },
+    {
+      "link": "recommendation",
+      "question": "What exact buying recommendation follows from the issued verdict and procurement envelope?",
+      "requiredFields": ["verdictRef", "fleetVerdictPointer", "personaVerdictPointer", "procurementEnvelopePointer", "claimRecordRef", "statementPointer", "action", "statement", "freshness"],
+      "freshnessRequiredFields": ["status", "observedAt", "admittedAt", "evaluatedAt", "maxAgeDays", "policyRef", "dependencySnapshotRef", "dependencySnapshot", "dependencySnapshotDigest", "dependencyStatus"]
+    }
+  ],
+  "currentFleetRequiredDimensions": [
+    {"dimensionId": "CONFIGURATION_PERSONA_POPULATION", "requiredClaimMetricTypes": ["QUALIFIED_CONFIGURATION_ENVELOPE", "PERSONA_COHORT_POPULATION"]},
+    {"dimensionId": "PLATFORM_SUPPORT_BASELINE", "requiredClaimMetricTypes": ["DEVICE_AGE_WARRANTY_SUPPORT", "WINDOWS_BIOS_DRIVER_FIRMWARE_SECURITY_BASELINE"]},
+    {"dimensionId": "CAPACITY_HEADROOM", "requiredClaimMetricTypes": ["PHYSICAL_CAPACITY_CORPORATE_FLOOR_RESERVE_HEADROOM"]},
+    {"dimensionId": "WORKLOAD_RESOURCE_PRESSURE", "requiredClaimMetricTypes": ["RESOURCE_PRESSURE", "WORKLOAD_TIMING"]},
+    {"dimensionId": "APPLICATION_STATE", "requiredClaimMetricTypes": ["APPLICATION_FAILURE_COMPATIBILITY"]},
+    {"dimensionId": "BATTERY_STANDBY", "requiredClaimMetricTypes": ["BATTERY_RUNTIME", "STANDBY_DRAIN"]},
+    {"dimensionId": "DOCK_RELIABILITY", "requiredClaimMetricTypes": ["DOCK_ATTACH_DETACH_SLEEP_RESUME_RELIABILITY"]},
+    {"dimensionId": "PROVISIONING_UPDATE_COMPLIANCE_MANAGEMENT", "requiredClaimMetricTypes": ["PROVISIONING_STATE", "UPDATE_STATE", "COMPLIANCE_STATE", "MANAGEMENT_STATE"]},
+    {"dimensionId": "INCIDENT_REPAIR_SUPPORT", "requiredClaimMetricTypes": ["INCIDENT_PREVALENCE", "REPAIR_PREVALENCE", "SUPPORT_CONTACT_PREVALENCE", "SUPPORT_EFFORT"]},
+    {"dimensionId": "REGION_WORK_PATTERN_REPRESENTATION", "requiredClaimMetricTypes": ["REGION_REPRESENTATION", "WORK_PATTERN_REPRESENTATION"]},
+    {"dimensionId": "PROVENANCE_INTEGRITY", "requiredClaimMetricTypes": ["SOURCE_PROVENANCE", "ARTIFACT_INTEGRITY", "PRIVACY_SAFE_JOIN"]},
+    {"dimensionId": "LIMITATIONS_OUTLIERS_FRESHNESS_REQUALIFICATION", "requiredClaimMetricTypes": ["OUTLIER_EXCLUSION_LIMITATION", "FRESHNESS_STATUS", "REQUALIFICATION_TRIGGER"]}
+  ],
+  "readinessRules": [
+    "Every recommended persona has all five leadership links: persona need, current fleet issue, candidate/control comparison, business effect, and verdict-backed recommendation.",
+    "The persona-specific incumbent cohort resolves inside a released, privacy-approved fleet-portfolio snapshot containing exactly the twelve machine-policy dimensions, each with its complete closed claim-metric set and exact source, release, distribution or structured-summary, denominator, coverage, baseline, provenance, freshness, limitation, and requalification bindings.",
+    "Persona, incumbent, candidate, control, condition, baseline, and test-pack references resolve with ordinal case-sensitive equality.",
+    "Every link derives CURRENT only when observation and admission chronology, the frozen maximum-age policy, source-record equality, and the current BIOS, driver, Windows, corporate-image, security-agent, condition-set, and test-pack dependency snapshot all pass; a caller-supplied CURRENT label is not evidence.",
+    "The candidate, incumbent, and sibling or alternative are projections from one frozen manifest and each covers the exact same frozen condition set, protocol, baseline, and test pack.",
+    "Every applicable frozen Phase 0 test definition is represented for every required role, condition, and baseline stratum; each distribution binds the exact test-plan reference and digest plus sampling-floor pointer and digest, meets that frozen class floor even when it exceeds the public minimum, and carries a complete typed distribution.",
+    "T2 cannot be the sole support for a decision link and every T2 reference resolves to T0 or T1 corroboration.",
+    "Every number retains unit, window, denominator, distribution, coverage, missingness, exclusions, and source reference.",
+    "The recommendation is deterministically rendered into a non-evidence decision-claim record whose exact statement, source verdict digest, and fleet, persona, and procurement pointers resolve; the derived packet cannot strengthen it.",
+    "The executed business-effect machine branch is exactly COST_DELTA, NON_PRICE_EFFECT, or NOT_MEASURED; its status, required fields, forbidden fields, typed record, pointer, window, evidence, commercial basis where applicable, and controlled decision impact all agree without inventing savings or non-price outcomes.",
+    "An ISSUED chain has non-null semantic-validation record, result-digest, and canonical input-digest values. The input digest binds the exact portable-contract references, five decision-link values, issuance context, and decision-source record digests; the later derived decision-claim payload binds back to semantic validation and is excluded from its own input digest to prevent a hash cycle.",
+    "Public Test-LeadershipClaimChain validation may establish VALIDATED_DERIVED_INPUT only; it cannot issue a packet state, pilot authorization, procurement approval, or purchase decision.",
+    "Fleet HOLD or FAIL, persona FAIL, INCONCLUSIVE evidence without the exact deadline-plus-expiring-risk-exception path, unknown component identity, pending delta qualification, expired exception, or unresolved critical risk produces NOT_READY.",
+    "Structured arbitration outcome, fleet disposition, persona disposition, procurement action, and every authoritative condition record agree exactly; arbitrary outcome prose cannot override the resolved verdict state.",
+    "The packet contains no direct employee, device, tenant, group, ticket, or evidence-store identity.",
+    "Every rendered field passes context-aware Markdown, HTML, URL, and CSV encoding, safe-link policy, active-content rejection, control-character and length limits, and spreadsheet-formula neutralization.",
+    "A confidence label shows provenance, directness, comparability, coverage, repeatability, and limitations; it never overrides a gate."
+  ]
+}
