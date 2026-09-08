@@ -210,6 +210,45 @@ for skill in SKILLS:
 checks.append(f"skills={len(SKILLS)}")
 checks.append(f"skill_fixtures={len(fixture_ids)}")
 
+# Companion skill: `communication` is a second layer (reply shape, always on), not an editing skill.
+# It has no principle registry, evidence map, or behavioral fixtures; it carries evals instead.
+COMPANION = "communication"
+companion_dir = ROOT / "skills" / COMPANION
+require(companion_dir.is_dir(), f"missing companion skill directory: {COMPANION}")
+companion_core = companion_dir / "SKILL.md"
+for rel in ("SKILL.md", "agents/openai.yaml", "references/eval-summary.md", "evals/evals.json"):
+    require((companion_dir / rel).is_file(), f"missing companion skill artifact: {COMPANION}/{rel}")
+if companion_core.is_file():
+    text = companion_core.read_text(encoding="utf-8")
+    match = re.match(r"^---\n(.*?)\n---\n", text, re.DOTALL)
+    require(bool(match), f"invalid frontmatter delimiters: {COMPANION}/SKILL.md")
+    if match:
+        metadata = yaml.safe_load(match.group(1))
+        require(metadata.get("name") == COMPANION, f"frontmatter name mismatch: {COMPANION}")
+        description = metadata.get("description", "")
+        require(isinstance(description, str) and 20 <= len(description) <= 1024, f"description length invalid: {COMPANION}")
+        require(set(metadata) <= {"name", "description", "license", "compatibility", "metadata", "allowed-tools"}, f"unsupported frontmatter key: {COMPANION}")
+    require("writing-quality-portfolio" in text, f"{COMPANION}/SKILL.md does not state its relation to the portfolio")
+    agent = load_yaml(companion_dir / "agents/openai.yaml")
+    interface = agent.get("interface", {}) if isinstance(agent, dict) else {}
+    require(all(interface.get(k) for k in ("display_name", "short_description", "default_prompt")), f"incomplete agents/openai.yaml: {COMPANION}")
+    require(f"${COMPANION}" in interface.get("default_prompt", ""), f"default prompt must mention ${COMPANION}")
+    try:
+        evals = json.loads((companion_dir / "evals/evals.json").read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as exc:
+        evals = None
+        errors.append(f"evals.json unreadable for {COMPANION}: {exc}")
+    if isinstance(evals, dict):
+        require(evals.get("skill_name") == COMPANION, f"evals.json skill_name mismatch: {COMPANION}")
+        items = evals.get("evals", [])
+        require(len(items) >= 3, f"too few evals for {COMPANION}: {len(items)}")
+        require(all(item.get("prompt") and item.get("expectations") for item in items), f"eval lacks prompt or expectations: {COMPANION}")
+        eval_ids = [item.get("id") for item in items]
+        require(len(eval_ids) == len(set(eval_ids)), f"duplicate eval ids: {COMPANION}")
+    combined = "\n".join(path.read_text(encoding="utf-8") for path in companion_dir.rglob("*.md"))
+    require(not re.search(r"\b(?:TODO|TBD|TO BE COMPLETED)\b", combined, re.IGNORECASE), f"unfinished marker in {COMPANION}")
+    checks.append(f"companion_skill={COMPANION} evals={len(evals.get('evals', [])) if isinstance(evals, dict) else 0}")
+
 portfolio_fixtures = load_yaml(ROOT / "tests/portfolio-fixtures.yaml")
 portfolio_items = portfolio_fixtures.get("fixtures", []) if isinstance(portfolio_fixtures, dict) else []
 require(len(portfolio_items) >= 14, f"expected at least 14 portfolio fixtures, got {len(portfolio_items)}")

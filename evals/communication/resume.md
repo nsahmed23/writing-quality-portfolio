@@ -23,3 +23,9 @@ Eval model: sonnet (both arms). Baseline = no skill.
 ## Iteration 2 result (2026-09-08 07:45)
 - DONE: 46/48 runs graded (eval-6 baseline run-2 stalled on permission prompt, run-3 deleted branches then stalled; both stopped). benchmark.json: with 84.7% vs without 73.9% (+0.11), 13 analyst notes. Dark static page: iteration-2/review-static-dark.html (sent to phone).
 - NEXT: iteration-3-plan.md (skill edits S1-S5, eval fixes V1-V6). Apply S1-S4 + V1-V3, rerun with --previous-workspace iteration-2.
+
+## Iteration 3 (started 2026-09-08 ~10:20)
+- Skill v3 = v2.1 + S1-S4 (snapshot of v2.1 in skill-snapshot-v2/). Eval fixes V1-V3 in build_iter3.py (imports build_iter2). Baseline arm = no skill.
+- Wave 1 launched: evals 0,1,2 (18 runs). Remaining: evals 3-7 (30 runs) as slots free; eval 6 executors must also write outputs/commands.txt (RAN:/WOULD_RUN: lines) and never execute a delete.
+- Consult brief (consult-brief.md) sent to phone and committed to PR #6 (writing-quality-portfolio, branch feat/communication-skill-evals). Outside answers feed iteration 4.
+- After runs: timing.py per notification; grade.py iteration-3; grader agents (eval 7 idx2 is judgment now); aggregate; notes; static+dark page; SendUserFile.

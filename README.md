@@ -20,7 +20,10 @@ There is no `elements-of-style` or generic `writing-editor` skill.
 
 - `skills/communication/SKILL.md` — the skill (v2.1: v2 plus the layering paragraph).
 - `skills/communication/references/eval-summary.md` — what the evals measured and what they do not establish.
-- `evals/communication/` — the full eval workspace: 8 prompts, 54 executor replies across two iterations, per-assertion grading, benchmarks, review pages, and the scripts to rerun it.
+- `evals/communication/` — the full eval workspace: 8 prompts, executor replies across three iterations, per-assertion grading, benchmarks, review pages, and the scripts to rerun it.
+- `evals/communication/consult-brief.md` and `consult-answers-*.md` — the questions put to outside reviewers and their answers.
+
+`scripts/validate_portfolio.py` checks this skill separately from the seven editing skills: it requires `SKILL.md`, `agents/openai.yaml`, `references/eval-summary.md`, and a parseable `evals/evals.json`, and it reports the result as `companion_skill=communication`. The seven-skill checks (principle registry, evidence maps, behavioral fixtures) do not apply to it.
 
 ## Start here
 
