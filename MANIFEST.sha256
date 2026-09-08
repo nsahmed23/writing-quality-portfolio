@@ -9,7 +9,11 @@ d777ad84b065376eca591019acdee33f4bf9d22c36425dd9deed2b964d27d2ae *./evals/commun
 c5ed7c8572ee9effe72945bb42ae080e3c9590b990a63e39b039ec8078c56049 *./evals/communication/build_iter2.py
 b29c848713749550bf5b6cf8e6b87cf74415afbb209225c1f8bcc6cbe333dc87 *./evals/communication/build_iter3.py
 8afbc748d052f50d58f5cf15531d75ea7fcd1b4cff0d4065f6919f2d6c20eacf *./evals/communication/consult-answers-claude.md
+2b80d47a18c2db0c0dc3d8421c10f5162b4048f1f44a475a0699604a0320ac64 *./evals/communication/consult-answers-gpt.md
+2e8597113a98039bef3af419e1cbc436b5f69bdba626ff9be4c2b401224d67cc *./evals/communication/consult-answers-kimi.md
+9e22db3b22def0f7b07215398818d1118b831711ba56f8e2f747abe7ef243bf0 *./evals/communication/consult-answers-reviewer-b.md
 21b4e9c60ec062994a07b6e7924b4b1ee909c12871b0dee56d9228871e1af7c3 *./evals/communication/consult-brief.md
+407cb32c0b59052a1170d046c8dfdc8c0a9e5cafaff14bce3919e7674f37af19 *./evals/communication/consult-synthesis.md
 c5eaedf027fdd2f75002424a1f184ec6c1a4776dd06eb2a64928ce51cb4fe8fc *./evals/communication/darken.py
 d631c27b2f32da5c5198660582e6dd2311e46b6a3c9d4a3f434b5210ae68644d *./evals/communication/finish_iter2.py
 8d2829a1332ceab50912d737719132644b85fb4745779d220a17f7040f8f053f *./evals/communication/finish_iter3.py
@@ -490,9 +494,9 @@ dbbc69bec87de35cbe6024b0517de495821c9d273e223b921691e8230480f8f8 *./evals/commun
 eb1a935efde91aac4303c96bf74674860212ed413ea0e261df6d2da700e7641c *./evals/communication/iteration-3/prompts/eval-7-debug-spiral.txt
 84d32cf1c349c3d02bf148a6921dddc12997b9641a251c25c4004e8977d82cb5 *./evals/communication/iteration-3/review-static-dark.html
 c91548095e52e37ff0ff1ea0666fbcc15f415a5d1c01ac3c86ba896ac951cb0c *./evals/communication/iteration-3/review-static.html
-aaa907d501e3072a3f07e81d51c313d06d8e002781730b2055f09f79101e19a5 *./evals/communication/iteration-4-plan.md
+d73b4af066efc7e74ce061b04816e27ee7ca104226410f6fe4bab612767881bc *./evals/communication/iteration-4-plan.md
 87e1ccd22e1ed414b01e0f5321bd49418731f12b8887415ade5769fba3b881a9 *./evals/communication/metrics.py
-62d96588d4a88dec9b19851d30ca3a573efdd2bb1efe39c041eb9e5585bc2afe *./evals/communication/resume.md
+078db7fefd0f3e8482c8788751f5759debcc781f36f6d117abc0f6aa25097508 *./evals/communication/resume.md
 0840e91a3062297d162862dbe68ab8e4b34d77081cb3c58388328a8fc84a6eda *./evals/communication/skill-snapshot-v1/SKILL.md
 aa3bcff385c51d2380f10ce79f49ff90d7653fba14145375c8f8bcd619e885f4 *./evals/communication/skill-snapshot-v1/evals/evals.json
 c07a7d1dbd02b3ac9390d01a614909c10b928d87e607e6c776d1e7ea4037bfa4 *./evals/communication/skill-snapshot-v2/SKILL.md

@@ -44,3 +44,7 @@ Eval model: sonnet (both arms). Baseline = no skill.
 - DONE: 48/48 runs, no stalls; graders with quote rule; verify_quotes --apply voided 2 baseline passes; benchmark: with 90.5% vs without 68.9% (+0.22).
 - Regression: true-premise 0.62 (v3 pre-send item 6 example primed a 'not the cause' reflex). Wins: premise check 0.96, Actions time estimates back, restate-state fixture fixed.
 - NEXT: iteration-4-plan.md; user decisions: S8 destructive policy, deployment form, Q12 three-arm experiment on Opus. Kimi and GPT consult answers pending.
+
+## Consult answers in (2026-09-08 ~14:30)
+- Filed: consult-answers-gpt.md (attribution inferred), consult-answers-reviewer-b.md (unattributed), consult-answers-kimi.md (attribution inferred), plus consult-answers-claude.md. Synthesis: consult-synthesis.md. iteration-4-plan.md rewritten from it (steps 1-4).
+- NEXT: user decides split 1 (conditional vs universal action-first), judge for pairwise (Kimi CLI vs Codex), deployment timing. Then step 1 = blind pairwise on iteration-3 corpus (48 judge calls, zero executor runs).
