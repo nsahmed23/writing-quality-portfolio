@@ -14,6 +14,14 @@ Seven distinct, source-grounded writing skills plus one coordinated routing cont
 
 There is no `elements-of-style` or generic `writing-editor` skill.
 
+## Second layer: `communication`
+
+`skills/communication` is not an eighth editing skill. It governs how the model talks to the reader on every turn (lead with the next action, number multi-step work, define a term in the sentence it first appears, verify premises, state what is unverified, no preamble or closer). The seven skills above govern how the model edits a piece of text it is handed, and only when asked. The two meet at one seam: when text is handed over to edit, the portfolio owns the method, pass order, and preservation contract; `communication` owns how the result is reported. `portfolio-routing.md` records the same rule from the portfolio's side.
+
+- `skills/communication/SKILL.md` — the skill (v2.1: v2 plus the layering paragraph).
+- `skills/communication/references/eval-summary.md` — what the evals measured and what they do not establish.
+- `evals/communication/` — the full eval workspace: 8 prompts, 54 executor replies across two iterations, per-assertion grading, benchmarks, review pages, and the scripts to rerun it.
+
 ## Start here
 
 - [Before-and-after gallery](examples/before-and-after.md): 14 single-skill demonstrations plus one coordinated portfolio pass.
@@ -34,4 +42,4 @@ The package is artifact-complete and build-ready. It is **not full-corpus-exhaus
 
 ## Package form
 
-This is a skills-only OpenAI plugin package. Individual skill folders are independently valid, while `.codex-plugin/plugin.json` provides seven-skill distribution. The research infrastructure is not an eighth skill.
+This is a skills-only OpenAI plugin package. Individual skill folders are independently valid, while `.codex-plugin/plugin.json` distributes everything under `skills/`: the seven editing skills plus `communication`. The research infrastructure is not a skill. In Claude Code, copy the `skills/*` folders you want into `~/.claude/skills/`; the `agents/openai.yaml` files are Codex UI metadata and can be ignored there.

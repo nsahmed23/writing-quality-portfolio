@@ -1,0 +1,14 @@
+Check what's holding port 8080 before treating Node 24 as the cause. EADDRINUSE means some process already has 8080 bound when the new one tries to bind it; that's about what's occupying the port, not which Node version is asking for it. I don't know of any Node 24 change to default TCP socket-binding behavior (no change to `SO_REUSEADDR` or exclusive-address handling that I'm aware of), so the upgrade and the error are more likely correlated in time than causally linked.
+
+Since it happens on every restart, not just once, the pattern that best fits is nodemon not fully killing the previous process tree on Windows. Your setup runs nodemon, which spawns ts-node, which runs the actual server, so there are at least two processes between nodemon and the socket. Windows doesn't have POSIX process groups, so nodemon's restart-kill can terminate the top process while a descendant (the one actually holding the listening socket) survives; the next restart starts a new instance that collides with it. If upgrading to Node 24 also caused nodemon or ts-node to get reinstalled or bumped to a newer version, a change in exactly how that child process is spawned or responds to termination would flip this from working to broken without anything in Node 24 itself being responsible.
+
+To confirm, in order:
+
+1. Find what's on port 8080: `netstat -ano | findstr :8080` (or `Get-NetTCPConnection -LocalPort 8080` in PowerShell). The last column is the PID.
+2. Identify it: `tasklist /FI "PID eq <PID>"`. If it's `node.exe` and not something you started on purpose, that's your orphan.
+3. Kill it: `taskkill /PID <PID> /F`, then run `npm run dev` again.
+4. If netstat shows nothing on 8080 at all but you still get EADDRINUSE, that's a different, Windows-specific issue: Hyper-V/WSL2 dynamically reserves port ranges that change on reboot and can make a port unbindable without ever showing a listener. Check with `netsh interface ipv4 show excludedportrange protocol=tcp`; if 8080 falls in a listed range, the fix is picking a different dev port, not anything to do with Node.
+
+If step 3 clears it but it comes back on the next file-triggered restart, make shutdown explicit rather than relying on nodemon's kill reaching every process in the tree: add `process.on('SIGTERM', () => server.close())` in `server.ts` (and a `SIGINT` handler for manual Ctrl+C), or add a `predev` script so each start clears the port regardless of what's holding it: `"predev": "npx kill-port 8080"`.
+
+What I can't verify from here: I don't have access to your machine or repo, so I haven't seen `server.ts`, your `nodemon.json` or `package.json` scripts, or actual `netstat` output. If the process holding 8080 turns out to be unrelated to Node or nodemon (another dev server, Docker, a browser devtools proxy), the Node 24 timing is coincidental and the fix is just freeing the port or moving your server to a different one.

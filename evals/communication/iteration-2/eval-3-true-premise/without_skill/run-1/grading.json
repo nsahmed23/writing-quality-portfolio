@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": true,
+      "evidence": "'Every process on Linux has a cap on how many file descriptors it can hold open at once... When your Fastify process tries to open one more of these... while already at that limit, the syscall fails with `EMFILE`.' Mechanism stated in the opening paragraph."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": true,
+      "evidence": "No correlation/sequence/coincidence boilerplate present. 'EMFILE is the kernel telling your process no, not Node deciding anything on its own' affirms rather than disputes the cause."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": true,
+      "evidence": "Immediately following the term's first use: 'A file descriptor covers more than files in the everyday sense: it's the handle the kernel hands back for a TCP socket... a pipe, an actual file on disk, an epoll instance.'"
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "'The first is a slow leak: something opens a file descriptor and never closes it, for example a DB pool connection not released on an error path... Each leaked fd is small, but... they add up linearly until you cross the limit at a roughly fixed elapsed time.'"
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: 'ulimit -n'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "'Worth doing regardless since 1024 is low for a production HTTP server, but it won't fix a genuine leak, only delay the crash.'"
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "'I don't have your code, your Fastify plugin list, or your nginx config, so I can't tell you which of the above it actually is, only which are most likely given the symptoms you described.'"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Response ends inside a section headed '**What I can't verify from here**'; the closing lines ('The `lsof -p <pid>` breakdown is the fastest way to narrow it down... That single command will cut the list above roughly in half') are framed as part of the caveat paragraph rather than a standalone directive next action."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 1,
+    "total": 8,
+    "pass_rate": 0.875
+  },
+  "execution_metrics": {
+    "output_chars": 6819,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

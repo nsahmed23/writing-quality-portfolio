@@ -1,0 +1,69 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": true,
+      "evidence": "First line: 'Create `.github/workflows/ci.yml` (`mkdir -p .github/workflows` first, in Git Bash) with this:' \u2014 a create-file action with the folder command bundled in, no preamble before it."
+    },
+    {
+      "text": "Steps are given as a numbered list of list items, one bounded action each (not numbered headings with paragraphs under them), with at least 2 items and no list longer than 5",
+      "passed": true,
+      "evidence": "[script] longest numbered list run=2; longest any-list run=2; numbered headings (not list items)=0"
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "'`runs-on: ubuntu-latest` is the runner, the disposable VM GitHub creates per run.' \u2014 'runner' does not appear anywhere earlier in the reply and is defined in the same sentence it first appears."
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": false,
+      "evidence": "[script] no concrete minutes/hours estimate found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+      "passed": false,
+      "evidence": "Reply ends on a caveat plus an open question, not an action: 'Separately: a check that only runs doesn't block a bad merge until you mark it required under Settings > Branches > branch protection rules. Want those steps too?'"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'Create `.github/workflows/ci.yml` (`mkdir -p .github/workflows` first, in Git Bash) with this:'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: \"Separately: a check that only runs doesn't block a bad merge until you mark it required under Settings > Branches > bran\"; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly, including how to create the .github/workflows folders",
+      "passed": true,
+      "evidence": "Folder creation is explicit in line 1: '(`mkdir -p .github/workflows` first, in Git Bash)'. File path, full YAML, and where to check the result ('the repo's \"Actions\" tab') are all stated."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 3032,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+        "reason": "This response only passes because 'runner' happens to appear solely in prose and gets defined there. 'workflow' and 'action' both appear earlier, undefined, inside file paths and YAML identifiers ('.github/workflows/ci.yml', 'actions/checkout@v4') and inside the phrase 'the repo's \"Actions\" tab'. The assertion doesn't say whether code-span/path occurrences of the word count as the term 'appearing', and the verdict changes materially depending on that call."
+      }
+    ],
+    "overall": "Strong, action-first response; the vocabulary assertion passes on a specific technicality worth tightening."
+  }
+}

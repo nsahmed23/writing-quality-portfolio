@@ -1,0 +1,63 @@
+{
+  "expectations": [
+    {
+      "text": "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+      "passed": true,
+      "evidence": "[script] first line: 'Steps 1 and 2 done (2 of 5): schema updated, dev migration applied. Next: run `npx prisma generate`. `migrate dev` already triggers `generat'"
+    },
+    {
+      "text": "Gives step 3 with its exact command, npx prisma generate",
+      "passed": true,
+      "evidence": "[script] contains 'npx prisma generate'"
+    },
+    {
+      "text": "Does not re-list all five steps in full: steps 4 and 5 get at most one line each or are omitted",
+      "passed": false,
+      "evidence": "'4. Backfill existing rows: `npx tsx scripts/backfill-listing-status.ts` (sets `status` from `archivedAt`).' and '5. Deploy: `npx prisma migrate deploy` in the Cloud Run release step.' reproduce the full command and explanation for both steps."
+    },
+    {
+      "text": "Ends with exactly one concrete next action",
+      "passed": false,
+      "evidence": "Response ends on the two-item preview of steps 4 and 5, not a single action."
+    },
+    {
+      "text": "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+      "passed": true,
+      "evidence": "No commands beyond `npx prisma generate`, the backfill script, and `npx prisma migrate deploy` appear; the aside about `migrate dev` triggering `generate` is commentary, not a new step or tool."
+    },
+    {
+      "text": "Explains why step 3 is needed in one clause (the generated client must include the new field before the backfill script will compile), not a paragraph",
+      "passed": false,
+      "evidence": "The explanation given, '`migrate dev` already triggers `generate` at the end, so this may already be satisfied; running it again is safe and confirms `status` shows up on the `Listing` type,' questions whether step 3 is even necessary rather than explaining why it's needed, and spans two clauses joined by a semicolon, not one clause."
+    },
+    {
+      "text": "Response is under 900 characters",
+      "passed": true,
+      "evidence": "[script] 473 chars"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 3,
+    "total": 7,
+    "pass_rate": 0.5714
+  },
+  "execution_metrics": {
+    "output_chars": 473,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Does not re-list all five steps in full: steps 4 and 5 get at most one line each or are omitted",
+        "reason": "All 6 sampled runs in both arms fail this the same way: they give steps 4 and 5 their exact command plus the plan's own parenthetical, one per line. The interpretation guide's passing example ('then 4: backfill, 5: deploy') is far terser than anything observed, so as written this check may not discriminate skill quality; it fails good and mediocre answers alike."
+      },
+      {
+        "assertion": "Ends with exactly one concrete next action",
+        "reason": "All 6 runs close on a preview of steps 4 and 5 instead of on step 3, so none land on exactly one action at the end. The pattern is identical with and without the skill, so this check is not currently separating the arms."
+      }
+    ],
+    "overall": "Two of the four judgment-based assertions fail uniformly across every run in both arms, and this run also misses the step-3 rationale by casting doubt on whether the step is needed rather than explaining why it is."
+  }
+}

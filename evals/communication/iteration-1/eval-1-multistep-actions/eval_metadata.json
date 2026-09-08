@@ -1,0 +1,16 @@
+{
+  "eval_id": 1,
+  "eval_name": "eval-1-multistep-actions",
+  "prompt": "I need to add a GitHub Actions workflow to my Go repo at C:\\Dev\\Projects\\ledger-svc that runs go vet and go test on every PR to main, and caches modules so it's not slow. never used actions before. what do i do",
+  "assertions": [
+    "The first line is an action (create/open a specific file or run a command), not preamble or context",
+    "Steps are given as a numbered list, and no list in the response has more than 5 items",
+    "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+    "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+    "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+    "Ends with exactly one concrete next action the reader can do in under two minutes",
+    "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+    "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+    "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly"
+  ]
+}

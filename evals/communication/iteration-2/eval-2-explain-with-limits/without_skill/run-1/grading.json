@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": false,
+      "evidence": "First sentence: \"JWT auth works by having the server issue a signed token instead of a session ID.\" This describes JWT auth's mechanism rather than defining the noun 'JWT', and 'JSON Web Token' is never spelled out anywhere in the response."
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "\"Any server holding the signing key can verify any valid token independently, with no shared session store and no coordination between servers. That's the stateless property, and it's a real win for horizontal scaling.\""
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": false,
+      "evidence": "Opens with a flat \"Yes, in the way people usually mean it.\" and elaborates only the affirmative case for the rest of that paragraph; the qualifying pivot ('Nobody ships this raw, though.') arrives in the next paragraph rather than alongside the initial answer."
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "\"The standard fixes: Short expirations... Refresh tokens... A revocation list for urgent cases... A per-user 'valid since' marker.\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'header.payload.signature'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": true,
+      "evidence": "[script] 3 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"JWT auth works by having the server issue a signed token instead of a session ID. Here's the mechanism, then why people \""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: \"So: stateless describes how the server verifies a request, not a claim that the token is powerless or that logout is a s\"; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 3926,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

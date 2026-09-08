@@ -1,0 +1,16 @@
+{
+  "eval_id": 2,
+  "eval_name": "eval-2-explain-with-limits",
+  "prompt": "explain how JWT auth works and why people say it's stateless. i keep hearing you can't log someone out with JWTs, is that true?",
+  "assertions": [
+    "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+    "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+    "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+    "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+    "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+    "Uses headers or another skimmable structure for the full explanation (the 'explain' override allows a long body)",
+    "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+    "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+    "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal"
+  ]
+}

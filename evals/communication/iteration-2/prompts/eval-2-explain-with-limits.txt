@@ -1,0 +1,1 @@
+explain how JWT auth works and why people say it's stateless. i keep hearing you can't log someone out with JWTs, is that true?

@@ -1,0 +1,69 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"Before treating \\\"Node 24 causes this\\\" as settled: what you actually have is that the errors started after the upgrade, and that is sequence, not a demonstrated cause.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "First appearance and definition are in the same sentence: \"What doesn't change across Node versions is what EADDRINUSE actually is: the operating system telling a process that something is already bound to a port when it tries to listen on it.\""
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": true,
+      "evidence": "First line: \"Run `netstat -ano | findstr :8080`. The number in the last column of the matching line is the PID currently holding port 8080.\" \u2014 a literal command to run."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"nodemon killed the previous ts-node process on a restart, but Windows has no native SIGTERM, so nodemon simulates the kill, and that simulation occasionally hasn't finished freeing the socket before the new process tries to bind it.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"What I can't check from here: I don't have access to `C:\\Dev\\Projects\\inventory-api\\src\\server.ts`, so I can't confirm `.listen()` is only called once, whether there's SIGINT or SIGTERM handling to close the server on shutdown, or what your `nodemon.json` does on restart.\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'Run `netstat -ano | findstr :8080`. The number in the last column of the matching line is the PID currently holding port'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: 'Next: to get real evidence on whether Node 24 is involved at all, switch back to your previous Node version in the same '; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final paragraph: \"Next: ...switch back to your previous Node version in the same repo and run `npm run dev` once.\" \u2014 names one action, but it is not a concrete immediate command (no version-manager command is given) and switching Node versions is not reliably a under-two-minute step."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9,
+    "pass_rate": 0.8889
+  },
+  "execution_metrics": {
+    "output_chars": 2730,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes",
+        "reason": "The named closing action ('switch back to your previous Node version') is directionally right but under-specified \u2014 no actual command (e.g. an nvm invocation) is given, so it's ambiguous whether a reader can execute it in under two minutes."
+      }
+    ],
+    "overall": "This run passes 8/9; the sequence-vs-cause, EADDRINUSE-definition, first-line-action, mechanism, and verification-caveat assertions are all cleanly satisfied with strong evidence. Only the closing-action assertion is borderline."
+  }
+}

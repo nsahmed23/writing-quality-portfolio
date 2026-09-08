@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": true,
+      "evidence": "First line: '1. From the repo root (`C:\\Dev\\Projects\\ledger-svc`), create `.github/workflows/ci.yml` (`mkdir -p .github/workflows` first) with this:' \u2014 an explicit create-file action, no preamble."
+    },
+    {
+      "text": "Steps are given as a numbered list of list items, one bounded action each (not numbered headings with paragraphs under them), with at least 2 items and no list longer than 5",
+      "passed": true,
+      "evidence": "[script] longest numbered list run=3; longest any-list run=3; numbered headings (not list items)=0"
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "'Each run happens on a fresh, temporary machine called a runner, not on your computer...' \u2014 'runner' does not appear earlier in the reply and is defined in the same sentence it first appears."
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": false,
+      "evidence": "[script] no concrete minutes/hours estimate found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+      "passed": false,
+      "evidence": "Reply ends on a caveats paragraph, not an action: \"I don't have access to ledger-svc, so three things I couldn't check: ... Separately, `@v4` and `@v5` on the two actions are current as of what I know; if GitHub flags a newer major version in its UI by the time you add this, bumping the tag is safe.\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: '1. From the repo root (`C:\\\\Dev\\\\Projects\\\\ledger-svc`), create `.github/workflows/ci.yml` (`mkdir -p .github/workflows` fi'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: \"I don't have access to ledger-svc, so three things I couldn't check: that `go.mod` sits at the repo root (if it's in a s\"; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly, including how to create the .github/workflows folders",
+      "passed": true,
+      "evidence": "Folder creation is explicit in line 1: '(`mkdir -p .github/workflows` first)'. File path, complete YAML, and how to confirm the run ('click the Actions tab, and confirm the run shows two green checks') are all stated."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 2780,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

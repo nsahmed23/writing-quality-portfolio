@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Every command from the previous reply appears verbatim: the Get-NetTCPConnection line, Stop-Process -Id <PID> -Force, npm install -D nodemon@latest, netsh interface ipv4 show excludedportrange protocol=tcp, and tsx watch src/server.ts",
+      "passed": true,
+      "evidence": "[script] all 5 commands present verbatim"
+    },
+    {
+      "text": "Adds no new commands, tools, or facts that were not in the previous reply",
+      "passed": true,
+      "evidence": "No new commands, causes or tools appear; the bind-check, nodemon Windows handoff, node_modules reinstall theory, and tsx alternative all match the original content in plainer wording."
+    },
+    {
+      "text": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+      "passed": true,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Keeps the four numbered steps of the original in the same order",
+      "passed": true,
+      "evidence": "All four appear in order: '1. If it shows a node.exe process...Stop it with Stop-Process -Id <PID> -Force', '2. If EADDRINUSE keeps coming back on every file-save restart...', '3. If it still comes back after that: update nodemon itself...', '4. If the first command returned nothing...'"
+    },
+    {
+      "text": "Sentences are shorter: mean words per sentence is lower than in the previous reply",
+      "passed": true,
+      "evidence": "[script] mean words/sentence: reply 15.6 vs original 25.2"
+    },
+    {
+      "text": "Asks no new question; the only request to the reader, if any, is the original one (run the port check and report the process name and PID)",
+      "passed": true,
+      "evidence": "Only request found is the closing line: 'Run the command at the top and tell me two things: the process name, and the PID number it returns.' No other question is posed to the reader."
+    },
+    {
+      "text": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+      "passed": true,
+      "evidence": "[script] no apology or meta-commentary found"
+    },
+    {
+      "text": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+      "passed": true,
+      "evidence": "[script] no 'sequence'/'correlation' labels"
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 4540,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

@@ -1,0 +1,454 @@
+{
+  "metadata": {
+    "skill_name": "communication",
+    "skill_path": "C:/Users/nsahm/.claude/skills/communication",
+    "executor_model": "sonnet (Claude Code subagent, both arms)",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-09-08T05:38:27Z",
+    "evals_run": [
+      0,
+      1,
+      2
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 553.6,
+        "tokens": 150118,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+          "passed": true,
+          "evidence": "\"The upgrade happening last Thursday and the errors starting last Thursday is a timing match (sequence), not a demonstrated cause; to call the Node version an actual cause I'd want either a specific mechanism (a documented Node 24 change to socket binding) or evidence (for example, downgrading to Node 22 makes it stop), and I have neither.\""
+        },
+        {
+          "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+          "passed": true,
+          "evidence": "\"EADDRINUSE is raised by Windows itself, at the moment of the bind call (the OS-level step that reserves a port for a socket), when another socket already owns that port.\" - definition given in the same sentence as the term's first appearance."
+        },
+        {
+          "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+          "passed": true,
+          "evidence": "First line: \"Run this first, in PowerShell:\" followed immediately by the command block."
+        },
+        {
+          "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+          "passed": true,
+          "evidence": "[script] found command: 'Get-NetTCPConnection'"
+        },
+        {
+          "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+          "passed": true,
+          "evidence": "\"Each time nodemon restarts your app, it has to kill the old ts-node child process and start a new one before the new one can bind to 8080... if the old process doesn't actually exit before the new one starts, the new one collides with it and you get EADDRINUSE.\""
+        },
+        {
+          "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+          "passed": true,
+          "evidence": "\"I don't have access to your machine, `server.ts`, `package.json`, or `nodemon.json`, so this command will tell you more than I can guess from the message alone.\""
+        },
+        {
+          "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+          "passed": true,
+          "evidence": "[script] first line: 'Run this first, in PowerShell:'"
+        },
+        {
+          "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+          "passed": true,
+          "evidence": "[script] last line: 'Next: run the port-check command above and tell me the process name and PID it returns; that decides which of steps 1 to'; no closer/tone phrases found"
+        },
+        {
+          "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+          "passed": true,
+          "evidence": "Final line: \"Next: run the port-check command above and tell me the process name and PID it returns; that decides which of steps 1 to 4 actually applies.\" - single concrete action, no list of options or open-ended caveat."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8889,
+        "passed": 8,
+        "failed": 1,
+        "total": 9,
+        "time_seconds": 538.3,
+        "tokens": 148123,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+          "passed": true,
+          "evidence": "First line: \"Create `.github/workflows/ci.yml` in the repo (the `.github` and `workflows` folders don't exist yet either, so create those too) with this content:\""
+        },
+        {
+          "text": "Steps are given as a numbered list, and no list in the response has more than 5 items",
+          "passed": true,
+          "evidence": "[script] numbered list present=True; longest same-level list run=5"
+        },
+        {
+          "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+          "passed": true,
+          "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+        },
+        {
+          "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+          "passed": true,
+          "evidence": "\"`runs-on: ubuntu-latest` is the machine it runs on, a fresh Linux virtual machine (GitHub calls this a \\\"runner\\\") created for the run and thrown away afterward.\" - defines 'runner' in the same sentence it is introduced."
+        },
+        {
+          "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+          "passed": true,
+          "evidence": "[script] estimate: 'five minutes'"
+        },
+        {
+          "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+          "passed": true,
+          "evidence": "Final line: \"Next: create the file above at `.github/workflows/ci.yml`.\" - single concrete action, no trailing list or open question."
+        },
+        {
+          "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+          "passed": true,
+          "evidence": "[script] first line: \"Create `.github/workflows/ci.yml` in the repo (the `.github` and `workflows` folders don't exist yet either, so create t\""
+        },
+        {
+          "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+          "passed": true,
+          "evidence": "[script] last line: 'Next: create the file above at `.github/workflows/ci.yml`.'; no closer phrases found"
+        },
+        {
+          "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly",
+          "passed": false,
+          "evidence": "\"(the `.github` and `workflows` folders don't exist yet either, so create those too)\" - states that the folders must be created but never gives a command or method for doing so, leaving the reader to infer how (contrast with the without_skill run, which gives an explicit `mkdir -p .github/workflows` command)."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 343.6,
+        "tokens": 129598,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+          "passed": true,
+          "evidence": "\"If they're valid, the server creates a JWT (JSON Web Token): a compact, signed string with three parts separated by dots, `header.payload.signature`.\" - expansion and plain-word definition in the same sentence as first appearance."
+        },
+        {
+          "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+          "passed": true,
+          "evidence": "\"That's the stateless part: the server doesn't need to remember anything about who's logged in between one request and the next.\" - defined in the same sentence at its first prose use (the term appears earlier only in the section heading)."
+        },
+        {
+          "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+          "passed": true,
+          "evidence": "\"Partly true, and partly an oversimplification, depending on what \\\"log out\\\" has to mean.\" followed by an explicit split: true for bare JWT auth (\"as a description of bare JWT auth, it's accurate\"), mitigated in practice (\"almost nobody ships bare JWT auth where real logout security matters\")."
+        },
+        {
+          "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+          "passed": true,
+          "evidence": "\"anything that needs real logout buys that back by reintroducing some state\" plus concrete options: \"**Short-lived JWTs plus a revocable refresh token.**\" and \"**A denylist.** The server keeps a small store, often Redis, listing the token or user IDs that have been logged out...\""
+        },
+        {
+          "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+          "passed": true,
+          "evidence": "[script] example marker: 'header.payload.signature'"
+        },
+        {
+          "text": "Uses headers or another skimmable structure for the full explanation (the 'explain' override allows a long body)",
+          "passed": true,
+          "evidence": "[script] 3 header-like lines"
+        },
+        {
+          "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+          "passed": true,
+          "evidence": "[script] first line: '## The basic flow'"
+        },
+        {
+          "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+          "passed": true,
+          "evidence": "[script] last line: \"One more distinction worth being precise about: a logout button that only deletes the token from the browser isn't revoc\"; no closer/tone phrases found"
+        },
+        {
+          "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+          "passed": true,
+          "evidence": "[script] no 'think of it like' style phrasing found"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.7778,
+        "passed": 7,
+        "failed": 2,
+        "total": 9,
+        "time_seconds": 512.6,
+        "tokens": 133935,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+          "passed": true,
+          "evidence": "\"I'd treat \\\"since the upgrade\\\" as a correlation worth investigating, not a confirmed cause, especially since EADDRINUSE on *every* restart is a well-known nodemon/Windows symptom that has nothing to do with which Node version is installed.\""
+        },
+        {
+          "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+          "passed": false,
+          "evidence": "EADDRINUSE first appears in sentence 1 (\"Node 24 isn't a documented cause of EADDRINUSE.\"). The definition (\"EADDRINUSE means: when the new process calls `.listen(8080)`, something else is still bound to that port.\") does not arrive until a new paragraph, two sentences later, not in the same sentence or the very next one."
+        },
+        {
+          "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+          "passed": false,
+          "evidence": "First line: \"Node 24 isn't a documented cause of EADDRINUSE. I don't have its changelog in front of me to double-check, but nothing in Node's networking stack changed in a way that would affect how a port gets bound or released.\" - this is analysis/context, not an action."
+        },
+        {
+          "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+          "passed": true,
+          "evidence": "[script] found command: 'netstat -ano'"
+        },
+        {
+          "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+          "passed": true,
+          "evidence": "\"**A leftover or duplicate process already on 8080.** An earlier `npm run dev` in another terminal or VS Code window that never actually exited, or a process left behind by switching Node versions... produces exactly this symptom on every subsequent restart.\""
+        },
+        {
+          "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+          "passed": true,
+          "evidence": "\"I haven't seen `server.ts`, your `nodemon.json`/package.json, or actual netstat output, so I can't tell you which of the above is actually happening, just what to check.\""
+        },
+        {
+          "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+          "passed": true,
+          "evidence": "[script] first line: \"Node 24 isn't a documented cause of EADDRINUSE. I don't have its changelog in front of me to double-check, but nothing i\""
+        },
+        {
+          "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+          "passed": true,
+          "evidence": "[script] last line: \"I haven't seen `server.ts`, your `nodemon.json`/package.json, or actual netstat output, so I can't tell you which of the\"; no closer/tone phrases found"
+        },
+        {
+          "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+          "passed": true,
+          "evidence": "Final sentence: \"Paste back the netstat/tasklist output for port 8080 and I can narrow it down.\" - single concrete, fast action following the earlier netstat command."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5556,
+        "passed": 5,
+        "failed": 4,
+        "total": 9,
+        "time_seconds": 305.1,
+        "tokens": 114243,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+          "passed": false,
+          "evidence": "First line: \"GitHub Actions reads YAML files from a `.github/workflows/` folder at the root of your repo and runs them automatically when the events you specify happen (here, a pull request against `main`).\" - explanatory context, not an action."
+        },
+        {
+          "text": "Steps are given as a numbered list, and no list in the response has more than 5 items",
+          "passed": true,
+          "evidence": "[script] numbered list present=True; longest same-level list run=1"
+        },
+        {
+          "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+          "passed": true,
+          "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+        },
+        {
+          "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+          "passed": false,
+          "evidence": "The terms 'workflow' and 'job' are used repeatedly (e.g. \"this job runs whenever a PR is opened or updated against `main`, and nowhere else\") but never defined in plain words; 'runner' does not appear in the prose at all (only as YAML key `runs-on`)."
+        },
+        {
+          "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+          "passed": false,
+          "evidence": "[script] no concrete minutes/hours estimate found"
+        },
+        {
+          "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+          "passed": false,
+          "evidence": "Final paragraph is pure caveat with no action: \"A few things I couldn't check since I don't have the repo: this assumes `go.mod` lives at the repo root and you have a single module... worth a quick glance at their Marketplace pages if you want to confirm nothing newer has shipped since.\""
+        },
+        {
+          "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+          "passed": true,
+          "evidence": "[script] first line: 'GitHub Actions reads YAML files from a `.github/workflows/` folder at the root of your repo and runs them automatically '"
+        },
+        {
+          "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+          "passed": true,
+          "evidence": "[script] last line: \"A few things I couldn't check since I don't have the repo: this assumes `go.mod` lives at the repo root and you have a s\"; no closer phrases found"
+        },
+        {
+          "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly",
+          "passed": true,
+          "evidence": "\"In `C:\\Dev\\Projects\\ledger-svc`, create the folder `.github/workflows/` and a file inside it named `ci.yml`. In Git Bash: ```bash\\ncd C:/Dev/Projects/ledger-svc\\nmkdir -p .github/workflows\\n```\" - explicit path and command given."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.7778,
+        "passed": 7,
+        "failed": 2,
+        "total": 9,
+        "time_seconds": 183.2,
+        "tokens": 100119,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+          "passed": true,
+          "evidence": "\"JWT (JSON Web Token) auth works by having the server issue a signed token when you log in, and having you present that token on every later request instead of a session ID.\" - expansion and plain-word definition in the same, first sentence."
+        },
+        {
+          "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+          "passed": true,
+          "evidence": "\"Step 4 is why people call this \\\"stateless.\\\" The server never stores \\\"who is logged in right now\\\" anywhere: no session table, no in-memory session map, nothing to check on each request.\" - definition given in the sentence immediately following its first use."
+        },
+        {
+          "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+          "passed": false,
+          "evidence": "\"So, to your actual question: yes, it's true, and it's the direct cost of the design above.\" - the direct answer is a flat 'yes', not framed as conditional; the nuance about mitigations only follows several sentences later in a subsequent paragraph."
+        },
+        {
+          "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+          "passed": true,
+          "evidence": "\"The common fixes all work by reintroducing a little bit of state, on purpose, in exchange for control\" plus concrete options: \"**Refresh tokens.**\" and \"**A revocation list (denylist).** The server keeps a small store, often Redis, of token IDs that were explicitly invalidated before their natural expiry...\""
+        },
+        {
+          "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+          "passed": true,
+          "evidence": "[script] example marker: 'Authorization: Bearer'"
+        },
+        {
+          "text": "Uses headers or another skimmable structure for the full explanation (the 'explain' override allows a long body)",
+          "passed": false,
+          "evidence": "[script] 0 header-like lines"
+        },
+        {
+          "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+          "passed": true,
+          "evidence": "[script] first line: 'JWT (JSON Web Token) auth works by having the server issue a signed token when you log in, and having you present that t'"
+        },
+        {
+          "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+          "passed": true,
+          "evidence": "[script] last line: 'So the accurate version of the claim: a genuinely stateless JWT cannot be revoked before it expires, full stop, because '; no closer phrases found"
+        },
+        {
+          "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+          "passed": true,
+          "evidence": "[script] no 'think of it like' style phrasing found"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.963,
+        "stddev": 0.0641,
+        "min": 0.8889,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 478.5,
+        "stddev": 117.077,
+        "min": 343.6,
+        "max": 553.6
+      },
+      "tokens": {
+        "mean": 142613.0,
+        "stddev": 11315.3734,
+        "min": 129598,
+        "max": 150118
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.7037,
+        "stddev": 0.1283,
+        "min": 0.5556,
+        "max": 0.7778
+      },
+      "time_seconds": {
+        "mean": 333.6333,
+        "stddev": 166.5434,
+        "min": 183.2,
+        "max": 512.6
+      },
+      "tokens": {
+        "mean": 116099.0,
+        "stddev": 16984.2284,
+        "min": 100119,
+        "max": 133935
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.26",
+      "time_seconds": "+144.9",
+      "tokens": "+26514"
+    }
+  },
+  "notes": [
+    "9 of 27 assertions flip from fail to pass with the skill, 17 pass in both arms, 1 flips the other way (eval 1: 'no untaught fact'), none fail in both. Every eval improved: eval 0 7/9 to 9/9, eval 1 5/9 to 8/9, eval 2 7/9 to 9/9.",
+    "All 6 opener/closer assertions pass in both arms. The baseline Sonnet run already runs under this user's CLAUDE.md (terse mode, no closers), so 'no Great question / Let me know' does not measure skill value in this environment.",
+    "The clearest wins are the action-shape rules. 'First line is an action' flipped in both evals that test it (0 and 1); the baselines opened with a context sentence ('GitHub Actions reads YAML files from...', 'Node 24 isn't a documented cause...'). 'Ends with one next action' and 'time estimate in concrete units' flipped in eval 1; the baseline ended on a caveat paragraph and gave no estimate.",
+    "'Define the term in the same sentence it first appears' flipped in evals 0 and 1. The baselines defined EADDRINUSE two sentences later and never defined 'workflow' or 'job' at all.",
+    "Eval 2 (explain): the baseline answered the logout premise with a flat 'yes, it's true' and only qualified it several sentences later; the skill run framed the condition up front. The baseline also wrote 4.7 KB with zero headers, which the skill's explain override asks for.",
+    "Regression (eval 1, with skill): the reply says the .github/workflows folders 'don't exist yet, so create those too' but gives no command for it; the baseline gave 'mkdir -p .github/workflows'. Plausible mechanism: 'lead with the action, fewest steps' compressed out a step the reader still needs. One observation.",
+    "Assertion 'numbered list, max 5 items' passed the baseline on bold numbered section headings (longest same-level run = 1), so it is lenient as written and non-discriminating. For iteration 2, reword to 'a numbered list where each item is one bounded action'.",
+    "Assertion 'headers or another skimmable structure' is graded header-only by the script; the eval 2 baseline had two 4-item lists and no headers. Either reword to 'uses headers' (matching the skill's explain override) or make the script count lists. Decide before iteration 2.",
+    "Cost: +145 s mean time and +26.5k tokens (+23%) with the skill, at n=1 per eval and high variance (baseline times ranged 183 s to 513 s). Each with-skill run spent one extra tool turn reading the 11.7 KB SKILL.md, and subagent token totals accumulate per turn, so one extra turn plausibly explains most of the delta. Not verified.",
+    "Sample size is 1 run per eval per arm across 3 evals. The +0.26 delta is directionally clear because every eval improved, but each per-assertion flip is a single observation; rerun with 2 to 3 runs per arm before treating any single assertion as settled."
+  ]
+}

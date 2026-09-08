@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "First sentence: \"A JWT (JSON Web Token) is a compact, signed piece of text that carries claims: facts about a user, such as their ID, role, and when the token expires.\""
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "First prose use: \"That's what \\\"stateless\\\" means here: the server keeps no record of who is logged in.\""
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": true,
+      "evidence": "\"What you've heard is half right, and the imprecise version of it is exactly what causes real security mistakes.\" followed by an explicit true part and an explicit overstated part."
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "\"Production systems get real revocation back by reintroducing a bit of server-side state, using one of a few patterns: Short-lived access tokens plus a refresh token... A revocation list, often called a denylist or blocklist...\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'Authorization: Bearer'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": true,
+      "evidence": "[script] 3 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: '## How JWT auth works'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: \"So the two things don't fully coexist: pure, instant, cost-free logout and pure statelessness are in tension. Real logou\"; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 5419,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

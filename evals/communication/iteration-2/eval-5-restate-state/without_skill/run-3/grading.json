@@ -1,0 +1,63 @@
+{
+  "expectations": [
+    {
+      "text": "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+      "passed": true,
+      "evidence": "[script] first line: 'Good, steps 1 and 2 are done. Next is step 3: regenerate the Prisma client so it picks up the new field.'"
+    },
+    {
+      "text": "Gives step 3 with its exact command, npx prisma generate",
+      "passed": true,
+      "evidence": "[script] contains 'npx prisma generate'"
+    },
+    {
+      "text": "Does not re-list all five steps in full: steps 4 and 5 get at most one line each or are omitted",
+      "passed": false,
+      "evidence": "'Two steps left after that: backfill existing rows with `npx tsx scripts/backfill-listing-status.ts` (sets `status` from `archivedAt`), then deploy with `npx prisma migrate deploy` in the Cloud Run release step.' gives the full command and explanation for both remaining steps."
+    },
+    {
+      "text": "Ends with exactly one concrete next action",
+      "passed": false,
+      "evidence": "The final sentence names two actions, backfill then deploy, joined by 'then', not one."
+    },
+    {
+      "text": "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+      "passed": true,
+      "evidence": "Only `npx prisma generate`, the backfill script, and `npx prisma migrate deploy` are used; no new steps or tooling."
+    },
+    {
+      "text": "Explains why step 3 is needed in one clause (the generated client must include the new field before the backfill script will compile), not a paragraph",
+      "passed": true,
+      "evidence": "'Next is step 3: regenerate the Prisma client so it picks up the new field.' gives the reason in one clause."
+    },
+    {
+      "text": "Response is under 900 characters",
+      "passed": true,
+      "evidence": "[script] 346 chars"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 2,
+    "total": 7,
+    "pass_rate": 0.7143
+  },
+  "execution_metrics": {
+    "output_chars": 346,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Does not re-list all five steps in full: steps 4 and 5 get at most one line each or are omitted",
+        "reason": "All 6 sampled runs in both arms fail this the same way: they give steps 4 and 5 their exact command plus the plan's own parenthetical. The interpretation guide's passing example ('then 4: backfill, 5: deploy') is far terser than anything observed, so as written this check may not discriminate skill quality; it fails good and mediocre answers alike."
+      },
+      {
+        "assertion": "Ends with exactly one concrete next action",
+        "reason": "All 6 runs close by naming both remaining steps instead of stopping at step 3, so none land on exactly one action at the end. The pattern is identical with and without the skill, so this check is not currently separating the arms."
+      }
+    ],
+    "overall": "Two of the four judgment-based assertions fail uniformly across every run in both arms; the underlying behavior (state step 3, then preview 4 and 5) looks like a natural model default rather than a skill-specific miss, so these two checks are worth re-calibrating or re-wording."
+  }
+}

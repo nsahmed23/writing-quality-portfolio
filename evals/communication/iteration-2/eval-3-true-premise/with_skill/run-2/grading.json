@@ -1,0 +1,64 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": true,
+      "evidence": "Opening sentence (bolded): '**EMFILE fires when your Fastify process asks the kernel for a new file descriptor and the kernel refuses because that process has hit its open-file ceiling.**' States the mechanism immediately, no preamble."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": true,
+      "evidence": "'The premise in your question is correct: running out of descriptors is exactly what triggers this error, not a side effect of something else.' Explicitly affirms the premise."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": false,
+      "evidence": "'file descriptor' first appears in the opening sentence with no definition attached. The defining sentence ('every open file, TCP socket, and pipe a process holds occupies one slot in that process's file descriptor table') is in the next paragraph, not the sentence where the term first appears."
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "'The six-hour-under-load detail points at the root cause being a leak rather than a genuine concurrency ceiling... A slow, steady climb to the ceiling is the signature of something opening descriptors and skipping the close.'"
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: 'ulimit -n'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "'Raising `ulimit -n` (or systemd's `LimitNOFILE`) buys time by moving the ceiling, but if the count is genuinely unbounded, you'll just hit the new ceiling later. Treat it as a stopgap...'"
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "'I can't see your code, your process, or your nginx config, so I can't tell you which of these it is, confirm your actual `ulimit -n`, or know whether PM2, Docker, or a systemd unit is overriding whatever the shell reports.'"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "'Next: run `cat /proc/<pid>/limits | grep \"open files\"` against the live process now, so you know the actual ceiling you're working against.' Single command, immediate, no repeat requested."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 1,
+    "total": 8,
+    "pass_rate": 0.875
+  },
+  "execution_metrics": {
+    "output_chars": 4551,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+        "reason": "This response defines the term clearly and correctly ('every open file, TCP socket, and pipe a process holds occupies one slot in that process's file descriptor table') one paragraph after its first use, which reads as prompt and reader-friendly, but fails the assertion's literal same-sentence requirement. Consider loosening the wording to 'within the first sentence or two after the term is introduced' so substantively-compliant responses aren't penalized for a paragraph break."
+      }
+    ],
+    "overall": "One assertion's strict positional wording produced a fail against a response that otherwise defines the term clearly and promptly."
+  }
+}

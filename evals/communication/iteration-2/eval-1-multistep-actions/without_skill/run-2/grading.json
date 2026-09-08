@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": false,
+      "evidence": "First line is background, not an action: \"GitHub Actions workflows are just YAML files that live in `.github/workflows/` at the repo root. Once one is pushed to the repo, GitHub picks it up automatically, no separate setup or registration step needed anywhere in the GitHub UI.\""
+    },
+    {
+      "text": "Steps are given as a numbered list of list items, one bounded action each (not numbered headings with paragraphs under them), with at least 2 items and no list longer than 5",
+      "passed": true,
+      "evidence": "[script] longest numbered list run=5; longest any-list run=5; numbered headings (not list items)=0"
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "First sentence: 'GitHub Actions workflows are just YAML files that live in `.github/workflows/` at the repo root.' \u2014 'workflow' is defined in the very sentence it first appears."
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": false,
+      "evidence": "[script] no concrete minutes/hours estimate found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+      "passed": false,
+      "evidence": "Reply ends on a hedged caveats/assumptions paragraph, not a clear single action: \"I don't have access to the actual repo, so a few things here are assumptions rather than verified facts. I'm assuming `go.mod` sits at the repo root. ... Finally, I can't tell whether `.github/workflows/` already has files in it that this one would sit alongside; a quick look there before you add it is worth doing.\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'GitHub Actions workflows are just YAML files that live in `.github/workflows/` at the repo root. Once one is pushed to t'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: \"I don't have access to the actual repo, so a few things here are assumptions rather than verified facts. I'm assuming `g\"; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly, including how to create the .github/workflows folders",
+      "passed": true,
+      "evidence": "'To wire it up' step 1 gives the explicit command: 'Create the folder if it doesn't exist yet: `mkdir -p .github/workflows` in Git Bash, or `New-Item -ItemType Directory -Force .github\\workflows` in PowerShell.' Step 3 gives the exact git add/commit/push commands."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 3,
+    "total": 9,
+    "pass_rate": 0.6667
+  },
+  "execution_metrics": {
+    "output_chars": 3972,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

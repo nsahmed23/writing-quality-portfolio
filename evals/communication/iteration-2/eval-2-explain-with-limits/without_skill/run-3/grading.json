@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "First sentence: \"JWT (JSON Web Token) authentication works by having the server issue a signed, self-contained token that the client presents on every request, instead of the server keeping a record of who's logged in.\""
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": false,
+      "evidence": "The word 'stateless' first appears only in the header \"## Why it's called stateless\"; the body under that header explains the mechanism ('Nothing has to be remembered between requests') but never ties it back to the word. The first prose use of the word itself comes much later, in the logout section: \"almost nobody ships pure stateless JWTs for anything that matters\", used without any accompanying definition."
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": true,
+      "evidence": "\"Yes, that part is true, in the pure version of the model.\" (condition stated in the same sentence as the answer), followed shortly by \"in practice almost nobody ships pure stateless JWTs for anything that matters.\""
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "\"Keep the JWT short-lived (minutes) and pair it with a longer-lived refresh token stored server-side... Keep a denylist of revoked token IDs (the jti claim)...\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'Authorization: Bearer'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": true,
+      "evidence": "[script] 3 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'JWT (JSON Web Token) authentication works by having the server issue a signed, self-contained token that the client pres'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: \"So the accurate version: a pure JWT can't be individually revoked before it expires, that's real. But production systems\"; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9,
+    "pass_rate": 0.8889
+  },
+  "execution_metrics": {
+    "output_chars": 3864,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

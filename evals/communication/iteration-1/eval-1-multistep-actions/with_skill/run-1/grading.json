@@ -1,0 +1,61 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": true,
+      "evidence": "First line: \"Create `.github/workflows/ci.yml` in the repo (the `.github` and `workflows` folders don't exist yet either, so create those too) with this content:\""
+    },
+    {
+      "text": "Steps are given as a numbered list, and no list in the response has more than 5 items",
+      "passed": true,
+      "evidence": "[script] longest numbered list run=5; longest any-list run=5; numbered headings (not list items)=0"
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "\"`runs-on: ubuntu-latest` is the machine it runs on, a fresh Linux virtual machine (GitHub calls this a \\\"runner\\\") created for the run and thrown away afterward.\" - defines 'runner' in the same sentence it is introduced."
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": true,
+      "evidence": "[script] estimate: 'five minutes'"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "Final line: \"Next: create the file above at `.github/workflows/ci.yml`.\" - single concrete action, no trailing list or open question."
+    },
+    {
+      "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Create `.github/workflows/ci.yml` in the repo (the `.github` and `workflows` folders don't exist yet either, so create t\""
+    },
+    {
+      "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: 'Next: create the file above at `.github/workflows/ci.yml`.'; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly",
+      "passed": false,
+      "evidence": "\"(the `.github` and `workflows` folders don't exist yet either, so create those too)\" - states that the folders must be created but never gives a command or method for doing so, leaving the reader to infer how (contrast with the without_skill run, which gives an explicit `mkdir -p .github/workflows` command)."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9,
+    "pending": 0,
+    "pass_rate": 0.8889
+  },
+  "execution_metrics": {
+    "output_chars": 3892,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

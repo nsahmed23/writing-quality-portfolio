@@ -1,0 +1,56 @@
+{
+  "skill_name": "communication",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "my node api started throwing EADDRINUSE on every restart since i upgraded to node 24 last thursday. why does node 24 cause EADDRINUSE? windows 11, server is C:\\Dev\\Projects\\inventory-api\\src\\server.ts, listens on 8080, i start it with npm run dev (nodemon + ts-node)",
+      "expected_output": "Challenges the 'Node 24 causes it' premise as sequence not cause, explains EADDRINUSE plainly, leads with a diagnostic command, names the likely mechanism (old process still holding 8080), says what is unverified, ends with one next action, no preamble or closer.",
+      "files": [],
+      "expectations": [
+        "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+        "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+        "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+        "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+        "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+        "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+        "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+        "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+        "Ends with exactly one concrete next action the reader can do in under two minutes"
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "I need to add a GitHub Actions workflow to my Go repo at C:\\Dev\\Projects\\ledger-svc that runs go vet and go test on every PR to main, and caches modules so it's not slow. never used actions before. what do i do",
+      "expected_output": "Leads with the file to create, numbered steps (5 or fewer), a complete YAML with pull_request on main, go vet, go test, module cache, defines Actions terms on first use, gives a concrete time estimate, ends with one next action, no preamble or closer.",
+      "files": [],
+      "expectations": [
+        "The first line is an action (create/open a specific file or run a command), not preamble or context",
+        "Steps are given as a numbered list, and no list in the response has more than 5 items",
+        "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+        "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+        "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+        "Ends with exactly one concrete next action the reader can do in under two minutes",
+        "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+        "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+        "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "explain how JWT auth works and why people say it's stateless. i keep hearing you can't log someone out with JWTs, is that true?",
+      "expected_output": "Full explanation with skimmable structure, JWT and stateless defined on first use, the logout premise answered as partly true with conditions, the limit of the stateless model stated with a concrete revocation option, a concrete example, no preamble, closer, or forced analogy.",
+      "files": [],
+      "expectations": [
+        "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+        "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+        "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+        "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+        "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+        "Uses headers or another skimmable structure for the full explanation (the 'explain' override allows a long body)",
+        "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+        "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+        "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal"
+      ]
+    }
+  ]
+}

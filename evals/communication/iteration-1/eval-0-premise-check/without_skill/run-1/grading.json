@@ -1,0 +1,61 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"I'd treat \\\"since the upgrade\\\" as a correlation worth investigating, not a confirmed cause, especially since EADDRINUSE on *every* restart is a well-known nodemon/Windows symptom that has nothing to do with which Node version is installed.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": false,
+      "evidence": "EADDRINUSE first appears in sentence 1 (\"Node 24 isn't a documented cause of EADDRINUSE.\"). The definition (\"EADDRINUSE means: when the new process calls `.listen(8080)`, something else is still bound to that port.\") does not arrive until a new paragraph, two sentences later, not in the same sentence or the very next one."
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": false,
+      "evidence": "First line: \"Node 24 isn't a documented cause of EADDRINUSE. I don't have its changelog in front of me to double-check, but nothing in Node's networking stack changed in a way that would affect how a port gets bound or released.\" - this is analysis/context, not an action."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"**A leftover or duplicate process already on 8080.** An earlier `npm run dev` in another terminal or VS Code window that never actually exited, or a process left behind by switching Node versions... produces exactly this symptom on every subsequent restart.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"I haven't seen `server.ts`, your `nodemon.json`/package.json, or actual netstat output, so I can't tell you which of the above is actually happening, just what to check.\""
+    },
+    {
+      "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Node 24 isn't a documented cause of EADDRINUSE. I don't have its changelog in front of me to double-check, but nothing i\""
+    },
+    {
+      "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"I haven't seen `server.ts`, your `nodemon.json`/package.json, or actual netstat output, so I can't tell you which of the\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "Final sentence: \"Paste back the netstat/tasklist output for port 8080 and I can narrow it down.\" - single concrete, fast action following the earlier netstat command."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pending": 0,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 3343,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

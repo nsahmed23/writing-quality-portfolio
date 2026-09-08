@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "First sentence: \"A JWT (JSON Web Token) is a signed piece of text a server hands a client at login, which the client then sends back on every later request to prove who it is.\""
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "\"That is the specific meaning of \\\"stateless\\\" here: the server needs no session storage to validate a request.\""
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": true,
+      "evidence": "\"Partly true, and there is a real mechanism behind it, but \\\"can't\\\" overstates it.\""
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "\"Three fixes people actually use: 1. Keep the JWT short-lived (minutes) and pair it with a separate refresh token stored server-side... 2. Keep a list of revoked token IDs in a fast store like Redis...\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'header.payload.signature'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": true,
+      "evidence": "[script] 3 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'A JWT (JSON Web Token) is a signed piece of text a server hands a client at login, which the client then sends back on e'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: 'Each of these adds back a server-side check that the original design was built to avoid. So the precise version of the c'; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 3960,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

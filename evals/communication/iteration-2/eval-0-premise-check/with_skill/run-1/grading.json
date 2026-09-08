@@ -1,0 +1,73 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"You upgraded Node last Thursday, and the errors started around then; that's sequence, one thing happened before the other, not a demonstrated mechanism.\" Also: \"I can't confirm that premise, and I'd treat it as unverified rather than settled.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": false,
+      "evidence": "'EADDRINUSE' first appears in \"On \\\"why does Node 24 cause EADDRINUSE\\\": I can't confirm that premise, and I'd treat it as unverified rather than settled.\" The definition (\"It is the operating system refusing to let your process claim a port that something else already has bound\") doesn't arrive until two sentences later, after the intervening sequence-vs-cause sentence."
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": true,
+      "evidence": "First line: \"Run this first, in any Windows shell (cmd, PowerShell, or Git Bash all work):\", immediately followed by the `netstat -ano | findstr :8080` command."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"The far more common explanation for EADDRINUSE on every restart with nodemon...is that the previous process has not actually exited by the time nodemon starts the replacement...So the old listener on 8080 is still alive at the moment the new one tries to bind, every time.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"I have not seen `server.ts`, your `nodemon.json`, or an actual process listing, so I cannot tell you which of these it is...\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'Run this first, in any Windows shell (cmd, PowerShell, or Git Bash all work):'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: 'I have not seen `server.ts`, your `nodemon.json`, or an actual process listing, so I cannot tell you which of these it i'; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final paragraph is a caveat (\"I have not seen server.ts, your nodemon.json, or an actual process listing...\") closing with a meta remark (\"The `tasklist` output from the first command decides which branch above applies.\"), not a fresh single directive."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 3334,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes",
+        "reason": "This pulls against 'Says what it could not verify': most responses place the verification caveat as the literal final paragraph (correctly satisfying that assertion), which crowds out a clean single closing action and fails this one instead."
+      },
+      {
+        "assertion": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+        "reason": "Tension with 'The first line is an action': a response that isolates a pure action-only opening line pushes EADDRINUSE's first textual appearance into a later paragraph that may open with the sequence-vs-cause point instead of the definition, missing the proximity bar by a sentence or two."
+      }
+    ],
+    "overall": "Assertions checking sequence-vs-cause, the Windows command, the mechanism, and the verification caveat are passing reliably; the failures in this run are both structural/placement issues (definition timing, ending shape) rather than reasoning gaps."
+  }
+}
