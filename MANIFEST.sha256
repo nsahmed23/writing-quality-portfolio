@@ -7,6 +7,7 @@ c3c50c456adbf422bd92f9d7d99adb722d592e445d61e02c991c935b37324a16 *./.gitignore
 bf0120a6b05b962161501bf607be3c21ddb194f4c9886a2e8e2dbf15accf40e4 *./defect-and-change-report.md
 d777ad84b065376eca591019acdee33f4bf9d22c36425dd9deed2b964d27d2ae *./evals/communication/README.md
 c5ed7c8572ee9effe72945bb42ae080e3c9590b990a63e39b039ec8078c56049 *./evals/communication/build_iter2.py
+21b4e9c60ec062994a07b6e7924b4b1ee909c12871b0dee56d9228871e1af7c3 *./evals/communication/consult-brief.md
 c5eaedf027fdd2f75002424a1f184ec6c1a4776dd06eb2a64928ce51cb4fe8fc *./evals/communication/darken.py
 d631c27b2f32da5c5198660582e6dd2311e46b6a3c9d4a3f434b5210ae68644d *./evals/communication/finish_iter2.py
 9bef171d4543e489bb11998cb0e0c39e9a336b6352c22497d35f0686422076c6 *./evals/communication/grade.py
