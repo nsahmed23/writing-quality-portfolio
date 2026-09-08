@@ -1,0 +1,64 @@
+{
+  "expectations": [
+    {
+      "text": "Every command from the previous reply appears verbatim: the Get-NetTCPConnection line, Stop-Process -Id <PID> -Force, npm install -D nodemon@latest, netsh interface ipv4 show excludedportrange protocol=tcp, and tsx watch src/server.ts",
+      "passed": false,
+      "evidence": "[script] missing: Stop-Process, nodemon update, netsh excludedportrange, tsx watch"
+    },
+    {
+      "text": "Adds no new commands, tools, or facts that were not in the previous reply",
+      "passed": true,
+      "evidence": "\"probably something like `node.exe` or `ts-node`\" is a concrete instance of the original's own hedge, \"a node.exe (or similarly named) process\" (ts-node was already named in the original as the child-process technology), so this is an illustrative example of an existing point rather than a new fact. No new command or tool is introduced anywhere in the reply."
+    },
+    {
+      "text": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+      "passed": true,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Keeps the four numbered steps of the original in the same order",
+      "passed": false,
+      "evidence": "None of the four steps appear; the reply defers all of them: \"I'll give you exactly one next command, nothing more; we can leave the Node 24 question for later since it isn't something you need to resolve to fix this.\""
+    },
+    {
+      "text": "Sentences are shorter: mean words per sentence is lower than in the previous reply",
+      "passed": true,
+      "evidence": "[script] mean words/sentence: reply 16.4 vs original 25.2"
+    },
+    {
+      "text": "Asks no new question; the only request to the reader, if any, is the original one (run the port check and report the process name and PID)",
+      "passed": true,
+      "evidence": "No question mark appears in the reply. The only request, \"Paste back whichever one you get, exactly as shown.\", restates the original port-check request only."
+    },
+    {
+      "text": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+      "passed": true,
+      "evidence": "[script] no apology or meta-commentary found"
+    },
+    {
+      "text": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+      "passed": true,
+      "evidence": "[script] no 'sequence'/'correlation' labels"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 2,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 773,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+        "reason": "This reply drops the timing-versus-cause explanation entirely (\"we can leave the Node 24 question for later since it isn't something you need to resolve to fix this\") and still passes, since the script only checks for the absence of two forbidden words rather than for the explanation actually being present."
+      }
+    ],
+    "overall": "The timing-versus-cause assertion is satisfied by omission as easily as by a genuine plain-language explanation across all three without_skill runs; requiring some minimal Node/timing content to be present would make it more discriminating."
+  }
+}

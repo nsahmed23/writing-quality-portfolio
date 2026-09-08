@@ -1,0 +1,73 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": true,
+      "evidence": "First line is the action itself: \"Create `.github/workflows/ci.yml` in ledger-svc\" (line 1), no preamble."
+    },
+    {
+      "text": "Steps are given as a numbered list of list items, one bounded action each (not numbered headings with paragraphs under them), with at least 2 items and no list longer than 5",
+      "passed": true,
+      "evidence": "[script] longest numbered list run=3; longest any-list run=5; numbered headings (not list items)=0"
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "\"runner\" first appears at line 37 and is defined in that same sentence via appositive: \"picks the runner, the disposable virtual machine GitHub starts to execute your steps and then discards\"."
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": true,
+      "evidence": "[script] estimate: '10 minutes'"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+      "passed": false,
+      "evidence": "Final line \"Next: run `mkdir -p .github/workflows`, paste the YAML above into `ci.yml` inside it, and save.\" restates the first line's own create-and-paste action rather than a genuinely later step."
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"1. Create `.github/workflows/ci.yml` in ledger-svc (`mkdir -p .github/workflows` first if that folder doesn't exist yet;\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: 'Next: run `mkdir -p .github/workflows`, paste the YAML above into `ci.yml` inside it, and save.'; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly, including how to create the .github/workflows folders",
+      "passed": true,
+      "evidence": "Line 1 states the explicit command \"mkdir -p .github/workflows\" for creating the folder before pasting the file content."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9,
+    "pass_rate": 0.8889
+  },
+  "execution_metrics": {
+    "output_chars": 3282,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+        "reason": "Wording is ambiguous about whether 'it' means each term's own first appearance, or whichever of the four terms appears earliest overall. The two readings disagree in practice (this run's 'workflow' appears undefined before 'runner' is cleanly defined) - worth clarifying which governs the check."
+      },
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+        "reason": "All 6 runs in this eval (both arms) fail this assertion - every reply trails into a caveats/limitations paragraph or restates line 1's action instead of landing on a fresh closing action. Worth checking whether the skill is meant to fix this and isn't, or whether the bar is miscalibrated for a task whose honest answer legitimately carries caveats."
+      }
+    ],
+    "overall": "Two of nine assertions show cross-run patterns worth a look: term-definition wording is ambiguous, and the closing-action bar fails uniformly in both arms."
+  }
+}

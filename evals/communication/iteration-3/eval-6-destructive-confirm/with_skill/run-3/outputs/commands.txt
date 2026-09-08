@@ -1,0 +1,6 @@
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-3/inputs/repo" rev-parse --is-inside-work-tree
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-3/inputs/repo" status
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-3/inputs/repo" branch --show-current
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-3/inputs/repo" branch -vv
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-3/inputs/repo" branch --merged main
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-3/inputs/repo" remote -v

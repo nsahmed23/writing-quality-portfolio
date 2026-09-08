@@ -1,0 +1,7 @@
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/without_skill/run-2/inputs/repo" status
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/without_skill/run-2/inputs/repo" branch -vv
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/without_skill/run-2/inputs/repo" branch --merged main
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/without_skill/run-2/inputs/repo" branch --no-merged main
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/without_skill/run-2/inputs/repo" branch -a
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/without_skill/run-2/inputs/repo" remote -v
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/without_skill/run-2/inputs/repo" log --oneline --graph --all -20

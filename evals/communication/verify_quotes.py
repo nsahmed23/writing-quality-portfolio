@@ -12,16 +12,21 @@ import re
 import sys
 from pathlib import Path
 
-QUOTE_RE = re.compile(r"[\"“]([^\"”]{6,}?)[\"”]|'([^']{12,}?)'")
+DQUOTE_RE = re.compile(r"[\"“]([^\"”]{6,}?)[\"”]")
+SQUOTE_RE = re.compile(r"(?<![A-Za-z])'([^']{12,}?)'(?![A-Za-z])")
 
 
 def norm(s: str) -> str:
-    return re.sub(r"\s+", " ", s).strip().lower()
+    return re.sub(r"\s+", " ", s).replace("’", "'").replace("‘", "'").strip().lower()
 
 
 def quotes_in(evidence: str):
-    for m in QUOTE_RE.finditer(evidence):
-        q = m.group(1) or m.group(2)
+    """Double-quoted spans first; single-quoted spans only as a fallback, and never ones that start or end
+    inside a word (apostrophes in hasn't / haven't must not pair up)."""
+    found = [m.group(1) for m in DQUOTE_RE.finditer(evidence)]
+    if not found:
+        found = [m.group(1) for m in SQUOTE_RE.finditer(evidence)]
+    for q in found:
         if q:
             yield q
 
@@ -39,19 +44,35 @@ def main():
         changed = False
         for e in d["expectations"]:
             ev = e.get("evidence", "")
-            if e.get("passed") is not True or ev.startswith(("[script]", "[inline grader]")):
+            voided_before = ev.startswith("[quote-audit")
+            if voided_before:
+                ev = re.sub(r"^\[quote-audit [A-Z_]+\] ", "", ev)  # re-check a previously voided pass
+            elif e.get("passed") is not True or ev.startswith(("[script]", "[inline grader]")):
                 continue
             total += 1
             qs = list(quotes_in(ev))
+
+            def found(q: str) -> bool:
+                # an ellipsis inside a quote marks elided text: every segment (6+ chars) must occur
+                segs = [s for s in re.split(r"\s*(?:\.\.\.|…)\s*", q) if len(s.strip()) >= 6]
+                return bool(segs) and all(norm(s) in body for s in segs)
+
             if not qs:
                 no_quote += 1
                 status = "NO_QUOTE"
-            elif any(norm(q) in body for q in qs):
+            elif any(found(q) for q in qs):
                 verified += 1
+                if voided_before and apply:
+                    e["passed"] = True
+                    e["evidence"] = ev
+                    changed = True
+                    print(f"  RESTORED: {g.parent.relative_to(it)} :: {e['text'][:60]}")
                 continue
             else:
                 unverifiable += 1
                 status = "QUOTE_NOT_FOUND"
+                if voided_before:
+                    continue  # already voided; leave as is
             print(f"  {status}: {g.parent.relative_to(it)} :: {e['text'][:60]} :: {ev[:100]!r}")
             if apply:
                 e["passed"] = False

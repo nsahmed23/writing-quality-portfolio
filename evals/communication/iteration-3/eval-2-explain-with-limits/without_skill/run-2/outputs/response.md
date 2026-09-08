@@ -1,0 +1,20 @@
+JWT auth works like this:
+
+1. The client sends credentials (username and password, or something like an OAuth code) to a login endpoint.
+2. The server verifies them, then builds a JSON payload of claims about the user, things like their user ID (`sub`), roles, and an expiration time (`exp`), and signs it with a secret key (HMAC) or a private key (RSA/ECDSA).
+3. That signed package is the JWT itself: three base64url-encoded segments joined by dots, `header.payload.signature`. The header names the algorithm, the payload holds the claims, and the signature lets anyone with the right key confirm the first two segments haven't been altered.
+4. The server hands the JWT back to the client, which stores it (in memory, a cookie, or localStorage) and attaches it to later requests, typically as `Authorization: Bearer <token>`.
+5. On each request, the server checks the signature and the expiration. If both check out, it trusts the claims inside and proceeds. It doesn't need to look anything up in a database to do this.
+
+That last step is where "stateless" comes from. With classic session auth, the server creates a session record somewhere (memory, Redis, a database table) and gives the client a session ID; every request means the server looks that ID up to find out who's asking. The server is holding state on the client's behalf. With a JWT, the token carries all the information the server needs, and the signature proves it's genuine, so any server that knows the verification key can authenticate a request without checking anywhere else first. That's the appeal for horizontally scaled APIs: any instance behind a load balancer can validate a token independently, with nothing to share between instances.
+
+Now, the logout question. The thing you've heard is basically true, and it's a direct consequence of the same design choice that makes JWTs stateless. If the server never records which tokens it has issued, there's nowhere to flip a switch that says "this one's dead now." A JWT stays valid, cryptographically, until its `exp` timestamp passes. In the simplest possible setup (the client just deletes its copy on logout), the token itself would still pass verification if anyone else had a copy of it, right up until it expired on its own.
+
+So it's accurate that a plain JWT can't be revoked through the JWT mechanism alone. What's overstated is treating that as "so you can't really log people out." In practice, people close the gap, usually with some combination of these:
+
+- Keep access tokens short-lived (minutes, not days), so even an unrevoked token has a small exposure window. Pair this with a longer-lived refresh token that the client uses to get new access tokens.
+- Store refresh tokens server-side, one row per session. Logout deletes that row. The current access token still works until it naturally expires, but nothing new can be issued after that, so the session ends within one access-token lifetime.
+- Keep a small revocation list, for instance a Redis set of token IDs using the `jti` claim, and check it on every request. This is a cheap lookup rather than a full session fetch, but it is server-side state, and it does chip away at the "fully stateless" property. Most real systems make that trade on purpose.
+- Store a "valid since" timestamp per user and bump it on logout or password change. Every request compares the token's `iat` (issued-at) claim against that timestamp, and anything issued earlier gets rejected. One cheap lookup invalidates every outstanding token for that user at once, which a per-token blocklist can't do as easily.
+
+So: a pure JWT, with zero server-side state, genuinely can't be revoked before it expires. Almost nobody ships that version once logout matters. What ships is JWTs plus a small, deliberate amount of state, just enough to support revocation, while most request verification stays fast and lookup-free. The accurate version of what you heard is less "JWTs can't be logged out" and more "a bare JWT has no revocation built in, so you add a little state back for the parts that need it."

@@ -1,0 +1,69 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "Explicitly labels the timing as coincidental, not causal; quote: \"The upgrade timing is most likely coincidental rather than causal.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": false,
+      "evidence": "First appearance of EADDRINUSE is in sentence 1; the immediately following sentence does not explain its meaning (the explanation only arrives in the third sentence): \"Nothing in its release notes touches port binding or process exit.\""
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": false,
+      "evidence": "First line is analysis about Node 24's release notes, not an action; opening line: \"Node 24 isn't a documented cause of EADDRINUSE.\""
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'Get-NetTCPConnection'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "Names the stale-process/socket-release mechanism directly; quote: \"the previous process not fully releasing port 8080 before the new one tries to bind it\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "States explicitly what it hasn't seen (files and process/PID output); quote: \"I haven't seen `server.ts`, your `nodemon.json`, the `package.json` dev script, or the actual PID and error output\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Node 24 isn't a documented cause of EADDRINUSE. Nothing in its release notes touches port binding or process exit. The e\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"I haven't seen `server.ts`, your `nodemon.json`, the `package.json` dev script, or the actual PID and error output, so I\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final paragraph is a caveat about unseen files/output, ending with a vague forward reference rather than a stated action; closing text: \"I haven't seen `server.ts`, your `nodemon.json`, the `package.json` dev script, or the actual PID and error output, so I can't tell you which of these three it is\""
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 3,
+    "total": 9,
+    "pass_rate": 0.6667
+  },
+  "execution_metrics": {
+    "output_chars": 2911,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+        "reason": "This run's diagnosis is otherwise thorough and correctly hedged, but misses purely on placement: the definition lands in the third sentence rather than the second. The assertion is doing its job (rewarding tight organization over correct-but-buried content), so this isn't a flaw in the assertion, just a note that a technically sound response can fail it on a one-sentence technicality."
+      }
+    ],
+    "overall": "Assertions are discriminating and evidence-based; the three failures here are genuine structural misses (buried definition, no lead action, caveat-only close), not artifacts of harsh grading."
+  }
+}

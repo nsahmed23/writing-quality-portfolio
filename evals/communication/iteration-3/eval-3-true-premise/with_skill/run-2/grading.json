@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": false,
+      "evidence": "FAIL: opening line is \"EMFILE isn't something *caused by* running out of file descriptors ...; it *is* the kernel's refusal, in real time, when your Node process tries to open one more than its configured limit allows. Same event, described two ways, not two events in a chain.\" This opens by explicitly negating the causal framing of the question rather than stating the mechanism first."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": false,
+      "evidence": "FAIL: \"EMFILE isn't something *caused by* running out of file descriptors\" directly negates the user's own \"cause\" framing, and \"Same event, described two ways, not two events in a chain\" is functionally the same move as \"sequence, not cause\" boilerplate -- it explicitly denies a causal chain in favor of identity."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": true,
+      "evidence": "PASS: \"a file descriptor is the small integer the kernel hands your process for every open file, socket, or pipe\" -- appears as a parenthetical attached to the very sentence where the term first appears, and matches the required definition closely."
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "PASS: \"that favors the leak\" -- in context: \"If the ~6-hour timing has repeated across more than one crash and stayed roughly the same even when traffic varied, that favors the leak.\" Also explains the mechanism (\"opening descriptors faster than it closes them\") and gives five concrete leak sources under \"the usual causes ... roughly by frequency.\" Somewhat hedged (presented as one of two hypotheses to be settled by diagnostics) but does state the timing pattern points to a leak."
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: 'ulimit -n'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "PASS: \"raising the limit only buys more hours before the same crash\" -- distinguishes raising LimitNOFILE (a genuine fix only if the ceiling is simply undersized) from the leak case, where it merely delays recurrence and \"the code path that isn't closing descriptors has to be fixed instead.\""
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "PASS: \"because I don't have your server or code\" -- lists specifically what is unverified: how the process is launched, its real current limit, nginx upstream keepalive settings, and what outbound calls/streams the route handlers make."
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "PASS: closing line is \"Next: run `pgrep -af node` and `cat /proc/<pid>/limits` now, before the next crash, so you have the real soft limit on record.\" Single, immediate, no-wait action (get the real current limit on record); unlike a menu of options or a caveat, it is one objective accomplished via two chained commands, doable in seconds."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 2,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 4804,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

@@ -1,0 +1,11 @@
+Three different fixes, same timeout, same symptom. That pattern is itself useful information: it means this probably isn't a timing problem or a locator problem. A 15000ms budget would have covered ordinary CI slowness if slowness were the cause. `networkidle` would have caught a slow-rendering React tree. The `data-testid` swap ruled out selector specificity. What's left is that the "Metrics" heading, or whatever it depends on, isn't appearing in the CI environment at all, no matter how long the test waits.
+
+Guessing at a fourth fix without more information would just continue the spiral. The next step should be to look at what's actually on the page when the test times out, rather than changing the test again.
+
+A few concrete things to check, roughly in order of how much they'll tell you:
+
+1. Turn on failure artifacts if they aren't already: in `playwright.config.ts`, set `use: { screenshot: 'only-on-failure', trace: 'retain-on-failure' }`. Rerun the CI job, download the trace or screenshot from the failed run, and open it. This shows directly whether the page is stuck on a loading spinner, showing an error state, still on a blank shell, or something else entirely.
+2. Check the CI job's browser console and network logs for that test run. Look for a failed request, a thrown error, or a 4xx/5xx around whatever call populates the dashboard.
+3. Compare how the app is actually started in CI versus locally. Look at the `webServer` block in `playwright.config.ts`. If CI runs `vite build` plus a preview server instead of `vite dev`, any `VITE_`-prefixed environment variables the metrics API call needs have to be present at build time in the CI job, not just at runtime. A secret or env var that's set locally but missing in CI would leave the component stuck fetching, or erroring, indefinitely, which matches everything seen so far: the same timeout regardless of length, no change from waiting for network idle, and no change from which locator is used to find a heading that never renders.
+
+That last one is my best guess at the actual cause, given that three unrelated fixes all failed the same way. Grab the trace or the console and network output from a CI run and share what you find. Once we can see what the page is actually doing at the five-second mark, we can fix the real problem instead of poking at the symptom again.

@@ -1,0 +1,1 @@
+why does running out of file descriptors cause EMFILE in my node server? it's a fastify app on ubuntu 22.04 behind nginx, dies after ~6 hours under load with 'Error: EMFILE: too many open files'

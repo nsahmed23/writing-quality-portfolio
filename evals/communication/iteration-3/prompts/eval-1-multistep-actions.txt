@@ -1,0 +1,1 @@
+I need to add a GitHub Actions workflow to my Go repo at C:\Dev\Projects\ledger-svc that runs go vet and go test on every PR to main, and caches modules so it's not slow. never used actions before. what do i do

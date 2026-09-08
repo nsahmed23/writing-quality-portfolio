@@ -1,0 +1,14 @@
+{
+  "eval_id": 7,
+  "eval_name": "eval-7-debug-spiral",
+  "prompt": "This is the conversation so far.\n\nThe user's Playwright test `e2e/dashboard.spec.ts` (\"shows metrics heading\") fails only on CI with: TimeoutError: locator.waitFor: Timeout 5000ms exceeded waiting for getByRole('heading', { name: 'Metrics' }). It passes locally every time.\n\nTurn 1, you suggested raising the locator timeout to 15000ms. User: \"still broken\".\nTurn 2, you suggested adding `await page.waitForLoadState('networkidle')` before the assertion. User: \"still broken\".\nTurn 3, you suggested switching the locator to `getByTestId('metrics-heading')` and adding the data-testid to the component. User: \"still broken, same timeout\".\n\nThe user now says: \"still failing on CI, passes locally every time. what now\"\n\nWrite your next reply.",
+  "assertions": [
+    "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+    "Names one specific assumption behind the previous three fixes that may be wrong (for example: that the heading renders at all on CI, that CI has a backend to talk to, that auth state or viewport on CI matches local)",
+    "Asks the reader for exactly one thing (one question or one imperative request), not a list of things to try or report",
+    "Asks for evidence rather than guessing: requests a CI artifact (trace, screenshot, video, console log, or the failing run's HTML report)",
+    "States plainly, in one sentence, that it is stopping the change-and-retry loop, without apology",
+    "No dramatized tone ('Uh oh', 'Oh no', 'There seems to be a problem'); matter-of-fact",
+    "Response is under 2000 characters"
+  ]
+}

@@ -1,0 +1,34 @@
+Running out of file descriptors doesn't cause a slowdown or a retry. Linux keeps a hard ceiling on how many descriptors a single process can hold open at once, and the moment your Fastify process tries to cross that ceiling, whatever syscall needed the new descriptor (accepting a connection, opening a file, connecting to a database) fails immediately. Node reports that failure as EMFILE. That's specifically the per-process version of this error; Linux has a separate one, ENFILE, for when the whole system's file table fills up across every process combined, so what you're describing is your Node process individually hitting its own ceiling, not the box running dry system-wide. Every open socket, file, and pipe shares that one per-process budget: inbound connections from nginx, outbound connections to your database or any other service you call, files open for reading or writing, log handles, all of it counts against the same number.
+
+The six-hour detail is the important clue. If your limit were simply too low for the traffic you're serving, you'd expect to hit EMFILE quickly, as soon as concurrent load reached your ceiling, and you'd expect it to recover once load drops. A slow climb to failure over hours under sustained load is the signature of something opening descriptors faster than it closes them: a leak, not an undersized limit. Raising the limit will buy you more hours before the next crash; it won't stop the climb.
+
+**Check this on the running process before changing anything:**
+
+1. Find the pid (`systemctl status your-service`, or `pgrep -f node`), then watch the descriptor count over a few minutes: `watch -n 5 'ls /proc/<pid>/fd | wc -l'`. A steady climb means a leak; roughly flat means it isn't.
+2. See what those descriptors actually are: `ls -l /proc/<pid>/fd`. Sockets show as `socket:[inode]`, regular files show their path, pipes show `pipe:[inode]`. Whichever type dominates and keeps growing tells you where to look.
+3. Check socket state specifically: `ss -tnp | grep <pid>`. A pile of connections sitting in `CLOSE_WAIT` is the most common leak signature in Node apps. It means the remote side already closed its end, and your process never called `.destroy()` or `.end()` on its side, so the kernel keeps the descriptor open waiting for you.
+4. Confirm the actual limit that process is running under: `cat /proc/<pid>/limits | grep "Max open files"`. This can differ from your shell's `ulimit -n`; a process started by systemd, Docker, or pm2 gets its limit from whatever launched it, not from your interactive session.
+
+**Likely causes in a Fastify app, roughly in order of how often they're the culprit:**
+
+- A database pool leak: acquire a client, query, release, where an exception thrown between acquire and release skips the release because there's no `finally`. Each skipped release leaks a pooled connection and its socket permanently, and since error-triggering requests happen more often under load, the leak rate scales with traffic, which matches what you're seeing.
+- Outbound HTTP calls with undrained responses: if a handler calls another service with `fetch`, `undici`, `axios`, or raw `http.request` and bails out early (bad status code, failed validation, timeout) without reading or explicitly destroying the response body, the underlying socket can be left dangling instead of returning to the connection pool.
+- File streams without error handling: `fs.createReadStream`/`createWriteStream` used for uploads, downloads, or piping into `reply.raw` will leak their descriptor if the client disconnects mid-stream and nothing listens for that and calls `.destroy()`.
+- `@fastify/multipart` parts that aren't fully consumed: inspecting a file part's metadata and rejecting the upload without draining or destroying that part's stream leaves the underlying request in a bad state.
+- WebSocket connections (`@fastify/websocket` or raw `ws`) that error out without a matching `close` or `terminate`, especially if the socket's `error` event isn't handled.
+
+**Fixes, matched to what you find:**
+
+If step 3 shows a growing pile of `CLOSE_WAIT`, or one descriptor type climbing with no matching growth in legitimate active connections, that's a bug: wrap pool acquisition in try/finally, drain or destroy every response body you don't fully read, and add error handlers that call `.destroy()` to every stream. That's the actual fix; the leak needs to be closed in code, not papered over.
+
+If instead the growth tracks real concurrent load, meaning you're running something with long-lived connections (WebSockets, SSE, long polling) and clients are accumulating over the day faster than they disconnect, that's capacity, not a bug, and the fix is raising the limit plus adding an explicit connection cap or idle timeout so it degrades instead of crashing outright.
+
+Either way, the default per-process limit on a stock Ubuntu setup is usually lower than a busy server needs (commonly 1024, though the exact value depends on how the process was launched), and it's worth raising deliberately rather than relying on whatever default it inherited. Node has no API to raise this once the process is already running; it has to be set before the process starts, at whichever layer actually launches it:
+
+- Under systemd: set `LimitNOFILE=65536` (or higher) in the unit file's `[Service]` section, then `systemctl daemon-reload` and restart.
+- Under Docker: pass `--ulimit nofile=65536:65536` to `docker run`, or the equivalent `ulimits:` block in Compose.
+- Launched from a shell or by pm2 without systemd: the limit comes from `/etc/security/limits.conf` (and `/etc/security/limits.d/`), since a non-login, non-PAM process doesn't necessarily see the same value your interactive `ulimit -n` shows.
+
+One thing worth checking on the nginx side since it sits in the request path: if you've set `keepalive N;` in the `upstream` block so nginx holds persistent connections to Fastify, make sure Node's `server.keepAliveTimeout` isn't shorter than nginx's idle timeout for those connections. If Node closes its end first, nginx can end up trying to reuse a socket that's already gone, which shows up as intermittent 502s rather than EMFILE, but it's a common companion misconfiguration in exactly this kind of setup. Separately, nginx has its own file descriptor limit (`worker_rlimit_nofile` in nginx.conf) that is entirely independent of Fastify's; an EMFILE in nginx's own error log would point at the nginx process, not at your Node process, so don't conflate the two if you see both.
+
+What I can't verify from here: I don't have your code, your nginx config, or how the service is actually started, so I can't tell you which specific cause applies or what your current limit actually is. The four commands above will settle that directly, usually within an hour or two of load: whether it's a leak or legitimate growth, and which kind of descriptor is piling up.

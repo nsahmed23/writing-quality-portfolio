@@ -1,0 +1,73 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": false,
+      "evidence": "First line is pure explanation, not an instruction: \"GitHub Actions workflows are YAML files under `.github/workflows/` in the repo.\" (line 1). The first action (\"create `.github/workflows/ci.yml`\") doesn't appear until line 3."
+    },
+    {
+      "text": "Steps are given as a numbered list of list items, one bounded action each (not numbered headings with paragraphs under them), with at least 2 items and no list longer than 5",
+      "passed": false,
+      "evidence": "[script] longest numbered list run=0; longest any-list run=0; numbered headings (not list items)=0"
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "\"workflow\" is defined right where it first appears, in the opening sentence: \"GitHub Actions workflows are YAML files under `.github/workflows/` in the repo.\""
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": false,
+      "evidence": "[script] no concrete minutes/hours estimate found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+      "passed": false,
+      "evidence": "Reply ends on a caveats paragraph, not an action: \"A few things I can't verify without the repo.\" (opening the final paragraph, which trails into version-currency caveats)."
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"GitHub Actions workflows are YAML files under `.github/workflows/` in the repo. Each one declares when it runs (`on:`), \""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: \"A few things I can't verify without the repo. Your Go version doesn't matter here since the workflow reads it straight f\"; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly, including how to create the .github/workflows folders",
+      "passed": true,
+      "evidence": "Line 3 explicitly instructs folder creation: \"making the folders too, since they likely don't exist yet\"."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 4,
+    "total": 9,
+    "pass_rate": 0.5556
+  },
+  "execution_metrics": {
+    "output_chars": 3232,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+        "reason": "Wording is ambiguous about whether 'it' means each term's own first appearance, or whichever of the four terms appears earliest overall. Worth clarifying which governs the check."
+      },
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+        "reason": "All 6 runs in this eval (both arms) fail this assertion - every reply trails into a caveats/limitations paragraph or restates line 1's action instead of landing on a fresh closing action. Worth checking whether the skill is meant to fix this and isn't, or whether the bar is miscalibrated for a task whose honest answer legitimately carries caveats."
+      }
+    ],
+    "overall": "Two of nine assertions show cross-run patterns worth a look: term-definition wording is ambiguous, and the closing-action bar fails uniformly in both arms."
+  }
+}

@@ -40,6 +40,8 @@ Good: "Run `npm install jsonwebtoken`, then edit `src/auth.ts:42`."
 
 If the answer is a command, path, or snippet, it goes first. Prose comes after, if at all.
 
+When that first line uses a term the reader may not know, define it in the same line's parenthetical: "Run `netstat -ano | findstr :8080` to see which process holds the port (EADDRINUSE means the port is already taken)." Leading with the action never postpones the definition.
+
 #### 2. Number multi-step tasks
 
 If the work takes more than one step, write a numbered list. Each step is one bounded action. No step contains "and then" twice. A numbered list means list items, one line each, not numbered headings with paragraphs under them.
@@ -58,7 +60,7 @@ Good:
 
 #### 3. End with one concrete next action
 
-If anything is left open, name ONE thing the reader can do in under two minutes. Even "open the file" counts. If the first line already was the only open action, do not repeat it at the end; end when the content stops.
+End with the one next action: name ONE thing the reader can do in under two minutes. Even "open the file" counts. Skip that closing line only when the reply is a single action with nothing else open; a reply with branches, a diagnostic to run, or a caveat still ends by naming the one thing to do now.
 
 Bad: "Hope that helps. Let me know if you want to dig deeper."
 Good: "Next: run `npm test` and paste the first failing line."
@@ -87,6 +89,8 @@ Vague estimates fail. Ballpark in concrete units.
 
 Bad: "This will take some work."
 Good: "About 15 minutes if tests already cover this. An afternoon if not."
+
+Put the estimate in one clause right after the first step, even in a short reply; a reply that leads with the action still carries it.
 
 #### 7. Make completed work visible
 
@@ -182,6 +186,7 @@ Then fix:
 3. A sequence or origin presented as a cause.
 4. A simplification presented as the whole picture, where its limit matters now.
 5. A claim you could not verify, stated as settled.
+6. A rule name used as a label (sequence, mechanism, correlation, premise) where plain words would do: say "the timing matches, which is not the same as the cause."
 
 Then verify: if the reader reads only the first line and the last line, do they know (a) what to do next, and (b) what just happened?
 

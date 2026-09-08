@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": true,
+      "evidence": "Opens with the mechanism in the first two sentences, no preamble: \"Every open socket, file, and pipe counts against a per-process cap on file descriptors\" \u2014 precedes any diagnostics or caveats."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": true,
+      "evidence": "Affirms the causal link rather than disputing it: \"it's a Linux resource limit surfacing through Node.\" No hedging or correlation/coincidence language anywhere."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": false,
+      "evidence": "[quote-audit QUOTE_NOT_FOUND] In the sentence where the term first appears: \"Every open socket, file, and pipe counts against a per-process cap on file descriptors (3200)\" explains the concept in plain words."
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "Names the leak mechanism directly: \"A slow climb to the ceiling is the signature of a leak: something in the request path opens a socket or file and doesn't release it\"."
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: 'ulimit -n'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "Distinguishes both fixes explicitly: \"if there's a genuine leak, this only buys time before the next crash; it doesn't fix it. Use it as a stopgap while you track down the actual unclosed resource\"."
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "States it directly: \"I don't have your code, logs, or server, so I can't tell you which of these it actually is\"."
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Fails: final paragraph is a future monitoring suggestion with two alternatives, not one concrete action taken now. It reads \"add a standing check ... a Prometheus node_exporter process_open_fds metric with an alert threshold, or even just a periodic log line of fs.readdirSync('/proc/self/fd').length\" \u2014 two options, framed as post-fix housekeeping rather than a single under-two-minute next step."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 2,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 5874,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

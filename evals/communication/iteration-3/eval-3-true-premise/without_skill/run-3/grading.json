@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": true,
+      "evidence": "Opening paragraph states the mechanism immediately: \"Linux keeps a hard ceiling on how many descriptors a single process can hold open at once, and the moment your Fastify process tries to cross that ceiling ... fails immediately.\" No premise challenge or preamble precedes it."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": true,
+      "evidence": "Affirms causation throughout, e.g. \"Node reports that failure as EMFILE.\" No hedging or correlation/coincidence boilerplate found."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": false,
+      "evidence": "Fails: the sentence where the term first appears is \"Running out of file descriptors doesn't cause a slowdown or a retry.\" \u2014 it states an effect the term does not have, not what a file descriptor is. The actual explanation (\"Linux keeps a hard ceiling on how many descriptors a single process can hold open at once\") arrives only in the next sentence, not in the sentence of first appearance or a parenthetical attached to it."
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "States the leak mechanism directly: \"A slow climb to failure over hours under sustained load is the signature of something opening descriptors faster than it closes them: a leak, not an undersized limit.\""
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: '/proc/<pid>/fd'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "Distinguishes both fixes: \"Raising the limit will buy you more hours before the next crash; it won't stop the climb.\" and later \"That's the actual fix; the leak needs to be closed in code, not papered over.\""
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "States it explicitly: \"I don't have your code, your nginx config, or how the service is actually started, so I can't tell you which specific cause applies or what your current limit actually is.\""
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Fails: final paragraph is a caveat about what could not be verified and points back to \"the four commands above\" rather than naming one action. It reads \"The four commands above will settle that directly, usually within an hour or two of load\" \u2014 multiple commands, and a timeframe of hours, not a single under-two-minute action."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 2,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 6917,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

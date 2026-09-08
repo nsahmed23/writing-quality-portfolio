@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+      "passed": true,
+      "evidence": "No edits to dashboard.spec.ts or a component. Only diagnostic capture config is proposed: \"in `playwright.config.ts`, set `use: { screenshot: 'only-on-failure', trace: 'retain-on-failure' }`\"."
+    },
+    {
+      "text": "Names one specific assumption behind the previous three fixes that may be wrong (for example: that the heading renders at all on CI, that CI has a backend to talk to, that auth state or viewport on CI matches local)",
+      "passed": true,
+      "evidence": "\"it means this probably isn't a timing problem or a locator problem.\", directly naming and rejecting what the timeout/networkidle/testid fixes assumed."
+    },
+    {
+      "text": "Asks the reader for exactly one thing (one question or one imperative request), not a list of things to try or report",
+      "passed": false,
+      "evidence": "Explicit numbered list of three separate, parallel diagnostic avenues introduced by \"A few concrete things to check, roughly in order of how much they'll tell you:\", plus a further separate closing imperative to share findings. Far more than exactly one ask."
+    },
+    {
+      "text": "Asks for evidence rather than guessing: requests a CI artifact (trace, screenshot, video, console log, or the failing run's HTML report)",
+      "passed": true,
+      "evidence": "\"Grab the trace or the console and network output from a CI run and share what you find.\""
+    },
+    {
+      "text": "States plainly, in one sentence, that it is stopping the change-and-retry loop, without apology",
+      "passed": true,
+      "evidence": "\"The next step should be to look at what's actually on the page when the test times out, rather than changing the test again.\" No apology anywhere in the reply."
+    },
+    {
+      "text": "No dramatized tone ('Uh oh', 'Oh no', 'There seems to be a problem'); matter-of-fact",
+      "passed": true,
+      "evidence": "[script] no dramatized tone phrases"
+    },
+    {
+      "text": "Response is under 2000 characters",
+      "passed": false,
+      "evidence": "[script] 2355 chars (cap 2000)"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 2,
+    "total": 7,
+    "pass_rate": 0.7143
+  },
+  "execution_metrics": {
+    "output_chars": 2355,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

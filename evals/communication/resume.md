@@ -29,3 +29,18 @@ Eval model: sonnet (both arms). Baseline = no skill.
 - Wave 1 launched: evals 0,1,2 (18 runs). Remaining: evals 3-7 (30 runs) as slots free; eval 6 executors must also write outputs/commands.txt (RAN:/WOULD_RUN: lines) and never execute a delete.
 - Consult brief (consult-brief.md) sent to phone and committed to PR #6 (writing-quality-portfolio, branch feat/communication-skill-evals). Outside answers feed iteration 4.
 - After runs: timing.py per notification; grade.py iteration-3; grader agents (eval 7 idx2 is judgment now); aggregate; notes; static+dark page; SendUserFile.
+
+## Iteration 3 result (2026-09-08 ~13:30)
+- DONE: 48/48 runs, no stalls; graders with quote rule; verify_quotes --apply voided 2 baseline passes; benchmark: with 90.5% vs without 68.9% (+0.22).
+- Regression: true-premise 0.62 (v3 pre-send item 6 example primed a 'not the cause' reflex). Wins: premise check 0.96, Actions time estimates back, restate-state fixture fixed.
+- NEXT: iteration-4-plan.md; user decisions: S8 destructive policy, deployment form, Q12 three-arm experiment on Opus. Kimi and GPT consult answers pending.
+
+## Iteration 3 result (2026-09-08 ~13:30)
+- DONE: 48/48 runs, no stalls; graders with quote rule; verify_quotes --apply voided 2 baseline passes; benchmark: with 90.5% vs without 68.9% (+0.22).
+- Regression: true-premise 0.62 (v3 pre-send item 6 example primed a 'not the cause' reflex). Wins: premise check 0.96, Actions time estimates back, restate-state fixture fixed.
+- NEXT: iteration-4-plan.md; user decisions: S8 destructive policy, deployment form, Q12 three-arm experiment on Opus. Kimi and GPT consult answers pending.
+
+## Iteration 3 result (2026-09-08 ~13:30)
+- DONE: 48/48 runs, no stalls; graders with quote rule; verify_quotes --apply voided 2 baseline passes; benchmark: with 90.5% vs without 68.9% (+0.22).
+- Regression: true-premise 0.62 (v3 pre-send item 6 example primed a 'not the cause' reflex). Wins: premise check 0.96, Actions time estimates back, restate-state fixture fixed.
+- NEXT: iteration-4-plan.md; user decisions: S8 destructive policy, deployment form, Q12 three-arm experiment on Opus. Kimi and GPT consult answers pending.

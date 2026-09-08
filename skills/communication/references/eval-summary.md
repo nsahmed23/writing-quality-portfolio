@@ -12,6 +12,9 @@ Each eval is one user prompt. Two arms answered it: a fresh Sonnet subagent that
 |---|---|---|---|---|---|---|
 | 1 | v1 (as uploaded) | 3 | 1 | 96.3% | 70.4% | +0.26 |
 | 2 | v2 (edits 1 to 4) | 8 | 3 | 84.7% | 73.9% | +0.11 |
+| 3 | v3 (v2.1 plus four fixes) | 8 (three fixtures repaired) | 3 | 90.5% | 69.4% | +0.21 |
+
+Iteration 3 changed the eval, not only the skill: the restate-state fixture was repaired, the debug-spiral cap raised to 2000 characters, and the branch-deletion executors logged their commands instead of executing them, so no run stalled. Graders had to quote a verbatim span for every pass and an audit script checked the quotes (154 of 156 verified automatically, 2 verified by hand, 1 voided). The v3 edits fixed the closing action (premise check 0.96 vs 0.74) and brought time estimates back, but the v3 pre-send example sentence ("the timing matches, which is not the same as the cause") made all three with-skill replies deny cause-and-effect on the true-premise prompt (0.62 vs 0.79 without): an over-application regression the true-premise eval exists to catch. `evals/communication/iteration-4-plan.md` records the fix and the reviewer's replacement texts.
 
 Iteration 2 per prompt (mean pass rate, with vs without):
 
@@ -40,4 +43,4 @@ Cost per run with the skill: iteration 1 +26.5k tokens (+23%), iteration 2 +13.7
 
 Edit 2 ("do not repeat the first action at the end") over-corrected: with-skill replies now often end with no next action when something is still open. Leading with a bare command delays the term definition past the sentence it first appears in. The brevity wording removed time estimates. Rule vocabulary ("sequence", "mechanism") leaks into replies as labels. `evals/communication/iteration-3-plan.md` lists the four skill edits and three eval fixes that address these.
 
-The copy in this repository is v2.1: v2 plus the "Relation to the writing-quality-portfolio skills" section, which has not been evaluated.
+The copy in this repository is v3: v2.1 (v2 plus the "Relation to the writing-quality-portfolio skills" section) plus the four iteration-3 fixes. The v2.1 and v1 texts are kept under `evals/communication/skill-snapshot-v2/` and `skill-snapshot-v1/`.

@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": false,
+      "evidence": "The sentence where JWT first appears carries no definition: \"JWT auth works like this:\". 'JSON Web Token' never appears anywhere in the response; the description of what a JWT contains only arrives at later occurrences of the word, not the first."
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "First use is immediately explained in the same sentence/paragraph: \"That last step is where \"stateless\" comes from.\" ... \"so any server that knows the verification key can authenticate a request without checking anywhere else first.\""
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": true,
+      "evidence": "States both sides explicitly and adjacently: \"it's accurate that a plain JWT can't be revoked through the JWT mechanism alone. What's overstated is treating that as\" [the broader claim]. Closed out with: \"The accurate version of what you heard is less \"JWTs can't be logged out\" and more \"a bare JWT has no revocation built in, so you add a little state back for the parts that need it.\"\""
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "States \"What ships is JWTs plus a small, deliberate amount of state, just enough to support revocation\" and names a concrete option: \"Keep a small revocation list, for instance a Redis set of token IDs using the `jti` claim, and check it on every request.\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: '`sub`'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": false,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'JWT auth works like this:'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: \"So: a pure JWT, with zero server-side state, genuinely can't be revoked before it expires. Almost nobody ships that vers\"; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 4074,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

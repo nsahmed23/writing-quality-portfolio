@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+      "passed": true,
+      "evidence": "[script] first line: 'Steps 1 and 2 done. Three steps left:'"
+    },
+    {
+      "text": "Gives step 3 with its exact command, npx tsx scripts/backfill-listing-status.ts",
+      "passed": true,
+      "evidence": "[script] contains 'npx tsx scripts/backfill-listing-status.ts'"
+    },
+    {
+      "text": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+      "passed": false,
+      "evidence": "Steps 4 and 5 are reproduced as their own numbered list items with full command and plan wording; \"Deploy with `npx prisma migrate deploy` in the Cloud Run release step.\" is verbatim identical to the plan's step 5, not a brief mention."
+    },
+    {
+      "text": "Ends with exactly one concrete next action (run the backfill, or run it and report the count)",
+      "passed": true,
+      "evidence": "Final line: \"Next: run step 3, the backfill script.\" One concrete action, no alternatives."
+    },
+    {
+      "text": "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+      "passed": true,
+      "evidence": "All three commands match the plan exactly; the only addition is \"Seconds to run unless `Listing` has tens of thousands of rows.\", a timing caveat rather than a new step."
+    },
+    {
+      "text": "Explains why step 3 is needed in one clause (existing rows got the default \"active\" even where archivedAt is set), not a paragraph",
+      "passed": true,
+      "evidence": "Single clause states the substance: \"since the migration defaulted every row to \"active\"\"."
+    },
+    {
+      "text": "Response is under 900 characters",
+      "passed": true,
+      "evidence": "[script] 478 chars (cap 900)"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "total": 7,
+    "pass_rate": 0.8571
+  },
+  "execution_metrics": {
+    "output_chars": 478,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+        "reason": "This response's steps 4 and 5 each occupy a single markdown line, satisfying the assertion's literal 'at most one line' wording, yet both are verbatim copies of the plan's command and explanation. Worth confirming the content-fidelity test, not the line count, is what the eval author intends."
+      }
+    ],
+    "overall": "Same ambiguity as other runs: line-count wording versus content-fidelity guide for the steps 4/5 assertion."
+  }
+}

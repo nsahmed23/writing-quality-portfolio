@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Every command from the previous reply appears verbatim: the Get-NetTCPConnection line, Stop-Process -Id <PID> -Force, npm install -D nodemon@latest, netsh interface ipv4 show excludedportrange protocol=tcp, and tsx watch src/server.ts",
+      "passed": true,
+      "evidence": "[script] all 5 commands present verbatim"
+    },
+    {
+      "text": "Adds no new commands, tools, or facts that were not in the previous reply",
+      "passed": true,
+      "evidence": "\"This whole check happens inside Windows itself, not inside Node.\" restates the original's OS-vs-Node claim rather than adding a new one. The clarification \"The number in its output, labeled `Id`, is that program's PID\" only explains how to read the output of the already-given command, needed to fill in the pre-existing <PID> placeholder; it introduces no new cause, tool, or diagnostic branch."
+    },
+    {
+      "text": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+      "passed": true,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Keeps the four numbered steps of the original in the same order",
+      "passed": true,
+      "evidence": "Steps appear in order: (1) \"Kill it with `Stop-Process -Id <PID> -Force`\"; (2) \"Add a shutdown handler\"; (3) \"update nodemon itself, with `npm install -D nodemon@latest`\"; (4) \"Check for that with `netsh interface ipv4 show excludedportrange protocol=tcp`\"."
+    },
+    {
+      "text": "Sentences are shorter: mean words per sentence is lower than in the previous reply",
+      "passed": true,
+      "evidence": "[script] mean words/sentence: reply 15.5 vs original 25.2"
+    },
+    {
+      "text": "Asks no new question; the only request to the reader, if any, is the original one (run the port check and report the process name and PID)",
+      "passed": true,
+      "evidence": "No question mark appears in the reply. The closing line \"tell me the process name and PID it shows\" restates the original request only."
+    },
+    {
+      "text": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+      "passed": true,
+      "evidence": "[script] no apology or meta-commentary found"
+    },
+    {
+      "text": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+      "passed": true,
+      "evidence": "[script] no 'sequence'/'correlation' labels"
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 5051,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}
