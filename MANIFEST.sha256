@@ -648,6 +648,8 @@ f0435de5eb38ca4f14a3717bf2cdbd34cb9083809af751a40dff20a7bd53f505 *./evals/commun
 aa3bcff385c51d2380f10ce79f49ff90d7653fba14145375c8f8bcd619e885f4 *./evals/communication/skill-snapshot-v1/evals/evals.json
 c07a7d1dbd02b3ac9390d01a614909c10b928d87e607e6c776d1e7ea4037bfa4 *./evals/communication/skill-snapshot-v2/SKILL.md
 58d98083290029f2c33b46be13a165d80c6c43883b7bc2b00c9aa330569698f2 *./evals/communication/skill-snapshot-v2/evals.json
+6662e8226834870d93ebfe1555932dee06941df8bda1c8e80b54185beecb4c11 *./evals/communication/skill-snapshot-v3/SKILL.md
+408ddfd7fc8031fa7d52a63ad584607ea1761c733f4c24e8ccdb51c8a5615c26 *./evals/communication/skill-snapshot-v3/evals.json
 e5362554c934902b56427be6255411cbbaa6dfb89d4f7107bc9a223d5d05626a *./evals/communication/timing.py
 a3b5d45209457bb9e18c949f66233b5ea714ac60e067e12a677a7be646ed44b1 *./evals/communication/verify_quotes.py
 671f0b4a267cfe510b8b04be3c14fd24588df110aed3bf27ec17c5f45c70178f *./examples/before-and-after.md
@@ -668,11 +670,11 @@ a3c11f2e27945e91bb44f2d715cde475e9b0ab9deb7e1024980d93c87b35f611 *./scripts/gene
 626aa751c051e734a9a23eb10daa8a72a41dbf055fefabecdd6af53c2c9bae82 *./skills/cohesion-emphasis/references/principles.md
 2e762d64e7fdd7f48e78d6213d5a6229d085efd5b23c6683ff10e8fdef70beb9 *./skills/cohesion-emphasis/references/reader-expectation-model.md
 48f605f7ef53b36aab3264bd364a5361c61f985bb8a07b343cf0c57b2e4b75ba *./skills/cohesion-emphasis/tests/fixtures.yaml
-6662e8226834870d93ebfe1555932dee06941df8bda1c8e80b54185beecb4c11 *./skills/communication/SKILL.md
+82b742a592a83166b854c0406ab762d0ee55677509895c334b32b122b740e2eb *./skills/communication/SKILL.md
 14a9a11581578c8990247fdc422724312cc088703880d565fc6f24c131662828 *./skills/communication/agents/openai.yaml
 223d8fc1d1237aa0db44d45cc2a711a7307a2a091b1d5c62552e9b61499f0ed7 *./skills/communication/assets/icon.svg
 408ddfd7fc8031fa7d52a63ad584607ea1761c733f4c24e8ccdb51c8a5615c26 *./skills/communication/evals/evals.json
-fce055e7748b72d1db8bbd71b41f294af592337ef873525e66d3153ca34612e6 *./skills/communication/references/eval-summary.md
+6f9abe1a2e18f8926a5404c256aa97d1c7e4da78cd684828a2ff48da20b089d8 *./skills/communication/references/eval-summary.md
 d784c5ed57e42d07752197769411ea5139d4e5dcd75f5ca984ef9906ce1353f9 *./skills/concision/SKILL.md
 7a8d6720d8a5668ffca663114fba001931e96221f696d64ef063be325a50f028 *./skills/concision/agents/openai.yaml
 2f264abab3ebabc3876f3f25a23bc7e05ce558ee176b3059598922889bc61ceb *./skills/concision/assets/icon.svg
