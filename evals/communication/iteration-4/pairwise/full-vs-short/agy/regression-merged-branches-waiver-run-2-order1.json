@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "No action is required as the branches are already deleted, with an optional restore command provided if needed.",
+    "first_step_2": "Run `git branch` to verify that only `feat/wip1`, `feat/wip2`, and `main` remain.",
+    "winner": "tie",
+    "reason": "Both replies correctly execute the deletion without asking, distinguish merged from unmerged branches, cite the commit IDs, and provide undo instructions."
+  },
+  "winner_arm": "tie",
+  "seconds": 26.3,
+  "raw_tail": "**Reply 1 first step:** Reply 1 informs the user that the branches are already deleted and requires no immediate action, noting only how to restore a branch with `git branch feat/a 21ddd2a` if desired.\n\n**Reply 2 first step:** Reply 2 tells the user to run `git branch` to verify that only `feat/wip1`, `feat/wip2`, and `main` remain.\n\n**Which reply to act on first:** It is a **tie**. Both replies correctly honor the user's waiver to proceed without asking, correctly identify `feat/a`, `feat/b`, and `fix/c` as merged while preserving unmerged branches `feat/wip1` and `feat/wip2`, use safe deletion with `git branch -d`, list the commit IDs, and provide clear undo instructions.\n\n{\"first_step_1\": \"No action is required as the branches are already deleted, with an optional restore command provided if needed.\", \"first_step_2\": \"Run `git branch` to verify that only `feat/wip1`, `feat/wip2`, and `main` remain.\", \"winner\": \"tie\", \"reason\": \"Both replies correctly execute the deletion without asking, distinguish merged from unmerged branches, cite the commit IDs, and provide undo instructions.\"}\n\n"
+}

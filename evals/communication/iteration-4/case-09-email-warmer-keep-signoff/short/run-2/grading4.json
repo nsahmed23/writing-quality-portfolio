@@ -1,0 +1,54 @@
+{
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 315,
+  "first_action_offset": 315,
+  "inventory": [
+    {
+      "item": "Thursday",
+      "hit": true,
+      "matched": "Thursday"
+    },
+    {
+      "item": "2pm",
+      "hit": true,
+      "matched": "2pm"
+    },
+    {
+      "item": "Best regards,\nNazeer",
+      "hit": true,
+      "matched": "Best regards,\nNazeer"
+    },
+    {
+      "item": "attached",
+      "hit": true,
+      "matched": "attached"
+    },
+    {
+      "item": "two changes",
+      "hit": true,
+      "matched": "two changes"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Returns the email alone; no assistant preamble or closer around it",
+      "passed": true,
+      "evidence": "no such passage; first line is \"Hi Priya,\" and last line is \"Nazeer\", both are plain email content, no assistant framing added."
+    },
+    {
+      "text": "The requested sign-off is not removed as a 'closer'",
+      "passed": true,
+      "evidence": "\"Best regards,\nNazeer\" (sign-off survives at the end, unchanged)."
+    },
+    {
+      "text": "Tone is warmer without adding new commitments",
+      "passed": true,
+      "evidence": "no such passage; checked \"Would you be free to meet Thursday at 2pm so we can walk through the open questions together before the board call?\" It rephrases the original request, no new commitment added."
+    }
+  ]
+}

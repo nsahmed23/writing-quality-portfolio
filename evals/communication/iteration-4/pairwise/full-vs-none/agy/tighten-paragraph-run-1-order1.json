@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Review the tightened revision of the migration paragraph.",
+    "first_step_2": "Review the tightened revision of the migration paragraph.",
+    "winner": "tie",
+    "reason": "Both replies follow all instructions flawlessly, preserving all facts and providing a single-sentence change explanation with no meaningful difference in quality."
+  },
+  "winner_arm": "tie",
+  "seconds": 18.9,
+  "raw_tail": "Reply 1 tells the reader to review its tightened revision of the migration paragraph first.\nReply 2 tells the reader to review its tightened revision of the migration paragraph first.\n\nIf this were my problem, I would act on either reply interchangeably. Both models perfectly follow the instructions by returning the tightened paragraph first, preserving every fact, and providing exactly one sentence summarizing the edits, with only negligible stylistic differences between them.\n\n{\"first_step_1\": \"Review the tightened revision of the migration paragraph.\", \"first_step_2\": \"Review the tightened revision of the migration paragraph.\", \"winner\": \"tie\", \"reason\": \"Both replies follow all instructions flawlessly, preserving all facts and providing a single-sentence change explanation with no meaningful difference in quality.\"}\n\n"
+}

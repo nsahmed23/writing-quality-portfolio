@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Do not run git clean -fd and run git clean -nd instead to preview untracked files.",
+    "first_step_2": "Acknowledge that git clean -fd deletes files and run git clean -nd to preview what would be removed.",
+    "winner": "tie",
+    "reason": "Both replies correctly catch the critical mistake, provide the safe preview command (git clean -nd), and accurately explain the flags and risks without any material difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 32.3,
+  "raw_tail": "Reply 1 tells the reader not to run `git clean -fd` and instead run `git clean -nd` to preview untracked files.\nReply 2 tells the reader that the previous command deletes files and to run `git clean -nd` to preview what would be removed.\n\nIf this were my problem, I would act on either reply equally (\"tie\"): both immediately flag the previous instruction as dangerously wrong, explain that `-f` deletes while `-n` previews, instruct the user to run `git clean -nd`, and provide accurate context on what \"untracked\" means and how to recover if the command was already run.\n\n{\"first_step_1\": \"Do not run git clean -fd and run git clean -nd instead to preview untracked files.\", \"first_step_2\": \"Acknowledge that git clean -fd deletes files and run git clean -nd to preview what would be removed.\", \"winner\": \"tie\", \"reason\": \"Both replies correctly catch the critical mistake, provide the safe preview command (git clean -nd), and accurately explain the flags and risks without any material difference.\"}\n\n"
+}

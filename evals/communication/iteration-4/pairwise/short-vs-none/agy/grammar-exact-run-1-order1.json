@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Use the corrected sentence directly.",
+    "first_step_2": "Use the corrected sentence directly.",
+    "winner": "tie",
+    "reason": "Both replies are identical and provide the exact corrected sentence without any extraneous text."
+  },
+  "winner_arm": "tie",
+  "seconds": 6.7,
+  "raw_tail": "Reply 1 tells the reader to use the corrected sentence directly with no required actions.\nReply 2 tells the reader to use the corrected sentence directly with no required actions.\n\nIf this were my problem, I would act on either reply equally as there is no meaningful difference between them.\n\n{\"first_step_1\": \"Use the corrected sentence directly.\", \"first_step_2\": \"Use the corrected sentence directly.\", \"winner\": \"tie\", \"reason\": \"Both replies are identical and provide the exact corrected sentence without any extraneous text.\"}\n\n"
+}

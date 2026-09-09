@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Check whether port 5432 is already in use using lsof.",
+    "first_step_2": "Install PostgreSQL using Homebrew.",
+    "winner": "2",
+    "reason": "Reply 2 directly follows the correct first step of installing Postgres via Homebrew and uses the standard local setup with a self-signed certificate and sslmode=require, avoiding Reply 1's unnecessary custom CA overhead."
+  },
+  "winner_arm": "short",
+  "seconds": 26.6,
+  "raw_tail": "ing `lsof -nP -iTCP:5432 -sTCP:LISTEN`.  \n**Reply 2 first step:** Search for available versions and install PostgreSQL using Homebrew (`brew search postgresql@` and `brew install postgresql@17`).\n\nIf this were my problem, I would act on **Reply 2** first. \n\nReply 2 aligns directly with the established facts and standard practices for a first-time local setup: it begins immediately with installing and starting Postgres via Homebrew, uses a standard self-signed certificate, configures Django with `sslmode=require`, and verifies the connection using `sslmode=require` (while keeping `verify-full` as an optional hardening step). In contrast, Reply 1 starts with a port check and unnecessarily complicates a beginner's workflow by insisting on building a custom local Certificate Authority and enforcing `verify-full`.\n\n{\"first_step_1\": \"Check whether port 5432 is already in use using lsof.\", \"first_step_2\": \"Install PostgreSQL using Homebrew.\", \"winner\": \"2\", \"reason\": \"Reply 2 directly follows the correct first step of installing Postgres via Homebrew and uses the standard local setup with a self-signed certificate and sslmode=require, avoiding Reply 1's unnecessary custom CA overhead.\"}\n\n"
+}

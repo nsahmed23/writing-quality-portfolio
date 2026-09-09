@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Take no immediate action (or optionally restore a branch using the provided example command).",
+    "first_step_2": "Run git branch to verify that only main, feat/wip1, and feat/wip2 remain.",
+    "winner": "2",
+    "reason": "Reply 2 provides full restore commands for every deleted branch in a clean table along with an actionable verification step."
+  },
+  "winner_arm": "full",
+  "seconds": 9.9,
+  "raw_tail": "**Reply 1 first step:** Reply 1 does not direct the reader to take any immediate action, only offering an example restore command if needed.  \n**Reply 2 first step:** Reply 2 instructs the reader to run `git branch` to confirm the remaining branches (`main`, `feat/wip1`, `feat/wip2`).\n\nIf this were my problem, I would act on Reply 2 first. It provides complete, copy-pasteable restore commands for all three deleted branches in a structured table and gives an actionable next verification step.\n\n{\"first_step_1\": \"Take no immediate action (or optionally restore a branch using the provided example command).\", \"first_step_2\": \"Run git branch to verify that only main, feat/wip1, and feat/wip2 remain.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides full restore commands for every deleted branch in a clean table along with an actionable verification step.\"}\n\n"
+}

@@ -10,7 +10,7 @@ Judges (all off-family from the Sonnet executors): Codex CLI on `gpt-6-astra` at
 |---|---|---|---|---|---|---|
 | Codex gpt-6-astra | 4 | 6 | 6 | 0 | 8 | 0 |
 | Antigravity Gemini 3.8 Flash | 9 | 7 | 3 | 0 | 5 | 0 |
-| Kimi k3-256k | 2 | 1 | 3 | 0 | 11 | 7 (5-hour quota cap hit after ~35 calls) |
+| Kimi k3-256k | 2 | 3 | 4 | 0 | 15 | 0 (13 calls rerun after the 5-hour quota window reset, 2026-09-09 ~12:45) |
 
 Per eval, stable results only (with / without / tie):
 
@@ -28,7 +28,7 @@ Per eval, stable results only (with / without / tie):
 ## Judge agreement and position bias
 
 - On the 12 pairs where Codex and Antigravity both gave a stable result, they agree on all 12.
-- Position bias, measured as picking the same position label in both orders (which means the arm flipped): Kimi 5 of 8 inconsistent pairs, Antigravity 2 of 5, Codex 1 of 8. Kimi favored "Reply 2" (recency); its judgments are not usable without the reversal control.
+- Position bias, measured as picking the same position label in both orders (which means the arm flipped): Kimi 5 of 8 inconsistent pairs, Antigravity 2 of 5, Codex 1 of 8. Kimi favored "Reply 2" (recency); its judgments are not usable without the reversal control. With the full 48 calls in, Kimi flipped with order on 15 of 24 pairs; its 9 stable results (2 with, 3 without, 4 tie) point the same way as the other two judges on the destructive-confirm eval (2 of 2 for proceeding on the waiver) and add nothing elsewhere.
 - Codex returned "tie" most often (6) and was inconsistent on 8; it treats near-identical replies as ties rather than forcing a pick, which is the intended behavior of the four-outcome design.
 
 ## What this changes

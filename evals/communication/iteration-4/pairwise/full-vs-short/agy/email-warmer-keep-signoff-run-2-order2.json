@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 directly presents the warmer rewritten email, opening with thanks for Priya's review notes.",
+    "first_step_2": "Reply 2 directly presents the warmer rewritten email, opening with thanks for Priya's review notes.",
+    "winner": "tie",
+    "reason": "There is no decisive difference between the two replies because both strictly follow all instructions, returning only the warmed email while preserving the meeting time, sign-off, and all factual content."
+  },
+  "winner_arm": "tie",
+  "seconds": 45.5,
+  "raw_tail": "Reply 1 immediately provides the rewritten email, which opens by thanking Priya for the review notes and noting they were a real help.\nReply 2 immediately provides the rewritten email, which opens by thanking Priya for the review notes and noting they were genuinely helpful.\n\nIf this were my problem, I would act on either reply interchangeably (a tie), as both strictly adhere to all constraints\u2014returning only the email, warming the tone appropriately, preserving the meeting time and sign-off lines exactly, and maintaining all factual details\u2014with no meaningful difference under the provided criteria.\n\n{\"first_step_1\": \"Reply 1 directly presents the warmer rewritten email, opening with thanks for Priya's review notes.\", \"first_step_2\": \"Reply 2 directly presents the warmer rewritten email, opening with thanks for Priya's review notes.\", \"winner\": \"tie\", \"reason\": \"There is no decisive difference between the two replies because both strictly follow all instructions, returning only the warmed email while preserving the meeting time, sign-off, and all factual content.\"}\n\n"
+}

@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "none",
+  "run": "run-2",
+  "chars": 6100,
+  "first_action_offset": 654,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "duplicate"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Because it is really four messages, and only two of them can be merged into one packet.\" opening line affirms the premise and states the mechanism directly."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": true,
+      "evidence": "no such passage; reply ends with a comparison to four-way teardown (\"different outcome only because the merge is not always legal\"); no suggested user action anywhere."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "no such passage; checked full reply; states three is the floor and never disputes the premise."
+    }
+  ]
+}

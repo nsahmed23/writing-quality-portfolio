@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Back up db.sqlite3 and run makemigrations --check and migrate on SQLite.",
+    "first_step_2": "Dump the existing SQLite data to a JSON file using manage.py dumpdata.",
+    "winner": "2",
+    "reason": "Reply 2 correctly dumps the SQLite data as the very first step and provides sqlsequencereset to handle sequence desynchronization after loaddata."
+  },
+  "winner_arm": "full",
+  "seconds": 21.8,
+  "raw_tail": "**First step in Reply 1:**  \nReply 1 tells the reader to back up `db.sqlite3` and run `makemigrations --check --dry-run` and `migrate` against SQLite.\n\n**First step in Reply 2:**  \nReply 2 tells the reader to dump the existing SQLite data to a JSON fixture using `python manage.py dumpdata`.\n\n---\n\nIf this were my problem, I would act on **Reply 2** first. \n\nReply 2 follows the correct and safe ordering by taking the data dump with `manage.py dumpdata` immediately before running any schema changes or switching settings, and it provides the necessary `sqlsequencereset` command should Postgres sequences fail to align after `loaddata`. Reply 1 needlessly runs migrations against the SQLite database before dumping and omits `sqlsequencereset`.\n\n{\"first_step_1\": \"Back up db.sqlite3 and run makemigrations --check and migrate on SQLite.\", \"first_step_2\": \"Dump the existing SQLite data to a JSON file using manage.py dumpdata.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly dumps the SQLite data as the very first step and provides sqlsequencereset to handle sequence desynchronization after loaddata.\"}\n\n"
+}

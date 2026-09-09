@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Set up a test feed at a 1:5:5 ratio in a marked jar (either side-by-side or boosted with whole wheat/rye) and observe movement within 6 to 12 hours.",
+    "first_step_2": "Run a side-by-side feed at a 1:1:1 ratio in marked jars, measure temperature, and track whether it doubles across three feeding cycles.",
+    "winner": "2",
+    "reason": "Reply 2 correctly uses a standard 1:1:1 feeding ratio and insists on tracking doubling over three cycles, whereas Reply 1 prescribes an aggressive 1:5:5 dilution evaluated after only a single cycle."
+  },
+  "winner_arm": "short",
+  "seconds": 75.6,
+  "raw_tail": "first:**  \nIf this were my problem, I would act on **Reply 2** first. \n\nWhile Reply 1 nicely articulates that timing alone does not prove causation, its practical recommendation is flawed: subjecting an already sluggish starter to an aggressive 1:5:5 dilution (20 g starter to 100 g flour and water) and judging it after only 6 hours of a single cycle risks misdiagnosing a slow culture as dead. Reply 2 aligns with the correct troubleshooting protocol by maintaining a gentle, standard 1:1:1 feeding ratio in a marked jar, tracking doubling, and explicitly noting that observations must span three feeding cycles because a single cycle is noise.\n\n{\"first_step_1\": \"Set up a test feed at a 1:5:5 ratio in a marked jar (either side-by-side or boosted with whole wheat/rye) and observe movement within 6 to 12 hours.\", \"first_step_2\": \"Run a side-by-side feed at a 1:1:1 ratio in marked jars, measure temperature, and track whether it doubles across three feeding cycles.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly uses a standard 1:1:1 feeding ratio and insists on tracking doubling over three cycles, whereas Reply 1 prescribes an aggressive 1:5:5 dilution evaluated after only a single cycle.\"}\n\n"
+}

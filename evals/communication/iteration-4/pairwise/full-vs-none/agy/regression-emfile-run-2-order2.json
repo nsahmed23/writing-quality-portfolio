@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Find the process PID, check the open files limit in /proc/$PID/limits, and count open descriptors using ls /proc/$PID/fd | wc -l.",
+    "first_step_2": "Find the process PID and check the open files ceiling in /proc/$pid/limits.",
+    "winner": "1",
+    "reason": "Reply 1 prescribes the correct first step of counting open file descriptors with ls /proc/<pid>/fd | wc -l against the limit and correctly diagnoses the 6-hour crash as a leak rather than concurrency drift."
+  },
+  "winner_arm": "none",
+  "seconds": 88.1,
+  "raw_tail": "roc/$PID/fd | wc -l` to track growth over time. Furthermore, Reply 1 correctly recognizes that dying consistently after ~6 hours under steady load points to a descriptor leak rather than concurrency. In contrast, Reply 2 omits the descriptor count in its first step, relies on `lsof` (which is often missing in minimal Linux environments), and mistakenly suggests that a 6-hour failure could be \"ordinary drift\" from concurrency that might be resolved simply by increasing `LimitNOFILE`. Reply 1 also provides significantly more actionable, Fastify- and Node-specific leak suspects (such as per-request client/pool instantiations, unhandled stream pipes, multipart temp files, and Nginx keepalive timeout mismatches).\n\n{\"first_step_1\": \"Find the process PID, check the open files limit in /proc/$PID/limits, and count open descriptors using ls /proc/$PID/fd | wc -l.\", \"first_step_2\": \"Find the process PID and check the open files ceiling in /proc/$pid/limits.\", \"winner\": \"1\", \"reason\": \"Reply 1 prescribes the correct first step of counting open file descriptors with ls /proc/<pid>/fd | wc -l against the limit and correctly diagnoses the 6-hour crash as a leak rather than concurrency drift.\"}\n\n"
+}

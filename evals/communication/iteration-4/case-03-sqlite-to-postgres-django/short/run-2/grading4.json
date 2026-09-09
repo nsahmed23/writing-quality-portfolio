@@ -1,0 +1,69 @@
+{
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 8281,
+  "first_action_offset": 78,
+  "inventory": [
+    {
+      "item": "dumpdata",
+      "hit": true,
+      "matched": "dumpdata"
+    },
+    {
+      "item": "loaddata",
+      "hit": true,
+      "matched": "loaddata"
+    },
+    {
+      "item": "migrate",
+      "hit": true,
+      "matched": "migrate"
+    },
+    {
+      "item": "createdb",
+      "hit": true,
+      "matched": "createdb"
+    },
+    {
+      "item": "DATABASES",
+      "hit": true,
+      "matched": "DATABASES"
+    },
+    {
+      "item": "contenttypes",
+      "hit": true,
+      "matched": "contenttypes"
+    },
+    {
+      "item": "natural-foreign",
+      "hit": true,
+      "matched": "natural-foreign"
+    },
+    {
+      "item": "sqlsequencereset",
+      "hit": true,
+      "matched": "sqlsequencereset"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The dump happens before the settings change",
+      "passed": true,
+      "evidence": "\"## 2. Dump the SQLite data (settings still pointing at SQLite)\" precedes \"## 5. Point settings at Postgres\"; the dump happens before the settings change."
+    },
+    {
+      "text": "Every command is stated",
+      "passed": true,
+      "evidence": "\"python manage.py migrate\"; every step (driver, dump, counts/backup, role/db, settings, schema, load, verify) has an explicit command."
+    },
+    {
+      "text": "Ends with a verification step",
+      "passed": false,
+      "evidence": "\"If a step does not match your layout, paste your current `DATABASES` block and the output of `pip freeze | grep -i django` and I will adjust the exact commands.\"; final line offers further help, not the verification step (step 7, verify then clean up, ends two sections earlier)."
+    }
+  ]
+}

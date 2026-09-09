@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "none",
+  "run": "run-2",
+  "chars": 9036,
+  "first_action_offset": 1065,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": true,
+      "matched": "kid"
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "overlap"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"You add the new key to the accept list everywhere, move signing to it, wait for the last old-key token to expire on its own, then drop the old key.\"; the numbered steps follow exactly this overlap sequence."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"People still get logged out 24 hours after their last token was issued, exactly as they do today.\"; the 24h expiry anchors the wait in step 5."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": false,
+      "evidence": "\"I also do not know whether this rotation is precautionary or a response to exposure, which is the one thing that changes the plan rather than just its schedule.\"; final line is a caveat, not the check or the retirement step (step 6, which ends two sections earlier)."
+    }
+  ]
+}

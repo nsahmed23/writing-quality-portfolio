@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Review the tightened paragraph provided as the initial response.",
+    "first_step_2": "Review the tightened paragraph provided as the initial response.",
+    "winner": "tie",
+    "reason": "Both replies successfully deliver a high-quality tightened paragraph retaining all original facts first, followed by exactly one explanatory sentence, with no meaningful difference between them."
+  },
+  "winner_arm": "tie",
+  "seconds": 21.4,
+  "raw_tail": "Reply 1 tells the reader to review the revised, tightened paragraph provided first.\nReply 2 tells the reader to review the revised, tightened paragraph provided first.\n\nIf this were my problem, I would treat them as a tie, as either revised paragraph can be used immediately without any meaningful difference in quality, factual retention, or adherence to instructions.\n\n{\"first_step_1\": \"Review the tightened paragraph provided as the initial response.\", \"first_step_2\": \"Review the tightened paragraph provided as the initial response.\", \"winner\": \"tie\", \"reason\": \"Both replies successfully deliver a high-quality tightened paragraph retaining all original facts first, followed by exactly one explanatory sentence, with no meaningful difference between them.\"}\n\n"
+}

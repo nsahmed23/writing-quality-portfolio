@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 256-bit secret key using Node.js crypto and save it without installing it yet.",
+    "first_step_2": "Audit the codebase with grep to identify all JWT call sites, verifying processes, and other tokens sharing the secret with longer expirations.",
+    "winner": "2",
+    "reason": "Reply 2 mandates an upfront inventory to catch longer-lived tokens before touching code and uses standard key-id (kid) routing for explicit verification and observability."
+  },
+  "winner_arm": "none",
+  "seconds": 101.6,
+  "raw_tail": "r lifespans.\n\nIf this were my problem, I would act on **Reply 2** first. \n\nBoth replies correctly establish that zero-downtime rotation requires deploying multi-key verification to all instances before issuing tokens with the new key, maintaining an overlap window matching the token lifetime (24h), and retiring the old key only after prior tokens expire. However, Reply 2 is superior in practice: it insists on an upfront codebase inventory before touching code or configuration (critical because any longer-lived token sharing `JWT_SECRET` dictates the actual overlap window), and its primary implementation uses standard `kid` (key ID) header routing rather than relying solely on trial HMAC verification across keys.\n\n{\"first_step_1\": \"Generate a new 256-bit secret key using Node.js crypto and save it without installing it yet.\", \"first_step_2\": \"Audit the codebase with grep to identify all JWT call sites, verifying processes, and other tokens sharing the secret with longer expirations.\", \"winner\": \"2\", \"reason\": \"Reply 2 mandates an upfront inventory to catch longer-lived tokens before touching code and uses standard key-id (kid) routing for explicit verification and observability.\"}\n\n"
+}

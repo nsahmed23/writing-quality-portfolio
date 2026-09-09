@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Find the Node process ID, check the open files limit in /proc/$pid/limits, and count current descriptors using ls /proc/$pid/fd | wc -l.",
+    "first_step_2": "Find the service PID via systemctl (or pgrep), check the open files limit in /proc/$PID/limits, and count current descriptors using ls /proc/$PID/fd | wc -l.",
+    "winner": "2",
+    "reason": "Reply 2 provides more robust shell diagnostics and leverages Node's built-in libuv diagnostic reports via SIGUSR2 to identify the leaking endpoints directly."
+  },
+  "winner_arm": "none",
+  "seconds": 51.9,
+  "raw_tail": "mand uses `readlink` and targeted regex rather than Reply 1's brittle `awk '{print $NF}' | cut`, which breaks on filenames with spaces and erases the distinction between `anon_inode` types like `eventpoll` and `inotify`.\n- It includes practical leak-rate arithmetic (`(limit - baseline) / minutes`) to correlate descriptor loss directly against traffic volume or cron intervals.\n- Crucially, it leverages Node's built-in diagnostic reports (`--report-on-signal` / `kill -SIGUSR2`) and `jq` to inspect live `libuv` TCP handles and their remote endpoints, which identifies the leaking upstream service (database, Redis, or HTTP client) much faster than OS-level inspection alone.\n\n{\"first_step_1\": \"Find the Node process ID, check the open files limit in /proc/$pid/limits, and count current descriptors using ls /proc/$pid/fd | wc -l.\", \"first_step_2\": \"Find the service PID via systemctl (or pgrep), check the open files limit in /proc/$PID/limits, and count current descriptors using ls /proc/$PID/fd | wc -l.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides more robust shell diagnostics and leverages Node's built-in libuv diagnostic reports via SIGUSR2 to identify the leaking endpoints directly.\"}\n\n"
+}

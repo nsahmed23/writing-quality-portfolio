@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Determine whether the rotation is due to a leak by checking git history and generate a new key.",
+    "first_step_2": "Search the codebase using grep to locate all verifiers and every token type signed by JWT_SECRET.",
+    "winner": "2",
+    "reason": "Reply 2 adds a key ID (kid) to newly issued tokens and uses it to look up secrets during the overlap window, whereas Reply 1 relies on trial-and-error verification and defers kid usage."
+  },
+  "winner_arm": "short",
+  "seconds": 21.3,
+  "raw_tail": "**Reply 1 first step:** Check whether the rotation is due to an active secret leak (inspecting git history) and generate a new key.\n\n**Reply 2 first step:** Search the codebase with `grep` to identify all verifiers and all token types signed by `JWT_SECRET` to establish the required overlap timeline.\n\nIf this were my problem, I would act on **Reply 2** first. It structures the transition properly by introducing a key identifier (`kid`) to newly issued tokens while keeping both secrets available for lookup during the 24-hour overlap window, whereas Reply 1 relies on trial-and-error looping over secret keys and defers `kid` support until after the rotation is complete.\n\n{\"first_step_1\": \"Determine whether the rotation is due to a leak by checking git history and generate a new key.\", \"first_step_2\": \"Search the codebase using grep to locate all verifiers and every token type signed by JWT_SECRET.\", \"winner\": \"2\", \"reason\": \"Reply 2 adds a key ID (kid) to newly issued tokens and uses it to look up secrets during the overlap window, whereas Reply 1 relies on trial-and-error verification and defers kid usage.\"}\n\n"
+}

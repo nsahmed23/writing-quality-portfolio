@@ -1,0 +1,79 @@
+{
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 8936,
+  "first_action_offset": 0,
+  "inventory": [
+    {
+      "item": "brew install postgresql",
+      "hit": true,
+      "matched": "brew install postgresql"
+    },
+    {
+      "item": "brew services start",
+      "hit": true,
+      "matched": "brew services start"
+    },
+    {
+      "item": "openssl req",
+      "hit": true,
+      "matched": "openssl req"
+    },
+    {
+      "item": "ssl = on",
+      "hit": true,
+      "matched": "ssl = on"
+    },
+    {
+      "item": "pg_hba.conf",
+      "hit": true,
+      "matched": "pg_hba.conf"
+    },
+    {
+      "item": "hostssl",
+      "hit": true,
+      "matched": "hostssl"
+    },
+    {
+      "item": "sslmode",
+      "hit": true,
+      "matched": "sslmode"
+    },
+    {
+      "item": "OPTIONS",
+      "hit": true,
+      "matched": "OPTIONS"
+    },
+    {
+      "item": "psql",
+      "hit": true,
+      "matched": "psql"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "First line is the first action, not context",
+      "passed": true,
+      "evidence": "\"Open a terminal and run these four lines:\"; a direct instruction to act immediately, followed straight by the commands, no scene-setting."
+    },
+    {
+      "text": "Prerequisites (install, start) precede the steps that depend on them",
+      "passed": true,
+      "evidence": "\"### A. Get the server running\" precedes \"### B. Make the certificate and turn SSL on\"; server start comes before the cert/SSL steps that need it running."
+    },
+    {
+      "text": "Every command the reader needs is stated",
+      "passed": true,
+      "evidence": "\"brew install postgresql@17\"; every step across sections A through D is paired with an explicit command block."
+    },
+    {
+      "text": "Ends with the check that shows it worked",
+      "passed": true,
+      "evidence": "\"Step 10 printing `t` for `ssl` is the proof the server side is done, and step 11 failing is the proof nothing can route around it.\"; final line restates the verification check's result."
+    }
+  ]
+}

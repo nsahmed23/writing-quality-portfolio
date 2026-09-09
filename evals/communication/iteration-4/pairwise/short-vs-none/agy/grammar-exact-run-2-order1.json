@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Use the corrected sentence: 'The changes were reviewed, but approval is still pending.'",
+    "first_step_2": "Use the corrected sentence: 'The changes were reviewed, but approval is still pending.'",
+    "winner": "tie",
+    "reason": "Both replies correctly fix the subject-verb agreement error and return the exact required sentence with no meaningful difference between them."
+  },
+  "winner_arm": "tie",
+  "seconds": 14.3,
+  "raw_tail": "Reply 1 tells the reader to use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\nReply 2 tells the reader to use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\n\nIf this were my problem, I would act on either reply equally (a tie), as both correctly fix the verb agreement error and provide the exact requested sentence.\n\n{\"first_step_1\": \"Use the corrected sentence: 'The changes were reviewed, but approval is still pending.'\", \"first_step_2\": \"Use the corrected sentence: 'The changes were reviewed, but approval is still pending.'\", \"winner\": \"tie\", \"reason\": \"Both replies correctly fix the subject-verb agreement error and return the exact required sentence with no meaningful difference between them.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Confirm that SQLite is in sync with migrations using showmigrations and makemigrations --check --dry-run, and create a backup copy of db.sqlite3.",
+    "first_step_2": "Run prechecks on SQLite (check Django version and verify migrations) and record baseline model row counts to compare after migration.",
+    "winner": "2",
+    "reason": "Reply 2 follows the safe workflow by dumping data with both --natural-foreign and --natural-primary before creating the Postgres database, whereas Reply 1 explicitly tells the user to omit --natural-primary and sets up the database before dumping."
+  },
+  "winner_arm": "short",
+  "seconds": 41.9,
+  "raw_tail": "m prechecks on SQLite (checking the Django version and migration status) and record baseline model row counts.\n\nIf this were my problem, I would act on **Reply 2** first.\n\nReply 2 follows the verified safe order: dumping data to JSON using both `--natural-foreign` and `--natural-primary` (while excluding `contenttypes` and `auth.Permission`) before provisioning the Postgres database/user and switching settings. In contrast, Reply 1 creates the Postgres database and role before dumping data, and it explicitly advises the reader to omit `--natural-primary`, contradicting established safe practice.\n\n{\"first_step_1\": \"Confirm that SQLite is in sync with migrations using showmigrations and makemigrations --check --dry-run, and create a backup copy of db.sqlite3.\", \"first_step_2\": \"Run prechecks on SQLite (check Django version and verify migrations) and record baseline model row counts to compare after migration.\", \"winner\": \"2\", \"reason\": \"Reply 2 follows the safe workflow by dumping data with both --natural-foreign and --natural-primary before creating the Postgres database, whereas Reply 1 explicitly tells the user to omit --natural-primary and sets up the database before dumping.\"}\n\n"
+}

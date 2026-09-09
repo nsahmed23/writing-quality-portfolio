@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 7261,
+  "first_action_offset": 799,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": true,
+      "matched": "kid"
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "overlap"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"You can rotate without logging anyone out, but only by making verification accept two keys for one full token lifetime before you retire the old one.\"; the overlap is stated upfront and then carried through steps 2 (verify-both deployed), 3 (flip signing), and 4 (wait out the window) in order."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"The last old-key token expires 24h after that recorded timestamp.\"; also appears as `expiresIn: '24h'` in the sign call and again when sizing the step 4 wait as a margin over 24h."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": false,
+      "evidence": "\"Last thing worth naming: rotation does not revoke anything.\"; this revocation scope-note is the actual last passage, appended after the retirement step (\"Delete the `legacy` entry from `KEYS`, remove `JWT_KEY_LEGACY` from the environment, and deploy.\") and after a rollback rule and a 'What I could not verify' section, so the response does not end on the check or the retirement step (though it is not a repeat of step 1 either)."
+    }
+  ]
+}

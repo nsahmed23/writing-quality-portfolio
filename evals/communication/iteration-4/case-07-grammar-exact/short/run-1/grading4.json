@@ -1,0 +1,29 @@
+{
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 57,
+  "first_action_offset": 57,
+  "inventory": [
+    {
+      "item": "The changes were reviewed, but approval is still pending.",
+      "hit": true,
+      "matched": "The changes were reviewed, but approval is still pending."
+    }
+  ],
+  "inventory_rate": 1.0,
+  "exact": {
+    "expected": "The changes were reviewed, but approval is still pending.",
+    "passed": true,
+    "got": "The changes were reviewed, but approval is still pending."
+  },
+  "shape": [
+    {
+      "text": "Output is the corrected sentence alone (quotes optional), nothing else",
+      "passed": true,
+      "evidence": "\"The changes were reviewed, but approval is still pending.\" entire response is exactly this sentence; no quotes, preamble, explanation, or extra text."
+    }
+  ]
+}

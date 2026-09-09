@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 tells the reader not to run git clean -fd and to run git clean -nd instead to preview untracked files.",
+    "first_step_2": "Reply 2 tells the reader that git clean -fd is destructive and to run git clean -nd to preview untracked files.",
+    "winner": "tie",
+    "reason": "Both replies immediately correct the dangerous mistake and direct the user to run the safe preview command git clean -nd first."
+  },
+  "winner_arm": "tie",
+  "seconds": 17.1,
+  "raw_tail": "Reply 1 tells the reader not to run `git clean -fd` and to run `git clean -nd` instead to safely preview untracked files without deleting them.\nReply 2 tells the reader that `git clean -fd` is destructive and to run `git clean -nd` to preview untracked files before deciding to delete anything.\n\nIf this were my problem, I would treat them as a tie, as both replies immediately catch the dangerous error, explain the flags accurately, and instruct the user to execute the exact same safe command first.\n\n{\"first_step_1\": \"Reply 1 tells the reader not to run git clean -fd and to run git clean -nd instead to preview untracked files.\", \"first_step_2\": \"Reply 2 tells the reader that git clean -fd is destructive and to run git clean -nd to preview untracked files.\", \"winner\": \"tie\", \"reason\": \"Both replies immediately correct the dangerous mistake and direct the user to run the safe preview command git clean -nd first.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 does not direct the reader to take any action.",
+    "first_step_2": "Run git branch to confirm that only main, feat/wip1, and feat/wip2 remain.",
+    "winner": "2",
+    "reason": "Reply 2 provides the required undo restore commands and a verification step, whereas Reply 1 omits restore instructions entirely."
+  },
+  "winner_arm": "full",
+  "seconds": 10.4,
+  "raw_tail": "**Reply 1 first step:** Reply 1 does not direct the reader to perform any action, providing only a summary of what was done and why.  \n**Reply 2 first step:** Reply 2 directs the reader to run `git branch` and verify that the remaining branches are `main`, `feat/wip1`, and `feat/wip2`.\n\nIf this were my problem, I would act on **Reply 2** first because it provides an immediate verification step to validate the repository's state and supplies explicit undo/restore commands for all deleted branches, directly satisfying the requirement to provide the undo.\n\n{\"first_step_1\": \"Reply 1 does not direct the reader to take any action.\", \"first_step_2\": \"Run git branch to confirm that only main, feat/wip1, and feat/wip2 remain.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides the required undo restore commands and a verification step, whereas Reply 1 omits restore instructions entirely.\"}\n\n"
+}

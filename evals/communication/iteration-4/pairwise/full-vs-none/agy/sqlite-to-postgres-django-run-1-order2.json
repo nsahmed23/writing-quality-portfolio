@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Back up db.sqlite3 and immediately dump the SQLite data to JSON using manage.py dumpdata.",
+    "first_step_2": "Check migration status with showmigrations and makemigrations --check, then make a file backup.",
+    "winner": "1",
+    "reason": "Reply 1 follows the correct first step and safe procedure by immediately dumping the SQLite data with the required --natural-foreign and --natural-primary flags, whereas Reply 2 delays the dump to step 4 and advises against --natural-primary."
+  },
+  "winner_arm": "full",
+  "seconds": 13.1,
+  "raw_tail": "py dumpdata` with `--natural-foreign` and `--natural-primary`.\n\n**Reply 2 first step:** Verify that the SQLite database matches current migrations using `python manage.py showmigrations` and `makemigrations --check --dry-run`, then create a file backup.\n\nIf this were my problem, I would act on **Reply 1** first. According to the established facts, the correct first step is dumping the existing SQLite data with `manage.py dumpdata` (including both `--natural-foreign` and `--natural-primary`) before making configuration changes. Reply 1 executes this immediately and adheres to the safe order, whereas Reply 2 delays dumping data to step 4 and explicitly advises against using `--natural-primary`.\n\n{\"first_step_1\": \"Back up db.sqlite3 and immediately dump the SQLite data to JSON using manage.py dumpdata.\", \"first_step_2\": \"Check migration status with showmigrations and makemigrations --check, then make a file backup.\", \"winner\": \"1\", \"reason\": \"Reply 1 follows the correct first step and safe procedure by immediately dumping the SQLite data with the required --natural-foreign and --natural-primary flags, whereas Reply 2 delays the dump to step 4 and advises against --natural-primary.\"}\n\n"
+}

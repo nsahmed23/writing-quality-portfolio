@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Adopt the corrected sentence: 'The changes were reviewed, but approval is still pending.'",
+    "first_step_2": "Adopt the corrected sentence: 'The changes were reviewed, but approval is still pending.'",
+    "winner": "tie",
+    "reason": "Both replies return the exact same grammatically corrected sentence with no meaningful difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 7.1,
+  "raw_tail": "Reply 1 tells the reader to adopt the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\nReply 2 tells the reader to adopt the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\n\nIf this were my problem, I would act on either reply equally, as both provide the exact same grammatical correction with no meaningful difference.\n\n{\"first_step_1\": \"Adopt the corrected sentence: 'The changes were reviewed, but approval is still pending.'\", \"first_step_2\": \"Adopt the corrected sentence: 'The changes were reviewed, but approval is still pending.'\", \"winner\": \"tie\", \"reason\": \"Both replies return the exact same grammatically corrected sentence with no meaningful difference.\"}\n\n"
+}

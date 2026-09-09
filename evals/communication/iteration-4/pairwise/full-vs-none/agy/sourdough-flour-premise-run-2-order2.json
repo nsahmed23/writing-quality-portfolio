@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the starter for visible signs of death (fuzzy mold or pink/orange streaks) and check the flour packaging for malted barley flour before running a split-jar test.",
+    "first_step_2": "Run an immediate two-jar comparison test using marked jars to record peak rise times between the new flour and a reference flour before changing anything else.",
+    "winner": "2",
+    "reason": "Reply 2 provides an immediate, clear first step using marked jars and explains that timing does not prove causation, whereas Reply 1 buries its guidance, omits the timing-versus-cause explanation, and explicitly contradicts the facts by dismissing the float test."
+  },
+  "winner_arm": "full",
+  "seconds": 127.8,
+  "raw_tail": "uld act on **Reply 2** first. \n\nReply 2 directly addresses the user's causal misconception by explaining in plain terms that the timing of the switch is a sequence rather than proof of cause, and it provides an immediate, clear diagnostic test using marked jars without conflicting instructions. In contrast, Reply 1 buries its advice behind background theory, fails to address that timing alone does not prove the flour caused the issue, and explicitly contradicts established facts by telling the user to skip the float test entirely.\n\n{\"first_step_1\": \"Inspect the starter for visible signs of death (fuzzy mold or pink/orange streaks) and check the flour packaging for malted barley flour before running a split-jar test.\", \"first_step_2\": \"Run an immediate two-jar comparison test using marked jars to record peak rise times between the new flour and a reference flour before changing anything else.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides an immediate, clear first step using marked jars and explains that timing does not prove causation, whereas Reply 1 buries its guidance, omits the timing-versus-cause explanation, and explicitly contradicts the facts by dismissing the float test.\"}\n\n"
+}

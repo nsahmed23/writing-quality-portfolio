@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Install and start PostgreSQL 17 with Homebrew.",
+    "first_step_2": "Search Homebrew for available PostgreSQL versions, then choose and install the newest.",
+    "winner": "1",
+    "reason": "Reply 1 starts directly with installation and startup and uses the sufficient self-signed certificate plus sslmode=require setup, while Reply 2 adds unnecessary version selection and certificate-authority setup for a beginner."
+  },
+  "winner_arm": "none",
+  "seconds": 27.0,
+  "raw_tail": "u act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Install and start PostgreSQL 17 with Homebrew.\",\"first_step_2\":\"Search Homebrew for available PostgreSQL versions, then choose and install the newest.\",\"winner\":\"1\",\"reason\":\"Reply 1 starts directly with installation and startup and uses the sufficient self-signed certificate plus sslmode=require setup, while Reply 2 adds unnecessary version selection and certificate-authority setup for a beginner.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n28,517\n"
+}

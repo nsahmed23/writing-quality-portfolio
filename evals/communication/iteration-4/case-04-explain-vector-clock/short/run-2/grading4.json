@@ -1,0 +1,59 @@
+{
+  "case_id": 4,
+  "case_name": "explain-vector-clock",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 3948,
+  "first_action_offset": 538,
+  "inventory": [
+    {
+      "item": "Lamport",
+      "hit": true,
+      "matched": "Lamport"
+    },
+    {
+      "item": "concurren",
+      "hit": true,
+      "matched": "concurren"
+    },
+    {
+      "item": "causal",
+      "hit": true,
+      "matched": "causal"
+    },
+    {
+      "item": "per process",
+      "hit": true,
+      "matched": "per process"
+    },
+    {
+      "item": "conflict",
+      "hit": true,
+      "matched": "conflict"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Does not open with a manufactured command or task",
+      "passed": true,
+      "evidence": "\"A vector clock is a logical clock (a counter that orders events by cause and effect rather than by wall-clock time)\"; opens with a direct definition, not a manufactured command or task."
+    },
+    {
+      "text": "Defines terms before relying on them",
+      "passed": false,
+      "evidence": "\"The guarantee runs one way only: if a happened before b, then `L(a) < L(b)`.\"; concurrent is defined at first use, but happened before is relied on here and again later (\"then a happened before b\") without ever being defined as same-process order or a message chain, unlike the other terms."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; the explanation uses formal definitions, bulleted mechanics, and a two-client conflict example, never a metaphor or analogy."
+    },
+    {
+      "text": "Ends when the explanation ends; no invented next step",
+      "passed": true,
+      "evidence": "no such passage; last line ends \"The comparison rule is identical.\"; a terminology note that closes the explanation, not an invented next step or offer."
+    }
+  ]
+}

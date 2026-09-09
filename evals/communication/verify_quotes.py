@@ -1,6 +1,6 @@
 """Audit grader judgments: every passed judgment assertion must cite a span that occurs verbatim in the reply.
 
-Usage: py -3.11 verify_quotes.py <iteration-dir> [--apply]
+Usage: py -3.11 verify_quotes.py <iteration-dir> [--apply] [--file grading4.json --key shape]
 
 Without --apply: report. With --apply: flip unverifiable passes to failed (evidence annotated) and recompute summaries.
 Quotes are taken from the evidence string: any run of text inside straight or curly double quotes, or inside single
@@ -34,15 +34,17 @@ def quotes_in(evidence: str):
 def main():
     it = Path(sys.argv[1])
     apply = "--apply" in sys.argv
+    fname = sys.argv[sys.argv.index("--file") + 1] if "--file" in sys.argv else "grading.json"
+    key = sys.argv[sys.argv.index("--key") + 1] if "--key" in sys.argv else "expectations"
     total = verified = unverifiable = no_quote = 0
-    for g in sorted(it.rglob("grading.json")):
+    for g in sorted(it.rglob(fname)):
         d = json.loads(g.read_text(encoding="utf-8"))
         resp = (g.parent / "outputs" / "response.md")
         if not resp.exists():
             continue
         body = norm(resp.read_text(encoding="utf-8"))
         changed = False
-        for e in d["expectations"]:
+        for e in d[key]:
             ev = e.get("evidence", "")
             voided_before = ev.startswith("[quote-audit")
             if voided_before:
@@ -57,6 +59,28 @@ def main():
                 segs = [s for s in re.split(r"\s*(?:\.\.\.|…)\s*", q) if len(s.strip()) >= 6]
                 return bool(segs) and all(norm(s) in body for s in segs)
 
+            if ev.lower().lstrip().startswith("no such passage"):
+                # absence claim: the grader asserts the reply lacks something; any quoted term is a search term
+                # that must NOT occur in the reply. Contradicted if one does; otherwise accepted as absence evidence.
+                # only terms that the assertion itself names count as search terms; other quotes are context
+                hits = [q for q in qs if norm(q) in body and norm(q) in norm(e['text'])]
+                if hits:
+                    unverifiable += 1
+                    status = "ABSENCE_CONTRADICTED"
+                    if voided_before:
+                        continue
+                    print(f"  {status}: {g.parent.relative_to(it)} :: {e['text'][:60]} :: found {hits[0][:60]!r}")
+                    if apply:
+                        e["passed"] = False
+                        e["evidence"] = f"[quote-audit {status}] " + ev
+                        changed = True
+                    continue
+                verified += 1
+                if voided_before and apply:
+                    e["passed"] = True
+                    e["evidence"] = ev
+                    changed = True
+                continue
             if not qs:
                 no_quote += 1
                 status = "NO_QUOTE"
@@ -79,8 +103,9 @@ def main():
                 e["evidence"] = f"[quote-audit {status}] " + ev
                 changed = True
         if changed:
-            ex = d["expectations"]; p = sum(1 for x in ex if x["passed"]); t = len(ex)
-            d["summary"] = {"passed": p, "failed": t - p, "total": t, "pass_rate": round(p / t, 4)}
+            ex = d[key]; p = sum(1 for x in ex if x["passed"]); t = len(ex)
+            if "summary" in d:  # iteration 1-3 grading.json carries a summary block; grading4.json does not
+                d["summary"] = {"passed": p, "failed": t - p, "total": t, "pass_rate": round(p / t, 4)}
             g.write_text(json.dumps(d, indent=2), encoding="utf-8")
     print(f"judgment passes: {total}; verified by quote: {verified}; quote not found: {unverifiable}; no quote given: {no_quote}" + ("; applied" if apply else ""))
 

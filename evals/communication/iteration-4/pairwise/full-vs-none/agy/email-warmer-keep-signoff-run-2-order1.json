@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 immediately provides the rewritten email without any preliminary instructions.",
+    "first_step_2": "Reply 2 immediately provides the rewritten email without any preliminary instructions.",
+    "winner": "tie",
+    "reason": "Both replies strictly follow all instructions by returning only the rewritten email, preserving the exact meeting time and sign-off, and effectively warming the tone with no meaningful difference in compliance or quality."
+  },
+  "winner_arm": "tie",
+  "seconds": 36.5,
+  "raw_tail": "Reply 1 does not instruct the reader to perform any preliminary action; it immediately provides the rewritten email.\nReply 2 does not instruct the reader to perform any preliminary action; it immediately provides the rewritten email.\n\nIf this were my problem, I would consider it a tie, as both replies fulfill all positive and negative constraints equally well.\n\n{\"first_step_1\": \"Reply 1 immediately provides the rewritten email without any preliminary instructions.\", \"first_step_2\": \"Reply 2 immediately provides the rewritten email without any preliminary instructions.\", \"winner\": \"tie\", \"reason\": \"Both replies strictly follow all instructions by returning only the rewritten email, preserving the exact meeting time and sign-off, and effectively warming the tone with no meaningful difference in compliance or quality.\"}\n\n"
+}

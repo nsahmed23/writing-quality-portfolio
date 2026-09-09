@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 reports that the merged branches were already deleted using git branch -d feat/a feat/b fix/c, requiring no action.",
+    "first_step_2": "Reply 2 reports that the merged branches were already deleted using git branch -d feat/a feat/b fix/c, requiring no action unless restoring via the provided undo command.",
+    "winner": "2",
+    "reason": "Reply 2 provides the required undo command to restore deleted branches from their commit hashes, whereas Reply 1 omits undo instructions."
+  },
+  "winner_arm": "short",
+  "seconds": 8.4,
+  "raw_tail": "Reply 1 tells the reader that the three merged branches have already been deleted via `git branch -d feat/a feat/b fix/c`, requiring no immediate action from the reader.\nReply 2 tells the reader that the three merged branches have already been deleted via `git branch -d feat/a feat/b fix/c`, while offering a restore command if any branch needs to be recovered.\n\nIf this were my problem, I would act on Reply 2 first because it explicitly provides the undo command to restore deleted branches from their commit hashes as specified by the policy, whereas Reply 1 omits how to undo the action.\n\n{\"first_step_1\": \"Reply 1 reports that the merged branches were already deleted using git branch -d feat/a feat/b fix/c, requiring no action.\", \"first_step_2\": \"Reply 2 reports that the merged branches were already deleted using git branch -d feat/a feat/b fix/c, requiring no action unless restoring via the provided undo command.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides the required undo command to restore deleted branches from their commit hashes, whereas Reply 1 omits undo instructions.\"}\n\n"
+}

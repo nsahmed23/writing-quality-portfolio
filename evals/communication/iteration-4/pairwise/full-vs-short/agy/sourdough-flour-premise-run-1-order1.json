@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 tells the reader to determine if the failure is in the jar or the loaf, and then feed a standard 1:1:1 ratio in a marked jar across three feeding cycles to watch for doubling.",
+    "first_step_2": "Reply 2 tells the reader to separate whether the jar isn't bubbling versus the loaf baking flat, and then test the starter with a 1:5:5 feeding in a marked jar evaluated over a single cycle.",
+    "winner": "1",
+    "reason": "Reply 1 provides the correct first step by recommending a standard feeding ratio monitored across three cycles in a marked jar to check for doubling, whereas Reply 2 prescribes a heavy 1:5:5 dilution evaluated on a single cycle."
+  },
+  "winner_arm": "short",
+  "seconds": 65.2,
+  "raw_tail": "aluating the outcome after a single feeding cycle (checking at hour 6 or over 12 hours). Heavily diluting an already sluggish starter will slow it down even further, and judging it after only one cycle risks falsely concluding the culture is dead. \n\nIn contrast, Reply 1 correctly advises maintaining a standard feeding schedule (a 1:1:1 ratio) in a marked jar, watching for doubling, and explicitly instructing the baker to observe it across three feeding cycles because a single cycle on a mixed culture is unreliable noise.\n\n{\"first_step_1\": \"Reply 1 tells the reader to determine if the failure is in the jar or the loaf, and then feed a standard 1:1:1 ratio in a marked jar across three feeding cycles to watch for doubling.\", \"first_step_2\": \"Reply 2 tells the reader to separate whether the jar isn't bubbling versus the loaf baking flat, and then test the starter with a 1:5:5 feeding in a marked jar evaluated over a single cycle.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides the correct first step by recommending a standard feeding ratio monitored across three cycles in a marked jar to check for doubling, whereas Reply 2 prescribes a heavy 1:5:5 dilution evaluated on a single cycle.\"}\n\n"
+}

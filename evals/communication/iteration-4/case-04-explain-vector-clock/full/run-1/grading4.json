@@ -1,0 +1,59 @@
+{
+  "case_id": 4,
+  "case_name": "explain-vector-clock",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 6766,
+  "first_action_offset": 709,
+  "inventory": [
+    {
+      "item": "Lamport",
+      "hit": true,
+      "matched": "Lamport"
+    },
+    {
+      "item": "concurren",
+      "hit": true,
+      "matched": "concurren"
+    },
+    {
+      "item": "causal",
+      "hit": true,
+      "matched": "causal"
+    },
+    {
+      "item": "per process",
+      "hit": true,
+      "matched": "per process"
+    },
+    {
+      "item": "conflict",
+      "hit": true,
+      "matched": "conflict"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Does not open with a manufactured command or task",
+      "passed": true,
+      "evidence": "\"A vector clock is one counter per process, carried around as a list, updated so that comparing two lists tells you whether one event definitely happened before the other\"; opens with a direct definition, not a manufactured command or task."
+    },
+    {
+      "text": "Defines terms before relying on them",
+      "passed": true,
+      "evidence": "\"a comparison has three outcomes instead of two: `a` before `b`, `b` before `a`, or neither, which means concurrent.\"; concurrent is defined at the exact moment it is introduced, and happened-before is likewise defined (line 11) before its first use in an argument (line 13)."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; the explanation runs on formal definitions, a numbered trace table, and a closing decision heuristic ('the test'); no metaphor or analogy appears anywhere."
+    },
+    {
+      "text": "Ends when the explanation ends; no invented next step",
+      "passed": false,
+      "evidence": "\"Want me to cover those?\"; the response ends by offering an unprompted next step (covering hybrid logical clocks) instead of ending when the explanation ends."
+    }
+  ]
+}

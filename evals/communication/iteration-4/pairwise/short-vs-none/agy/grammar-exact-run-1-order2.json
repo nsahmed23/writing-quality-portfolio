@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"",
+    "first_step_2": "Use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"",
+    "winner": "tie",
+    "reason": "Both replies provide the exact same correctly revised sentence with no extra explanation or text."
+  },
+  "winner_arm": "tie",
+  "seconds": 6.1,
+  "raw_tail": "Reply 1 tells the reader to use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\nReply 2 tells the reader to use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\n\nIf this were my problem, I would act on either reply interchangeably, as both are completely identical and directly fulfill the request.\n\n{\"first_step_1\": \"Use the corrected sentence: \\\"The changes were reviewed, but approval is still pending.\\\"\", \"first_step_2\": \"Use the corrected sentence: \\\"The changes were reviewed, but approval is still pending.\\\"\", \"winner\": \"tie\", \"reason\": \"Both replies provide the exact same correctly revised sentence with no extra explanation or text.\"}\n\n"
+}

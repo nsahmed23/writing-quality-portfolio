@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Check whether port 5432 is already in use using lsof.",
+    "first_step_2": "Install PostgreSQL via Homebrew and set shell environment variables.",
+    "winner": "2",
+    "reason": "Reply 2 correctly starts with installing Postgres via Homebrew and uses a standard self-signed certificate without the unnecessary complexity of creating a custom local CA."
+  },
+  "winner_arm": "full",
+  "seconds": 55.9,
+  "raw_tail": "LISTEN`.  \n**First step in Reply 2:** Install PostgreSQL via Homebrew (`brew install postgresql@17`) and export initial shell environment variables.\n\nIf this were my problem, I would act on **Reply 2** first. \n\nReply 2 immediately executes the correct first step by installing and starting PostgreSQL with Homebrew. Furthermore, it uses a standard self-signed certificate generated directly in the PostgreSQL data directory, accurately reflecting normal local development practices. Reply 1 overcomplicates the setup for a first-time user by insisting on creating a separate local Certificate Authority based on the false premise that a CA is required to use `verify-full` (a self-signed certificate can serve as its own root certificate via `sslrootcert`), and Reply 2 properly verifies the setup with `psql` using `sslmode=require`.\n\n{\"first_step_1\": \"Check whether port 5432 is already in use using lsof.\", \"first_step_2\": \"Install PostgreSQL via Homebrew and set shell environment variables.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly starts with installing Postgres via Homebrew and uses a standard self-signed certificate without the unnecessary complexity of creating a custom local CA.\"}\n\n"
+}

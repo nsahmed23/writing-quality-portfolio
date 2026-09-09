@@ -113,17 +113,17 @@
       "eval-5-restate-state": [
         "tie",
         "inconsistent",
-        "incomplete"
+        "tie"
       ],
       "eval-6-destructive-confirm": [
-        "incomplete",
-        "incomplete",
-        "incomplete"
+        "without_skill",
+        "inconsistent",
+        "without_skill"
       ],
       "eval-7-debug-spiral": [
-        "incomplete",
-        "incomplete",
-        "incomplete"
+        "inconsistent",
+        "inconsistent",
+        "inconsistent"
       ]
     }
   },
@@ -146,11 +146,11 @@
     },
     "kimi": {
       "with_skill": 2,
-      "without_skill": 1,
-      "tie": 3,
+      "without_skill": 3,
+      "tie": 4,
       "both_unacceptable": 0,
-      "inconsistent": 11,
-      "incomplete": 7
+      "inconsistent": 15,
+      "incomplete": 0
     }
   }
 }

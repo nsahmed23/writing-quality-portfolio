@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Run git clean -nd to preview untracked files without deleting anything.",
+    "first_step_2": "Do not run git clean -fd, and instead run git clean -nd to preview what would be deleted.",
+    "winner": "tie",
+    "reason": "Both replies immediately correct the dangerous mistake, provide the safe preview command git clean -nd, and explain the flags and concepts with equivalent clarity and safety."
+  },
+  "winner_arm": "tie",
+  "seconds": 13.5,
+  "raw_tail": "**Reply 1 first step:** Tells the reader that the previous advice was wrong and instructs them to run `git clean -nd` to preview untracked files without deleting anything.  \n**Reply 2 first step:** Warns the reader not to run `git clean -fd` because it immediately deletes untracked files, and instructs them to run `git clean -nd` to preview deletions.\n\n**Which reply to act on first:** It is a tie; both replies immediately catch the dangerous mistake, explain why `git clean -fd` is destructive, provide `git clean -nd` as the safe preview command, and break down the flags and concepts with equal clarity.\n\n{\"first_step_1\": \"Run git clean -nd to preview untracked files without deleting anything.\", \"first_step_2\": \"Do not run git clean -fd, and instead run git clean -nd to preview what would be deleted.\", \"winner\": \"tie\", \"reason\": \"Both replies immediately correct the dangerous mistake, provide the safe preview command git clean -nd, and explain the flags and concepts with equivalent clarity and safety.\"}\n\n"
+}

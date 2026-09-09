@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the last ten CI runs to determine whether the failure is deterministic or intermittent before changing config.",
+    "first_step_2": "Configure trace capture in Playwright and artifact uploads in CI to see what the page actually rendered upon failure.",
+    "winner": "2",
+    "reason": "Reply 2 immediately directs the user to capture CI artifacts and inspect the rendered DOM snapshot, whereas Reply 1 delays gathering trace evidence to analyze past CI run history first."
+  },
+  "winner_arm": "full",
+  "seconds": 11.5,
+  "raw_tail": "`playwright.config.ts` and CI workflow artifact upload to inspect what the page actually rendered.\n\nIf this were my problem, I would act on **Reply 2** first.\n\nReply 2 immediately executes the correct first step: setting up artifact capture (traces and DOM snapshots) on CI so you can see exactly what rendered at the point of failure. It then pairs that evidence directly with a structured diagnostic table mapped to what appears in the snapshot. In contrast, Reply 1 delays getting failure evidence by advising the reader to inspect past CI run history first before touching any configuration. Both replies appropriately handle the flaky test first and isolate the repo restructuring as a subsequent task.\n\n{\"first_step_1\": \"Inspect the last ten CI runs to determine whether the failure is deterministic or intermittent before changing config.\", \"first_step_2\": \"Configure trace capture in Playwright and artifact uploads in CI to see what the page actually rendered upon failure.\", \"winner\": \"2\", \"reason\": \"Reply 2 immediately directs the user to capture CI artifacts and inspect the rendered DOM snapshot, whereas Reply 1 delays gathering trace evidence to analyze past CI run history first.\"}\n\n"
+}

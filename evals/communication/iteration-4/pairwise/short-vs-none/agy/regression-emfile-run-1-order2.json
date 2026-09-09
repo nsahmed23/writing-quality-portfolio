@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the service's configured and active file descriptor limits via systemctl show and /proc/<pid>/limits.",
+    "first_step_2": "Log and track the running process's open descriptor count over time using an interval loop with ls /proc/$PID/fd | wc -l.",
+    "winner": "2",
+    "reason": "Reply 2 immediately begins monitoring the running process's open file descriptor count over time with ls /proc/<pid>/fd | wc -l to capture the leak curve, matching the correct first diagnostic step."
+  },
+  "winner_arm": "none",
+  "seconds": 83.8,
+  "raw_tail": "emctl show` and `/proc/<pid>/limits`.\n\n**Reply 2 first step:** Log and monitor the running process's open file descriptor count over time using `ls /proc/$PID/fd | wc -l` in an interval loop to confirm a leak curve.\n\nIf this were my problem, I would act on **Reply 2** first. Factually, the correct first diagnostic step when diagnosing a timed crash under load is to immediately observe and count the running process's open descriptors (`ls /proc/<pid>/fd | wc -l`) over time to establish whether descriptor usage climbs monotonically. Reply 2 makes this monitoring loop its immediate first action, whereas Reply 1 prioritizes checking static service limits first (and even suggests doubling load).\n\n{\"first_step_1\": \"Inspect the service's configured and active file descriptor limits via systemctl show and /proc/<pid>/limits.\", \"first_step_2\": \"Log and track the running process's open descriptor count over time using an interval loop with ls /proc/$PID/fd | wc -l.\", \"winner\": \"2\", \"reason\": \"Reply 2 immediately begins monitoring the running process's open file descriptor count over time with ls /proc/<pid>/fd | wc -l to capture the leak curve, matching the correct first diagnostic step.\"}\n\n"
+}

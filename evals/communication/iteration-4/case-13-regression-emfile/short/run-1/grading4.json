@@ -1,0 +1,44 @@
+{
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 6841,
+  "first_action_offset": 0,
+  "inventory": [
+    {
+      "item": "/proc/",
+      "hit": true,
+      "matched": "/proc/"
+    },
+    {
+      "item": "leak",
+      "hit": true,
+      "matched": "leak"
+    },
+    {
+      "item": "limit",
+      "hit": true,
+      "matched": "limit"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": false,
+      "evidence": "\"Running out of file descriptors does not *cause* `EMFILE`; it *is* `EMFILE`.\" Reason: disputes the premise instead of affirming it."
+    },
+    {
+      "text": "No premise challenge or 'same fact stated two ways' reframing",
+      "passed": false,
+      "evidence": "\"Running out of file descriptors does not *cause* `EMFILE`; it *is* `EMFILE`.\" Reason: \"same fact stated two ways\" reframing of cause as identity."
+    },
+    {
+      "text": "Ends with one next action",
+      "passed": true,
+      "evidence": "\"Post the type breakdown from step 3, the state histogram from step 4, and the full error line with its syscall suffix\" Reason: ends with a single action (\"Post...\") even though several items are requested."
+    }
+  ]
+}

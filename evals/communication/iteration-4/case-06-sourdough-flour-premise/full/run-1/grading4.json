@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 4013,
+  "first_action_offset": 4013,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": true,
+      "evidence": "\"showing up at the same time is not the same as being the cause.\" plain-words statement that timing overlap is not proof of cause."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Put 20 g of starter into each of two clean jars.\" concrete side-by-side test with numbered steps."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"Note the height at 4, 6, 8, and 12 hours.\" concrete hour units given."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply; all explanations (whole grain, malt, protein, water, temperature) are literal, no comparison to an unrelated domain."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": false,
+      "evidence": "\"with reason 1 or 2 above as the mechanism.\" uses \"mechanism\", one of the listed rule-vocabulary words."
+    }
+  ]
+}

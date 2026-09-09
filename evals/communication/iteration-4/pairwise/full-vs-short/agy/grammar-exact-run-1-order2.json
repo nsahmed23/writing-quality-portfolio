@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Neither reply instructs an action; Reply 1 directly provides the corrected sentence.",
+    "first_step_2": "Neither reply instructs an action; Reply 2 directly provides the corrected sentence.",
+    "winner": "tie",
+    "reason": "Both replies provide the exact requested sentence with proper grammatical correction and no meaningful difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 12.1,
+  "raw_tail": "Reply 1 does not instruct the reader to perform an action, but directly provides the corrected sentence.\nReply 2 does not instruct the reader to perform an action, but directly provides the corrected sentence.\n\nIf this were my problem, I would consider it a tie because both replies provide the exact requested text with no meaningful difference.\n\n{\"first_step_1\": \"Neither reply instructs an action; Reply 1 directly provides the corrected sentence.\", \"first_step_2\": \"Neither reply instructs an action; Reply 2 directly provides the corrected sentence.\", \"winner\": \"tie\", \"reason\": \"Both replies provide the exact requested sentence with proper grammatical correction and no meaningful difference.\"}\n\n"
+}

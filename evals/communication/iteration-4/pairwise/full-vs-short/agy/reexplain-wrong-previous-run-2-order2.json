@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Run git clean -nd and read the list of files that would be removed.",
+    "first_step_2": "Run git clean -nd and read the list of items Git would remove.",
+    "winner": "tie",
+    "reason": "Both replies immediately correct the earlier dangerous error and direct the reader to safely preview untracked files by running git clean -nd first."
+  },
+  "winner_arm": "tie",
+  "seconds": 34.9,
+  "raw_tail": "Reply 1 tells the reader to run `git clean -nd` and inspect the printed list of untracked files that would be removed.\nReply 2 tells the reader to run `git clean -nd` and read the list of items Git would remove.\n\nIf this were my problem, there is no meaningful difference in which reply to act on first: both immediately issue a clear correction of the previous dangerous advice (`git clean -fd`), explain the flags simply, and direct the user to run the safe preview command (`git clean -nd`).\n\n{\"first_step_1\": \"Run git clean -nd and read the list of files that would be removed.\", \"first_step_2\": \"Run git clean -nd and read the list of items Git would remove.\", \"winner\": \"tie\", \"reason\": \"Both replies immediately correct the earlier dangerous error and direct the reader to safely preview untracked files by running git clean -nd first.\"}\n\n"
+}

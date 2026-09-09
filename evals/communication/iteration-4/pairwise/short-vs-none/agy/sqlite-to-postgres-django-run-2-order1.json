@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Install the PostgreSQL driver (psycopg or psycopg2-binary) via pip.",
+    "first_step_2": "Back up db.sqlite3 and run migration checks and migrate on SQLite.",
+    "winner": "1",
+    "reason": "Reply 1 dumps the existing SQLite data without mutating it with migrations first and provides the sqlsequencereset command to handle sequence collisions after loading, whereas Reply 2 runs migrate on SQLite before dumping and omits sqlsequencereset."
+  },
+  "winner_arm": "short",
+  "seconds": 83.9,
+  "raw_tail": "Reply 1 tells the reader to install the PostgreSQL driver (`psycopg` or `psycopg2-binary`) via pip.\nReply 2 tells the reader to back up `db.sqlite3` and run `python manage.py makemigrations --check --dry-run` and `python manage.py migrate` on SQLite.\n\nIf this were my problem, I would act on Reply 1 first.\n\n{\"first_step_1\": \"Install the PostgreSQL driver (psycopg or psycopg2-binary) via pip.\", \"first_step_2\": \"Back up db.sqlite3 and run migration checks and migrate on SQLite.\", \"winner\": \"1\", \"reason\": \"Reply 1 dumps the existing SQLite data without mutating it with migrations first and provides the sqlsequencereset command to handle sequence collisions after loading, whereas Reply 2 runs migrate on SQLite before dumping and omits sqlsequencereset.\"}\n\n"
+}

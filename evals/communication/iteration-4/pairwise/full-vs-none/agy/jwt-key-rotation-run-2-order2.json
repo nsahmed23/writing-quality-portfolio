@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Search the codebase using grep to locate all call sites that verify JWT_SECRET.",
+    "first_step_2": "Check git history to verify whether the secret leaked or if this is a routine hygiene rotation.",
+    "winner": "2",
+    "reason": "Reply 2 provides a safer operational design with a separate fallback verification variable, precise token error handling, and telemetry logging to empirically verify that old tokens have expired before pruning the retired key."
+  },
+  "winner_arm": "none",
+  "seconds": 99.3,
+  "raw_tail": "cycle\u2014deploying dual verification first, switching signing to the new secret, waiting out the 24-hour token expiry window, and then retiring the old secret\u2014Reply 2 provides a significantly safer and cleaner operational strategy. By using a separate `JWT_ACCEPTED_SECRETS` variable for fallback keys instead of mutating the order of a shared comma-separated list, Reply 2 avoids modifying existing signing call sites and makes the phase transitions unambiguous. Additionally, Reply 2 includes practical telemetry (`jwt_verified_with_fallback_key`) to empirically confirm that old tokens have drained before key removal, handles `TokenExpiredError` and `NotBeforeError` accurately, and sets up `kid` support for future rotations.\n\n{\"first_step_1\": \"Search the codebase using grep to locate all call sites that verify JWT_SECRET.\", \"first_step_2\": \"Check git history to verify whether the secret leaked or if this is a routine hygiene rotation.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides a safer operational design with a separate fallback verification variable, precise token error handling, and telemetry logging to empirically verify that old tokens have expired before pruning the retired key.\"}\n\n"
+}

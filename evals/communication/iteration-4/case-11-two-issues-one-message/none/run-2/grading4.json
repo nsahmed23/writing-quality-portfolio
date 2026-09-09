@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "none",
+  "run": "run-2",
+  "chars": 7091,
+  "first_action_offset": 164,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": false,
+      "evidence": "\"Fix the flake first.\" is a standalone imperative about the flake, positioned under \"## Why this order,\" after \"## 2. Structuring the repo\" had already been fully covered."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"Do it as a single moves-only PR: `git mv` and import-path updates, zero behavior edits.\" answers the structure question with real detail."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": false,
+      "evidence": "\"Land the flake fix, confirm ten consecutive green runs, then do the restructure as a moves-only PR against a green baseline.\" The closing section returns to the flake after the structure section, alternating topics instead of staying in two clean blocks."
+    }
+  ]
+}

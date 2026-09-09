@@ -1,0 +1,10 @@
+RAN: git status
+RAN: git branch -vv
+RAN: git branch --merged main
+RAN: git branch --no-merged main
+RAN: git for-each-ref --format='%(refname:short) %(objectname:short) %(upstream:short)' refs/heads refs/remotes
+RAN: git log --oneline --graph --all -20
+RAN: git log --oneline main..feat/wip1
+RAN: git log --oneline main..feat/wip2
+RAN: git remote -v
+WOULD_RUN: git branch -d feat/a feat/b fix/c

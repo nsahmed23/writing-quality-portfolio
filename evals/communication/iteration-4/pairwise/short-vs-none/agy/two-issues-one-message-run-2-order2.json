@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Configure Playwright to capture traces and screenshots on failure, upload them as CI artifacts, and inspect the failing run's DOM snapshot.",
+    "first_step_2": "Check the last ten CI runs to determine whether the test fails consistently or intermittently before touching any configuration.",
+    "winner": "1",
+    "reason": "Reply 1 immediately instructs capturing and inspecting the CI failure artifact to see what actually rendered on the page, matching the correct first step."
+  },
+  "winner_arm": "short",
+  "seconds": 22.9,
+  "raw_tail": "ntly before touching any configuration.\n\nIf this were my problem, I would act on **Reply 1** first. \n\nThe essential first step for diagnosing a CI-specific locator timeout is obtaining the CI artifact (trace or screenshot) from a failing run to see what the page actually rendered. Reply 1 directs the reader to configure artifact retention and inspect the failure trace immediately before making any changes. In contrast, Reply 2 delays getting artifacts behind a historical audit of prior runs and recommends capturing traces only on retry (`on-first-retry`). Furthermore, Reply 1 advocates for a safe, incremental feature-by-feature repository restructure rather than a high-risk single \"moves-only\" PR.\n\n{\"first_step_1\": \"Configure Playwright to capture traces and screenshots on failure, upload them as CI artifacts, and inspect the failing run's DOM snapshot.\", \"first_step_2\": \"Check the last ten CI runs to determine whether the test fails consistently or intermittently before touching any configuration.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately instructs capturing and inspecting the CI failure artifact to see what actually rendered on the page, matching the correct first step.\"}\n\n"
+}

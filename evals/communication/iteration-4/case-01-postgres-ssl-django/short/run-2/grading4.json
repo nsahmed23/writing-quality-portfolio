@@ -1,0 +1,79 @@
+{
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 9606,
+  "first_action_offset": 397,
+  "inventory": [
+    {
+      "item": "brew install postgresql",
+      "hit": false,
+      "matched": null
+    },
+    {
+      "item": "brew services start",
+      "hit": true,
+      "matched": "brew services start"
+    },
+    {
+      "item": "openssl req",
+      "hit": true,
+      "matched": "openssl req"
+    },
+    {
+      "item": "ssl = on",
+      "hit": true,
+      "matched": "ssl = on"
+    },
+    {
+      "item": "pg_hba.conf",
+      "hit": true,
+      "matched": "pg_hba.conf"
+    },
+    {
+      "item": "hostssl",
+      "hit": true,
+      "matched": "hostssl"
+    },
+    {
+      "item": "sslmode",
+      "hit": true,
+      "matched": "sslmode"
+    },
+    {
+      "item": "OPTIONS",
+      "hit": true,
+      "matched": "OPTIONS"
+    },
+    {
+      "item": "psql",
+      "hit": true,
+      "matched": "psql"
+    }
+  ],
+  "inventory_rate": 0.8889,
+  "shape": [
+    {
+      "text": "First line is the first action, not context",
+      "passed": false,
+      "evidence": "\"Here's the full path from a clean Homebrew install to Django talking to Postgres over a verified TLS connection. Nine steps, each with a check so you know it worked before moving on.\"; this is a framing summary, followed by more context (two caveats, then a disclaimer paragraph) before the first actual action (`brew search postgresql@`) under step 1."
+    },
+    {
+      "text": "Prerequisites (install, start) precede the steps that depend on them",
+      "passed": true,
+      "evidence": "\"Do this **before** locking down authentication, so you have a working password when the trust rules go away.\"; install precedes start, cert creation precedes cert installation, and SSL-on precedes the hostssl/restart step, with ordering rationale stated explicitly."
+    },
+    {
+      "text": "Every command the reader needs is stated",
+      "passed": true,
+      "evidence": "\"hostssl   all   all   127.0.0.1/32 scram-sha-256\"; every inventory item (brew install/start, openssl req, ssl = on, pg_hba.conf/hostssl, sslmode, OPTIONS, psql) appears as a literal runnable command or config line, not a described-but-unshown step."
+    },
+    {
+      "text": "Ends with the check that shows it worked",
+      "passed": false,
+      "evidence": "\"**If you ever install a second Postgres major**, `brew services` will happily run both and fight over port 5432. `brew services list` shows what's running.\"; this port-conflict caveat is the actual last line. The real check, \"A tuple like `(True, 'TLSv1.3', 'TLS_AES_256_GCM_SHA384')` means you're done.\", sits in step 9, followed by an entire 'Things that will bite you later' section, so the response does not end on the check."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Run `git clean -nd` to preview untracked files without deleting them.",
+    "first_step_2": "Run `git clean -nd` to preview untracked files without deleting them.",
+    "winner": "tie",
+    "reason": "Both replies immediately correct the dangerous mistake, provide the correct preview command (`git clean -nd`), and accurately explain the flags with no meaningful difference in safety or correctness."
+  },
+  "winner_arm": "tie",
+  "seconds": 26.6,
+  "raw_tail": "**Reply 1 first step:** Run `git clean -nd` to preview which untracked files and directories would be removed without deleting anything.\n\n**Reply 2 first step:** Run `git clean -nd` to preview which untracked files and directories would be removed without deleting anything.\n\nIf this were my problem, I would act on either reply equally (a tie). Both replies immediately identify and correct the dangerous misinformation from the previous turn, provide the correct preview command (`git clean -nd`), clearly break down what untracked files are, and explain the function of each flag (`-n`, `-d`, `-f`) accurately and simply without any meaningful difference in safety or correctness.\n\n{\"first_step_1\": \"Run `git clean -nd` to preview untracked files without deleting them.\", \"first_step_2\": \"Run `git clean -nd` to preview untracked files without deleting them.\", \"winner\": \"tie\", \"reason\": \"Both replies immediately correct the dangerous mistake, provide the correct preview command (`git clean -nd`), and accurately explain the flags with no meaningful difference in safety or correctness.\"}\n\n"
+}

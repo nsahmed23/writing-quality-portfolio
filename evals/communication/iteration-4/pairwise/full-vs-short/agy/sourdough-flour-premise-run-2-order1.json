@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Feed two separate jars side-by-side (one with new flour, one with old flour or rye) and track their peak rise hourly over 4 to 8 hours.",
+    "first_step_2": "Feed a single jar at a 1:2:2 ratio, mark it with a rubber band, and check if it doubles within 4 to 8 hours to isolate whether the starter or dough failed.",
+    "winner": "2",
+    "reason": "Reply 2 correctly tests whether the starter doubles in a marked jar and allows multiple feeding cycles for adaptation, avoiding Reply 1's flawed single-cycle two-jar test."
+  },
+  "winner_arm": "short",
+  "seconds": 18.6,
+  "raw_tail": "a marked jar kept at 75\u201380\u00b0F to observe whether it doubles within 4 to 8 hours, determining whether the starter itself or the dough recipe failed.\n\nIf this were my problem, I would act on **Reply 2** first. Reply 2 correctly distinguishes between loaf/dough failure and starter inactivity, uses a simple marked jar test, and accounts for the fact that a starter needs several feeding cycles over two to three days to adapt to a new flour. In contrast, Reply 1 mandates an inconvenient two-jar experiment that risks misleading conclusions after a single feeding (especially if whole wheat or rye is substituted as a control, as whole grains naturally ferment faster).\n\n{\"first_step_1\": \"Feed two separate jars side-by-side (one with new flour, one with old flour or rye) and track their peak rise hourly over 4 to 8 hours.\", \"first_step_2\": \"Feed a single jar at a 1:2:2 ratio, mark it with a rubber band, and check if it doubles within 4 to 8 hours to isolate whether the starter or dough failed.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly tests whether the starter doubles in a marked jar and allows multiple feeding cycles for adaptation, avoiding Reply 1's flawed single-cycle two-jar test.\"}\n\n"
+}

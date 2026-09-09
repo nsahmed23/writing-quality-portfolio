@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Inventory all JWT call sites, token lifetimes, and verifying processes using grep before generating a new key and deploying dual-key verification.",
+    "first_step_2": "Generate a new 32-byte secret via Node crypto and store it in a secret manager without installing it.",
+    "winner": "1",
+    "reason": "Reply 1 safely pre-deploys the new verification key to all instances before flipping the signing key and uses kid for observable rotation, whereas Reply 2 deploys code without the new secret and switches signing keys simultaneously, which breaks rolling deployments."
+  },
+  "winner_arm": "none",
+  "seconds": 60.0,
+  "raw_tail": "tep 3 then updates `JWT_SECRET` to the new key and `JWT_SECRET_ALT` to the old key simultaneously; during any multi-instance or rolling rollout, instances restarted first will issue new tokens that un-restarted instances immediately reject, causing user logouts.\n2. **Key identification (`kid`) & observability:** Reply 1 implements `kid` headers and mapping, allowing the verifier to selectively look up keys and log `kid` usage to confirm old-token traffic drops to zero before retirement. Reply 2 completely omits `kid`, resorting to sequential trial verification and leaving Step 4 dependent on clock-watching.\n\n{\"first_step_1\": \"Inventory all JWT call sites, token lifetimes, and verifying processes using grep before generating a new key and deploying dual-key verification.\", \"first_step_2\": \"Generate a new 32-byte secret via Node crypto and store it in a secret manager without installing it.\", \"winner\": \"1\", \"reason\": \"Reply 1 safely pre-deploys the new verification key to all instances before flipping the signing key and uses kid for observable rotation, whereas Reply 2 deploys code without the new secret and switches signing keys simultaneously, which breaks rolling deployments.\"}\n\n"
+}

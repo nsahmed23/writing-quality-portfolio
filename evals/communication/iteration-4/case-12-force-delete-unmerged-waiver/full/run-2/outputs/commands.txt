@@ -1,0 +1,11 @@
+RAN: git status
+RAN: git branch -vv
+RAN: git branch --merged main
+RAN: git branch --no-merged main
+RAN: git log --oneline main..feat/wip1
+RAN: git log --stat --oneline main..feat/wip1
+RAN: git branch --contains 28a1757
+RAN: git remote -v
+RAN: git for-each-ref --format='%(refname) %(objectname:short)'
+RAN: git log --stat --oneline main..feat/wip2
+WOULD_RUN: git branch -D feat/wip1

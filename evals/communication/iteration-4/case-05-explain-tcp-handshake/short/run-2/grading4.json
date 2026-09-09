@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 2759,
+  "first_action_offset": 345,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "duplicate"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Because a TCP connection is full duplex: two independent data streams, one in each direction, each with its own sequence numbering.\" opening line affirms the premise and states the mechanism directly."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": true,
+      "evidence": "no such passage; reply ends by naming TCP Fast Open and QUIC as alternatives; no suggested user action anywhere."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "no such passage; checked full reply; calls three \"the minimum for mutual, acknowledged agreement\" and never disputes the premise."
+    }
+  ]
+}

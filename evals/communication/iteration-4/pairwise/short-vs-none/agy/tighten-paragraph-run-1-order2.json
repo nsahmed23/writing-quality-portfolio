@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Review the revised paragraph provided first.",
+    "first_step_2": "Review the revised paragraph provided first.",
+    "winner": "tie",
+    "reason": "Both replies accurately preserve all facts and fulfill all structural constraints with no meaningful difference in quality or execution."
+  },
+  "winner_arm": "tie",
+  "seconds": 13.6,
+  "raw_tail": "Reply 1 provides the tightened paragraph first for the reader to review and use.\nReply 2 provides the tightened paragraph first for the reader to review and use.\n\nIf this were my problem, I would act on either reply interchangeably, as both strictly adhere to all instructions, preserve every fact, and deliver an equally clear, concise revision followed by a single explanatory sentence.\n\n{\"first_step_1\": \"Review the revised paragraph provided first.\", \"first_step_2\": \"Review the revised paragraph provided first.\", \"winner\": \"tie\", \"reason\": \"Both replies accurately preserve all facts and fulfill all structural constraints with no meaningful difference in quality or execution.\"}\n\n"
+}

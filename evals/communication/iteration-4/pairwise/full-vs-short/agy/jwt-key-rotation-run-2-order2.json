@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Search the codebase with grep to identify all places signing or verifying with JWT_SECRET, including other services and longer-lived token types.",
+    "first_step_2": "Search the codebase with grep to identify all services and code paths that verify tokens using JWT_SECRET.",
+    "winner": "1",
+    "reason": "Reply 1 follows standard practice by adding a key ID (kid) header to newly issued tokens and looking up the secret by kid, whereas Reply 2 omits kid and relies on trial-and-error verification in a loop."
+  },
+  "winner_arm": "short",
+  "seconds": 18.3,
+  "raw_tail": "ly 1** first. \n\nWhile both replies correctly identify the multi-step deployment strategy (deploy dual-key verification before switching signing keys, wait at least 24 hours, then retire the old key), Reply 1 implements standard JWT key rotation using the `kid` (key ID) header and key lookup. Reply 2 omits `kid` entirely and falls back to brute-force trial-and-error verification in a `try/catch` loop over a comma-delimited string of secrets. Reply 1 is cleaner, adheres to the established standard for JWT rotation, handles backward compatibility for legacy untagged tokens explicitly, and provides actionable telemetry to confirm when old tokens have completely drained.\n\n{\"first_step_1\": \"Search the codebase with grep to identify all places signing or verifying with JWT_SECRET, including other services and longer-lived token types.\", \"first_step_2\": \"Search the codebase with grep to identify all services and code paths that verify tokens using JWT_SECRET.\", \"winner\": \"1\", \"reason\": \"Reply 1 follows standard practice by adding a key ID (kid) header to newly issued tokens and looking up the secret by kid, whereas Reply 2 omits kid and relies on trial-and-error verification in a loop.\"}\n\n"
+}

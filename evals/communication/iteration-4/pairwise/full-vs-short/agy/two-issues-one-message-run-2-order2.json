@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Enable trace capture and retries in playwright.config.ts, upload the report in CI, and inspect the failing run's DOM snapshot to identify why the heading was missing.",
+    "first_step_2": "Configure failure tracing in playwright.config.ts, upload test artifacts from the CI run, and inspect the DOM snapshot at the moment of timeout.",
+    "winner": "1",
+    "reason": "Reply 1 provides complete, copy-pasteable CI and configuration snippets alongside a clear trace-driven diagnostic table, while properly deferring repo restructuring until the flake is diagnosed."
+  },
+  "winner_arm": "full",
+  "seconds": 34.5,
+  "raw_tail": "nd inspect the failing run's DOM snapshot to identify why the heading was missing.\n\n**First step in Reply 2:** Configure failure tracing in `playwright.config.ts`, upload test artifacts from the CI run, and inspect the DOM snapshot at the moment of timeout.\n\nIf this were my problem, I would act on **Reply 1** first. It provides fully copy-pasteable configuration for both Playwright and the CI workflow, structures the diagnosis around an immediate evidence-lookup table, and appropriately defers repo restructuring until the flake is resolved rather than prescribing speculative migration steps for an unseen repository.\n\n{\"first_step_1\": \"Enable trace capture and retries in playwright.config.ts, upload the report in CI, and inspect the failing run's DOM snapshot to identify why the heading was missing.\", \"first_step_2\": \"Configure failure tracing in playwright.config.ts, upload test artifacts from the CI run, and inspect the DOM snapshot at the moment of timeout.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides complete, copy-pasteable CI and configuration snippets alongside a clear trace-driven diagnostic table, while properly deferring repo restructuring until the flake is diagnosed.\"}\n\n"
+}

@@ -1,0 +1,69 @@
+{
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 5422,
+  "first_action_offset": 71,
+  "inventory": [
+    {
+      "item": "dumpdata",
+      "hit": true,
+      "matched": "dumpdata"
+    },
+    {
+      "item": "loaddata",
+      "hit": true,
+      "matched": "loaddata"
+    },
+    {
+      "item": "migrate",
+      "hit": true,
+      "matched": "migrate"
+    },
+    {
+      "item": "createdb",
+      "hit": true,
+      "matched": "createdb"
+    },
+    {
+      "item": "DATABASES",
+      "hit": true,
+      "matched": "DATABASES"
+    },
+    {
+      "item": "contenttypes",
+      "hit": true,
+      "matched": "contenttypes"
+    },
+    {
+      "item": "natural-foreign",
+      "hit": true,
+      "matched": "natural-foreign"
+    },
+    {
+      "item": "sqlsequencereset",
+      "hit": true,
+      "matched": "sqlsequencereset"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The dump happens before the settings change",
+      "passed": true,
+      "evidence": "\"1. Back up SQLite and dump the data, before touching any settings:\"; states the ordering directly, and dumps in step 1, before the settings change in step 4."
+    },
+    {
+      "text": "Every command is stated",
+      "passed": true,
+      "evidence": "\"python manage.py migrate\"; every step (backup+dump, driver, role/db, settings, migrate, load) has an explicit command."
+    },
+    {
+      "text": "Ends with a verification step",
+      "passed": true,
+      "evidence": "\"Verify: run `python manage.py runserver`, open `http://127.0.0.1:8000/admin/`, and confirm your existing objects are listed there.\"; final line is the verification step."
+    }
+  ]
+}

@@ -57,3 +57,13 @@ Eval model: sonnet (both arms). Baseline = no skill.
 - Skill v4 applied (snapshot v3 in skill-snapshot-v3/), pushed to PR #6. Pairwise judging done (pairwise-report.md); Kimi 13 calls pending quota reset: py -3.11 pairwise.py iteration-3 --lane kimi.
 - Iteration-4 scaffolded: build_iter4.py, 14 cases x 3 arms (none/full/short) x 2 runs = 84; arm short = skill-candidate-25/SKILL.md. Needs: executor runs (target model DECIDE: Opus 5 vs Sonnet), grade4 (exact + inventory + shape diagnostics), pairwise across arms, report.
 - Model docs: fact-pack at model-factpack-2026-09.md (agent used a browser UA, not the CLAUDE.md UA; flagged); staged page model-routing-2026-09-09.md; apply_vault_update.py writes it into the vault (raw write, needs user OK) or use the Obsidian MCP/CLI when available.
+
+## Iteration 4 executors done (2026-09-09 ~09:30)
+- DONE: 84/84 Opus 5 executor runs (14 cases x none/full/short x 2), all timing.json saved, grade4.py run (CRLF-normalized). Inventory near 1.0 everywhere; exact-match 6/6; all six case-12 runs chose WOULD_RUN git branch -D (full arm too, despite override 2 naming -D as ask-first); case 14 all arms -d only.
+- IN FLIGHT: 4 Sonnet shape graders (quote rule, edit grading4.json in place); 6 background pairwise4.py processes (codex+agy x full-vs-none, short-vs-none, full-vs-short), logs in iteration-4/pairwise/logs/, verdict JSONs under iteration-4/pairwise/<pair>/<lane>/. Resume any lane with the same command; done files are skipped.
+- NEXT: report4.py (decision rule from iteration-4-plan.md step 3), dark HTML page to phone, commit to PR #6, eval-summary.md, deployment decision.
+
+## Iteration 4 complete (2026-09-09 ~13:00)
+- DONE: 84 runs graded (grade4 + 4 shape graders + quote audit, 228/228 quotes verified after re-grading 8 crossed runs); 336 pairwise verdicts (codex + agy, three arm pairs; 2 agy retries needed --no-tools); report4.py -> iteration-4/report.{md,json,html}, narrative.md; Kimi iteration-3 rerun finished (48/48) and pairwise-report.md updated.
+- RESULT: full v4 > short (25-line) > none; net wins +18 / +7 / -25; no arm rejected; shared defect on case 12 (-D on explicit waiver). v5 targets: -D ask-first survives the waiver; no manufactured action on explanations; no rule vocabulary.
+- NEXT: user decides deployment form (CLAUDE.md pointer vs output style vs 25-line inline) and whether to draft v5; iteration 5 = Kimi's multi-turn simulated-user suite (iteration-4-plan.md step 4).

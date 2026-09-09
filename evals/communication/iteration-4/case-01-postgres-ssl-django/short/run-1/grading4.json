@@ -1,0 +1,79 @@
+{
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 9302,
+  "first_action_offset": 144,
+  "inventory": [
+    {
+      "item": "brew install postgresql",
+      "hit": true,
+      "matched": "brew install postgresql"
+    },
+    {
+      "item": "brew services start",
+      "hit": true,
+      "matched": "brew services start"
+    },
+    {
+      "item": "openssl req",
+      "hit": true,
+      "matched": "openssl req"
+    },
+    {
+      "item": "ssl = on",
+      "hit": true,
+      "matched": "ssl = on"
+    },
+    {
+      "item": "pg_hba.conf",
+      "hit": true,
+      "matched": "pg_hba.conf"
+    },
+    {
+      "item": "hostssl",
+      "hit": true,
+      "matched": "hostssl"
+    },
+    {
+      "item": "sslmode",
+      "hit": true,
+      "matched": "sslmode"
+    },
+    {
+      "item": "OPTIONS",
+      "hit": true,
+      "matched": "OPTIONS"
+    },
+    {
+      "item": "psql",
+      "hit": true,
+      "matched": "psql"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "First line is the first action, not context",
+      "passed": false,
+      "evidence": "\"Homebrew installs Postgres with SSL compiled in but turned off, so the job is four edits plus a certificate:\"; opens with a summary of the overall task, not an action."
+    },
+    {
+      "text": "Prerequisites (install, start) precede the steps that depend on them",
+      "passed": true,
+      "evidence": "\"## 1. Install and start Postgres\" precedes \"## 3. Generate a self-signed certificate\"; install/start (step 1) comes before the cert, ssl, and hba steps."
+    },
+    {
+      "text": "Every command the reader needs is stated",
+      "passed": true,
+      "evidence": "\"chmod 600 server.key\"; every step (install, cert, ssl, hba, restart, Django) has an explicit command."
+    },
+    {
+      "text": "Ends with the check that shows it worked",
+      "passed": false,
+      "evidence": "\"The version number `17` appears in the PATH line, the `brew services` commands, and the log path; if you install a different major version, change it in all of them.\"; final line is substitution advice, not the check."
+    }
+  ]
+}

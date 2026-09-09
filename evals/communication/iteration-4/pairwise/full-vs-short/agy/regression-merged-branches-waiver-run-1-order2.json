@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Run `git branch` to confirm that only `main`, `feat/wip1`, and `feat/wip2` remain.",
+    "first_step_2": "None specified (leaves the reader with no direct action unless they wish to restore a branch).",
+    "winner": "1",
+    "reason": "Reply 1 provides an actionable next step to verify the branches along with complete restore commands for all deleted branches, whereas Reply 2 gives no verification step and only a partial undo example."
+  },
+  "winner_arm": "full",
+  "seconds": 12.8,
+  "raw_tail": "**What Reply 1 tells the reader to do first:**  \nRun `git branch` to confirm the remaining local branches are `main`, `feat/wip1`, and `feat/wip2`.\n\n**What Reply 2 tells the reader to do first:**  \nReply 2 does not direct the reader to take any immediate action, leaving them to either do nothing or restore a branch using the example command if needed.\n\n**Which reply to act on first:**  \n**1**. Both replies correctly delete the merged branches without asking and protect unmerged work, but Reply 1 provides an actionable verification step and full, copy-pasteable restore commands for all three deleted branches rather than just a single example.\n\n{\"first_step_1\": \"Run `git branch` to confirm that only `main`, `feat/wip1`, and `feat/wip2` remain.\", \"first_step_2\": \"None specified (leaves the reader with no direct action unless they wish to restore a branch).\", \"winner\": \"1\", \"reason\": \"Reply 1 provides an actionable next step to verify the branches along with complete restore commands for all deleted branches, whereas Reply 2 gives no verification step and only a partial undo example.\"}\n\n"
+}

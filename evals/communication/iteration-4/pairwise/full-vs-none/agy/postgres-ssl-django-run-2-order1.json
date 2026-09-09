@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Install and start PostgreSQL via Homebrew using brew install postgresql@17 and brew services start postgresql@17.",
+    "first_step_2": "Install PostgreSQL via Homebrew using brew install postgresql@17.",
+    "winner": "1",
+    "reason": "Reply 1 uses dynamically resolved paths rather than hardcoding Apple Silicon directories, properly handles LibreSSL without dropping Subject Alternative Names, and configures the standard sslmode=require baseline alongside essential Django permissions like CREATEDB."
+  },
+  "winner_arm": "none",
+  "seconds": 17.5,
+  "raw_tail": "install postgresql@17` and `brew services start postgresql@17`.  \n**Reply 2 first step:** Install PostgreSQL via Homebrew using `brew install postgresql@17`.\n\nIf this were my problem, I would act on **Reply 1** first. \n\nReply 1 correctly pairs installing and starting the service right away, avoids fragile hardcoded Apple Silicon paths (`/opt/homebrew`) by dynamically resolving paths via Homebrew and `psql`, handles the LibreSSL/SAN requirement correctly rather than suggesting stripping Subject Alternative Names (which breaks modern TLS hostname validation), configures the standard `sslmode=require` setup first, and adds `CREATEDB` permissions needed for Django's test runner.\n\n{\"first_step_1\": \"Install and start PostgreSQL via Homebrew using brew install postgresql@17 and brew services start postgresql@17.\", \"first_step_2\": \"Install PostgreSQL via Homebrew using brew install postgresql@17.\", \"winner\": \"1\", \"reason\": \"Reply 1 uses dynamically resolved paths rather than hardcoding Apple Silicon directories, properly handles LibreSSL without dropping Subject Alternative Names, and configures the standard sslmode=require baseline alongside essential Django permissions like CREATEDB.\"}\n\n"
+}

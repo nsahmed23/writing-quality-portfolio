@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Install Postgres with Homebrew, add it to PATH, and start the service.",
+    "first_step_2": "Check if port 5432 is already in use using lsof.",
+    "winner": "1",
+    "reason": "Reply 1 follows the correct first step of installing and starting Postgres with Homebrew and uses a standard self-signed certificate with sslmode=require rather than forcing an overcomplicated local CA setup on a beginner."
+  },
+  "winner_arm": "short",
+  "seconds": 20.1,
+  "raw_tail": "eader to run `lsof` to verify that port 5432 is not already in use by another process.\n\n---\n\n### Evaluation\n\nIf this were my problem, I would act on **Reply 1** first. \n\nReply 1 begins directly with the correct first step\u2014installing and starting PostgreSQL with Homebrew\u2014and adopts a practical, standard approach for local development using a self-signed certificate and `sslmode=require` (while cleanly explaining `verify-full` as an optional upgrade). Additionally, Reply 1 dynamically computes the Homebrew prefix for `PATH` configuration across both Apple Silicon and Intel Macs. In contrast, Reply 2 delays the setup with a port-check step, hardcodes an Apple Silicon path, and overcomplicates the process for a beginner by mandating a custom multi-step local Certificate Authority.\n\n{\"first_step_1\": \"Install Postgres with Homebrew, add it to PATH, and start the service.\", \"first_step_2\": \"Check if port 5432 is already in use using lsof.\", \"winner\": \"1\", \"reason\": \"Reply 1 follows the correct first step of installing and starting Postgres with Homebrew and uses a standard self-signed certificate with sslmode=require rather than forcing an overcomplicated local CA setup on a beginner.\"}\n\n"
+}

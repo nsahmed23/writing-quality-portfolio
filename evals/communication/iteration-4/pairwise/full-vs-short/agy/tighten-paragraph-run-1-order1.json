@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Review the revised, tightened paragraph provided upfront.",
+    "first_step_2": "Review the revised, tightened paragraph provided upfront.",
+    "winner": "tie",
+    "reason": "Both replies successfully tighten the original paragraph while retaining every required fact and following all formatting constraints with no meaningful difference in quality."
+  },
+  "winner_arm": "tie",
+  "seconds": 16.5,
+  "raw_tail": "Reply 1 provides the revised, tightened paragraph first for the reader to review and use.\nReply 2 provides the revised, tightened paragraph first for the reader to review and use.\n\nIf this were my problem, I would consider them interchangeable and act on either, as there is no meaningful difference between the two solutions.\n\n```json\n{\"first_step_1\": \"Review the revised, tightened paragraph provided upfront.\", \"first_step_2\": \"Review the revised, tightened paragraph provided upfront.\", \"winner\": \"tie\", \"reason\": \"Both replies successfully tighten the original paragraph while retaining every required fact and following all formatting constraints with no meaningful difference in quality.\"}\n```\n\n"
+}

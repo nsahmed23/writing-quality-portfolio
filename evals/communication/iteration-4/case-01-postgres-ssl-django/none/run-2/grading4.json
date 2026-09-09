@@ -1,0 +1,79 @@
+{
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "arm": "none",
+  "run": "run-2",
+  "chars": 10138,
+  "first_action_offset": 131,
+  "inventory": [
+    {
+      "item": "brew install postgresql",
+      "hit": true,
+      "matched": "brew install postgresql"
+    },
+    {
+      "item": "brew services start",
+      "hit": true,
+      "matched": "brew services start"
+    },
+    {
+      "item": "openssl req",
+      "hit": true,
+      "matched": "openssl req"
+    },
+    {
+      "item": "ssl = on",
+      "hit": true,
+      "matched": "ssl = on"
+    },
+    {
+      "item": "pg_hba.conf",
+      "hit": true,
+      "matched": "pg_hba.conf"
+    },
+    {
+      "item": "hostssl",
+      "hit": true,
+      "matched": "hostssl"
+    },
+    {
+      "item": "sslmode",
+      "hit": true,
+      "matched": "sslmode"
+    },
+    {
+      "item": "OPTIONS",
+      "hit": true,
+      "matched": "OPTIONS"
+    },
+    {
+      "item": "psql",
+      "hit": true,
+      "matched": "psql"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "First line is the first action, not context",
+      "passed": false,
+      "evidence": "\"Postgres speaks SSL only over TCP, never over the Unix domain socket.\"; opens with a background fact/explanation, not an action."
+    },
+    {
+      "text": "Prerequisites (install, start) precede the steps that depend on them",
+      "passed": true,
+      "evidence": "\"## 1. Install and start Postgres\" precedes \"## 3. Generate a self-signed certificate\"; install/start is step 1, before the cert and hba steps that need the server running."
+    },
+    {
+      "text": "Every command the reader needs is stated",
+      "passed": true,
+      "evidence": "\"brew install postgresql@17\"; every step (cert generation, ssl config, pg_hba edit, Django settings) has an explicit runnable command."
+    },
+    {
+      "text": "Ends with the check that shows it worked",
+      "passed": false,
+      "evidence": "\"The log file in row four is worth knowing about up front.\"; final line is about the troubleshooting table's log-file row, not the success check from step 7."
+    }
+  ]
+}

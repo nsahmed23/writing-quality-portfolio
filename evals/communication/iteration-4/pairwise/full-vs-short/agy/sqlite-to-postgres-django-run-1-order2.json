@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Back up db.sqlite3 and dump the SQLite data to JSON using manage.py dumpdata.",
+    "first_step_2": "Run prechecks on SQLite (check version, verify migration consistency) and record baseline model row counts.",
+    "winner": "2",
+    "reason": "Reply 2 records and verifies model row counts to ensure data integrity, checks for schema drift prior to dumping, and avoids a KeyError in settings.py."
+  },
+  "winner_arm": "short",
+  "seconds": 26.1,
+  "raw_tail": "and safe:\n1. **Verification of Row Counts:** Reply 2 records baseline row counts on SQLite before making any changes and provides a script to diff them after `loaddata`, satisfying the requirement to verify row counts. Reply 1 only suggests visually checking the Django admin.\n2. **Settings Bug Prevention:** Reply 1 specifies `\"PASSWORD\": os.environ[\"PGPASSWORD\"]` without instructing the user to export the variable, which will raise a `KeyError` when running `dbshell`. Reply 2 safely defaults to the development password created in the previous step (`os.environ.get(\"PGPASSWORD\", \"devpassword\")`).\n3. **Pre-migration Drift Check:** Reply 2 checks for uncommitted model changes and unapplied migrations before dumping, preventing schema-fixture mismatches during `migrate` and `loaddata`.\n\n{\"first_step_1\": \"Back up db.sqlite3 and dump the SQLite data to JSON using manage.py dumpdata.\", \"first_step_2\": \"Run prechecks on SQLite (check version, verify migration consistency) and record baseline model row counts.\", \"winner\": \"2\", \"reason\": \"Reply 2 records and verifies model row counts to ensure data integrity, checks for schema drift prior to dumping, and avoids a KeyError in settings.py.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "No action required as branches are already deleted; provides an undo command if restoration is needed.",
+    "first_step_2": "No action required as branches are already deleted.",
+    "winner": "1",
+    "reason": "Reply 1 provides the explicit undo command to recover deleted branches, whereas Reply 2 omits the undo instruction."
+  },
+  "winner_arm": "short",
+  "seconds": 10.4,
+  "raw_tail": "Reply 1 tells the reader that the deletion of the merged branches has already been executed, requiring no further action unless they wish to restore a branch using the provided undo command.\nReply 2 tells the reader that the deletion of the merged branches has already been executed, requiring no action.\n\nIf this were my problem, I would act on Reply 1 first because it explicitly provides the undo command to restore any deleted branch if needed.\n\n{\"first_step_1\": \"No action required as branches are already deleted; provides an undo command if restoration is needed.\", \"first_step_2\": \"No action required as branches are already deleted.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides the explicit undo command to recover deleted branches, whereas Reply 2 omits the undo instruction.\"}\n\n"
+}

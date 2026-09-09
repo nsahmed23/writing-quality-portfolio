@@ -1,0 +1,59 @@
+{
+  "case_id": 4,
+  "case_name": "explain-vector-clock",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 5531,
+  "first_action_offset": 470,
+  "inventory": [
+    {
+      "item": "Lamport",
+      "hit": true,
+      "matched": "Lamport"
+    },
+    {
+      "item": "concurren",
+      "hit": true,
+      "matched": "concurren"
+    },
+    {
+      "item": "causal",
+      "hit": true,
+      "matched": "causal"
+    },
+    {
+      "item": "per process",
+      "hit": true,
+      "matched": "per process"
+    },
+    {
+      "item": "conflict",
+      "hit": true,
+      "matched": "conflict"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Does not open with a manufactured command or task",
+      "passed": true,
+      "evidence": "\"A vector clock is a timestamp made of a list of counters, one per process in the system, instead of a single number.\"; opens with a direct definition, not a manufactured command or task."
+    },
+    {
+      "text": "Defines terms before relying on them",
+      "passed": true,
+      "evidence": "\"neither holds: a and b are **concurrent**, meaning neither could have influenced the other\"; concurrent is defined at first use, and happened-before is named and defined in the same breath (line 7) rather than relied on across a gap."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; the explanation uses formal rules, a two-process worked example (P1/P2), and a decision test, never a metaphor or analogy."
+    },
+    {
+      "text": "Ends when the explanation ends; no invented next step",
+      "passed": true,
+      "evidence": "no such passage; last line is \"The mechanism is the same; the difference is whether the entries count events at processes or versions of a replicated object.\"; a naming note that closes the explanation, not an invented next step or offer."
+    }
+  ]
+}

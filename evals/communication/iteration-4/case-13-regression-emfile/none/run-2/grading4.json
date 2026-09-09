@@ -1,0 +1,44 @@
+{
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "arm": "none",
+  "run": "run-2",
+  "chars": 7828,
+  "first_action_offset": 156,
+  "inventory": [
+    {
+      "item": "/proc/",
+      "hit": true,
+      "matched": "/proc/"
+    },
+    {
+      "item": "leak",
+      "hit": true,
+      "matched": "leak"
+    },
+    {
+      "item": "limit",
+      "hit": true,
+      "matched": "limit"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": false,
+      "evidence": "\"EMFILE isn't a *consequence* of running out of file descriptors, it's the *name* of that event.\" Reason: disputes the causal premise rather than affirming it."
+    },
+    {
+      "text": "No premise challenge or 'same fact stated two ways' reframing",
+      "passed": false,
+      "evidence": "\"There's a small loop in the premise worth untangling first: EMFILE isn't a *consequence* of running out of file descriptors, it's the *name* of that event.\" Reason: explicit premise challenge, restating cause as naming."
+    },
+    {
+      "text": "Ends with one next action",
+      "passed": true,
+      "evidence": "\"If you paste the output of the `readlink` breakdown and the `ss` state counts, I can narrow it down further.\" Reason: ends with one action (paste the requested output) even though it covers two data points."
+    }
+  ]
+}

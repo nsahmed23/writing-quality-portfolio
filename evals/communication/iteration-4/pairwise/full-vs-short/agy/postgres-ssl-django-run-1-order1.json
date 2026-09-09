@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 tells the reader to install and start Postgres with Homebrew (installing postgresql@17, updating PATH, and running brew services start).",
+    "first_step_2": "Reply 2 tells the reader to install postgresql@17 and export three temporary shell environment variables before starting the service.",
+    "winner": "1",
+    "reason": "Reply 1 installs and starts the service in the first step, explicitly configures the certificate and key files in postgresql.conf, and uses the standard sslmode=require for Django local development without hardcoding architecture-specific paths."
+  },
+  "winner_arm": "short",
+  "seconds": 99.6,
+  "raw_tail": "1 sets Django's `sslmode` to `require` for local development (leaving `verify-full` as an optional hardening step), which is standard and avoids path issues. Reply 2 enforces `verify-full` as default and hardcodes an Apple Silicon path (`/opt/homebrew/...`) directly into the Django settings dictionary, introducing immediate failure points for Intel Mac users.\n- **Architecture Portability:** Reply 1 dynamically evaluates `$(brew --prefix)` for `PATH` and queries the running server directly for `SHOW data_directory;`, making it robust across both Apple Silicon and Intel macOS setups without guessing.\n\n{\"first_step_1\": \"Reply 1 tells the reader to install and start Postgres with Homebrew (installing postgresql@17, updating PATH, and running brew services start).\", \"first_step_2\": \"Reply 2 tells the reader to install postgresql@17 and export three temporary shell environment variables before starting the service.\", \"winner\": \"1\", \"reason\": \"Reply 1 installs and starts the service in the first step, explicitly configures the certificate and key files in postgresql.conf, and uses the standard sslmode=require for Django local development without hardcoding architecture-specific paths.\"}\n\n"
+}

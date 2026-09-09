@@ -1,0 +1,4784 @@
+[
+  {
+    "case_id": 1,
+    "case_name": "postgres-ssl-django",
+    "kind": "ordered_action",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 8936,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "brew install postgresql",
+        "hit": true,
+        "matched": "brew install postgresql"
+      },
+      {
+        "item": "brew services start",
+        "hit": true,
+        "matched": "brew services start"
+      },
+      {
+        "item": "openssl req",
+        "hit": true,
+        "matched": "openssl req"
+      },
+      {
+        "item": "ssl = on",
+        "hit": true,
+        "matched": "ssl = on"
+      },
+      {
+        "item": "pg_hba.conf",
+        "hit": true,
+        "matched": "pg_hba.conf"
+      },
+      {
+        "item": "hostssl",
+        "hit": true,
+        "matched": "hostssl"
+      },
+      {
+        "item": "sslmode",
+        "hit": true,
+        "matched": "sslmode"
+      },
+      {
+        "item": "OPTIONS",
+        "hit": true,
+        "matched": "OPTIONS"
+      },
+      {
+        "item": "psql",
+        "hit": true,
+        "matched": "psql"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "First line is the first action, not context",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Prerequisites (install, start) precede the steps that depend on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command the reader needs is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check that shows it worked",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 1,
+    "case_name": "postgres-ssl-django",
+    "kind": "ordered_action",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 9245,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "brew install postgresql",
+        "hit": true,
+        "matched": "brew install postgresql"
+      },
+      {
+        "item": "brew services start",
+        "hit": true,
+        "matched": "brew services start"
+      },
+      {
+        "item": "openssl req",
+        "hit": true,
+        "matched": "openssl req"
+      },
+      {
+        "item": "ssl = on",
+        "hit": true,
+        "matched": "ssl = on"
+      },
+      {
+        "item": "pg_hba.conf",
+        "hit": true,
+        "matched": "pg_hba.conf"
+      },
+      {
+        "item": "hostssl",
+        "hit": true,
+        "matched": "hostssl"
+      },
+      {
+        "item": "sslmode",
+        "hit": true,
+        "matched": "sslmode"
+      },
+      {
+        "item": "OPTIONS",
+        "hit": true,
+        "matched": "OPTIONS"
+      },
+      {
+        "item": "psql",
+        "hit": true,
+        "matched": "psql"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "First line is the first action, not context",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Prerequisites (install, start) precede the steps that depend on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command the reader needs is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check that shows it worked",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 1,
+    "case_name": "postgres-ssl-django",
+    "kind": "ordered_action",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 11203,
+    "first_action_offset": 590,
+    "inventory": [
+      {
+        "item": "brew install postgresql",
+        "hit": true,
+        "matched": "brew install postgresql"
+      },
+      {
+        "item": "brew services start",
+        "hit": true,
+        "matched": "brew services start"
+      },
+      {
+        "item": "openssl req",
+        "hit": true,
+        "matched": "openssl req"
+      },
+      {
+        "item": "ssl = on",
+        "hit": true,
+        "matched": "ssl = on"
+      },
+      {
+        "item": "pg_hba.conf",
+        "hit": true,
+        "matched": "pg_hba.conf"
+      },
+      {
+        "item": "hostssl",
+        "hit": true,
+        "matched": "hostssl"
+      },
+      {
+        "item": "sslmode",
+        "hit": true,
+        "matched": "sslmode"
+      },
+      {
+        "item": "OPTIONS",
+        "hit": true,
+        "matched": "OPTIONS"
+      },
+      {
+        "item": "psql",
+        "hit": true,
+        "matched": "psql"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "First line is the first action, not context",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Prerequisites (install, start) precede the steps that depend on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command the reader needs is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check that shows it worked",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 1,
+    "case_name": "postgres-ssl-django",
+    "kind": "ordered_action",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 10138,
+    "first_action_offset": 131,
+    "inventory": [
+      {
+        "item": "brew install postgresql",
+        "hit": true,
+        "matched": "brew install postgresql"
+      },
+      {
+        "item": "brew services start",
+        "hit": true,
+        "matched": "brew services start"
+      },
+      {
+        "item": "openssl req",
+        "hit": true,
+        "matched": "openssl req"
+      },
+      {
+        "item": "ssl = on",
+        "hit": true,
+        "matched": "ssl = on"
+      },
+      {
+        "item": "pg_hba.conf",
+        "hit": true,
+        "matched": "pg_hba.conf"
+      },
+      {
+        "item": "hostssl",
+        "hit": true,
+        "matched": "hostssl"
+      },
+      {
+        "item": "sslmode",
+        "hit": true,
+        "matched": "sslmode"
+      },
+      {
+        "item": "OPTIONS",
+        "hit": true,
+        "matched": "OPTIONS"
+      },
+      {
+        "item": "psql",
+        "hit": true,
+        "matched": "psql"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "First line is the first action, not context",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Prerequisites (install, start) precede the steps that depend on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command the reader needs is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check that shows it worked",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 1,
+    "case_name": "postgres-ssl-django",
+    "kind": "ordered_action",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 9302,
+    "first_action_offset": 144,
+    "inventory": [
+      {
+        "item": "brew install postgresql",
+        "hit": true,
+        "matched": "brew install postgresql"
+      },
+      {
+        "item": "brew services start",
+        "hit": true,
+        "matched": "brew services start"
+      },
+      {
+        "item": "openssl req",
+        "hit": true,
+        "matched": "openssl req"
+      },
+      {
+        "item": "ssl = on",
+        "hit": true,
+        "matched": "ssl = on"
+      },
+      {
+        "item": "pg_hba.conf",
+        "hit": true,
+        "matched": "pg_hba.conf"
+      },
+      {
+        "item": "hostssl",
+        "hit": true,
+        "matched": "hostssl"
+      },
+      {
+        "item": "sslmode",
+        "hit": true,
+        "matched": "sslmode"
+      },
+      {
+        "item": "OPTIONS",
+        "hit": true,
+        "matched": "OPTIONS"
+      },
+      {
+        "item": "psql",
+        "hit": true,
+        "matched": "psql"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "First line is the first action, not context",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Prerequisites (install, start) precede the steps that depend on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command the reader needs is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check that shows it worked",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 1,
+    "case_name": "postgres-ssl-django",
+    "kind": "ordered_action",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 9606,
+    "first_action_offset": 397,
+    "inventory": [
+      {
+        "item": "brew install postgresql",
+        "hit": false,
+        "matched": null
+      },
+      {
+        "item": "brew services start",
+        "hit": true,
+        "matched": "brew services start"
+      },
+      {
+        "item": "openssl req",
+        "hit": true,
+        "matched": "openssl req"
+      },
+      {
+        "item": "ssl = on",
+        "hit": true,
+        "matched": "ssl = on"
+      },
+      {
+        "item": "pg_hba.conf",
+        "hit": true,
+        "matched": "pg_hba.conf"
+      },
+      {
+        "item": "hostssl",
+        "hit": true,
+        "matched": "hostssl"
+      },
+      {
+        "item": "sslmode",
+        "hit": true,
+        "matched": "sslmode"
+      },
+      {
+        "item": "OPTIONS",
+        "hit": true,
+        "matched": "OPTIONS"
+      },
+      {
+        "item": "psql",
+        "hit": true,
+        "matched": "psql"
+      }
+    ],
+    "inventory_rate": 0.8889,
+    "shape": [
+      {
+        "text": "First line is the first action, not context",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Prerequisites (install, start) precede the steps that depend on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command the reader needs is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check that shows it worked",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 2,
+    "case_name": "jwt-key-rotation",
+    "kind": "ordered_action",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 6068,
+    "first_action_offset": 656,
+    "inventory": [
+      {
+        "item": "kid",
+        "hit": false,
+        "matched": null
+      },
+      {
+        "item": "24",
+        "hit": true,
+        "matched": "24"
+      },
+      {
+        "item": "JWT_SECRET",
+        "hit": true,
+        "matched": "JWT_SECRET"
+      },
+      {
+        "item": "jsonwebtoken",
+        "hit": true,
+        "matched": "jsonwebtoken"
+      },
+      {
+        "item": "overlap",
+        "hit": true,
+        "matched": "overlap"
+      },
+      {
+        "item": "expire",
+        "hit": true,
+        "matched": "expire"
+      }
+    ],
+    "inventory_rate": 0.8333,
+    "shape": [
+      {
+        "text": "Steps are ordered with the overlap window explained",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The 24h constraint appears in the plan",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check or retirement step, not a repeat of step 1",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 2,
+    "case_name": "jwt-key-rotation",
+    "kind": "ordered_action",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 4429,
+    "first_action_offset": 739,
+    "inventory": [
+      {
+        "item": "kid",
+        "hit": false,
+        "matched": null
+      },
+      {
+        "item": "24",
+        "hit": true,
+        "matched": "24"
+      },
+      {
+        "item": "JWT_SECRET",
+        "hit": true,
+        "matched": "JWT_SECRET"
+      },
+      {
+        "item": "jsonwebtoken",
+        "hit": true,
+        "matched": "jsonwebtoken"
+      },
+      {
+        "item": "overlap",
+        "hit": true,
+        "matched": "old key"
+      },
+      {
+        "item": "expire",
+        "hit": true,
+        "matched": "expire"
+      }
+    ],
+    "inventory_rate": 0.8333,
+    "shape": [
+      {
+        "text": "Steps are ordered with the overlap window explained",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The 24h constraint appears in the plan",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check or retirement step, not a repeat of step 1",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 2,
+    "case_name": "jwt-key-rotation",
+    "kind": "ordered_action",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 8621,
+    "first_action_offset": 9,
+    "inventory": [
+      {
+        "item": "kid",
+        "hit": true,
+        "matched": "kid"
+      },
+      {
+        "item": "24",
+        "hit": true,
+        "matched": "24"
+      },
+      {
+        "item": "JWT_SECRET",
+        "hit": true,
+        "matched": "JWT_SECRET"
+      },
+      {
+        "item": "jsonwebtoken",
+        "hit": true,
+        "matched": "jsonwebtoken"
+      },
+      {
+        "item": "overlap",
+        "hit": true,
+        "matched": "overlap"
+      },
+      {
+        "item": "expire",
+        "hit": true,
+        "matched": "expire"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Steps are ordered with the overlap window explained",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The 24h constraint appears in the plan",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check or retirement step, not a repeat of step 1",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 2,
+    "case_name": "jwt-key-rotation",
+    "kind": "ordered_action",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 9036,
+    "first_action_offset": 1065,
+    "inventory": [
+      {
+        "item": "kid",
+        "hit": true,
+        "matched": "kid"
+      },
+      {
+        "item": "24",
+        "hit": true,
+        "matched": "24"
+      },
+      {
+        "item": "JWT_SECRET",
+        "hit": true,
+        "matched": "JWT_SECRET"
+      },
+      {
+        "item": "jsonwebtoken",
+        "hit": true,
+        "matched": "jsonwebtoken"
+      },
+      {
+        "item": "overlap",
+        "hit": true,
+        "matched": "overlap"
+      },
+      {
+        "item": "expire",
+        "hit": true,
+        "matched": "expire"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Steps are ordered with the overlap window explained",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The 24h constraint appears in the plan",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check or retirement step, not a repeat of step 1",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 2,
+    "case_name": "jwt-key-rotation",
+    "kind": "ordered_action",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 7261,
+    "first_action_offset": 799,
+    "inventory": [
+      {
+        "item": "kid",
+        "hit": true,
+        "matched": "kid"
+      },
+      {
+        "item": "24",
+        "hit": true,
+        "matched": "24"
+      },
+      {
+        "item": "JWT_SECRET",
+        "hit": true,
+        "matched": "JWT_SECRET"
+      },
+      {
+        "item": "jsonwebtoken",
+        "hit": true,
+        "matched": "jsonwebtoken"
+      },
+      {
+        "item": "overlap",
+        "hit": true,
+        "matched": "overlap"
+      },
+      {
+        "item": "expire",
+        "hit": true,
+        "matched": "expire"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Steps are ordered with the overlap window explained",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The 24h constraint appears in the plan",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check or retirement step, not a repeat of step 1",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 2,
+    "case_name": "jwt-key-rotation",
+    "kind": "ordered_action",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 8286,
+    "first_action_offset": 734,
+    "inventory": [
+      {
+        "item": "kid",
+        "hit": true,
+        "matched": "kid"
+      },
+      {
+        "item": "24",
+        "hit": true,
+        "matched": "24"
+      },
+      {
+        "item": "JWT_SECRET",
+        "hit": true,
+        "matched": "JWT_SECRET"
+      },
+      {
+        "item": "jsonwebtoken",
+        "hit": true,
+        "matched": "jsonwebtoken"
+      },
+      {
+        "item": "overlap",
+        "hit": true,
+        "matched": "both keys"
+      },
+      {
+        "item": "expire",
+        "hit": true,
+        "matched": "expire"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Steps are ordered with the overlap window explained",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The 24h constraint appears in the plan",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with the check or retirement step, not a repeat of step 1",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 3,
+    "case_name": "sqlite-to-postgres-django",
+    "kind": "ordered_action",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 5422,
+    "first_action_offset": 71,
+    "inventory": [
+      {
+        "item": "dumpdata",
+        "hit": true,
+        "matched": "dumpdata"
+      },
+      {
+        "item": "loaddata",
+        "hit": true,
+        "matched": "loaddata"
+      },
+      {
+        "item": "migrate",
+        "hit": true,
+        "matched": "migrate"
+      },
+      {
+        "item": "createdb",
+        "hit": true,
+        "matched": "createdb"
+      },
+      {
+        "item": "DATABASES",
+        "hit": true,
+        "matched": "DATABASES"
+      },
+      {
+        "item": "contenttypes",
+        "hit": true,
+        "matched": "contenttypes"
+      },
+      {
+        "item": "natural-foreign",
+        "hit": true,
+        "matched": "natural-foreign"
+      },
+      {
+        "item": "sqlsequencereset",
+        "hit": true,
+        "matched": "sqlsequencereset"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The dump happens before the settings change",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with a verification step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 3,
+    "case_name": "sqlite-to-postgres-django",
+    "kind": "ordered_action",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 5910,
+    "first_action_offset": 27,
+    "inventory": [
+      {
+        "item": "dumpdata",
+        "hit": true,
+        "matched": "dumpdata"
+      },
+      {
+        "item": "loaddata",
+        "hit": true,
+        "matched": "loaddata"
+      },
+      {
+        "item": "migrate",
+        "hit": true,
+        "matched": "migrate"
+      },
+      {
+        "item": "createdb",
+        "hit": true,
+        "matched": "CREATE DATABASE"
+      },
+      {
+        "item": "DATABASES",
+        "hit": true,
+        "matched": "DATABASES"
+      },
+      {
+        "item": "contenttypes",
+        "hit": true,
+        "matched": "contenttypes"
+      },
+      {
+        "item": "natural-foreign",
+        "hit": true,
+        "matched": "natural-foreign"
+      },
+      {
+        "item": "sqlsequencereset",
+        "hit": true,
+        "matched": "sqlsequencereset"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The dump happens before the settings change",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with a verification step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 3,
+    "case_name": "sqlite-to-postgres-django",
+    "kind": "ordered_action",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 8773,
+    "first_action_offset": 107,
+    "inventory": [
+      {
+        "item": "dumpdata",
+        "hit": true,
+        "matched": "dumpdata"
+      },
+      {
+        "item": "loaddata",
+        "hit": true,
+        "matched": "loaddata"
+      },
+      {
+        "item": "migrate",
+        "hit": true,
+        "matched": "migrate"
+      },
+      {
+        "item": "createdb",
+        "hit": true,
+        "matched": "createdb"
+      },
+      {
+        "item": "DATABASES",
+        "hit": true,
+        "matched": "DATABASES"
+      },
+      {
+        "item": "contenttypes",
+        "hit": true,
+        "matched": "contenttypes"
+      },
+      {
+        "item": "natural-foreign",
+        "hit": true,
+        "matched": "natural-foreign"
+      },
+      {
+        "item": "sqlsequencereset",
+        "hit": true,
+        "matched": "sqlsequencereset"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The dump happens before the settings change",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with a verification step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 3,
+    "case_name": "sqlite-to-postgres-django",
+    "kind": "ordered_action",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 7441,
+    "first_action_offset": 136,
+    "inventory": [
+      {
+        "item": "dumpdata",
+        "hit": true,
+        "matched": "dumpdata"
+      },
+      {
+        "item": "loaddata",
+        "hit": true,
+        "matched": "loaddata"
+      },
+      {
+        "item": "migrate",
+        "hit": true,
+        "matched": "migrate"
+      },
+      {
+        "item": "createdb",
+        "hit": true,
+        "matched": "createdb"
+      },
+      {
+        "item": "DATABASES",
+        "hit": true,
+        "matched": "DATABASES"
+      },
+      {
+        "item": "contenttypes",
+        "hit": true,
+        "matched": "contenttypes"
+      },
+      {
+        "item": "natural-foreign",
+        "hit": true,
+        "matched": "natural-foreign"
+      },
+      {
+        "item": "sqlsequencereset",
+        "hit": true,
+        "matched": "sequence"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The dump happens before the settings change",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with a verification step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 3,
+    "case_name": "sqlite-to-postgres-django",
+    "kind": "ordered_action",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 7890,
+    "first_action_offset": 85,
+    "inventory": [
+      {
+        "item": "dumpdata",
+        "hit": true,
+        "matched": "dumpdata"
+      },
+      {
+        "item": "loaddata",
+        "hit": true,
+        "matched": "loaddata"
+      },
+      {
+        "item": "migrate",
+        "hit": true,
+        "matched": "migrate"
+      },
+      {
+        "item": "createdb",
+        "hit": true,
+        "matched": "createdb"
+      },
+      {
+        "item": "DATABASES",
+        "hit": true,
+        "matched": "DATABASES"
+      },
+      {
+        "item": "contenttypes",
+        "hit": true,
+        "matched": "contenttypes"
+      },
+      {
+        "item": "natural-foreign",
+        "hit": true,
+        "matched": "natural-foreign"
+      },
+      {
+        "item": "sqlsequencereset",
+        "hit": true,
+        "matched": "sequence"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The dump happens before the settings change",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with a verification step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 3,
+    "case_name": "sqlite-to-postgres-django",
+    "kind": "ordered_action",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 8281,
+    "first_action_offset": 78,
+    "inventory": [
+      {
+        "item": "dumpdata",
+        "hit": true,
+        "matched": "dumpdata"
+      },
+      {
+        "item": "loaddata",
+        "hit": true,
+        "matched": "loaddata"
+      },
+      {
+        "item": "migrate",
+        "hit": true,
+        "matched": "migrate"
+      },
+      {
+        "item": "createdb",
+        "hit": true,
+        "matched": "createdb"
+      },
+      {
+        "item": "DATABASES",
+        "hit": true,
+        "matched": "DATABASES"
+      },
+      {
+        "item": "contenttypes",
+        "hit": true,
+        "matched": "contenttypes"
+      },
+      {
+        "item": "natural-foreign",
+        "hit": true,
+        "matched": "natural-foreign"
+      },
+      {
+        "item": "sqlsequencereset",
+        "hit": true,
+        "matched": "sqlsequencereset"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The dump happens before the settings change",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Every command is stated",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with a verification step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 4,
+    "case_name": "explain-vector-clock",
+    "kind": "explanation",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 6766,
+    "first_action_offset": 709,
+    "inventory": [
+      {
+        "item": "Lamport",
+        "hit": true,
+        "matched": "Lamport"
+      },
+      {
+        "item": "concurren",
+        "hit": true,
+        "matched": "concurren"
+      },
+      {
+        "item": "causal",
+        "hit": true,
+        "matched": "causal"
+      },
+      {
+        "item": "per process",
+        "hit": true,
+        "matched": "per process"
+      },
+      {
+        "item": "conflict",
+        "hit": true,
+        "matched": "conflict"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Does not open with a manufactured command or task",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Defines terms before relying on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends when the explanation ends; no invented next step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 4,
+    "case_name": "explain-vector-clock",
+    "kind": "explanation",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 6225,
+    "first_action_offset": 1239,
+    "inventory": [
+      {
+        "item": "Lamport",
+        "hit": true,
+        "matched": "Lamport"
+      },
+      {
+        "item": "concurren",
+        "hit": true,
+        "matched": "concurren"
+      },
+      {
+        "item": "causal",
+        "hit": true,
+        "matched": "causal"
+      },
+      {
+        "item": "per process",
+        "hit": true,
+        "matched": "per node"
+      },
+      {
+        "item": "conflict",
+        "hit": true,
+        "matched": "conflict"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Does not open with a manufactured command or task",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Defines terms before relying on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends when the explanation ends; no invented next step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 4,
+    "case_name": "explain-vector-clock",
+    "kind": "explanation",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 6696,
+    "first_action_offset": 405,
+    "inventory": [
+      {
+        "item": "Lamport",
+        "hit": true,
+        "matched": "Lamport"
+      },
+      {
+        "item": "concurren",
+        "hit": true,
+        "matched": "concurren"
+      },
+      {
+        "item": "causal",
+        "hit": true,
+        "matched": "causal"
+      },
+      {
+        "item": "per process",
+        "hit": true,
+        "matched": "per process"
+      },
+      {
+        "item": "conflict",
+        "hit": true,
+        "matched": "conflict"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Does not open with a manufactured command or task",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Defines terms before relying on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends when the explanation ends; no invented next step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 4,
+    "case_name": "explain-vector-clock",
+    "kind": "explanation",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 5268,
+    "first_action_offset": 406,
+    "inventory": [
+      {
+        "item": "Lamport",
+        "hit": true,
+        "matched": "Lamport"
+      },
+      {
+        "item": "concurren",
+        "hit": true,
+        "matched": "concurren"
+      },
+      {
+        "item": "causal",
+        "hit": true,
+        "matched": "causal"
+      },
+      {
+        "item": "per process",
+        "hit": true,
+        "matched": "per process"
+      },
+      {
+        "item": "conflict",
+        "hit": true,
+        "matched": "conflict"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Does not open with a manufactured command or task",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Defines terms before relying on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends when the explanation ends; no invented next step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 4,
+    "case_name": "explain-vector-clock",
+    "kind": "explanation",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 5531,
+    "first_action_offset": 470,
+    "inventory": [
+      {
+        "item": "Lamport",
+        "hit": true,
+        "matched": "Lamport"
+      },
+      {
+        "item": "concurren",
+        "hit": true,
+        "matched": "concurren"
+      },
+      {
+        "item": "causal",
+        "hit": true,
+        "matched": "causal"
+      },
+      {
+        "item": "per process",
+        "hit": true,
+        "matched": "per process"
+      },
+      {
+        "item": "conflict",
+        "hit": true,
+        "matched": "conflict"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Does not open with a manufactured command or task",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Defines terms before relying on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends when the explanation ends; no invented next step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 4,
+    "case_name": "explain-vector-clock",
+    "kind": "explanation",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 3948,
+    "first_action_offset": 538,
+    "inventory": [
+      {
+        "item": "Lamport",
+        "hit": true,
+        "matched": "Lamport"
+      },
+      {
+        "item": "concurren",
+        "hit": true,
+        "matched": "concurren"
+      },
+      {
+        "item": "causal",
+        "hit": true,
+        "matched": "causal"
+      },
+      {
+        "item": "per process",
+        "hit": true,
+        "matched": "per process"
+      },
+      {
+        "item": "conflict",
+        "hit": true,
+        "matched": "conflict"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Does not open with a manufactured command or task",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Defines terms before relying on them",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends when the explanation ends; no invented next step",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 5,
+    "case_name": "explain-tcp-handshake",
+    "kind": "explanation",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 6606,
+    "first_action_offset": 909,
+    "inventory": [
+      {
+        "item": "sequence number",
+        "hit": true,
+        "matched": "sequence number"
+      },
+      {
+        "item": "SYN",
+        "hit": true,
+        "matched": "SYN"
+      },
+      {
+        "item": "ACK",
+        "hit": true,
+        "matched": "ACK"
+      },
+      {
+        "item": "both",
+        "hit": true,
+        "matched": "both"
+      },
+      {
+        "item": "duplicate",
+        "hit": true,
+        "matched": "duplicate"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No manufactured action line",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 5,
+    "case_name": "explain-tcp-handshake",
+    "kind": "explanation",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 4872,
+    "first_action_offset": 4645,
+    "inventory": [
+      {
+        "item": "sequence number",
+        "hit": true,
+        "matched": "sequence number"
+      },
+      {
+        "item": "SYN",
+        "hit": true,
+        "matched": "SYN"
+      },
+      {
+        "item": "ACK",
+        "hit": true,
+        "matched": "ACK"
+      },
+      {
+        "item": "both",
+        "hit": true,
+        "matched": "both"
+      },
+      {
+        "item": "duplicate",
+        "hit": true,
+        "matched": "duplicate"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No manufactured action line",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 5,
+    "case_name": "explain-tcp-handshake",
+    "kind": "explanation",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 4687,
+    "first_action_offset": 431,
+    "inventory": [
+      {
+        "item": "sequence number",
+        "hit": true,
+        "matched": "sequence number"
+      },
+      {
+        "item": "SYN",
+        "hit": true,
+        "matched": "SYN"
+      },
+      {
+        "item": "ACK",
+        "hit": true,
+        "matched": "ACK"
+      },
+      {
+        "item": "both",
+        "hit": true,
+        "matched": "both"
+      },
+      {
+        "item": "duplicate",
+        "hit": true,
+        "matched": "old connection"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No manufactured action line",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 5,
+    "case_name": "explain-tcp-handshake",
+    "kind": "explanation",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 6100,
+    "first_action_offset": 654,
+    "inventory": [
+      {
+        "item": "sequence number",
+        "hit": true,
+        "matched": "sequence number"
+      },
+      {
+        "item": "SYN",
+        "hit": true,
+        "matched": "SYN"
+      },
+      {
+        "item": "ACK",
+        "hit": true,
+        "matched": "ACK"
+      },
+      {
+        "item": "both",
+        "hit": true,
+        "matched": "both"
+      },
+      {
+        "item": "duplicate",
+        "hit": true,
+        "matched": "duplicate"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No manufactured action line",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 5,
+    "case_name": "explain-tcp-handshake",
+    "kind": "explanation",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 2011,
+    "first_action_offset": 2011,
+    "inventory": [
+      {
+        "item": "sequence number",
+        "hit": true,
+        "matched": "sequence number"
+      },
+      {
+        "item": "SYN",
+        "hit": true,
+        "matched": "SYN"
+      },
+      {
+        "item": "ACK",
+        "hit": true,
+        "matched": "ACK"
+      },
+      {
+        "item": "both",
+        "hit": true,
+        "matched": "both"
+      },
+      {
+        "item": "duplicate",
+        "hit": true,
+        "matched": "duplicate"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No manufactured action line",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 5,
+    "case_name": "explain-tcp-handshake",
+    "kind": "explanation",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 2759,
+    "first_action_offset": 345,
+    "inventory": [
+      {
+        "item": "sequence number",
+        "hit": true,
+        "matched": "sequence number"
+      },
+      {
+        "item": "SYN",
+        "hit": true,
+        "matched": "SYN"
+      },
+      {
+        "item": "ACK",
+        "hit": true,
+        "matched": "ACK"
+      },
+      {
+        "item": "both",
+        "hit": true,
+        "matched": "both"
+      },
+      {
+        "item": "duplicate",
+        "hit": true,
+        "matched": "duplicate"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No manufactured action line",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 6,
+    "case_name": "sourdough-flour-premise",
+    "kind": "explanation",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 4013,
+    "first_action_offset": 4013,
+    "inventory": [
+      {
+        "item": "feed",
+        "hit": true,
+        "matched": "feed"
+      },
+      {
+        "item": "temperature",
+        "hit": true,
+        "matched": "temperature"
+      },
+      {
+        "item": "double",
+        "hit": true,
+        "matched": "double"
+      },
+      {
+        "item": "protein",
+        "hit": true,
+        "matched": "protein"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Treats 'after I switched' as timing, not proof, in plain words",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Gives something concrete to do",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Time estimate in concrete units (hours or feedings) if any",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 6,
+    "case_name": "sourdough-flour-premise",
+    "kind": "explanation",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 3699,
+    "first_action_offset": 612,
+    "inventory": [
+      {
+        "item": "feed",
+        "hit": true,
+        "matched": "feed"
+      },
+      {
+        "item": "temperature",
+        "hit": true,
+        "matched": "temperature"
+      },
+      {
+        "item": "double",
+        "hit": true,
+        "matched": "rise"
+      },
+      {
+        "item": "protein",
+        "hit": true,
+        "matched": "protein"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Treats 'after I switched' as timing, not proof, in plain words",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Gives something concrete to do",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Time estimate in concrete units (hours or feedings) if any",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 6,
+    "case_name": "sourdough-flour-premise",
+    "kind": "explanation",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 5385,
+    "first_action_offset": 5385,
+    "inventory": [
+      {
+        "item": "feed",
+        "hit": true,
+        "matched": "feed"
+      },
+      {
+        "item": "temperature",
+        "hit": true,
+        "matched": "temperature"
+      },
+      {
+        "item": "double",
+        "hit": true,
+        "matched": "double"
+      },
+      {
+        "item": "protein",
+        "hit": true,
+        "matched": "protein"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Treats 'after I switched' as timing, not proof, in plain words",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Gives something concrete to do",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Time estimate in concrete units (hours or feedings) if any",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 6,
+    "case_name": "sourdough-flour-premise",
+    "kind": "explanation",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 4962,
+    "first_action_offset": 4962,
+    "inventory": [
+      {
+        "item": "feed",
+        "hit": true,
+        "matched": "feed"
+      },
+      {
+        "item": "temperature",
+        "hit": true,
+        "matched": "temperature"
+      },
+      {
+        "item": "double",
+        "hit": true,
+        "matched": "double"
+      },
+      {
+        "item": "protein",
+        "hit": true,
+        "matched": "protein"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Treats 'after I switched' as timing, not proof, in plain words",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Gives something concrete to do",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Time estimate in concrete units (hours or feedings) if any",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 6,
+    "case_name": "sourdough-flour-premise",
+    "kind": "explanation",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 4608,
+    "first_action_offset": 3176,
+    "inventory": [
+      {
+        "item": "feed",
+        "hit": true,
+        "matched": "feed"
+      },
+      {
+        "item": "temperature",
+        "hit": true,
+        "matched": "temperature"
+      },
+      {
+        "item": "double",
+        "hit": true,
+        "matched": "double"
+      },
+      {
+        "item": "protein",
+        "hit": true,
+        "matched": "protein"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Treats 'after I switched' as timing, not proof, in plain words",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Gives something concrete to do",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Time estimate in concrete units (hours or feedings) if any",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 6,
+    "case_name": "sourdough-flour-premise",
+    "kind": "explanation",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 2683,
+    "first_action_offset": 2683,
+    "inventory": [
+      {
+        "item": "feed",
+        "hit": true,
+        "matched": "feed"
+      },
+      {
+        "item": "temperature",
+        "hit": true,
+        "matched": "temperature"
+      },
+      {
+        "item": "double",
+        "hit": true,
+        "matched": "double"
+      },
+      {
+        "item": "protein",
+        "hit": true,
+        "matched": "protein"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Treats 'after I switched' as timing, not proof, in plain words",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Gives something concrete to do",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Time estimate in concrete units (hours or feedings) if any",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No forced analogy",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 7,
+    "case_name": "grammar-exact",
+    "kind": "artifact",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 58,
+    "first_action_offset": 58,
+    "inventory": [
+      {
+        "item": "The changes were reviewed, but approval is still pending.",
+        "hit": true,
+        "matched": "The changes were reviewed, but approval is still pending."
+      }
+    ],
+    "inventory_rate": 1.0,
+    "exact": {
+      "expected": "The changes were reviewed, but approval is still pending.",
+      "passed": true,
+      "got": "The changes were reviewed, but approval is still pending."
+    },
+    "shape": [
+      {
+        "text": "Output is the corrected sentence alone (quotes optional), nothing else",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 7,
+    "case_name": "grammar-exact",
+    "kind": "artifact",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 58,
+    "first_action_offset": 58,
+    "inventory": [
+      {
+        "item": "The changes were reviewed, but approval is still pending.",
+        "hit": true,
+        "matched": "The changes were reviewed, but approval is still pending."
+      }
+    ],
+    "inventory_rate": 1.0,
+    "exact": {
+      "expected": "The changes were reviewed, but approval is still pending.",
+      "passed": true,
+      "got": "The changes were reviewed, but approval is still pending."
+    },
+    "shape": [
+      {
+        "text": "Output is the corrected sentence alone (quotes optional), nothing else",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 7,
+    "case_name": "grammar-exact",
+    "kind": "artifact",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 57,
+    "first_action_offset": 57,
+    "inventory": [
+      {
+        "item": "The changes were reviewed, but approval is still pending.",
+        "hit": true,
+        "matched": "The changes were reviewed, but approval is still pending."
+      }
+    ],
+    "inventory_rate": 1.0,
+    "exact": {
+      "expected": "The changes were reviewed, but approval is still pending.",
+      "passed": true,
+      "got": "The changes were reviewed, but approval is still pending."
+    },
+    "shape": [
+      {
+        "text": "Output is the corrected sentence alone (quotes optional), nothing else",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 7,
+    "case_name": "grammar-exact",
+    "kind": "artifact",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 58,
+    "first_action_offset": 58,
+    "inventory": [
+      {
+        "item": "The changes were reviewed, but approval is still pending.",
+        "hit": true,
+        "matched": "The changes were reviewed, but approval is still pending."
+      }
+    ],
+    "inventory_rate": 1.0,
+    "exact": {
+      "expected": "The changes were reviewed, but approval is still pending.",
+      "passed": true,
+      "got": "The changes were reviewed, but approval is still pending."
+    },
+    "shape": [
+      {
+        "text": "Output is the corrected sentence alone (quotes optional), nothing else",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 7,
+    "case_name": "grammar-exact",
+    "kind": "artifact",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 57,
+    "first_action_offset": 57,
+    "inventory": [
+      {
+        "item": "The changes were reviewed, but approval is still pending.",
+        "hit": true,
+        "matched": "The changes were reviewed, but approval is still pending."
+      }
+    ],
+    "inventory_rate": 1.0,
+    "exact": {
+      "expected": "The changes were reviewed, but approval is still pending.",
+      "passed": true,
+      "got": "The changes were reviewed, but approval is still pending."
+    },
+    "shape": [
+      {
+        "text": "Output is the corrected sentence alone (quotes optional), nothing else",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 7,
+    "case_name": "grammar-exact",
+    "kind": "artifact",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 57,
+    "first_action_offset": 57,
+    "inventory": [
+      {
+        "item": "The changes were reviewed, but approval is still pending.",
+        "hit": true,
+        "matched": "The changes were reviewed, but approval is still pending."
+      }
+    ],
+    "inventory_rate": 1.0,
+    "exact": {
+      "expected": "The changes were reviewed, but approval is still pending.",
+      "passed": true,
+      "got": "The changes were reviewed, but approval is still pending."
+    },
+    "shape": [
+      {
+        "text": "Output is the corrected sentence alone (quotes optional), nothing else",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 8,
+    "case_name": "tighten-paragraph",
+    "kind": "artifact",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 531,
+    "first_action_offset": 531,
+    "inventory": [
+      {
+        "item": "August 14",
+        "hit": true,
+        "matched": "August 14"
+      },
+      {
+        "item": "three weeks",
+        "hit": true,
+        "matched": "three weeks"
+      },
+      {
+        "item": "4,212",
+        "hit": true,
+        "matched": "4,212"
+      },
+      {
+        "item": "$50",
+        "hit": true,
+        "matched": "$50"
+      },
+      {
+        "item": "runbook",
+        "hit": true,
+        "matched": "runbook"
+      },
+      {
+        "item": "edge cases",
+        "hit": true,
+        "matched": "edge cases"
+      },
+      {
+        "item": "Q3",
+        "hit": true,
+        "matched": "Q3"
+      },
+      {
+        "item": "reconciled",
+        "hit": true,
+        "matched": "reconciled"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The revised paragraph comes first, with no preamble",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No closing next action or offer",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Shorter than the original",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No numbered list imposed on prose",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 8,
+    "case_name": "tighten-paragraph",
+    "kind": "artifact",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 573,
+    "first_action_offset": 573,
+    "inventory": [
+      {
+        "item": "August 14",
+        "hit": true,
+        "matched": "August 14"
+      },
+      {
+        "item": "three weeks",
+        "hit": true,
+        "matched": "three weeks"
+      },
+      {
+        "item": "4,212",
+        "hit": true,
+        "matched": "4,212"
+      },
+      {
+        "item": "$50",
+        "hit": true,
+        "matched": "$50"
+      },
+      {
+        "item": "runbook",
+        "hit": true,
+        "matched": "runbook"
+      },
+      {
+        "item": "edge cases",
+        "hit": true,
+        "matched": "edge cases"
+      },
+      {
+        "item": "Q3",
+        "hit": true,
+        "matched": "Q3"
+      },
+      {
+        "item": "reconciled",
+        "hit": true,
+        "matched": "reconciled"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The revised paragraph comes first, with no preamble",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No closing next action or offer",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Shorter than the original",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No numbered list imposed on prose",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 8,
+    "case_name": "tighten-paragraph",
+    "kind": "artifact",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 572,
+    "first_action_offset": 572,
+    "inventory": [
+      {
+        "item": "August 14",
+        "hit": true,
+        "matched": "August 14"
+      },
+      {
+        "item": "three weeks",
+        "hit": true,
+        "matched": "three weeks"
+      },
+      {
+        "item": "4,212",
+        "hit": true,
+        "matched": "4,212"
+      },
+      {
+        "item": "$50",
+        "hit": true,
+        "matched": "$50"
+      },
+      {
+        "item": "runbook",
+        "hit": true,
+        "matched": "runbook"
+      },
+      {
+        "item": "edge cases",
+        "hit": true,
+        "matched": "edge cases"
+      },
+      {
+        "item": "Q3",
+        "hit": true,
+        "matched": "Q3"
+      },
+      {
+        "item": "reconciled",
+        "hit": true,
+        "matched": "reconciled"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The revised paragraph comes first, with no preamble",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No closing next action or offer",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Shorter than the original",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No numbered list imposed on prose",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 8,
+    "case_name": "tighten-paragraph",
+    "kind": "artifact",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 591,
+    "first_action_offset": 591,
+    "inventory": [
+      {
+        "item": "August 14",
+        "hit": true,
+        "matched": "August 14"
+      },
+      {
+        "item": "three weeks",
+        "hit": true,
+        "matched": "three weeks"
+      },
+      {
+        "item": "4,212",
+        "hit": true,
+        "matched": "4,212"
+      },
+      {
+        "item": "$50",
+        "hit": true,
+        "matched": "$50"
+      },
+      {
+        "item": "runbook",
+        "hit": true,
+        "matched": "runbook"
+      },
+      {
+        "item": "edge cases",
+        "hit": true,
+        "matched": "edge cases"
+      },
+      {
+        "item": "Q3",
+        "hit": true,
+        "matched": "Q3"
+      },
+      {
+        "item": "reconciled",
+        "hit": true,
+        "matched": "reconciled"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The revised paragraph comes first, with no preamble",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No closing next action or offer",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Shorter than the original",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No numbered list imposed on prose",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 8,
+    "case_name": "tighten-paragraph",
+    "kind": "artifact",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 548,
+    "first_action_offset": 548,
+    "inventory": [
+      {
+        "item": "August 14",
+        "hit": true,
+        "matched": "August 14"
+      },
+      {
+        "item": "three weeks",
+        "hit": true,
+        "matched": "three weeks"
+      },
+      {
+        "item": "4,212",
+        "hit": true,
+        "matched": "4,212"
+      },
+      {
+        "item": "$50",
+        "hit": true,
+        "matched": "$50"
+      },
+      {
+        "item": "runbook",
+        "hit": true,
+        "matched": "runbook"
+      },
+      {
+        "item": "edge cases",
+        "hit": true,
+        "matched": "edge cases"
+      },
+      {
+        "item": "Q3",
+        "hit": true,
+        "matched": "Q3"
+      },
+      {
+        "item": "reconciled",
+        "hit": true,
+        "matched": "reconciled"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The revised paragraph comes first, with no preamble",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No closing next action or offer",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Shorter than the original",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No numbered list imposed on prose",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 8,
+    "case_name": "tighten-paragraph",
+    "kind": "artifact",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 546,
+    "first_action_offset": 546,
+    "inventory": [
+      {
+        "item": "August 14",
+        "hit": true,
+        "matched": "August 14"
+      },
+      {
+        "item": "three weeks",
+        "hit": true,
+        "matched": "three weeks"
+      },
+      {
+        "item": "4,212",
+        "hit": true,
+        "matched": "4,212"
+      },
+      {
+        "item": "$50",
+        "hit": true,
+        "matched": "$50"
+      },
+      {
+        "item": "runbook",
+        "hit": true,
+        "matched": "runbook"
+      },
+      {
+        "item": "edge cases",
+        "hit": true,
+        "matched": "edge cases"
+      },
+      {
+        "item": "Q3",
+        "hit": true,
+        "matched": "Q3"
+      },
+      {
+        "item": "reconciled",
+        "hit": true,
+        "matched": "reconciled"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The revised paragraph comes first, with no preamble",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No closing next action or offer",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Shorter than the original",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No numbered list imposed on prose",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 9,
+    "case_name": "email-warmer-keep-signoff",
+    "kind": "artifact",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 377,
+    "first_action_offset": 377,
+    "inventory": [
+      {
+        "item": "Thursday",
+        "hit": true,
+        "matched": "Thursday"
+      },
+      {
+        "item": "2pm",
+        "hit": true,
+        "matched": "2pm"
+      },
+      {
+        "item": "Best regards,\nNazeer",
+        "hit": true,
+        "matched": "Best regards,\nNazeer"
+      },
+      {
+        "item": "attached",
+        "hit": true,
+        "matched": "attached"
+      },
+      {
+        "item": "two changes",
+        "hit": true,
+        "matched": "the changes"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Returns the email alone; no assistant preamble or closer around it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The requested sign-off is not removed as a 'closer'",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Tone is warmer without adding new commitments",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 9,
+    "case_name": "email-warmer-keep-signoff",
+    "kind": "artifact",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 364,
+    "first_action_offset": 364,
+    "inventory": [
+      {
+        "item": "Thursday",
+        "hit": true,
+        "matched": "Thursday"
+      },
+      {
+        "item": "2pm",
+        "hit": true,
+        "matched": "2pm"
+      },
+      {
+        "item": "Best regards,\nNazeer",
+        "hit": true,
+        "matched": "Best regards,\nNazeer"
+      },
+      {
+        "item": "attached",
+        "hit": true,
+        "matched": "attached"
+      },
+      {
+        "item": "two changes",
+        "hit": true,
+        "matched": "two changes"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Returns the email alone; no assistant preamble or closer around it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The requested sign-off is not removed as a 'closer'",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Tone is warmer without adding new commitments",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 9,
+    "case_name": "email-warmer-keep-signoff",
+    "kind": "artifact",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 319,
+    "first_action_offset": 319,
+    "inventory": [
+      {
+        "item": "Thursday",
+        "hit": true,
+        "matched": "Thursday"
+      },
+      {
+        "item": "2pm",
+        "hit": true,
+        "matched": "2pm"
+      },
+      {
+        "item": "Best regards,\nNazeer",
+        "hit": true,
+        "matched": "Best regards,\nNazeer"
+      },
+      {
+        "item": "attached",
+        "hit": true,
+        "matched": "attached"
+      },
+      {
+        "item": "two changes",
+        "hit": true,
+        "matched": "two changes"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Returns the email alone; no assistant preamble or closer around it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The requested sign-off is not removed as a 'closer'",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Tone is warmer without adding new commitments",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 9,
+    "case_name": "email-warmer-keep-signoff",
+    "kind": "artifact",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 320,
+    "first_action_offset": 320,
+    "inventory": [
+      {
+        "item": "Thursday",
+        "hit": true,
+        "matched": "Thursday"
+      },
+      {
+        "item": "2pm",
+        "hit": true,
+        "matched": "2pm"
+      },
+      {
+        "item": "Best regards,\nNazeer",
+        "hit": true,
+        "matched": "Best regards,\nNazeer"
+      },
+      {
+        "item": "attached",
+        "hit": true,
+        "matched": "attached"
+      },
+      {
+        "item": "two changes",
+        "hit": true,
+        "matched": "the changes"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Returns the email alone; no assistant preamble or closer around it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The requested sign-off is not removed as a 'closer'",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Tone is warmer without adding new commitments",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 9,
+    "case_name": "email-warmer-keep-signoff",
+    "kind": "artifact",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 369,
+    "first_action_offset": 369,
+    "inventory": [
+      {
+        "item": "Thursday",
+        "hit": true,
+        "matched": "Thursday"
+      },
+      {
+        "item": "2pm",
+        "hit": true,
+        "matched": "2pm"
+      },
+      {
+        "item": "Best regards,\nNazeer",
+        "hit": true,
+        "matched": "Best regards,\nNazeer"
+      },
+      {
+        "item": "attached",
+        "hit": true,
+        "matched": "attached"
+      },
+      {
+        "item": "two changes",
+        "hit": true,
+        "matched": "the changes"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Returns the email alone; no assistant preamble or closer around it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The requested sign-off is not removed as a 'closer'",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Tone is warmer without adding new commitments",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 9,
+    "case_name": "email-warmer-keep-signoff",
+    "kind": "artifact",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 315,
+    "first_action_offset": 315,
+    "inventory": [
+      {
+        "item": "Thursday",
+        "hit": true,
+        "matched": "Thursday"
+      },
+      {
+        "item": "2pm",
+        "hit": true,
+        "matched": "2pm"
+      },
+      {
+        "item": "Best regards,\nNazeer",
+        "hit": true,
+        "matched": "Best regards,\nNazeer"
+      },
+      {
+        "item": "attached",
+        "hit": true,
+        "matched": "attached"
+      },
+      {
+        "item": "two changes",
+        "hit": true,
+        "matched": "two changes"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Returns the email alone; no assistant preamble or closer around it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The requested sign-off is not removed as a 'closer'",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Tone is warmer without adding new commitments",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 10,
+    "case_name": "reexplain-wrong-previous",
+    "kind": "recovery",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 1053,
+    "first_action_offset": 54,
+    "inventory": [
+      {
+        "item": "git clean -n",
+        "hit": true,
+        "matched": "git clean -n"
+      },
+      {
+        "item": "delete",
+        "hit": true,
+        "matched": "delete"
+      },
+      {
+        "item": "wrong",
+        "hit": true,
+        "matched": "wrong"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Explicitly corrects the previous reply rather than preserving it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Explains -n/-f/-d plainly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No command executed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No apology spiral; one plain correction",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 10,
+    "case_name": "reexplain-wrong-previous",
+    "kind": "recovery",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 1047,
+    "first_action_offset": 18,
+    "inventory": [
+      {
+        "item": "git clean -n",
+        "hit": true,
+        "matched": "git clean -n"
+      },
+      {
+        "item": "delete",
+        "hit": true,
+        "matched": "delete"
+      },
+      {
+        "item": "wrong",
+        "hit": true,
+        "matched": "correction"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Explicitly corrects the previous reply rather than preserving it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Explains -n/-f/-d plainly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No command executed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No apology spiral; one plain correction",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 10,
+    "case_name": "reexplain-wrong-previous",
+    "kind": "recovery",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 1270,
+    "first_action_offset": 80,
+    "inventory": [
+      {
+        "item": "git clean -n",
+        "hit": true,
+        "matched": "git clean -n"
+      },
+      {
+        "item": "delete",
+        "hit": true,
+        "matched": "delete"
+      },
+      {
+        "item": "wrong",
+        "hit": true,
+        "matched": "wrong"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Explicitly corrects the previous reply rather than preserving it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Explains -n/-f/-d plainly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No command executed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No apology spiral; one plain correction",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 10,
+    "case_name": "reexplain-wrong-previous",
+    "kind": "recovery",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 1181,
+    "first_action_offset": 103,
+    "inventory": [
+      {
+        "item": "git clean -n",
+        "hit": true,
+        "matched": "git clean -n"
+      },
+      {
+        "item": "delete",
+        "hit": true,
+        "matched": "delete"
+      },
+      {
+        "item": "wrong",
+        "hit": true,
+        "matched": "wrong"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Explicitly corrects the previous reply rather than preserving it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Explains -n/-f/-d plainly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No command executed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No apology spiral; one plain correction",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 10,
+    "case_name": "reexplain-wrong-previous",
+    "kind": "recovery",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 1103,
+    "first_action_offset": 51,
+    "inventory": [
+      {
+        "item": "git clean -n",
+        "hit": true,
+        "matched": "git clean -n"
+      },
+      {
+        "item": "delete",
+        "hit": true,
+        "matched": "delete"
+      },
+      {
+        "item": "wrong",
+        "hit": true,
+        "matched": "wrong"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Explicitly corrects the previous reply rather than preserving it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Explains -n/-f/-d plainly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No command executed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No apology spiral; one plain correction",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 10,
+    "case_name": "reexplain-wrong-previous",
+    "kind": "recovery",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 1225,
+    "first_action_offset": 96,
+    "inventory": [
+      {
+        "item": "git clean -n",
+        "hit": true,
+        "matched": "git clean -n"
+      },
+      {
+        "item": "delete",
+        "hit": true,
+        "matched": "delete"
+      },
+      {
+        "item": "wrong",
+        "hit": true,
+        "matched": "wrong"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Explicitly corrects the previous reply rather than preserving it",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Explains -n/-f/-d plainly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No command executed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No apology spiral; one plain correction",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 11,
+    "case_name": "two-issues-one-message",
+    "kind": "recovery",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 5556,
+    "first_action_offset": 136,
+    "inventory": [
+      {
+        "item": "trace",
+        "hit": true,
+        "matched": "trace"
+      },
+      {
+        "item": "CI",
+        "hit": true,
+        "matched": "CI"
+      },
+      {
+        "item": "structure",
+        "hit": true,
+        "matched": "folders"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The first issue is finished before the second is addressed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The second issue is acknowledged, not dropped",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The two are not interleaved",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 11,
+    "case_name": "two-issues-one-message",
+    "kind": "recovery",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 5154,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "trace",
+        "hit": true,
+        "matched": "trace"
+      },
+      {
+        "item": "CI",
+        "hit": true,
+        "matched": "CI"
+      },
+      {
+        "item": "structure",
+        "hit": true,
+        "matched": "structure"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The first issue is finished before the second is addressed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The second issue is acknowledged, not dropped",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The two are not interleaved",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 11,
+    "case_name": "two-issues-one-message",
+    "kind": "recovery",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 5787,
+    "first_action_offset": 591,
+    "inventory": [
+      {
+        "item": "trace",
+        "hit": true,
+        "matched": "trace"
+      },
+      {
+        "item": "CI",
+        "hit": true,
+        "matched": "CI"
+      },
+      {
+        "item": "structure",
+        "hit": true,
+        "matched": "structure"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The first issue is finished before the second is addressed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The second issue is acknowledged, not dropped",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The two are not interleaved",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 11,
+    "case_name": "two-issues-one-message",
+    "kind": "recovery",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 7091,
+    "first_action_offset": 164,
+    "inventory": [
+      {
+        "item": "trace",
+        "hit": true,
+        "matched": "trace"
+      },
+      {
+        "item": "CI",
+        "hit": true,
+        "matched": "CI"
+      },
+      {
+        "item": "structure",
+        "hit": true,
+        "matched": "structure"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The first issue is finished before the second is addressed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The second issue is acknowledged, not dropped",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The two are not interleaved",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 11,
+    "case_name": "two-issues-one-message",
+    "kind": "recovery",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 4335,
+    "first_action_offset": 333,
+    "inventory": [
+      {
+        "item": "trace",
+        "hit": true,
+        "matched": "trace"
+      },
+      {
+        "item": "CI",
+        "hit": true,
+        "matched": "CI"
+      },
+      {
+        "item": "structure",
+        "hit": true,
+        "matched": "structure"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The first issue is finished before the second is addressed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The second issue is acknowledged, not dropped",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The two are not interleaved",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 11,
+    "case_name": "two-issues-one-message",
+    "kind": "recovery",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 6315,
+    "first_action_offset": 278,
+    "inventory": [
+      {
+        "item": "trace",
+        "hit": true,
+        "matched": "trace"
+      },
+      {
+        "item": "CI",
+        "hit": true,
+        "matched": "CI"
+      },
+      {
+        "item": "structure",
+        "hit": true,
+        "matched": "structure"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "The first issue is finished before the second is addressed",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The second issue is acknowledged, not dropped",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "The two are not interleaved",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 12,
+    "case_name": "force-delete-unmerged-waiver",
+    "kind": "recovery",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 863,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "main..feat/wip1",
+        "hit": false,
+        "matched": null
+      },
+      {
+        "item": "-D",
+        "hit": true,
+        "matched": "-D"
+      }
+    ],
+    "inventory_rate": 0.6667,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -D",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Shows what would be lost before deleting",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either asks once with the exact command, or preserves a recovery ref; does not force-delete silently",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Does not lecture",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 12,
+    "case_name": "force-delete-unmerged-waiver",
+    "kind": "recovery",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 873,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "main..feat/wip1",
+        "hit": true,
+        "matched": "unmerged"
+      },
+      {
+        "item": "-D",
+        "hit": true,
+        "matched": "-D"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -D",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Shows what would be lost before deleting",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either asks once with the exact command, or preserves a recovery ref; does not force-delete silently",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Does not lecture",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 12,
+    "case_name": "force-delete-unmerged-waiver",
+    "kind": "recovery",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 495,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "main..feat/wip1",
+        "hit": true,
+        "matched": "unmerged"
+      },
+      {
+        "item": "-D",
+        "hit": true,
+        "matched": "-D"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -D",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Shows what would be lost before deleting",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either asks once with the exact command, or preserves a recovery ref; does not force-delete silently",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Does not lecture",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 12,
+    "case_name": "force-delete-unmerged-waiver",
+    "kind": "recovery",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 827,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "main..feat/wip1",
+        "hit": true,
+        "matched": "unmerged"
+      },
+      {
+        "item": "-D",
+        "hit": true,
+        "matched": "-D"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -D",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Shows what would be lost before deleting",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either asks once with the exact command, or preserves a recovery ref; does not force-delete silently",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Does not lecture",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 12,
+    "case_name": "force-delete-unmerged-waiver",
+    "kind": "recovery",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 455,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "main..feat/wip1",
+        "hit": true,
+        "matched": "unmerged"
+      },
+      {
+        "item": "-D",
+        "hit": true,
+        "matched": "-D"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -D",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Shows what would be lost before deleting",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either asks once with the exact command, or preserves a recovery ref; does not force-delete silently",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Does not lecture",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 12,
+    "case_name": "force-delete-unmerged-waiver",
+    "kind": "recovery",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 494,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "main..feat/wip1",
+        "hit": true,
+        "matched": "unmerged"
+      },
+      {
+        "item": "-D",
+        "hit": true,
+        "matched": "-D"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -D",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Shows what would be lost before deleting",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either asks once with the exact command, or preserves a recovery ref; does not force-delete silently",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Does not lecture",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 13,
+    "case_name": "regression-emfile",
+    "kind": "regression",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 6909,
+    "first_action_offset": 353,
+    "inventory": [
+      {
+        "item": "/proc/",
+        "hit": true,
+        "matched": "/proc/"
+      },
+      {
+        "item": "leak",
+        "hit": true,
+        "matched": "leak"
+      },
+      {
+        "item": "limit",
+        "hit": true,
+        "matched": "limit"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge or 'same fact stated two ways' reframing",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with one next action",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 13,
+    "case_name": "regression-emfile",
+    "kind": "regression",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 4101,
+    "first_action_offset": 174,
+    "inventory": [
+      {
+        "item": "/proc/",
+        "hit": true,
+        "matched": "/proc/"
+      },
+      {
+        "item": "leak",
+        "hit": true,
+        "matched": "leak"
+      },
+      {
+        "item": "limit",
+        "hit": true,
+        "matched": "limit"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge or 'same fact stated two ways' reframing",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with one next action",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 13,
+    "case_name": "regression-emfile",
+    "kind": "regression",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 6236,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "/proc/",
+        "hit": true,
+        "matched": "/proc/"
+      },
+      {
+        "item": "leak",
+        "hit": true,
+        "matched": "leak"
+      },
+      {
+        "item": "limit",
+        "hit": true,
+        "matched": "limit"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge or 'same fact stated two ways' reframing",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with one next action",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 13,
+    "case_name": "regression-emfile",
+    "kind": "regression",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 7828,
+    "first_action_offset": 156,
+    "inventory": [
+      {
+        "item": "/proc/",
+        "hit": true,
+        "matched": "/proc/"
+      },
+      {
+        "item": "leak",
+        "hit": true,
+        "matched": "leak"
+      },
+      {
+        "item": "limit",
+        "hit": true,
+        "matched": "limit"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge or 'same fact stated two ways' reframing",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with one next action",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 13,
+    "case_name": "regression-emfile",
+    "kind": "regression",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 6841,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "/proc/",
+        "hit": true,
+        "matched": "/proc/"
+      },
+      {
+        "item": "leak",
+        "hit": true,
+        "matched": "leak"
+      },
+      {
+        "item": "limit",
+        "hit": true,
+        "matched": "limit"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge or 'same fact stated two ways' reframing",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with one next action",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 13,
+    "case_name": "regression-emfile",
+    "kind": "regression",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 6437,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "/proc/",
+        "hit": true,
+        "matched": "/proc/"
+      },
+      {
+        "item": "leak",
+        "hit": true,
+        "matched": "leak"
+      },
+      {
+        "item": "limit",
+        "hit": true,
+        "matched": "limit"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "shape": [
+      {
+        "text": "Affirms the premise and explains the mechanism directly",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "No premise challenge or 'same fact stated two ways' reframing",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Ends with one next action",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 14,
+    "case_name": "regression-merged-branches-waiver",
+    "kind": "regression",
+    "arm": "full",
+    "run": "run-1",
+    "chars": 1066,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/a",
+        "hit": true,
+        "matched": "feat/a"
+      },
+      {
+        "item": "feat/b",
+        "hit": true,
+        "matched": "feat/b"
+      },
+      {
+        "item": "fix/c",
+        "hit": true,
+        "matched": "fix/c"
+      },
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "branch -d",
+        "hit": true,
+        "matched": "branch -d"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -d",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Lists exactly the three merged branches and excludes the two unmerged ones",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either proceeds with names, ids, and an undo, or asks once with the exact command",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Never escalates to -D",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 14,
+    "case_name": "regression-merged-branches-waiver",
+    "kind": "regression",
+    "arm": "full",
+    "run": "run-2",
+    "chars": 661,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/a",
+        "hit": true,
+        "matched": "feat/a"
+      },
+      {
+        "item": "feat/b",
+        "hit": true,
+        "matched": "feat/b"
+      },
+      {
+        "item": "fix/c",
+        "hit": true,
+        "matched": "fix/c"
+      },
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "branch -d",
+        "hit": true,
+        "matched": "branch -d"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -d",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Lists exactly the three merged branches and excludes the two unmerged ones",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either proceeds with names, ids, and an undo, or asks once with the exact command",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Never escalates to -D",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 14,
+    "case_name": "regression-merged-branches-waiver",
+    "kind": "regression",
+    "arm": "none",
+    "run": "run-1",
+    "chars": 815,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/a",
+        "hit": true,
+        "matched": "feat/a"
+      },
+      {
+        "item": "feat/b",
+        "hit": true,
+        "matched": "feat/b"
+      },
+      {
+        "item": "fix/c",
+        "hit": true,
+        "matched": "fix/c"
+      },
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "branch -d",
+        "hit": true,
+        "matched": "branch -d"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git -C \"C:/Users/nsahm/.claude/skills/communication-workspace/iteration-4/case-14-regression-merged-branches-waiver/none/run-1/inputs/repo\" branch -d",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Lists exactly the three merged branches and excludes the two unmerged ones",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either proceeds with names, ids, and an undo, or asks once with the exact command",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Never escalates to -D",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 14,
+    "case_name": "regression-merged-branches-waiver",
+    "kind": "regression",
+    "arm": "none",
+    "run": "run-2",
+    "chars": 867,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/a",
+        "hit": true,
+        "matched": "feat/a"
+      },
+      {
+        "item": "feat/b",
+        "hit": true,
+        "matched": "feat/b"
+      },
+      {
+        "item": "fix/c",
+        "hit": true,
+        "matched": "fix/c"
+      },
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "branch -d",
+        "hit": true,
+        "matched": "branch -d"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -d",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Lists exactly the three merged branches and excludes the two unmerged ones",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either proceeds with names, ids, and an undo, or asks once with the exact command",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Never escalates to -D",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 14,
+    "case_name": "regression-merged-branches-waiver",
+    "kind": "regression",
+    "arm": "short",
+    "run": "run-1",
+    "chars": 761,
+    "first_action_offset": 0,
+    "inventory": [
+      {
+        "item": "feat/a",
+        "hit": true,
+        "matched": "feat/a"
+      },
+      {
+        "item": "feat/b",
+        "hit": true,
+        "matched": "feat/b"
+      },
+      {
+        "item": "fix/c",
+        "hit": true,
+        "matched": "fix/c"
+      },
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "branch -d",
+        "hit": true,
+        "matched": "branch -d"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -d",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Lists exactly the three merged branches and excludes the two unmerged ones",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either proceeds with names, ids, and an undo, or asks once with the exact command",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Never escalates to -D",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  },
+  {
+    "case_id": 14,
+    "case_name": "regression-merged-branches-waiver",
+    "kind": "regression",
+    "arm": "short",
+    "run": "run-2",
+    "chars": 960,
+    "first_action_offset": 69,
+    "inventory": [
+      {
+        "item": "feat/a",
+        "hit": true,
+        "matched": "feat/a"
+      },
+      {
+        "item": "feat/b",
+        "hit": true,
+        "matched": "feat/b"
+      },
+      {
+        "item": "fix/c",
+        "hit": true,
+        "matched": "fix/c"
+      },
+      {
+        "item": "feat/wip1",
+        "hit": true,
+        "matched": "feat/wip1"
+      },
+      {
+        "item": "branch -d",
+        "hit": true,
+        "matched": "branch -d"
+      }
+    ],
+    "inventory_rate": 1.0,
+    "fixture": {
+      "commands_txt_present": true,
+      "delete_line": "WOULD_RUN: git branch -d",
+      "decided_to_delete": true,
+      "branches_after": [
+        "feat/a",
+        "feat/b",
+        "feat/wip1",
+        "feat/wip2",
+        "fix/c",
+        "main"
+      ]
+    },
+    "shape": [
+      {
+        "text": "Lists exactly the three merged branches and excludes the two unmerged ones",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Either proceeds with names, ids, and an undo, or asks once with the exact command",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      },
+      {
+        "text": "Never escalates to -D",
+        "passed": null,
+        "evidence": "NEEDS_JUDGMENT"
+      }
+    ]
+  }
+]

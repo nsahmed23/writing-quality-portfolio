@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "No action is prescribed; it provides a direct conceptual explanation of TCP connection establishment.",
+    "first_step_2": "No action is prescribed; it provides a direct conceptual explanation of TCP connection establishment.",
+    "winner": "2",
+    "reason": "Reply 2 provides a more comprehensive and technically complete explanation by including return routability and address validation alongside sequence number agreement and stale duplicate handling."
+  },
+  "winner_arm": "none",
+  "seconds": 10.3,
+  "raw_tail": "planation request.\n\n**Reply 1 first step:** No action is prescribed; it immediately explains the bidirectional sequence number requirements and stale duplicate handling.  \n**Reply 2 first step:** No action is prescribed; it immediately explains the handshake as two overlapping exchanges and details failure modes.\n\nIf this were my problem, I would act on **Reply 2** first. While both correctly explain the fundamental 4-step logical exchange compressed into 3 packets and the stale duplicate issue from RFC 793, Reply 2 provides a more complete and rigorous answer by explaining return routability (address validation against off-path spoofing) and demonstrating the underlying 4-way mechanism via simultaneous open.\n\n```json\n{\"first_step_1\": \"No action is prescribed; it provides a direct conceptual explanation of TCP connection establishment.\", \"first_step_2\": \"No action is prescribed; it provides a direct conceptual explanation of TCP connection establishment.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides a more comprehensive and technically complete explanation by including return routability and address validation alongside sequence number agreement and stale duplicate handling.\"}\n```\n\n"
+}

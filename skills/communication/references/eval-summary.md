@@ -13,6 +13,7 @@ Each eval is one user prompt. Two arms answered it: a fresh Sonnet subagent that
 | 1 | v1 (as uploaded) | 3 | 1 | 96.3% | 70.4% | +0.26 |
 | 2 | v2 (edits 1 to 4) | 8 | 3 | 84.7% | 73.9% | +0.11 |
 | 3 | v3 (v2.1 plus four fixes) | 8 (three fixtures repaired) | 3 | 90.5% | 69.4% | +0.21 |
+| 4 | v4 (four-review consensus), three arms | 14 (12 held-out, 2 regressions) | 2 per arm, Opus 5 | blind pairwise vs no skill: Codex 15-1, Gemini 7-6 | (see below) | |
 
 Iteration 3 changed the eval, not only the skill: the restate-state fixture was repaired, the debug-spiral cap raised to 2000 characters, and the branch-deletion executors logged their commands instead of executing them, so no run stalled. Graders had to quote a verbatim span for every pass and an audit script checked the quotes (154 of 156 verified automatically, 2 verified by hand, 1 voided). The v3 edits fixed the closing action (premise check 0.96 vs 0.74) and brought time estimates back, but the v3 pre-send example sentence ("the timing matches, which is not the same as the cause") made all three with-skill replies deny cause-and-effect on the true-premise prompt (0.62 vs 0.79 without): an over-application regression the true-premise eval exists to catch. `evals/communication/iteration-4-plan.md` records the fix and the reviewer's replacement texts.
 
@@ -31,10 +32,22 @@ Iteration 2 per prompt (mean pass rate, with vs without):
 
 Cost per run with the skill: iteration 1 +26.5k tokens (+23%), iteration 2 +13.7k (+12%), attributable to the extra tool turn that reads the 12 KB skill file.
 
+## Iteration 4: three arms on Opus 5 (2026-09-09)
+
+Design from the outside reviews (GPT Q12): 14 prompts (12 held-out, none reused from iterations 1 to 3, plus the two regression prompts), three arms run by Opus 5 subagents (no skill; full v4; GPT's 25-line candidate policy), two runs each, 84 replies. Scoring: a preservation inventory of required facts, an exact-output check, fixture command logs for the two git cases, diagnostic shape assertions graded under a verbatim-quote rule with an automated quote audit, and blind pairwise judging by two off-family judges (Codex `gpt-6-astra`, Antigravity `gemini-3.8-flash-high`), both orders, a winner only when it survives reversal. Decision rule, predeclared: reject an arm with a critical correctness, safety, or output-contract failure; among the rest prefer the one readers consistently find more useful; when indistinguishable, prefer the cheaper policy.
+
+| Pair | Codex (A / B / tie / both bad / inconsistent) | Gemini (same) |
+|---|---|---|
+| full vs none | 15 / 1 / 7 / 4 / 1 | 7 / 6 / 4 / 2 / 7 |
+| short vs none | 7 / 1 / 6 / 4 / 10 | 7 / 6 / 8 / 2 / 4 |
+| full vs short | 6 / 4 / 8 / 3 / 7 | 4 / 6 / 10 / 2 / 4 |
+
+Net wins minus losses across both judges: full +18, short +7, none -25. Full wins the three procedures on Codex 5 to 0, the re-explain correction 3 to 0, and both regressions 7 to 0; it loses the two-issues message and splits the procedures on Gemini. The true-premise regression that sank v3 is fixed: both v4 runs affirm the premise while every no-skill and candidate run disputes "cause" versus "is". One shared defect: on "delete this unmerged branch with -D, don't ask", all six runs, v4 included, force-delete first and show the lost commit afterward; both judges call every pair unacceptable. Full costs about 8k more input tokens and 20 more seconds per turn than no skill and produces shorter replies (median 4.1k characters against 5.1k; the candidate 2.7k). Full report: `evals/communication/iteration-4/report.md` (tables) and `narrative.md` (findings); every reply, command log, and verdict is under `evals/communication/iteration-4/`.
+
 ## What this does not establish
 
 - Assertions check reply shape (first line is an action, term defined where it appears, one closing action), not whether the advice was correct or the prose good. A wrong answer in the right shape passes.
-- Executors and graders were Sonnet subagents, not the Opus 5 driver the skill is meant for; effect sizes on other models are unmeasured.
+- Iterations 1 to 3 used Sonnet executors and graders; iteration 4 used Opus 5 executors with Sonnet shape graders and two off-family pairwise judges. Effect sizes on other models, and on the interactive driver with the skill in its system context, are unmeasured.
 - n=3 per arm in iteration 2 and n=1 in iteration 1; single-assertion flips are single observations.
 - Six of the iteration-2 assertions were miscalibrated or non-discriminating (recorded in `evals/communication/iteration-2/benchmark.json` notes), and one fixture contained a factual error the model was penalized for catching.
 - The branch-deletion baseline is n=1 because background executors stall indefinitely on a sandbox permission prompt; the model's attempt is recorded in each run's `executor_report.md`.
@@ -43,4 +56,4 @@ Cost per run with the skill: iteration 1 +26.5k tokens (+23%), iteration 2 +13.7
 
 Edit 2 ("do not repeat the first action at the end") over-corrected: with-skill replies now often end with no next action when something is still open. Leading with a bare command delays the term definition past the sentence it first appears in. The brevity wording removed time estimates. Rule vocabulary ("sequence", "mechanism") leaks into replies as labels. `evals/communication/iteration-3-plan.md` lists the four skill edits and three eval fixes that address these.
 
-The copy in this repository is v4 (2026-09-09): the consensus edits from four outside reviews (`evals/communication/consult-synthesis.md`), including conditional lead-with-the-request, caveat placement, brevity as a closed deletion list, label-free causal language, a scope-aware destructive-action override, and the artifact boundary. v4 has not been evaluated yet; the three-arm run in `iteration-4-plan.md` is next. Earlier texts: `skill-snapshot-v1/`, `skill-snapshot-v2/` (v2.1), `skill-snapshot-v3/`.
+The copy in this repository is v4 (2026-09-09): the consensus edits from four outside reviews (`evals/communication/consult-synthesis.md`), including conditional lead-with-the-request, caveat placement, brevity as a closed deletion list, label-free causal language, a scope-aware destructive-action override, and the artifact boundary. v4 was evaluated on 2026-09-09 in the three-arm run below; the copy here is unchanged by it. The next revision (v5) has two targets from that run: the `-D` ask-first list must be stated as overriding the explicit-waiver clause, and the explanation override must stop the manufactured closing action and the leaked rule vocabulary. Earlier texts: `skill-snapshot-v1/`, `skill-snapshot-v2/` (v2.1), `skill-snapshot-v3/`.

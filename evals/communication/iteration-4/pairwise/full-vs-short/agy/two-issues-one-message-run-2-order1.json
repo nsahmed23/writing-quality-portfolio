@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Configure Playwright to retain traces, screenshots, and videos on failure, upload artifacts in CI, and inspect the DOM snapshot of the failing run.",
+    "first_step_2": "Add CI retries and 'on-first-retry' trace capture to Playwright config, upload artifacts via GitHub Actions, and view the trace in the report after a failure.",
+    "winner": "1",
+    "reason": "Reply 1 uses 'retain-on-failure' to guarantee capturing the failing attempt rather than risking tracing a passing retry, while fully answering both questions with an actionable repo migration plan."
+  },
+  "winner_arm": "short",
+  "seconds": 36.0,
+  "raw_tail": "ugging strategy is technically sounder for flakiness: configuring `trace: 'retain-on-failure'` captures the exact failure snapshot immediately without altering test execution dynamics. Reply 2 immediately turns on retries with `trace: 'on-first-retry'`, which risks running a passing retry on an intermittent flake and failing to capture the initial failing DOM state. Furthermore, Reply 1 answers both of the user's questions thoroughly, providing a concrete feature-first repo architecture, boundary enforcement strategy, and safe incremental migration plan rather than deferring the repo structure question to a follow-up.\n\n{\"first_step_1\": \"Configure Playwright to retain traces, screenshots, and videos on failure, upload artifacts in CI, and inspect the DOM snapshot of the failing run.\", \"first_step_2\": \"Add CI retries and 'on-first-retry' trace capture to Playwright config, upload artifacts via GitHub Actions, and view the trace in the report after a failure.\", \"winner\": \"1\", \"reason\": \"Reply 1 uses 'retain-on-failure' to guarantee capturing the failing attempt rather than risking tracing a passing retry, while fully answering both questions with an actionable repo migration plan.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Split the starter to run a side-by-side comparison between the old and new flours (or do a single feed and check at hour 6).",
+    "first_step_2": "Inspect the starter for signs of life and feed it for two to three cycles to observe whether it doubles in a marked jar.",
+    "winner": "2",
+    "reason": "Reply 2 correctly instructs the user to feed the starter through two or three cycles and watch for doubling on a marked jar before running a comparison test, while also accounting for alternatives like feeding ratio and water."
+  },
+  "winner_arm": "none",
+  "seconds": 21.2,
+  "raw_tail": "check if it moves by hour 6).  \n**Reply 2 first step:** Reply 2 tells the reader to check the starter's smell/appearance, perform a feed, and repeat the feeding cycle for two to three cycles using a marked jar to watch whether it doubles.\n\nIf this were my problem, I would act on **Reply 2** first. According to the facts, the correct first step is to feed the starter across two or three cycles to observe whether it doubles using a marked jar before attempting diagnostic flour tests. Reply 2 correctly establishes this multi-cycle feeding regimen as the primary course of action and also covers key alternative variables such as feeding ratios and water.\n\n{\"first_step_1\": \"Split the starter to run a side-by-side comparison between the old and new flours (or do a single feed and check at hour 6).\", \"first_step_2\": \"Inspect the starter for signs of life and feed it for two to three cycles to observe whether it doubles in a marked jar.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly instructs the user to feed the starter through two or three cycles and watch for doubling on a marked jar before running a comparison test, while also accounting for alternatives like feeding ratio and water.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the process's current open descriptor count alongside its limits in /proc/$PID/limits.",
+    "first_step_2": "Log the open descriptor count at 60-second intervals to a file to observe growth over time.",
+    "winner": "1",
+    "reason": "Reply 1 immediately checks the current descriptor count against the process limit and validates the user's correct premise, whereas Reply 2 pedantically disputes the correct premise and requires waiting on an interval loop before checking the limit."
+  },
+  "winner_arm": "full",
+  "seconds": 12.7,
+  "raw_tail": "**Reply 1 first step:** Inspect the process's current open descriptor count (`ls /proc/$PID/fd | wc -l`) alongside its soft and hard limit settings in `/proc/$PID/limits`.\n\n**Reply 2 first step:** Run a 60-second loop logging the descriptor count over time to `/tmp/fdcount.log` to determine whether the count increases monotonically.\n\nIf this were my problem, I would act on **Reply 1** first. It immediately establishes a baseline by comparing the current descriptor count directly against the process limit, does not dispute the user's correct causal premise, and correctly notes that the crash log contains valuable syscall context.\n\n{\"first_step_1\": \"Inspect the process's current open descriptor count alongside its limits in /proc/$PID/limits.\", \"first_step_2\": \"Log the open descriptor count at 60-second intervals to a file to observe growth over time.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately checks the current descriptor count against the process limit and validates the user's correct premise, whereas Reply 2 pedantically disputes the correct premise and requires waiting on an interval loop before checking the limit.\"}\n\n"
+}

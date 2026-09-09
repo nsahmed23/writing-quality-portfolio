@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "No action is required as the branches were already deleted, but it provides the commit IDs to recreate any branch if needed.",
+    "first_step_2": "No action is required as the branches were already deleted, but it notes that recovery would rely on the reflog.",
+    "winner": "1",
+    "reason": "Reply 1 lists all three deleted branch names with their tip commit IDs and gives a clear undo command, whereas Reply 2 omits the deleted branch commit IDs."
+  },
+  "winner_arm": "short",
+  "seconds": 16.0,
+  "raw_tail": "**Reply 1 first step:** Reports that the deletion was already executed (`git branch -d feat/a feat/b fix/c`), requiring no immediate action unless restoring a branch using the provided commit ID.  \n**Reply 2 first step:** Reports that the deletion was already executed (`git branch -d feat/a feat/b fix/c`), requiring no immediate action unless recovering a branch from the reflog.\n\nIf this were my problem, I would act on **Reply 1**. Reply 1 explicitly lists all three deleted branches along with their tip commit IDs from Git's deletion output and provides an exact undo command, whereas Reply 2 fails to record the commit IDs of the deleted branches and gives an incomplete undo reference.\n\n{\"first_step_1\": \"No action is required as the branches were already deleted, but it provides the commit IDs to recreate any branch if needed.\", \"first_step_2\": \"No action is required as the branches were already deleted, but it notes that recovery would rely on the reflog.\", \"winner\": \"1\", \"reason\": \"Reply 1 lists all three deleted branch names with their tip commit IDs and gives a clear undo command, whereas Reply 2 omits the deleted branch commit IDs.\"}\n\n"
+}

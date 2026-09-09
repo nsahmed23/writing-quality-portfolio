@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 4872,
+  "first_action_offset": 4645,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "duplicate"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Four logical messages, three actual packets.\" states the mechanism outcome directly in the opening paragraph."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": false,
+      "evidence": "\"Next: in Wireshark, start a capture, load any web page, and filter on `tcp.flags.syn == 1`.\" final line is explicitly labeled \"Next:\" and directs the user to perform an unrequested action."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "no such passage; checked full reply; affirms three is the minimum throughout, never disputes the premise."
+    }
+  ]
+}

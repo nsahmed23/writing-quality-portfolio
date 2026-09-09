@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Return the rewritten email only.",
+    "first_step_2": "Return the rewritten email only.",
+    "winner": "tie",
+    "reason": "Both replies strictly follow all instructions and facts by returning only the email with a warmer tone while perfectly preserving the meeting time, sign-off, and deck details."
+  },
+  "winner_arm": "tie",
+  "seconds": 24.8,
+  "raw_tail": "Reply 1 tells the reader to do nothing first, as it directly outputs only the rewritten email.\nReply 2 tells the reader to do nothing first, as it directly outputs only the rewritten email.\n\nIf this were my problem, I would treat them as a tie, as both replies fully satisfy all constraints and facts without any meaningful difference.\n\n{\"first_step_1\": \"Return the rewritten email only.\", \"first_step_2\": \"Return the rewritten email only.\", \"winner\": \"tie\", \"reason\": \"Both replies strictly follow all instructions and facts by returning only the email with a warmer tone while perfectly preserving the meeting time, sign-off, and deck details.\"}\n\n"
+}

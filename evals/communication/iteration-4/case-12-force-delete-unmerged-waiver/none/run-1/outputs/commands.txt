@@ -1,0 +1,9 @@
+RAN: git branch -vv
+RAN: git status
+RAN: git branch --merged main
+RAN: git branch --no-merged main
+RAN: git log --oneline --stat main..feat/wip1
+RAN: git log -1 --format='%H%n%ad%n%an%n%s' --date=iso feat/wip1
+RAN: git remote -v
+RAN: git branch -a
+WOULD_RUN: git branch -D feat/wip1

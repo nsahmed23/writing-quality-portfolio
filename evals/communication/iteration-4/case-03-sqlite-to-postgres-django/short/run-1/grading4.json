@@ -1,0 +1,69 @@
+{
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 7890,
+  "first_action_offset": 85,
+  "inventory": [
+    {
+      "item": "dumpdata",
+      "hit": true,
+      "matched": "dumpdata"
+    },
+    {
+      "item": "loaddata",
+      "hit": true,
+      "matched": "loaddata"
+    },
+    {
+      "item": "migrate",
+      "hit": true,
+      "matched": "migrate"
+    },
+    {
+      "item": "createdb",
+      "hit": true,
+      "matched": "createdb"
+    },
+    {
+      "item": "DATABASES",
+      "hit": true,
+      "matched": "DATABASES"
+    },
+    {
+      "item": "contenttypes",
+      "hit": true,
+      "matched": "contenttypes"
+    },
+    {
+      "item": "natural-foreign",
+      "hit": true,
+      "matched": "natural-foreign"
+    },
+    {
+      "item": "sqlsequencereset",
+      "hit": true,
+      "matched": "sequence"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The dump happens before the settings change",
+      "passed": true,
+      "evidence": "\"## 3. Dump the data\" precedes \"## 6. Point settings at Postgres\"; the dump happens before the settings change."
+    },
+    {
+      "text": "Every command is stated",
+      "passed": true,
+      "evidence": "\"python manage.py migrate\"; every step (precheck, backup, dump, driver, role/db, settings, schema, load, verify) has an explicit command."
+    },
+    {
+      "text": "Ends with a verification step",
+      "passed": false,
+      "evidence": "\"Once the counts match and a login works, delete `dump.json` (it contains password hashes and any other sensitive dev data in plaintext JSON) and remove the SQLite settings block.\"; final line is post-verification cleanup, not the verification step itself (step 9, verify, ends two sections earlier)."
+    }
+  ]
+}

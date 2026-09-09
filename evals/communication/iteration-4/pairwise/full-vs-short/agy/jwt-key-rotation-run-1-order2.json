@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 32-byte key without installing it, then deploy code that verifies against an alternate key list without modifying environment variables.",
+    "first_step_2": "Generate a new 32-byte secret and configure environment variables for the new key, legacy key, and an active key ID (kid).",
+    "winner": "2",
+    "reason": "Reply 2 properly implements key identification via `kid` headers and provides a much cleaner, safer multi-stage deployment plan that avoids swapping secret values between environment variables in production."
+  },
+  "winner_arm": "short",
+  "seconds": 77.1,
+  "raw_tail": " (`kid`) header to newly issued tokens and uses it to look up the verification key (falling back to trying both for legacy tokens), which is the standard pattern for zero-downtime key rotation. Furthermore, Reply 2 uses distinct, explicit environment variable names (`JWT_KEY_CURRENT`, `JWT_KEY_LEGACY`, `JWT_ACTIVE_KID`), whereas Reply 1 requires an awkward, error-prone rolling swap of secret values between `JWT_SECRET` and `JWT_SECRET_ALT` across multiple restarts. Reply 2 also provides superior operational guidance, including verification curls, security caveats about treating unsigned headers as hints, and explicit rollback instructions.\n\n{\"first_step_1\": \"Generate a new 32-byte key without installing it, then deploy code that verifies against an alternate key list without modifying environment variables.\", \"first_step_2\": \"Generate a new 32-byte secret and configure environment variables for the new key, legacy key, and an active key ID (kid).\", \"winner\": \"2\", \"reason\": \"Reply 2 properly implements key identification via `kid` headers and provides a much cleaner, safer multi-stage deployment plan that avoids swapping secret values between environment variables in production.\"}\n\n"
+}

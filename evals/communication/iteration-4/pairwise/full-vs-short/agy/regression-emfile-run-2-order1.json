@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Find the Node process PID using pgrep and inspect its effective open file limits in /proc/$pid/limits.",
+    "first_step_2": "Retrieve the service PID using systemctl and check its open file limits in /proc/$pid/limits.",
+    "winner": "2",
+    "reason": "Reply 2 correctly validates and explains the user's causal chain, whereas Reply 1 pedantically and incorrectly disputes the user's premise that running out of file descriptors causes EMFILE."
+  },
+  "winner_arm": "full",
+  "seconds": 24.4,
+  "raw_tail": "**Reply 1 first step:** Find the Node process PID and inspect its effective open files limit in `/proc/$pid/limits`.\n\n**Reply 2 first step:** Look up the service PID using `systemctl show` and inspect its effective open files limit in `/proc/$pid/limits`.\n\nIf this were my problem, I would act on **Reply 2** first.\n\n{\"first_step_1\": \"Find the Node process PID using pgrep and inspect its effective open file limits in /proc/$pid/limits.\", \"first_step_2\": \"Retrieve the service PID using systemctl and check its open file limits in /proc/$pid/limits.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly validates and explains the user's causal chain, whereas Reply 1 pedantically and incorrectly disputes the user's premise that running out of file descriptors causes EMFILE.\"}\n\n"
+}

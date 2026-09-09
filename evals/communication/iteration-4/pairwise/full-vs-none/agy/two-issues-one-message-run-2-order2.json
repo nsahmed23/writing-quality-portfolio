@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Configure trace capture and artifact uploads in CI to retrieve and inspect the failing run's rendered DOM snapshot.",
+    "first_step_2": "Check the last ten CI runs to determine whether the test fails deterministically or intermittently before touching configuration.",
+    "winner": "1",
+    "reason": "Reply 1 immediately executes the correct first step of capturing and inspecting the failing CI run's artifact to see what rendered, whereas Reply 2 introduces a diagnostic delay by requiring a review of CI run history first."
+  },
+  "winner_arm": "full",
+  "seconds": 16.9,
+  "raw_tail": "ct on **Reply 1** first. \n\nAccording to the established facts, the correct first step is to handle the flaky test by retrieving the failing run's CI artifact (trace or screenshot) and inspecting what the page actually rendered. Reply 1 directs the user immediately to configure artifact capture, download the trace, and inspect the rendered DOM snapshot\u2014providing a concrete diagnostic table based directly on what is visible. In contrast, Reply 2 delays getting the artifact by telling the user to analyze CI pass/fail history before touching any configuration. Both replies appropriately separate the repo structure discussion from the immediate CI failure.\n\n{\"first_step_1\": \"Configure trace capture and artifact uploads in CI to retrieve and inspect the failing run's rendered DOM snapshot.\", \"first_step_2\": \"Check the last ten CI runs to determine whether the test fails deterministically or intermittently before touching configuration.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately executes the correct first step of capturing and inspecting the failing CI run's artifact to see what rendered, whereas Reply 2 introduces a diagnostic delay by requiring a review of CI run history first.\"}\n\n"
+}

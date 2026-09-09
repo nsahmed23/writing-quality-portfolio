@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Use the provided corrected sentence directly, as no action is instructed.",
+    "first_step_2": "Use the provided corrected sentence directly, as no action is instructed.",
+    "winner": "tie",
+    "reason": "There is no meaningful difference between the two replies because both provide the exact corrected sentence without any extraneous content."
+  },
+  "winner_arm": "tie",
+  "seconds": 7.9,
+  "raw_tail": "Reply 1 does not instruct the reader to perform an action, presenting only the corrected sentence directly.\nReply 2 does not instruct the reader to perform an action, presenting only the corrected sentence directly.\n\nIf this were my problem, I would act on either equally because both provide the exact corrected sentence with no explanation or extraneous text.\n\n{\"first_step_1\": \"Use the provided corrected sentence directly, as no action is instructed.\", \"first_step_2\": \"Use the provided corrected sentence directly, as no action is instructed.\", \"winner\": \"tie\", \"reason\": \"There is no meaningful difference between the two replies because both provide the exact corrected sentence without any extraneous content.\"}\n\n"
+}

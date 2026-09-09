@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "No action is required; read the provided explanation of the TCP three-way handshake.",
+    "first_step_2": "No action is required to understand the explanation, though it suggests an optional Wireshark capture at the end.",
+    "winner": "tie",
+    "reason": "Both replies provide complete and technically accurate explanations covering initial sequence number agreement and stale duplicate SYNs with no meaningful difference in correctness or required action."
+  },
+  "winner_arm": "tie",
+  "seconds": 98.5,
+  "raw_tail": "Reply 1 tells the reader that no action is required and to simply read the conceptual explanation.\nReply 2 also provides the conceptual explanation first with no action required, while adding an optional suggestion at the end to observe the handshake in Wireshark.\n\nIf this were my problem, I would consider them a tie: both replies completely and accurately answer the user's conceptual question in accordance with all stated facts, and neither requires the user to take any initial action.\n\n{\"first_step_1\": \"No action is required; read the provided explanation of the TCP three-way handshake.\", \"first_step_2\": \"No action is required to understand the explanation, though it suggests an optional Wireshark capture at the end.\", \"winner\": \"tie\", \"reason\": \"Both replies provide complete and technically accurate explanations covering initial sequence number agreement and stale duplicate SYNs with no meaningful difference in correctness or required action.\"}\n\n"
+}

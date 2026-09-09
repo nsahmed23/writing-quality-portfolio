@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "none",
+  "run": "run-1",
+  "chars": 8621,
+  "first_action_offset": 9,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": true,
+      "matched": "kid"
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "overlap"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"The fix is an overlap window: every verifier learns the new key *before* anything signs with it, and the old key stays accepted for one full token lifetime after the switch.\"; steps 1-5 are explicitly ordered around this overlap."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"Earliest safe removal is **24h after the last instance flipped**, plus a margin for clock skew and slow retries.\"; the 24h token lifetime sets the wait in step 4."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": false,
+      "evidence": "\"Not required now, but the next rotation will be much cheaper for it.\"; final line is a forward-looking suggestion about short-lived tokens, not the check or the retirement step (step 5, which ends two sections earlier)."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Search the codebase with grep to identify all places and processes verifying JWT_SECRET.",
+    "first_step_2": "Search the codebase with grep for all usages of JWT_SECRET (signing and verifying) to identify verifiers and check for longer-lived token types.",
+    "winner": "2",
+    "reason": "Reply 2 implements key ID (kid) tagging on newly issued tokens and direct key lookup, whereas Reply 1 omits kid entirely and relies on trial-and-error error-catching across multiple secrets."
+  },
+  "winner_arm": "short",
+  "seconds": 26.8,
+  "raw_tail": "**Reply 1 first step:** Search the codebase with `grep` to find every location and process that verifies `JWT_SECRET`.\n\n**Reply 2 first step:** Search the codebase with `grep` for all places that sign or verify with `JWT_SECRET` to identify external verifiers and other token types that might govern the rotation timeline.\n\nIf this were my problem, I would act on **Reply 2** first. It aligns with the correct rotation procedure by adding a standard key ID (`kid`) header to newly issued tokens and looking up the matching key directly, whereas Reply 1 omits `kid` entirely and relies on trial-and-error verification against an array of secrets.\n\n{\"first_step_1\": \"Search the codebase with grep to identify all places and processes verifying JWT_SECRET.\", \"first_step_2\": \"Search the codebase with grep for all usages of JWT_SECRET (signing and verifying) to identify verifiers and check for longer-lived token types.\", \"winner\": \"2\", \"reason\": \"Reply 2 implements key ID (kid) tagging on newly issued tokens and direct key lookup, whereas Reply 1 omits kid entirely and relies on trial-and-error error-catching across multiple secrets.\"}\n\n"
+}

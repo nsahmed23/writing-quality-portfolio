@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 8286,
+  "first_action_offset": 734,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": true,
+      "matched": "kid"
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "both keys"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"Add the new secret to the verifier first, keep accepting the old one for longer than any token signed with it can live, then delete the old one.\"; the 5 numbered steps follow this overlap sequence."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"For 24h tokens, wait 26 to 30 hours.\"; the 24h expiry sets the wait in step 6. [quote-audit: evidence swapped back to this run; grader had crossed run-1 and run-2]"
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": false,
+      "evidence": "\"Last thing worth naming: rotation does not revoke anything.\"; final line is a tangent about revocation mechanisms, not the check or the retirement step (step 5, which ends three sections earlier)."
+    }
+  ]
+}

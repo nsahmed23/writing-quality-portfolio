@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Directly use the provided rewritten email text.",
+    "first_step_2": "Directly use the provided rewritten email text.",
+    "winner": "tie",
+    "reason": "Both replies successfully warm the tone while adhering strictly to all negative constraints and facts with no meaningful difference in quality."
+  },
+  "winner_arm": "tie",
+  "seconds": 17.9,
+  "raw_tail": "Reply 1 immediately presents the rewritten email ready to use, offering no preliminary instructions or conversational filler.\nReply 2 immediately presents the rewritten email ready to use, offering no preliminary instructions or conversational filler.\n\nIf this were my problem, I would act on either reply interchangeably, as both successfully make the email warmer while strictly following all positive and negative constraints.\n\n{\"first_step_1\": \"Directly use the provided rewritten email text.\", \"first_step_2\": \"Directly use the provided rewritten email text.\", \"winner\": \"tie\", \"reason\": \"Both replies successfully warm the tone while adhering strictly to all negative constraints and facts with no meaningful difference in quality.\"}\n\n"
+}

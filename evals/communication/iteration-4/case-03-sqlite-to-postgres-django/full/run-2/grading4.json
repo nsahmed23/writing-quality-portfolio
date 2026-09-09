@@ -1,0 +1,69 @@
+{
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 5910,
+  "first_action_offset": 27,
+  "inventory": [
+    {
+      "item": "dumpdata",
+      "hit": true,
+      "matched": "dumpdata"
+    },
+    {
+      "item": "loaddata",
+      "hit": true,
+      "matched": "loaddata"
+    },
+    {
+      "item": "migrate",
+      "hit": true,
+      "matched": "migrate"
+    },
+    {
+      "item": "createdb",
+      "hit": true,
+      "matched": "CREATE DATABASE"
+    },
+    {
+      "item": "DATABASES",
+      "hit": true,
+      "matched": "DATABASES"
+    },
+    {
+      "item": "contenttypes",
+      "hit": true,
+      "matched": "contenttypes"
+    },
+    {
+      "item": "natural-foreign",
+      "hit": true,
+      "matched": "natural-foreign"
+    },
+    {
+      "item": "sqlsequencereset",
+      "hit": true,
+      "matched": "sqlsequencereset"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The dump happens before the settings change",
+      "passed": true,
+      "evidence": "\"Dump the data first, while `settings.py` still points at SQLite:\"; opening line states the dump happens before the settings change, and step 1 (dump) precedes step 4 (point Django at it)."
+    },
+    {
+      "text": "Every command is stated",
+      "passed": true,
+      "evidence": "\"python manage.py migrate\"; every step (dump, driver, role/db, settings, migrate, load, verify) has an explicit command."
+    },
+    {
+      "text": "Ends with a verification step",
+      "passed": true,
+      "evidence": "\"You are done when `diff counts-sqlite.txt counts-postgres.txt` prints nothing but the `sessions.Session` and `admin.LogEntry` lines.\"; final line is the verification completion check."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 4,
+  "case_name": "explain-vector-clock",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "No action required; distinguish consistent ordering with Lamport timestamps from concurrency detection with vector clocks.",
+    "first_step_2": "No action required; understand that vector clocks add per-node counters to detect concurrency.",
+    "winner": "1",
+    "reason": "Reply 1 explicitly increments the vector clock on send, while Reply 2 omits that step, allowing distinct successive sends to share a timestamp and invalidating its claimed exact characterization of causality."
+  },
+  "winner_arm": "full",
+  "seconds": 27.2,
+  "raw_tail": "ce), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"No action required; distinguish consistent ordering with Lamport timestamps from concurrency detection with vector clocks.\",\"first_step_2\":\"No action required; understand that vector clocks add per-node counters to detect concurrency.\",\"winner\":\"1\",\"reason\":\"Reply 1 explicitly increments the vector clock on send, while Reply 2 omits that step, allowing distinct successive sends to share a timestamp and invalidating its claimed exact characterization of causality.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n8,190\n"
+}
