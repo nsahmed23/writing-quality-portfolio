@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 2011,
+  "first_action_offset": 2011,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "duplicate"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Because TCP is bidirectional, and each direction has its own sequence number that has to be both delivered and confirmed.\" opening line affirms the premise and states the mechanism directly."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": true,
+      "evidence": "no such passage; reply ends with \"which is the cheapest thing that actually works\"; no suggested user action anywhere in the reply."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "no such passage; checked full reply; treats three as settled and correct throughout, never disputes the premise."
+    }
+  ]
+}

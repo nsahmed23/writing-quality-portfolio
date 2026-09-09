@@ -1,0 +1,7 @@
+The last three fixes tested three different theories, more time, a network-idle wait, a different selector, and all three failed the same way. That's evidence against the assumption they shared: that the Metrics heading eventually renders in CI, just slower or under different conditions than locally. If that were true, at least one of the three would have worked. It's more likely the heading never renders in CI at all, which no timeout or selector change can fix.
+
+Common reasons a component renders locally every time but never in CI: a secret or env var set on your machine but missing in the CI environment, the metrics API being unreachable from the CI runner, or the CI browser starting each test logged out (no stored auth state), so it never leaves a login screen.
+
+Two minutes: open the trace or screenshot from the last failed CI run and check what's actually on the page at the moment of timeout, plus the console and network tabs for failed requests. If your config isn't already capturing one (check `playwright.config.ts` for `trace` or `screenshot`), set `trace: 'on'` for this project and let it fail once more to get one.
+
+What's actually on the page when it times out: blank dashboard, stuck loading, an error, or a login screen?

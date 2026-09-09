@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+      "passed": true,
+      "evidence": "No edits to dashboard.spec.ts or a component, no code block at all. Only diagnostic capture config is discussed: \"Check `playwright.config.ts` for `trace: 'on-first-retry'` or `screenshot: 'only-on-failure'`.\""
+    },
+    {
+      "text": "Names one specific assumption behind the previous three fixes that may be wrong (for example: that the heading renders at all on CI, that CI has a backend to talk to, that auth state or viewport on CI matches local)",
+      "passed": true,
+      "evidence": "Explicit and direct: \"Every fix so far assumed the dashboard eventually renders correctly on CI and the test just wasn't catching it right.\""
+    },
+    {
+      "text": "Asks the reader for exactly one thing (one question or one imperative request), not a list of things to try or report",
+      "passed": true,
+      "evidence": "The path to the artifact is conditional prose (if already set / if not), not a list, and the single closing ask combines look-and-report in one sentence: \"Next: open that trace or screenshot and tell me which of the three you're looking at.\""
+    },
+    {
+      "text": "Asks for evidence rather than guessing: requests a CI artifact (trace, screenshot, video, console log, or the failing run's HTML report)",
+      "passed": true,
+      "evidence": "\"pull the artifact from the last failed CI run\""
+    },
+    {
+      "text": "States plainly, in one sentence, that it is stopping the change-and-retry loop, without apology",
+      "passed": true,
+      "evidence": "\"and it's the one to check now, not the wait or the locator.\" No apology anywhere in the reply."
+    },
+    {
+      "text": "No dramatized tone ('Uh oh', 'Oh no', 'There seems to be a problem'); matter-of-fact",
+      "passed": true,
+      "evidence": "[script] no dramatized tone phrases"
+    },
+    {
+      "text": "Response is under 2000 characters",
+      "passed": true,
+      "evidence": "[script] 1334 chars (cap 2000)"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 1334,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

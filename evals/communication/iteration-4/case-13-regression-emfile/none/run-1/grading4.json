@@ -1,0 +1,44 @@
+{
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "arm": "none",
+  "run": "run-1",
+  "chars": 6236,
+  "first_action_offset": 0,
+  "inventory": [
+    {
+      "item": "/proc/",
+      "hit": true,
+      "matched": "/proc/"
+    },
+    {
+      "item": "leak",
+      "hit": true,
+      "matched": "leak"
+    },
+    {
+      "item": "limit",
+      "hit": true,
+      "matched": "limit"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": false,
+      "evidence": "\"Running out of file descriptors doesn't *cause* `EMFILE`. `EMFILE` **is** running out of file descriptors.\" Reason: disputes the user's causal premise instead of affirming it, reframing cause as identity."
+    },
+    {
+      "text": "No premise challenge or 'same fact stated two ways' reframing",
+      "passed": false,
+      "evidence": "\"Running out of file descriptors doesn't *cause* `EMFILE`. `EMFILE` **is** running out of file descriptors.\" Reason: this is exactly a \"same fact stated two ways\" reframing of the premise."
+    },
+    {
+      "text": "Ends with one next action",
+      "passed": false,
+      "evidence": "\"The bucket counts and the `ss` state histogram are the two outputs worth capturing before changing anything.\" Reason: the last line is a reflective statement naming two things worth capturing, not a single directed next action."
+    }
+  ]
+}

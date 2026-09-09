@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Inventory the codebase with grep to identify all JWT call sites, verifying processes, and other tokens sharing the secret that might require a longer overlap window.",
+    "first_step_2": "Generate a new 32-byte secret using crypto.randomBytes and set environment variables for the current and legacy keys.",
+    "winner": "1",
+    "reason": "Reply 1 starts by auditing the codebase for longer-lived tokens and other verifiers that dictate the overlap window, while providing a cleaner, extensible key-map architecture rather than forcing trial-and-error verification loops for legacy tokens."
+  },
+  "winner_arm": "none",
+  "seconds": 79.1,
+  "raw_tail": "`, `JWT_KEY_CURRENT`, and `JWT_KEY_LEGACY`.\n\nIf this were my problem, I would act on **Reply 1** first. Running an inventory before touching keys or code is essential because discovering tokens with longer lifetimes (or separate verifying services) directly dictates the overlap window and deployment requirements. In addition, Reply 1 implements a sustainable multi-key architecture with direct O(1) key lookups for legacy tokens, whereas Reply 2 hardcodes a temporary \"legacy\" key and relies on catching thrown verification exceptions across candidate keys for every pre-rotation token request.\n\n{\"first_step_1\": \"Inventory the codebase with grep to identify all JWT call sites, verifying processes, and other tokens sharing the secret that might require a longer overlap window.\", \"first_step_2\": \"Generate a new 32-byte secret using crypto.randomBytes and set environment variables for the current and legacy keys.\", \"winner\": \"1\", \"reason\": \"Reply 1 starts by auditing the codebase for longer-lived tokens and other verifiers that dictate the overlap window, while providing a cleaner, extensible key-map architecture rather than forcing trial-and-error verification loops for legacy tokens.\"}\n\n"
+}

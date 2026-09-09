@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 2683,
+  "first_action_offset": 2683,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": true,
+      "evidence": "\"That lines up with a flour switch by coincidence, not cause.\" plain-words statement that the timing coincidence is not the cause."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Feed 20g starter + 40g flour + 40g water by weight, mark the level on the jar with a rubber band\" concrete action given."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"Test which one you have (about 8 hours).\" concrete hour estimate given."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply; explanations are literal (protein, malt, whole grain, bleaching, temperature), no comparison to an unrelated domain."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply for \"sequence\", \"correlation\", \"premise\", \"mechanism\"; none appear."
+    }
+  ]
+}

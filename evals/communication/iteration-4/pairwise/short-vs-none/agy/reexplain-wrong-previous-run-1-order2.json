@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Do not run git clean -fd, and run git clean -nd instead to safely preview files.",
+    "first_step_2": "Do not run git clean -fd yet, and run git clean -nd to preview files.",
+    "winner": "1",
+    "reason": "Reply 1 firmly warns against running the destructive command rather than saying 'not yet', and proactively provides recovery advice in case the user already ran it."
+  },
+  "winner_arm": "none",
+  "seconds": 11.9,
+  "raw_tail": "**What Reply 1 tells the reader to do first:**  \nDo not run `git clean -fd`, and instead run `git clean -nd` to safely preview the untracked files.\n\n**What Reply 2 tells the reader to do first:**  \nDo not run `git clean -fd` yet, and instead run `git clean -nd` to preview untracked files and directories.\n\n**Which reply to act on first:**  \nReply 1. While both correctly rectify the earlier mistake by instructing the user to run `git clean -nd` instead of `git clean -fd`, Reply 1 is safer and more attentive: it says \"Don't run it\" rather than \"Do not run it yet\" (since the user's intent was to preview without deleting), and crucially provides recovery guidance (editor local history, backups) in case the user had already executed the destructive command given in the previous message.\n\n{\"first_step_1\": \"Do not run git clean -fd, and run git clean -nd instead to safely preview files.\", \"first_step_2\": \"Do not run git clean -fd yet, and run git clean -nd to preview files.\", \"winner\": \"1\", \"reason\": \"Reply 1 firmly warns against running the destructive command rather than saying 'not yet', and proactively provides recovery advice in case the user already ran it.\"}\n\n"
+}

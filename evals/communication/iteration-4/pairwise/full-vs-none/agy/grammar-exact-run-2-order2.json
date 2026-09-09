@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Use the provided corrected sentence directly.",
+    "first_step_2": "Use the provided corrected sentence directly.",
+    "winner": "tie",
+    "reason": "Both replies are identical and provide the exact requested correction with no extraneous text."
+  },
+  "winner_arm": "tie",
+  "seconds": 8.3,
+  "raw_tail": "Reply 1 does not instruct an action; it directly provides the corrected sentence for the reader to use.\nReply 2 does not instruct an action; it directly provides the corrected sentence for the reader to use.\n\nIf this were my problem, I would act on either reply interchangeably, as both are identical and completely satisfy the prompt.\n\n{\"first_step_1\": \"Use the provided corrected sentence directly.\", \"first_step_2\": \"Use the provided corrected sentence directly.\", \"winner\": \"tie\", \"reason\": \"Both replies are identical and provide the exact requested correction with no extraneous text.\"}\n\n"
+}

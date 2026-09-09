@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Install PostgreSQL 17 using Homebrew (brew install postgresql@17).",
+    "first_step_2": "Search Homebrew for available PostgreSQL versions (brew search postgresql@) and install the latest version via a shell variable.",
+    "winner": "1",
+    "reason": "Reply 1 provides a practical, straightforward self-signed certificate setup with working commands, whereas Reply 2 overcomplicates local development with a multi-step custom CA infrastructure and relies on an unreleased version default and fragile shell variables."
+  },
+  "winner_arm": "full",
+  "seconds": 43.2,
+  "raw_tail": "iability of commands:** Reply 1 provides concrete, working commands (`postgresql@17`) and verifies the data directory path directly via `psql`. Reply 2 uses placeholder shell variables (`$PG`, `$DATA_DIR`) and defaults to `postgresql@18` (which does not exist in standard stable Homebrew formulae), and introduces disruptive commands like `exec zsh` mid-tutorial that can clear unset environment variables.\n- **Postgres & macOS specifics:** Reply 1 explains crucial macOS Homebrew details (such as the current user being the superuser rather than a default `postgres` system account, and granting database ownership to prevent schema permission issues in Postgres 15+).\n\n{\"first_step_1\": \"Install PostgreSQL 17 using Homebrew (brew install postgresql@17).\", \"first_step_2\": \"Search Homebrew for available PostgreSQL versions (brew search postgresql@) and install the latest version via a shell variable.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides a practical, straightforward self-signed certificate setup with working commands, whereas Reply 2 overcomplicates local development with a multi-step custom CA infrastructure and relies on an unreleased version default and fragile shell variables.\"}\n\n"
+}

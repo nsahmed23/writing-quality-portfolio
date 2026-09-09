@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Set up an immediate side-by-side feeding test in two jars comparing the old and new flours with marked rubber bands.",
+    "first_step_2": "Inspect the starter by look and smell for signs of health or spoilage before feeding and monitoring it across two to three cycles in a marked jar.",
+    "winner": "2",
+    "reason": "Reply 2 correctly states in plain words without category labels that timing does not prove cause ('after is not because') and outlines a practical first step of verifying vitality and observing doubling over two to three cycles."
+  },
+  "winner_arm": "none",
+  "seconds": 18.7,
+  "raw_tail": " equal causation (stating that *\"after\" is not \"because\"* and noting that other factors like temperature likely shifted). In contrast, Reply 1 misses this principle entirely and instead argues that being a week into the transition makes flour adaptation an unlikely suspect. Furthermore, Reply 2 provides a more practical, logical sequence of steps: rather than jumping straight into a multi-jar comparison test that assumes the old flour is readily available, it instructs the baker to inspect the culture for viability, feed it consistently over two to three cycles, and track its rise with a marked jar before troubleshooting further.\n\n{\"first_step_1\": \"Set up an immediate side-by-side feeding test in two jars comparing the old and new flours with marked rubber bands.\", \"first_step_2\": \"Inspect the starter by look and smell for signs of health or spoilage before feeding and monitoring it across two to three cycles in a marked jar.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly states in plain words without category labels that timing does not prove cause ('after is not because') and outlines a practical first step of verifying vitality and observing doubling over two to three cycles.\"}\n\n"
+}

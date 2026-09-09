@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 immediately provides the rewritten email without any preamble.",
+    "first_step_2": "Reply 2 immediately provides the rewritten email without any preamble.",
+    "winner": "tie",
+    "reason": "Both replies strictly adhere to all instructions by returning only the warmed-up email while preserving the exact meeting time, sign-off, and key details with no meaningful difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 20.9,
+  "raw_tail": "**Reply 1:** Provides the rewritten email directly with no introductory or conversational preamble.  \n**Reply 2:** Provides the rewritten email directly with no introductory or conversational preamble.\n\nIf this were my problem, I would act on either reply interchangeably (tie), as both perfectly fulfill all requirements and constraints.\n\n{\"first_step_1\": \"Reply 1 immediately provides the rewritten email without any preamble.\", \"first_step_2\": \"Reply 2 immediately provides the rewritten email without any preamble.\", \"winner\": \"tie\", \"reason\": \"Both replies strictly adhere to all instructions by returning only the warmed-up email while preserving the exact meeting time, sign-off, and key details with no meaningful difference.\"}\n\n"
+}

@@ -1,0 +1,70 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "\"JWT (JSON Web Token) auth works by having the server issue a signed token when you log in, and having you present that token on every later request instead of a session ID.\" - expansion and plain-word definition in the same, first sentence."
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "\"Step 4 is why people call this \\\"stateless.\\\" The server never stores \\\"who is logged in right now\\\" anywhere: no session table, no in-memory session map, nothing to check on each request.\" - definition given in the sentence immediately following its first use."
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": false,
+      "evidence": "\"So, to your actual question: yes, it's true, and it's the direct cost of the design above.\" - the direct answer is a flat 'yes', not framed as conditional; the nuance about mitigations only follows several sentences later in a subsequent paragraph."
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "\"The common fixes all work by reintroducing a little bit of state, on purpose, in exchange for control\" plus concrete options: \"**Refresh tokens.**\" and \"**A revocation list (denylist).** The server keeps a small store, often Redis, of token IDs that were explicitly invalidated before their natural expiry...\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'Authorization: Bearer'"
+    },
+    {
+      "text": "Uses headers or another skimmable structure for the full explanation (the 'explain' override allows a long body)",
+      "passed": false,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'JWT (JSON Web Token) auth works by having the server issue a signed token when you log in, and having you present that t'"
+    },
+    {
+      "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: 'So the accurate version of the claim: a genuinely stateless JWT cannot be revoked before it expires, full stop, because '; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pending": 0,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 4731,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Uses headers or another skimmable structure for the full explanation (the 'explain' override allows a long body)",
+        "reason": "The script only counts markdown header lines and found none, but the assertion text explicitly allows 'headers or another skimmable structure.' This response has a 4-item numbered list (the auth flow) and a 4-item bulleted list (the revocation fixes), which arguably satisfy that broader allowance. The script's narrower check may be under-crediting genuinely skimmable structure."
+      }
+    ],
+    "overall": "Assertions are otherwise well-targeted; the skimmability check is the one place the script's proxy (header count) may not match the assertion's own stated scope."
+  }
+}

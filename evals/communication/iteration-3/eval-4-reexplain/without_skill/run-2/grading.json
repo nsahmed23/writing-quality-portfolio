@@ -1,0 +1,64 @@
+{
+  "expectations": [
+    {
+      "text": "Every command from the previous reply appears verbatim: the Get-NetTCPConnection line, Stop-Process -Id <PID> -Force, npm install -D nodemon@latest, netsh interface ipv4 show excludedportrange protocol=tcp, and tsx watch src/server.ts",
+      "passed": false,
+      "evidence": "[script] missing: Stop-Process, nodemon update, netsh excludedportrange, tsx watch"
+    },
+    {
+      "text": "Adds no new commands, tools, or facts that were not in the previous reply",
+      "passed": true,
+      "evidence": "The three bulleted outcomes restate the original's content without adding new claims: \"something else, like Docker or WSL2, may have reserved it\" matches the original's Docker Desktop/WSL2/Hyper-V port-reservation point, and \"a leftover copy of your own server is still running and blocking the new one\" restates the stray-process idea rather than introducing a new cause, tool, or command."
+    },
+    {
+      "text": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+      "passed": true,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Keeps the four numbered steps of the original in the same order",
+      "passed": false,
+      "evidence": "None of the four steps appear; they are deferred wholesale: \"Everything about Node 24 and nodemon in my last message can wait, it's only relevant if the simple fix doesn't hold.\""
+    },
+    {
+      "text": "Sentences are shorter: mean words per sentence is lower than in the previous reply",
+      "passed": true,
+      "evidence": "[script] mean words/sentence: reply 16.5 vs original 25.2"
+    },
+    {
+      "text": "Asks no new question; the only request to the reader, if any, is the original one (run the port check and report the process name and PID)",
+      "passed": true,
+      "evidence": "The only request, \"Send me back exactly what it prints (or tell me it printed nothing)\", is the original port-check request broadened to cover the empty-output case; no separate new question is added. The rhetorical framing 'what program is holding onto port 8080 right now?' inside the explanation describes what the command does, it is not a question addressed to the reader."
+    },
+    {
+      "text": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+      "passed": true,
+      "evidence": "[script] no apology or meta-commentary found"
+    },
+    {
+      "text": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+      "passed": true,
+      "evidence": "[script] no 'sequence'/'correlation' labels"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 2,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 1032,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+        "reason": "This reply drops the timing-versus-cause explanation entirely (\"Everything about Node 24 and nodemon in my last message can wait\") and still passes, because the script only checks for the absence of two forbidden words rather than for the explanation actually being present."
+      }
+    ],
+    "overall": "The timing-versus-cause assertion is satisfied by omission as easily as by a genuine plain-language explanation; requiring some minimal Node/timing content to be present would make it more discriminating."
+  }
+}

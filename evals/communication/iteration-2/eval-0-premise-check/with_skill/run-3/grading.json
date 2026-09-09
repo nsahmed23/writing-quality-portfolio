@@ -1,0 +1,73 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"What you've actually got is a sequence: you upgraded last Thursday, and the errors started around then. That's real, but it's a correlation, not a demonstrated cause, and I can't check your machine or repo to close that from here.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": false,
+      "evidence": "'EADDRINUSE' first appears in \"That's the useful move, because \\\"Node 24 causes EADDRINUSE\\\" isn't something I can confirm as a mechanism.\" Neither that sentence nor the one right after it (about the Windows socket layer generally) states that the port is already held by another process; the closest actual explanation (\"The real listener survives, still bound to 8080...\") appears two paragraphs later."
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": true,
+      "evidence": "First line: \"Check what already owns port 8080 before touching Node itself:\", immediately followed by the two `netstat`/`tasklist` commands."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'Get-NetTCPConnection'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"Likely chain: nodemon kills the old process and starts a new one each time a watched file changes...The real listener survives, still bound to 8080, and the next restart's `server.listen(8080)` in server.ts fails against it.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"What I can't verify at all, since I don't have your machine or repository: the actual contents of `C:\\Dev\\Projects\\inventory-api\\src\\server.ts`, your `package.json` dev script or any `nodemon.json`...\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Node 24 itself doesn't have a mechanism that produces EADDRINUSE. That error comes from the OS rejecting a `bind()` call\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"If step 1 turns up something that isn't Node at all, the Node 24 upgrade is coincidental, and the fix is just freeing po\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Response closes with a 3-item bulleted list of alternative fixes (\"Leftover node.exe holding the port...\", \"Still flaky after that...\", \"Port excluded by Windows...\") followed by the meta line \"Whichever process that PID turns out to be decides which fix applies.\" \u2014 a list of options, not one action."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 3062,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes",
+        "reason": "This pulls against 'Says what it could not verify': placing the verification caveat and a menu of branch-dependent fixes near the end (both good-faith, honest choices) crowds out a single clean closing action."
+      },
+      {
+        "assertion": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+        "reason": "Response never states the definition plainly anywhere near the term's first appearance; it's inferable only from a mechanism description ('still bound to 8080...fails against it') two paragraphs later, which a reader unfamiliar with the error code would likely miss."
+      }
+    ],
+    "overall": "Note that 2 of the 3 with_skill runs (this one and run-1) fail the EADDRINUSE-definition-placement assertion for a similar structural reason: opening with a pure action line pushes the actual definition several sentences deeper into the response."
+  }
+}

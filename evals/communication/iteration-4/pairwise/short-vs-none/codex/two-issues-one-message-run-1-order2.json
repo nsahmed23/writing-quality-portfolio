@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Capture and inspect CI failure artifacts to see what the page rendered at the timeout.",
+    "first_step_2": "Capture and inspect a failing CI trace, starting with the DOM snapshot at the failed step.",
+    "winner": "tie",
+    "reason": "Both prioritize evidence from the failing CI run and address repo structure separately afterward, so there is no meaningful difference in the first action."
+  },
+  "winner_arm": "tie",
+  "seconds": 27.7,
+  "raw_tail": "blem, which reply would you act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Capture and inspect CI failure artifacts to see what the page rendered at the timeout.\",\"first_step_2\":\"Capture and inspect a failing CI trace, starting with the DOM snapshot at the failed step.\",\"winner\":\"tie\",\"reason\":\"Both prioritize evidence from the failing CI run and address repo structure separately afterward, so there is no meaningful difference in the first action.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n7,916\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Check Django version, verify migration status with makemigrations --check and showmigrations, and record SQLite baseline row counts.",
+    "first_step_2": "Verify migration status with showmigrations and makemigrations --check, and copy db.sqlite3 to a backup file.",
+    "winner": "1",
+    "reason": "Reply 1 correctly includes --natural-primary as part of the safe dump procedure and records baseline table counts before switching database settings, unlike Reply 2 which advises against the flag and orders the baseline count step after the Postgres switch."
+  },
+  "winner_arm": "short",
+  "seconds": 37.4,
+  "raw_tail": "nd record existing SQLite row counts as a baseline.\n**Reply 2 first step:** Verify migration status with `showmigrations` and `makemigrations --check --dry-run`, then create a backup copy of `db.sqlite3`.\n\nIf this were my problem, I would act on **Reply 1** first.\n\nReply 1 follows the established safe order by including `--natural-primary` in the `dumpdata` flags and records baseline row counts on SQLite *before* changing configuration, whereas Reply 2 explicitly advises against `--natural-primary` and mistakenly instructs the user to record SQLite row counts in step 8 after settings have already been pointed to Postgres.\n\n{\"first_step_1\": \"Check Django version, verify migration status with makemigrations --check and showmigrations, and record SQLite baseline row counts.\", \"first_step_2\": \"Verify migration status with showmigrations and makemigrations --check, and copy db.sqlite3 to a backup file.\", \"winner\": \"1\", \"reason\": \"Reply 1 correctly includes --natural-primary as part of the safe dump procedure and records baseline table counts before switching database settings, unlike Reply 2 which advises against the flag and orders the baseline count step after the Postgres switch.\"}\n\n"
+}

@@ -1,0 +1,59 @@
+{
+  "case_id": 4,
+  "case_name": "explain-vector-clock",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 6225,
+  "first_action_offset": 1239,
+  "inventory": [
+    {
+      "item": "Lamport",
+      "hit": true,
+      "matched": "Lamport"
+    },
+    {
+      "item": "concurren",
+      "hit": true,
+      "matched": "concurren"
+    },
+    {
+      "item": "causal",
+      "hit": true,
+      "matched": "causal"
+    },
+    {
+      "item": "per process",
+      "hit": true,
+      "matched": "per node"
+    },
+    {
+      "item": "conflict",
+      "hit": true,
+      "matched": "conflict"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Does not open with a manufactured command or task",
+      "passed": true,
+      "evidence": "\"A vector clock is a list of counters, one per node, attached to every message and every stored version.\"; opens with a direct definition, not a manufactured command or task."
+    },
+    {
+      "text": "Defines terms before relying on them",
+      "passed": true,
+      "evidence": "\"If neither A → B nor B → A, the events are **concurrent**: nothing in the system's history links them, and no observer can say which came first.\"; concurrent and happened-before are both defined at the point they are introduced, before either is used in an argument."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; the Alice/Bob shopping-cart section is a concrete instance of the real replica-conflict scenario (Dynamo/Riak-style), not a metaphor; the rest runs on formal definitions and comparison rules."
+    },
+    {
+      "text": "Ends when the explanation ends; no invented next step",
+      "passed": true,
+      "evidence": "no such passage; last line is \"CockroachDB and MongoDB both use them.\"; ends by finishing the hybrid-logical-clock aside, not an invented next step or offer."
+    }
+  ]
+}

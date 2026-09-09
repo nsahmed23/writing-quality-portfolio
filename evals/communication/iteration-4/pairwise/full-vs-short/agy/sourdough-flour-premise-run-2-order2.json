@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Feed a single jar of starter at a 1:2:2 ratio, mark the level with a rubber band, keep it warm, and watch whether it doubles within 4 to 8 hours.",
+    "first_step_2": "Feed two separate jars side-by-side (one with the new flour, one with the old flour or whole wheat/rye), mark both levels, and check hourly to compare peak times.",
+    "winner": "1",
+    "reason": "Reply 1 uses a practical single-jar test that accounts for multi-cycle adaptation, whereas Reply 2 demands an impractical hourly two-jar test with an improper grain control that risks a false diagnosis."
+  },
+  "winner_arm": "short",
+  "seconds": 43.6,
+  "raw_tail": "s were my problem, I would act on **Reply 1** first. \n\nReply 1 correctly distinguishes between starter failure and dough failure, providing a simple, standard marked-jar test to verify activity before recommending feeding across two to three days so the culture can adapt to the new flour. By contrast, Reply 2 demands an impractical test requiring hourly checks over 4 to 8 hours, fails to account for multi-cycle adaptation, and suggests using rye or whole wheat as a reference point\u2014which inherently ferments much faster than standard white flour and would create a false impression that the new flour is defective.\n\n{\"first_step_1\": \"Feed a single jar of starter at a 1:2:2 ratio, mark the level with a rubber band, keep it warm, and watch whether it doubles within 4 to 8 hours.\", \"first_step_2\": \"Feed two separate jars side-by-side (one with the new flour, one with the old flour or whole wheat/rye), mark both levels, and check hourly to compare peak times.\", \"winner\": \"1\", \"reason\": \"Reply 1 uses a practical single-jar test that accounts for multi-cycle adaptation, whereas Reply 2 demands an impractical hourly two-jar test with an improper grain control that risks a false diagnosis.\"}\n\n"
+}

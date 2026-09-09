@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Run prechecks on SQLite to verify migration status and record baseline row counts.",
+    "first_step_2": "Back up db.sqlite3 and dump SQLite data to JSON using manage.py dumpdata.",
+    "winner": "1",
+    "reason": "Reply 1 establishes baseline row counts to verify against after loading, checks migration consistency, and avoids a KeyError in the database settings."
+  },
+  "winner_arm": "short",
+  "seconds": 20.7,
+  "raw_tail": "ions are clean and record baseline database row counts before touching the data.  \n**Reply 2 first step:** Create a copy of `db.sqlite3` and run `manage.py dumpdata` to export the SQLite database to a JSON fixture.\n\nIf this were my problem, I would act on **Reply 1** first. \n\nBoth replies follow the critical principle of dumping SQLite data before modifying database settings, but Reply 1 provides a safer, end-to-end workflow. It establishes baseline row counts on SQLite and verifies them after `loaddata` against Postgres (matching the recommended verification procedure), checks migration consistency prior to the dump, provides working default database settings without throwing a `KeyError` on `os.environ[\"PGPASSWORD\"]`, and includes detailed troubleshooting for common type mismatches and permission constraints.\n\n{\"first_step_1\": \"Run prechecks on SQLite to verify migration status and record baseline row counts.\", \"first_step_2\": \"Back up db.sqlite3 and dump SQLite data to JSON using manage.py dumpdata.\", \"winner\": \"1\", \"reason\": \"Reply 1 establishes baseline row counts to verify against after loading, checks migration consistency, and avoids a KeyError in the database settings.\"}\n\n"
+}

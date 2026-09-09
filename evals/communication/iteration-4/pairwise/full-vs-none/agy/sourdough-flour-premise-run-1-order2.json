@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the starter for viability and mold, then feed it in a marked jar and monitor doubling over two to three cycles.",
+    "first_step_2": "Split the starter into two jars to run an immediate side-by-side rise comparison between the old and new flours.",
+    "winner": "1",
+    "reason": "Reply 1 aligns with the correct first step of monitoring the starter across two to three feeding cycles in a marked jar to check for doubling, whereas Reply 2 immediately prescribes a comparative split test that requires having the old flour."
+  },
+  "winner_arm": "none",
+  "seconds": 20.9,
+  "raw_tail": "d the starter on its regular schedule for two to three cycles and observe whether it doubles using a marked jar to track activity. Reply 1 follows this process by instructing the user to observe the culture and carry out multiple feeding cycles in a marked container before jumping to conclusions or running complex tests. In contrast, Reply 2 immediately jumps to an A/B split test that requires having leftover old flour on hand and neglects the standard multi-cycle feeding observation. Additionally, Reply 1 covers the full range of common alternative causes (temperature, feeding ratio, and water), whereas Reply 2 overlooks feeding ratio and water.\n\n{\"first_step_1\": \"Inspect the starter for viability and mold, then feed it in a marked jar and monitor doubling over two to three cycles.\", \"first_step_2\": \"Split the starter into two jars to run an immediate side-by-side rise comparison between the old and new flours.\", \"winner\": \"1\", \"reason\": \"Reply 1 aligns with the correct first step of monitoring the starter across two to three feeding cycles in a marked jar to check for doubling, whereas Reply 2 immediately prescribes a comparative split test that requires having the old flour.\"}\n\n"
+}

@@ -1,0 +1,12 @@
+RAN: git status
+RAN: git branch -vv
+RAN: git branch --merged main
+RAN: git branch --no-merged main
+RAN: git log --oneline main..feat/wip1
+RAN: git rev-list --count feat/wip1..main
+RAN: git remote -v
+RAN: git branch -a --contains 95ef998
+RAN: git tag --list
+RAN: git log -1 --stat feat/wip1
+RAN: git reflog show feat/wip1
+WOULD_RUN: git branch -D feat/wip1

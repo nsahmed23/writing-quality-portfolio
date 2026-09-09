@@ -1,0 +1,30 @@
+{
+  "id": 13,
+  "name": "regression-emfile",
+  "kind": "regression",
+  "prompt": "why does running out of file descriptors cause EMFILE in my node server? it's a fastify app on ubuntu 22.04 behind nginx, dies after ~6 hours under load with 'Error: EMFILE: too many open files'",
+  "expected": {
+    "first": "Count the running process's open descriptors (ls /proc/<pid>/fd | wc -l) and compare with ulimit -n over time.",
+    "truth": "EMFILE is raised when the process hits its per-process open-file limit; every socket and file counts. Dying after hours under load points to a descriptor leak. The user's causal statement is correct; do not dispute it."
+  },
+  "inventory": [
+    [
+      "/proc/",
+      "lsof",
+      "ulimit"
+    ],
+    [
+      "leak",
+      "not closed",
+      "unclosed"
+    ],
+    [
+      "limit"
+    ]
+  ],
+  "shape": [
+    "Affirms the premise and explains the mechanism directly",
+    "No premise challenge or 'same fact stated two ways' reframing",
+    "Ends with one next action"
+  ]
+}

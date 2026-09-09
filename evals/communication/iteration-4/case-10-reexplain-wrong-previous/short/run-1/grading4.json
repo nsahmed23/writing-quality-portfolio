@@ -1,0 +1,49 @@
+{
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 1103,
+  "first_action_offset": 51,
+  "inventory": [
+    {
+      "item": "git clean -n",
+      "hit": true,
+      "matched": "git clean -n"
+    },
+    {
+      "item": "delete",
+      "hit": true,
+      "matched": "delete"
+    },
+    {
+      "item": "wrong",
+      "hit": true,
+      "matched": "wrong"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Explicitly corrects the previous reply rather than preserving it",
+      "passed": true,
+      "evidence": "\"Correction first, because my last reply was wrong:\" opens the reply."
+    },
+    {
+      "text": "Explains -n/-f/-d plainly",
+      "passed": true,
+      "evidence": "\"`-n` is a dry run. It prints what would be removed and removes nothing.\n- `-d` includes untracked directories, not just loose files.\" and \"`-f` means \\\"force\\\", and it is the flag that actually does the deleting. Git requires it because the deletion cannot be undone.\" All three flags covered."
+    },
+    {
+      "text": "No command executed",
+      "passed": true,
+      "evidence": "no such passage; the fenced block shows only \"git clean -nd\" as the command to run, no output or execution claim."
+    },
+    {
+      "text": "No apology spiral; one plain correction",
+      "passed": true,
+      "evidence": "no such passage; checked for \"sorry\" or \"apologize\"; none found, a single correction opener."
+    }
+  ]
+}

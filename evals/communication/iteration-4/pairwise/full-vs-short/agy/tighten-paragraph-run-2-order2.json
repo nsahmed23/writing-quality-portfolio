@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 returns the tightened paragraph first.",
+    "first_step_2": "Reply 2 returns the tightened paragraph first.",
+    "winner": "tie",
+    "reason": "There is no meaningful difference between the two replies, as both correctly return the tightened paragraph first, preserve every required fact, and include a single sentence explaining the changes."
+  },
+  "winner_arm": "tie",
+  "seconds": 36.2,
+  "raw_tail": "Reply 1 presents the tightened paragraph first for the reader to review or use.\nReply 2 presents the tightened paragraph first for the reader to review or use.\nIf this were my problem, I would act on either reply interchangeably (tie), as both fulfill the prompt's instructions and preserve all required facts without meaningful difference.\n\n{\"first_step_1\": \"Reply 1 returns the tightened paragraph first.\", \"first_step_2\": \"Reply 2 returns the tightened paragraph first.\", \"winner\": \"tie\", \"reason\": \"There is no meaningful difference between the two replies, as both correctly return the tightened paragraph first, preserve every required fact, and include a single sentence explaining the changes.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Copy and use the rewritten email directly.",
+    "first_step_2": "Copy and use the rewritten email directly.",
+    "winner": "tie",
+    "reason": "There is no decisive difference, as both replies follow all instructions and negative constraints completely, returning only the rewritten email with an appropriately warm tone and all required details intact."
+  },
+  "winner_arm": "tie",
+  "seconds": 28.6,
+  "raw_tail": "Reply 1 tells the reader to directly use the provided rewritten email, which asks the recipient if Thursday at 2pm works to discuss open questions.\nReply 2 tells the reader to directly use the provided rewritten email, which asks the recipient if they are free to meet Thursday at 2pm to discuss open questions.\nIf this were my problem, I would act on either reply (tie), as there is no meaningful difference between them.\n\n{\"first_step_1\": \"Copy and use the rewritten email directly.\", \"first_step_2\": \"Copy and use the rewritten email directly.\", \"winner\": \"tie\", \"reason\": \"There is no decisive difference, as both replies follow all instructions and negative constraints completely, returning only the rewritten email with an appropriately warm tone and all required details intact.\"}\n\n"
+}

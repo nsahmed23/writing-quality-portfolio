@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+      "passed": true,
+      "evidence": "[script] first line: 'Both done. Next is step 3, the backfill script:'"
+    },
+    {
+      "text": "Gives step 3 with its exact command, npx tsx scripts/backfill-listing-status.ts",
+      "passed": true,
+      "evidence": "[script] contains 'npx tsx scripts/backfill-listing-status.ts'"
+    },
+    {
+      "text": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+      "passed": false,
+      "evidence": "Step 4 gets its own fenced code block plus a plan-matching explanation: \"That prints row counts per status, so you can check the split\" echoes the plan's step 4 wording (\"prints row counts per status\") in full, not a brief mention."
+    },
+    {
+      "text": "Ends with exactly one concrete next action (run the backfill, or run it and report the count)",
+      "passed": false,
+      "evidence": "Response ends describing step 5's context rather than a directive: \"before moving on to the Cloud Run deploy step.\" is the final text; no single closing action is given."
+    },
+    {
+      "text": "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+      "passed": true,
+      "evidence": "Both code blocks reuse plan commands verbatim, e.g. \"npx tsx scripts/count-listing-status.ts\"; the phrase \"so those are untouched\" is commentary, not a new step."
+    },
+    {
+      "text": "Explains why step 3 is needed in one clause (existing rows got the default \"active\" even where archivedAt is set), not a paragraph",
+      "passed": false,
+      "evidence": "The why-explanation extends past the core fact with a tacked-on consequence clause: \"so those are untouched\" adds a third clause beyond the required substance, exceeding one clause/short sentence."
+    },
+    {
+      "text": "Response is under 900 characters",
+      "passed": true,
+      "evidence": "[script] 453 chars (cap 900)"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 3,
+    "total": 7,
+    "pass_rate": 0.5714
+  },
+  "execution_metrics": {
+    "output_chars": 453,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+        "reason": "Step 3 and step 4 are given matching treatment (each its own fenced code block plus explanation sentence), so the response never visually distinguishes 'the current action' from 'a future step' the way the assertion wants. Consider an assertion that checks step 3's command is visually distinguished (e.g., code block) from steps 4/5, which are not."
+      }
+    ],
+    "overall": "This response's uniform code-block treatment of steps 3 and 4 is a real, distinct pattern worth an assertion of its own."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Enable trace artifacts with retain-on-failure, upload them from CI, and inspect the failing step's DOM snapshot.",
+    "first_step_2": "Enable retries and on-first-retry trace capture in config, upload artifacts on CI, and check the DOM snapshot in the trace.",
+    "winner": "1",
+    "reason": "Reply 1 configures trace capture immediately without requiring retries, correctly binds waitForResponse before navigation to prevent race conditions, and avoids attributing locator timeouts to strict mode violations."
+  },
+  "winner_arm": "short",
+  "seconds": 13.9,
+  "raw_tail": "in-on-failure'`, capturing a trace on the very first failure. Reply 2 uses `trace: 'on-first-retry'`, which requires tests to be configured to retry before any trace is ever recorded.\n2. **Playwright Asynchrony:** Reply 1 correctly binds `waitForResponse` prior to calling `page.goto('/dashboard')` to prevent race conditions. Reply 2 suggests awaiting `waitForResponse` after navigation (before the assertion), which frequently hangs because the response has already arrived.\n3. **Diagnostic Accuracy:** Reply 2 lists a strict mode violation as a cause for a locator timeout; in Playwright, strict mode violations throw an error immediately rather than waiting for a timeout.\n\n{\"first_step_1\": \"Enable trace artifacts with retain-on-failure, upload them from CI, and inspect the failing step's DOM snapshot.\", \"first_step_2\": \"Enable retries and on-first-retry trace capture in config, upload artifacts on CI, and check the DOM snapshot in the trace.\", \"winner\": \"1\", \"reason\": \"Reply 1 configures trace capture immediately without requiring retries, correctly binds waitForResponse before navigation to prevent race conditions, and avoids attributing locator timeouts to strict mode violations.\"}\n\n"
+}

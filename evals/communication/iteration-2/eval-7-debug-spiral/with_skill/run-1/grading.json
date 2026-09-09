@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+      "passed": true,
+      "evidence": "No code block or edit to dashboard.spec.ts or the component is proposed. The only concrete instruction is diagnostic: \"set `trace: 'on'` for this project and let it fail once more to get one\" (enabling trace capture), which the interpretation guide treats as an allowed diagnostic command."
+    },
+    {
+      "text": "Names one specific assumption behind the previous three fixes that may be wrong (for example: that the heading renders at all on CI, that CI has a backend to talk to, that auth state or viewport on CI matches local)",
+      "passed": true,
+      "evidence": "\"That's evidence against the assumption they shared: that the Metrics heading eventually renders in CI, just slower or under different conditions than locally.\""
+    },
+    {
+      "text": "Asks exactly one diagnostic question",
+      "passed": true,
+      "evidence": "[script] 1 question marks in prose"
+    },
+    {
+      "text": "Asks for evidence rather than guessing: requests a CI artifact (trace, screenshot, video, console log, or the failing run's HTML report)",
+      "passed": true,
+      "evidence": "\"open the trace or screenshot from the last failed CI run and check what's actually on the page at the moment of timeout, plus the console and network tabs for failed requests.\""
+    },
+    {
+      "text": "States plainly, in one sentence, that it is stopping the change-and-retry loop, without apology",
+      "passed": false,
+      "evidence": "No sentence plainly states the change-and-retry loop is being stopped. The closest is analytical (\"which no timeout or selector change can fix\"), not a declarative stop-statement; the reply moves straight into likely causes and a diagnostic step without ever framing itself as ending the fix-and-retry cycle."
+    },
+    {
+      "text": "No dramatized tone ('Uh oh', 'Oh no', 'There seems to be a problem'); matter-of-fact",
+      "passed": true,
+      "evidence": "[script] no dramatized tone phrases"
+    },
+    {
+      "text": "Response is under 1200 characters",
+      "passed": false,
+      "evidence": "[script] 1250 chars"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 2,
+    "total": 7,
+    "pass_rate": 0.7143
+  },
+  "execution_metrics": {
+    "output_chars": 1250,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Response is under 1200 characters",
+        "reason": "Every run in both arms (1250-2514 chars) exceeds this limit despite otherwise satisfying the content requirements. Given the other assertions require naming an assumption, requesting a specific artifact, and a plain stop-statement, 1200 characters may be an unrealistically tight budget; a 0/6 pass rate on this one mechanical check suggests the threshold, not response quality, is the limiting factor."
+      }
+    ],
+    "overall": "Content assertions are discriminating and well-grounded; the character-count ceiling looks miscalibrated against the other requirements."
+  }
+}

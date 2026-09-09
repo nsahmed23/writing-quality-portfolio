@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the starter's appearance and smell for signs of viability or spoilage before feeding and tracking rise in a marked jar.",
+    "first_step_2": "Split the starter into two marked jars to run an immediate side-by-side feeding test comparing the new flour against the old flour.",
+    "winner": "1",
+    "reason": "Reply 1 correctly explains in plain words that timing does not prove causation and prioritizes checking culture health and observing rise across feeding cycles over an immediate side-by-side test."
+  },
+  "winner_arm": "none",
+  "seconds": 24.8,
+  "raw_tail": " monitoring it in a marked jar over several cycles.\n\n**Reply 2 first step:** Split the starter into two marked jars to conduct an immediate side-by-side feeding comparison between the new flour and the old flour.\n\nIf this were my problem, I would act on **Reply 1** first. Reply 1 directly notes in plain language without category labels that timing is not proof of cause (\"'after' is not 'because'\"), identifies common confounding variables like temperature and feeding schedule, and offers a sensible, practical sequence\u2014checking viability and observing rise across feeding cycles before resorting to a side-by-side test with an old flour that may no longer be available.\n\n{\"first_step_1\": \"Inspect the starter's appearance and smell for signs of viability or spoilage before feeding and tracking rise in a marked jar.\", \"first_step_2\": \"Split the starter into two marked jars to run an immediate side-by-side feeding test comparing the new flour against the old flour.\", \"winner\": \"1\", \"reason\": \"Reply 1 correctly explains in plain words that timing does not prove causation and prioritizes checking culture health and observing rise across feeding cycles over an immediate side-by-side test.\"}\n\n"
+}

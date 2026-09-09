@@ -1,0 +1,59 @@
+{
+  "case_id": 4,
+  "case_name": "explain-vector-clock",
+  "kind": "explanation",
+  "arm": "none",
+  "run": "run-2",
+  "chars": 5268,
+  "first_action_offset": 406,
+  "inventory": [
+    {
+      "item": "Lamport",
+      "hit": true,
+      "matched": "Lamport"
+    },
+    {
+      "item": "concurren",
+      "hit": true,
+      "matched": "concurren"
+    },
+    {
+      "item": "causal",
+      "hit": true,
+      "matched": "causal"
+    },
+    {
+      "item": "per process",
+      "hit": true,
+      "matched": "per process"
+    },
+    {
+      "item": "conflict",
+      "hit": true,
+      "matched": "conflict"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Does not open with a manufactured command or task",
+      "passed": true,
+      "evidence": "\"A Lamport timestamp is one counter per process.\"; opens with a direct comparative definition, not a manufactured command or task."
+    },
+    {
+      "text": "Defines terms before relying on them",
+      "passed": false,
+      "evidence": "\"Since concurrency is precisely what a write conflict *is*, a Lamport timestamp structurally cannot detect one.\"; this argument leans on the reader already knowing what concurrency means, but the actual definition (\"Neither -> concurrent\" under the pointwise-compare rules) does not arrive until the Vector clocks section well after this and after the opening line's bolded, undefined use of concurrent."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; the shopping-cart line is a concrete instance of the same A/B replica example already in play, not a separate metaphor domain; explanation otherwise runs on formal definitions, a two-replica trace, and a comparison table."
+    },
+    {
+      "text": "Ends when the explanation ends; no invented next step",
+      "passed": true,
+      "evidence": "no such passage; last line is \"Rule of thumb: start with Lamport or an HLC. Switch to vector clocks the moment two nodes can accept a write to the same state independently and you need to *know* when that happened.\"; still guidance within the explanation, not an invented next step or offer."
+    }
+  ]
+}

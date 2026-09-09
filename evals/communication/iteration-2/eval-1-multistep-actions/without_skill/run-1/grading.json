@@ -1,0 +1,69 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": false,
+      "evidence": "First line is background, not an action: \"A GitHub Actions workflow is just a YAML file under `.github/workflows/` in your repo. GitHub watches that folder and runs whatever's in it based on the triggers you define; there's no dashboard setup or separate registration step, and Actions is on by default for repos on github.com unless an org admin disabled it under Settings > Actions > General.\""
+    },
+    {
+      "text": "Steps are given as a numbered list of list items, one bounded action each (not numbered headings with paragraphs under them), with at least 2 items and no list longer than 5",
+      "passed": false,
+      "evidence": "[script] longest numbered list run=3; longest any-list run=6; numbered headings (not list items)=0"
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "First sentence: 'A GitHub Actions workflow is just a YAML file under `.github/workflows/` in your repo.' \u2014 'workflow' is defined in the very sentence it first appears."
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": false,
+      "evidence": "[script] no concrete minutes/hours estimate found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes, and does not repeat the first line's action if that was the only open action",
+      "passed": false,
+      "evidence": "Reply ends with a bulleted list of three optional, non-committal extras rather than one action: 'If you want more later: add `push: branches: [main]` alongside `pull_request` to also verify after merges land, look at `golangci-lint`'s own action if you want linting beyond `vet`, and pin the two actions to a commit SHA instead of a version tag if you want to harden against a tag being repointed.'"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'A GitHub Actions workflow is just a YAML file under `.github/workflows/` in your repo. GitHub watches that folder and ru'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: 'If you want more later: add `push: branches: [main]` alongside `pull_request` to also verify after merges land, look at '; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly, including how to create the .github/workflows folders",
+      "passed": true,
+      "evidence": "'To ship it' step 1 gives the explicit command: '`mkdir -p .github/workflows` (Git Bash), and save the YAML above as `ci.yml` inside it.' Step 2 gives the exact git command: 'git add .github/workflows/ci.yml && git commit -m \"ci: add go vet and go test workflow\" && git push'."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 4,
+    "total": 9,
+    "pass_rate": 0.5556
+  },
+  "execution_metrics": {
+    "output_chars": 4002,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Steps are given as a numbered list of list items, one bounded action each (not numbered headings with paragraphs under them), with at least 2 items and no list longer than 5",
+        "reason": "The failure here comes entirely from a 6-item bullet list explaining what each YAML directive does ('What each piece does:'), not from the numbered action-step list ('To ship it:'), which has only 3 items and is well within bounds. The 'no list longer than 5' cap appears to apply to any list in the response, penalizing a reasonable line-by-line YAML explanation as if it were an unwieldy set of steps. Consider scoping this assertion to the list of steps the reader must execute, not any list in the reply."
+      }
+    ],
+    "overall": "Thorough and accurate on substance, but the skill's action-first, single-closing-action structure is largely absent: it opens with two paragraphs of context and closes with a menu of optional extras instead of one next step."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Attempt to reproduce the flake locally against a production build using CI=1 and repeated runs.",
+    "first_step_2": "Configure and download a Playwright trace from CI to inspect the DOM snapshot from the failing run.",
+    "winner": "2",
+    "reason": "Reply 2 immediately directs the reader to obtain and inspect CI trace artifacts to see what actually rendered, whereas Reply 1 delays this behind a local reproduction attempt."
+  },
+  "winner_arm": "short",
+  "seconds": 7.9,
+  "raw_tail": "**Reply 1 first step:** Tells the reader to first run a local reproduction check against the production build with `CI=1` and `--repeat-each=10`.\n\n**Reply 2 first step:** Tells the reader to immediately configure and capture a Playwright trace artifact on CI to inspect the DOM snapshot at the moment of locator failure.\n\nIf this were my problem, I would act on **Reply 2** first.\n\n{\"first_step_1\": \"Attempt to reproduce the flake locally against a production build using CI=1 and repeated runs.\", \"first_step_2\": \"Configure and download a Playwright trace from CI to inspect the DOM snapshot from the failing run.\", \"winner\": \"2\", \"reason\": \"Reply 2 immediately directs the reader to obtain and inspect CI trace artifacts to see what actually rendered, whereas Reply 1 delays this behind a local reproduction attempt.\"}\n\n"
+}

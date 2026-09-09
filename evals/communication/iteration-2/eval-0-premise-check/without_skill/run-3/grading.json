@@ -1,0 +1,73 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"...so the upgrade and the error are more likely correlated in time than causally linked.\" A specific candidate mechanism is offered but hedged: \"a change in exactly how that child process is spawned or responds to termination would flip this from working to broken without anything in Node 24 itself being responsible.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "\"EADDRINUSE means some process already has 8080 bound when the new one tries to bind it; that's about what's occupying the port, not which Node version is asking for it.\" \u2014 definition in the same sentence as the term's first appearance."
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": false,
+      "evidence": "First line is the entire opening paragraph (\"Check what's holding port 8080 before treating Node 24 as the cause. EADDRINUSE means...I don't know of any Node 24 change to default TCP socket-binding behavior...\"); the imperative opening clause is immediately followed, in the same line, by two sentences of definition/hedging, so the line as delivered is majority context, not an isolated action."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"the pattern that best fits is nodemon not fully killing the previous process tree on Windows...a descendant (the one actually holding the listening socket) survives; the next restart starts a new instance that collides with it.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"What I can't verify from here: I don't have access to your machine or repo, so I haven't seen `server.ts`, your `nodemon.json` or `package.json` scripts, or actual `netstat` output.\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Check what's holding port 8080 before treating Node 24 as the cause. EADDRINUSE means some process already has 8080 boun\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"What I can't verify from here: I don't have access to your machine or repo, so I haven't seen `server.ts`, your `nodemon\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final paragraph is conditional with two alternative fixes: \"...the Node 24 upgrade is coincidental, and the fix is just freeing the port or moving your server to a different one.\""
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 2903,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+        "reason": "The opening line pairs an imperative clause ('Check what's holding port 8080...') with the EADDRINUSE definition and a causation hedge in the same unbroken line, so it reads as an explanatory paragraph rather than an isolated action; the actual named commands don't appear until a later 'To confirm, in order:' block."
+      },
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes",
+        "reason": "The closing sentence offers two alternative fixes joined by 'or' rather than committing to one; this is a recurring pattern across the sample."
+      }
+    ],
+    "overall": "Reasoning content (sequence-vs-cause, EADDRINUSE definition, mechanism, verification caveat) is solid; both failures here are about response shape (opening and closing), not the underlying diagnosis."
+  }
+}

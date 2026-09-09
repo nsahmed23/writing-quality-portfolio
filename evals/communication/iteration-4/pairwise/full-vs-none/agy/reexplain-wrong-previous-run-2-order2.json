@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Avoid running git clean -fd and run git clean -nd instead to preview untracked files without deleting them.",
+    "first_step_2": "Run git clean -nd to preview the list of untracked files and folders before removing anything.",
+    "winner": "2",
+    "reason": "Reply 2 better satisfies the request for a simpler explanation by showing concrete preview output and providing a clear next step without introducing distracting extra flags."
+  },
+  "winner_arm": "full",
+  "seconds": 9.9,
+  "raw_tail": "**First step told by Reply 1:** Do not run `git clean -fd`, and instead use `git clean -nd` to safely preview what would be deleted.  \n**First step told by Reply 2:** Run `git clean -nd` to preview untracked files and folders by reading the dry-run output list.\n\nIf this were my problem, I would act on **Reply 2** first. Both replies successfully correct the critical safety mistake right away, but Reply 2 explains the concept more simply and effectively for someone who was confused, illustrating what the dry-run output looks like and giving a direct next step without introducing extra flags like `-x`.\n\n{\"first_step_1\": \"Avoid running git clean -fd and run git clean -nd instead to preview untracked files without deleting them.\", \"first_step_2\": \"Run git clean -nd to preview the list of untracked files and folders before removing anything.\", \"winner\": \"2\", \"reason\": \"Reply 2 better satisfies the request for a simpler explanation by showing concrete preview output and providing a clear next step without introducing distracting extra flags.\"}\n\n"
+}

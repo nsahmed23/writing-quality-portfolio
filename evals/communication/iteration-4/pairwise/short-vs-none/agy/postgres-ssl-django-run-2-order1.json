@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Install and start PostgreSQL via Homebrew (brew install postgresql@17 and brew services start postgresql@17).",
+    "first_step_2": "Search Homebrew for PostgreSQL versions and install the latest major (suggesting postgresql@18).",
+    "winner": "1",
+    "reason": "Reply 1 immediately installs and starts Postgres and uses the standard self-signed certificate with sslmode=require workflow, whereas Reply 2 suggests a nonexistent version (postgresql@18) and overcomplicates local development by forcing a custom CA setup."
+  },
+  "winner_arm": "none",
+  "seconds": 22.2,
+  "raw_tail": "etting `sslmode=require` in Django options (and checking with `psql` using `sslmode=require`) is normal for local development. Reply 1 implements this cleanly and makes `verify-full` an optional follow-up. Reply 2 dismisses `sslmode=require` and overcomplicates the process for a beginner by requiring a full local Certificate Authority setup with signing requests and SAN extensions.\n* **Django & Operational Realities:** Reply 1 queries the running server directly for `data_directory` instead of guessing the path, grants `CREATEDB` to the role (essential for Django's test runner), and includes a helpful troubleshooting guide for common macOS/Homebrew pitfalls.\n\n{\"first_step_1\": \"Install and start PostgreSQL via Homebrew (brew install postgresql@17 and brew services start postgresql@17).\", \"first_step_2\": \"Search Homebrew for PostgreSQL versions and install the latest major (suggesting postgresql@18).\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately installs and starts Postgres and uses the standard self-signed certificate with sslmode=require workflow, whereas Reply 2 suggests a nonexistent version (postgresql@18) and overcomplicates local development by forcing a custom CA setup.\"}\n\n"
+}

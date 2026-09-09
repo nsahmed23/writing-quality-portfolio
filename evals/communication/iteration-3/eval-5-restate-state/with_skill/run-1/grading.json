@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+      "passed": true,
+      "evidence": "[script] first line: 'Steps 1 and 2 done: column added, dev migration run. Step 3 of 5 next: backfill existing rows.'"
+    },
+    {
+      "text": "Gives step 3 with its exact command, npx tsx scripts/backfill-listing-status.ts",
+      "passed": true,
+      "evidence": "[script] contains 'npx tsx scripts/backfill-listing-status.ts'"
+    },
+    {
+      "text": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+      "passed": false,
+      "evidence": "Step 5 gets full command plus plan-matching explanation in the same sentence: \"step 5 deploys with `npx prisma migrate deploy` from the Cloud Run release step\" mirrors the plan's step 5 (command + location) rather than a brief mention."
+    },
+    {
+      "text": "Ends with exactly one concrete next action (run the backfill, or run it and report the count)",
+      "passed": true,
+      "evidence": "Final line is a single directive: \"Run the backfill script now.\" No alternatives or questions offered."
+    },
+    {
+      "text": "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+      "passed": true,
+      "evidence": "Only the plan's three remaining commands are referenced; the sole addition is a timing caveat, \"a few seconds unless `Listing` has millions of rows\", which is commentary, not a new step or command."
+    },
+    {
+      "text": "Explains why step 3 is needed in one clause (existing rows got the default \"active\" even where archivedAt is set), not a paragraph",
+      "passed": true,
+      "evidence": "Single sentence, one why-clause: \"every other row already has \"active\" from the migration default\", stating the required substance without extra elaboration."
+    },
+    {
+      "text": "Response is under 900 characters",
+      "passed": true,
+      "evidence": "[script] 562 chars (cap 900)"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "total": 7,
+    "pass_rate": 0.8571
+  },
+  "execution_metrics": {
+    "output_chars": 562,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+        "reason": "The assertion text ('at most one line') and the grading guide ('full command AND explanation as in the plan' = fail) imply different standards; a response that compresses both remaining steps into a single sentence but still includes the exact command and plan-matching explanation fails under the stricter reading despite reading as an ordinary, concise one-line mention."
+      }
+    ],
+    "overall": "Expectation on re-listing steps 4/5 conflates line-count with content-fidelity; worth clarifying which one is authoritative."
+  }
+}

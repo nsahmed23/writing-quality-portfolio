@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Provides the revised paragraph directly without giving any reader action.",
+    "first_step_2": "Provides the revised paragraph directly without giving any reader action.",
+    "winner": "tie",
+    "reason": "Both replies follow all instructions identically by providing the revised paragraph first, preserving every fact, and including a single-sentence explanation of changes with no meaningful difference between them."
+  },
+  "winner_arm": "tie",
+  "seconds": 15.5,
+  "raw_tail": "Reply 1 does not instruct the reader to take an action; it directly provides the tightened paragraph first.\nReply 2 does not instruct the reader to take an action; it directly provides the tightened paragraph first.\n\nIf this were my problem, I would consider them a tie, as both replies follow all instructions identically, presenting the tightened paragraph first, retaining all specified facts, and concluding with a single-sentence explanation of the edits with no meaningful difference in quality or content.\n\n{\"first_step_1\": \"Provides the revised paragraph directly without giving any reader action.\", \"first_step_2\": \"Provides the revised paragraph directly without giving any reader action.\", \"winner\": \"tie\", \"reason\": \"Both replies follow all instructions identically by providing the revised paragraph first, preserving every fact, and including a single-sentence explanation of changes with no meaningful difference between them.\"}\n\n"
+}

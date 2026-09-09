@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": false,
+      "evidence": "The sentence where JWT first appears carries no definition at all: \"JWT auth works like this:\". The term 'JSON Web Token' never appears anywhere in the response, and the closest thing to a definition ('builds a JWT containing claims') arrives two sentences later at the second occurrence, not the first."
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "First use is the bolded lead-in \"**Why \"stateless\"**:\", and the same paragraph closes with the plain-words meaning attached directly to it: \"The server doesn't have to remember who's logged in. That's the statelessness people mean: no server-side session store is required to verify a request.\" [audit: nested quote verified manually]"
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": false,
+      "evidence": "The logout section opens with a flat affirmation rather than a partly-true framing: \"what you heard is basically correct, and it's the real trade-off of pure JWT auth.\" No sentence anywhere in the response revisits the premise to call it overstated or partial; it moves straight from affirming the claim to listing mitigations, so the reader is never told the blanket claim is only conditionally true."
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "States \"real systems add a small amount of state back in\" and names a concrete option: \"Keep a server-side list (often Redis, keyed by the token's `jti` claim) of tokens revoked early, and check incoming tokens against it.\" (the Denylist bullet)."
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'Authorization: Bearer'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": false,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'JWT auth works like this:'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: 'So: \"stateless\" accurately describes how a JWT gets verified, not a promise about revocation. If your app needs logout t'; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 3,
+    "total": 9,
+    "pass_rate": 0.6667
+  },
+  "execution_metrics": {
+    "output_chars": 3320,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

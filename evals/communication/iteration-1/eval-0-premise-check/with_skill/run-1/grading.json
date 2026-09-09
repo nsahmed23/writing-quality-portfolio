@@ -1,0 +1,61 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"The upgrade happening last Thursday and the errors starting last Thursday is a timing match (sequence), not a demonstrated cause; to call the Node version an actual cause I'd want either a specific mechanism (a documented Node 24 change to socket binding) or evidence (for example, downgrading to Node 22 makes it stop), and I have neither.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "\"EADDRINUSE is raised by Windows itself, at the moment of the bind call (the OS-level step that reserves a port for a socket), when another socket already owns that port.\" - definition given in the same sentence as the term's first appearance."
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": true,
+      "evidence": "First line: \"Run this first, in PowerShell:\" followed immediately by the command block."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'Get-NetTCPConnection'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"Each time nodemon restarts your app, it has to kill the old ts-node child process and start a new one before the new one can bind to 8080... if the old process doesn't actually exit before the new one starts, the new one collides with it and you get EADDRINUSE.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"I don't have access to your machine, `server.ts`, `package.json`, or `nodemon.json`, so this command will tell you more than I can guess from the message alone.\""
+    },
+    {
+      "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'Run this first, in PowerShell:'"
+    },
+    {
+      "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: 'Next: run the port-check command above and tell me the process name and PID it returns; that decides which of steps 1 to'; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "Final line: \"Next: run the port-check command above and tell me the process name and PID it returns; that decides which of steps 1 to 4 actually applies.\" - single concrete action, no list of options or open-ended caveat."
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pending": 0,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 3562,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

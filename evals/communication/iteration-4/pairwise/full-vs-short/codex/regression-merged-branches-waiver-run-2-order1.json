@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Optionally restore a deleted branch with git branch feat/a 21ddd2a.",
+    "first_step_2": "Optionally restore a deleted branch with git branch feat/a 91e26b2.",
+    "winner": "tie",
+    "reason": "Both report deleting the same three merged branches with git branch -d, preserve the unmerged branches, and provide undo commands; the supplied facts do not establish which commit ids are correct."
+  },
+  "winner_arm": "tie",
+  "seconds": 29.6,
+  "raw_tail": "oblem, which reply would you act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Optionally restore a deleted branch with git branch feat/a 21ddd2a.\",\"first_step_2\":\"Optionally restore a deleted branch with git branch feat/a 91e26b2.\",\"winner\":\"tie\",\"reason\":\"Both report deleting the same three merged branches with git branch -d, preserve the unmerged branches, and provide undo commands; the supplied facts do not establish which commit ids are correct.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n6,159\n"
+}

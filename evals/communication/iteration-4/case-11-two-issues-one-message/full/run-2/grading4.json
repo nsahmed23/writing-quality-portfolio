@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 5154,
+  "first_action_offset": 0,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": true,
+      "evidence": "\"**Separately, the repo layout.** Do that after the flake is closed, not before.\" marks the single transition after the flaky-test steps and asides; nothing about structure appears earlier."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"The rule that keeps it honest: a file starts inside the feature that uses it, and moves to `shared/` on the day a second feature imports it\" answers it with concrete detail."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": true,
+      "evidence": "no such passage; checked past the \"---\" divider for a return to flake-diagnosis content; found only subordinate temporal references (\"after the flake is closed\", \"once the flake is closed\")."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Search Homebrew for available Postgres versions with brew search postgresql@ and install the newest major version (using postgresql@18).",
+    "first_step_2": "Install Postgres directly using brew install postgresql@17.",
+    "winner": "2",
+    "reason": "Reply 2 uses a currently available Postgres formula and a standard self-signed certificate, whereas Reply 1 uses a non-existent version (postgresql@18) that will fail to install and unnecessarily overcomplicates setup with a custom Certificate Authority."
+  },
+  "winner_arm": "full",
+  "seconds": 56.7,
+  "raw_tail": "igns with standard local development practices: it installs an existing version of PostgreSQL (`postgresql@17`), generates a standard self-signed certificate and key directly in the data directory, verifies the connection with `psql` using `sslmode=require`, and configures Django properly. \n\nIn contrast, Reply 1 suggests and repeatedly hardcodes an unreleased version (`postgresql@18`), which will cause installation commands to fail for a beginner. It also unnecessarily overcomplicates the SSL process by building a full local Certificate Authority infrastructure (CA, CSR, SAN extensions, and signing steps) when a self-signed certificate is standard for local development.\n\n{\"first_step_1\": \"Search Homebrew for available Postgres versions with brew search postgresql@ and install the newest major version (using postgresql@18).\", \"first_step_2\": \"Install Postgres directly using brew install postgresql@17.\", \"winner\": \"2\", \"reason\": \"Reply 2 uses a currently available Postgres formula and a standard self-signed certificate, whereas Reply 1 uses a non-existent version (postgresql@18) that will fail to install and unnecessarily overcomplicates setup with a custom Certificate Authority.\"}\n\n"
+}

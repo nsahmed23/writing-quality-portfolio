@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "Explicitly labels the Thursday timing as coincidence, not cause, before giving the nodemon mechanism; quote: \"The Thursday timing is most likely coincidence, not cause.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "Explains the term in the very sentence it first appears; quote: \"that's what EADDRINUSE means, the address is already taken\""
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": true,
+      "evidence": "First line is a numbered command to run, not context; quote: \"Run `netstat -ano | findstr :8080`\""
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "Names the stale ts-node/node.exe child process explanation explicitly; quote: \"A `node.exe` from a previous run can keep running in the background, invisible, still bound to 8080\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "States explicitly what it cannot verify; quote: \"Two things I can't verify without your files\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"1. Run `netstat -ano | findstr :8080` (the last column is the PID of whatever already has port 8080; that's what EADDRIN\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: 'Next: run the netstat command and tell me the PID (or \"nothing\") on port 8080.'; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "Closing paragraph is one concrete action; quote: \"run the netstat command and tell me the PID\""
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 2273,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

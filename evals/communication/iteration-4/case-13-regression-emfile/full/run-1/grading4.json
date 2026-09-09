@@ -1,0 +1,44 @@
+{
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 6909,
+  "first_action_offset": 353,
+  "inventory": [
+    {
+      "item": "/proc/",
+      "hit": true,
+      "matched": "/proc/"
+    },
+    {
+      "item": "leak",
+      "hit": true,
+      "matched": "leak"
+    },
+    {
+      "item": "limit",
+      "hit": true,
+      "matched": "limit"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Your premise is correct, and the chain is short with no intermediate step.\" Reason: directly affirms the premise as correct, then explains the fd/RLIMIT_NOFILE/EMFILE mechanism."
+    },
+    {
+      "text": "No premise challenge or 'same fact stated two ways' reframing",
+      "passed": true,
+      "evidence": "no such passage; checked for \"doesn't cause\"/\"is not a consequence\"/reframing language and found none; the reply affirms causation and never restates it as mere naming."
+    },
+    {
+      "text": "Ends with one next action",
+      "passed": true,
+      "evidence": "\"Start at step 1.\" Reason: the last non-empty line closes with a single, clear next action."
+    }
+  ]
+}

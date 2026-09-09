@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Run `git clean -nd` to preview which untracked files would be deleted.",
+    "first_step_2": "Do not run `git clean -fd`, and instead run `git clean -nd` to preview untracked files.",
+    "winner": "2",
+    "reason": "Reply 2 explicitly warns the user not to run the dangerous command, explains the flags more simply, and provides concrete recovery advice in case the user already ran it."
+  },
+  "winner_arm": "none",
+  "seconds": 19.0,
+  "raw_tail": "Reply 1 tells the reader to run `git clean -nd` to preview the list of untracked files before deciding whether to delete anything.\nReply 2 tells the reader first not to run `git clean -fd`, and then to run `git clean -nd` to inspect which files would be destroyed.\n\nIf this were my problem, I would act on Reply 2 first. It immediately gives an explicit negative warning (\"Don't run it\") to prevent accidental execution, explains the flags much more simply in direct response to the user's prompt, and provides actionable recovery guidance (such as VS Code's Timeline panel) in case the previous command was already executed.\n\n{\"first_step_1\": \"Run `git clean -nd` to preview which untracked files would be deleted.\", \"first_step_2\": \"Do not run `git clean -fd`, and instead run `git clean -nd` to preview untracked files.\", \"winner\": \"2\", \"reason\": \"Reply 2 explicitly warns the user not to run the dangerous command, explains the flags more simply, and provides concrete recovery advice in case the user already ran it.\"}\n\n"
+}

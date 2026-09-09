@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 5556,
+  "first_action_offset": 136,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "folders"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": true,
+      "evidence": "\"Separately, on the repo layout: group by feature, not by file type.\" is the only place repo-structure content begins, after all flaky-test diagnosis; nothing about structure appears earlier."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"group by feature, not by file type. `src/dashboard/`, `src/auth/`, `src/billing/`, each holding its own components, hooks, queries and tests\" answers it with concrete detail, not dropped."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": true,
+      "evidence": "no such passage; checked for alternation beyond the single closing transition. The one flake reference there (\"while a test is already failing intermittently\") is a subordinate clause inside a repo-structure sentence, not a return to flake content."
+    }
+  ]
+}

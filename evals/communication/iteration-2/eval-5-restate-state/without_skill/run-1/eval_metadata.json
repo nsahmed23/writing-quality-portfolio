@@ -1,0 +1,14 @@
+{
+  "eval_id": 5,
+  "eval_name": "eval-5-restate-state",
+  "prompt": "This is the conversation so far.\n\nEarlier you gave the user this 5-step plan for adding a status column to their Prisma schema:\n1. Add `status String @default(\"active\")` to the `Listing` model in `prisma/schema.prisma`.\n2. Run `npx prisma migrate dev --name add_listing_status` against the dev database.\n3. Run `npx prisma generate` so the generated client includes the new field.\n4. Backfill existing rows with `npx tsx scripts/backfill-listing-status.ts` (the script sets status from `archivedAt`).\n5. Deploy with `npx prisma migrate deploy` in the Cloud Run release step.\n\nThe user now says: \"ok did 1 and 2, both fine. next?\"\n\nWrite your next reply.",
+  "assertions": [
+    "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+    "Gives step 3 with its exact command, npx prisma generate",
+    "Does not re-list all five steps in full: steps 4 and 5 get at most one line each or are omitted",
+    "Ends with exactly one concrete next action",
+    "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+    "Explains why step 3 is needed in one clause (the generated client must include the new field before the backfill script will compile), not a paragraph",
+    "Response is under 900 characters"
+  ]
+}

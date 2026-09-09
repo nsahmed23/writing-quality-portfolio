@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 3699,
+  "first_action_offset": 612,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "rise"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": false,
+      "evidence": "\"What you have so far is a sequence, not a cause: the rise stopped after the switch.\" uses the category label \"sequence\" instead of plain words to make the timing point."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Feed two jars from the same starter: 20 g starter, 50 g flour, 50 g water in each.\" concrete side-by-side test given."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"a wait of four to eight hours\" concrete hour units given."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply; explanations are literal (label reading, protein, water absorption, bleaching), no forced analogy."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": false,
+      "evidence": "\"a sequence, not a cause\" uses \"sequence\", one of the listed rule-vocabulary words."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the service's configured file limits via systemctl show and /proc/<pid>/limits.",
+    "first_step_2": "Retrieve the process PID and check the Max open files limit alongside the live open file descriptor count using ls /proc/$PID/fd | wc -l.",
+    "winner": "2",
+    "reason": "Reply 2 immediately inspects both the limit and the live open descriptor count in step 1, while validating rather than disputing the user's correct causal premise."
+  },
+  "winner_arm": "full",
+  "seconds": 11.0,
+  "raw_tail": "**Reply 1 first step:** Inspect the service's file limits via `systemctl show` and `/proc/<pid>/limits` before checking counts.  \n**Reply 2 first step:** Retrieve the process PID and compare its `Max open files` limit against its current live open descriptor count (`ls /proc/$PID/fd | wc -l`).\n\nIf this were my problem, I would act on **Reply 2** first. Reply 2 immediately pairs the process limits with a count of currently open descriptors in its very first step, and unlike Reply 1, it does not dispute the user's correct causal premise.\n\n{\"first_step_1\": \"Inspect the service's configured file limits via systemctl show and /proc/<pid>/limits.\", \"first_step_2\": \"Retrieve the process PID and check the Max open files limit alongside the live open file descriptor count using ls /proc/$PID/fd | wc -l.\", \"winner\": \"2\", \"reason\": \"Reply 2 immediately inspects both the limit and the live open descriptor count in step 1, while validating rather than disputing the user's correct causal premise.\"}\n\n"
+}

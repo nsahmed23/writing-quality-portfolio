@@ -1,0 +1,3 @@
+Tighten this paragraph. Keep every fact. Give me the revised paragraph, then at most one sentence on what you changed if it matters.
+
+Our Q3 migration to the new billing provider was completed on August 14 after a delay of roughly three weeks, which was primarily due to the fact that the legacy export job had a number of edge cases that were not documented anywhere. At this point in time, all 4,212 active subscriptions have been moved over and reconciled against the old system, and in the event that a discrepancy is found by a customer, the support team has been given a runbook that walks them through how to issue a manual credit of up to $50 without needing to escalate.

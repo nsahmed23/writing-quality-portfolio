@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Return the rewritten email directly without preamble, proposing a meeting on Thursday at 2pm to walk through open questions.",
+    "first_step_2": "Return the rewritten email directly without preamble, asking whether Thursday at 2pm works to walk through open questions.",
+    "winner": "1",
+    "reason": "Reply 1 creates a genuinely warmer, more collaborative tone with proper punctuation, whereas Reply 2 is more generic and contains a comma splice."
+  },
+  "winner_arm": "full",
+  "seconds": 17.3,
+  "raw_tail": "Reply 1 immediately presents the rewritten email without any preamble, asking the recipient to meet Thursday at 2pm to walk through the open questions.\nReply 2 immediately presents the rewritten email without any preamble, asking the recipient whether Thursday at 2pm works to walk through the open questions.\n\nIf this were my problem, I would act on Reply 1 first because it successfully achieves a warmer, more appreciative, and collaborative tone without introducing grammatical flaws such as the comma splice found in Reply 2.\n\n{\"first_step_1\": \"Return the rewritten email directly without preamble, proposing a meeting on Thursday at 2pm to walk through open questions.\", \"first_step_2\": \"Return the rewritten email directly without preamble, asking whether Thursday at 2pm works to walk through open questions.\", \"winner\": \"1\", \"reason\": \"Reply 1 creates a genuinely warmer, more collaborative tone with proper punctuation, whereas Reply 2 is more generic and contains a comma splice.\"}\n\n"
+}

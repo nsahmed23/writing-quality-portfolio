@@ -1,0 +1,69 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"I'm not aware of any Node 24 change to socket-binding defaults, and I can't check the changelog from here, so the claim that Node 24 causes this stays unconfirmed rather than settled.\" Also: \"The timing next to your upgrade is more likely coincidence than cause:\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "\"EADDRINUSE means something already has port 8080 bound when your server tries to bind it; that's an OS-level condition, not a runtime feature...\" \u2014 definition in the same sentence as the term's first appearance."
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": false,
+      "evidence": "First line is the entire opening paragraph (\"Short version: this almost certainly isn't Node 24. EADDRINUSE means something already has port 8080 bound...\"), a claim/summary, not a command to run or file to open."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"That's the signature of nodemon not fully killing the previous ts-node child before spawning the new one...The old process stays alive holding 8080, the new one tries to bind on top of it, and you get EADDRINUSE.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"I don't have access to `inventory-api`, so I haven't seen `server.ts`, `nodemon.json`, or your installed nodemon/ts-node versions, and I have no way to confirm or rule out a Node 24 changelog entry from here.\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Short version: this almost certainly isn't Node 24. EADDRINUSE means something already has port 8080 bound when your ser\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"What I can't verify: I don't have access to `inventory-api`, so I haven't seen `server.ts`, `nodemon.json`, or your inst\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "Final paragraph ends: \"Run the `netstat` command first; the PID it returns will tell you definitively whether this is a leftover process or something else.\" \u2014 one concrete, immediate command, stated singularly."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9,
+    "pass_rate": 0.8889
+  },
+  "execution_metrics": {
+    "output_chars": 2955,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+        "reason": "Response leads with premise-check reasoning before any command; the `netstat`/`tasklist` steps only appear as a numbered list further down."
+      }
+    ],
+    "overall": "This run passes 8/9. It's the only run in the sample of 6 that both defines EADDRINUSE immediately and still closes with a single concrete action, showing the two aren't mutually exclusive \u2014 the other 5 runs trade one off against the other."
+  }
+}

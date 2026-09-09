@@ -1,0 +1,16 @@
+{
+  "eval_id": 0,
+  "eval_name": "eval-0-premise-check",
+  "prompt": "my node api started throwing EADDRINUSE on every restart since i upgraded to node 24 last thursday. why does node 24 cause EADDRINUSE? windows 11, server is C:\\Dev\\Projects\\inventory-api\\src\\server.ts, listens on 8080, i start it with npm run dev (nodemon + ts-node)",
+  "assertions": [
+    "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+    "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+    "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+    "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+    "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+    "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+    "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+    "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+    "Ends with exactly one concrete next action the reader can do in under two minutes"
+  ]
+}

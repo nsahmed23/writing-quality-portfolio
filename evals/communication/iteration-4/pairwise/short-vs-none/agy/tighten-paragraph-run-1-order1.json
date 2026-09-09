@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Review the tightened paragraph presented first.",
+    "first_step_2": "Review the tightened paragraph presented first.",
+    "winner": "tie",
+    "reason": "Both replies provide high-quality, fact-preserving tightened revisions followed by a single explanatory sentence with no meaningful difference in correctness or style."
+  },
+  "winner_arm": "tie",
+  "seconds": 18.0,
+  "raw_tail": "Reply 1 tells the reader to review the tightened paragraph presented first.\nReply 2 tells the reader to review the tightened paragraph presented first.\n\nIf this were my problem, I would consider this a tie because both replies successfully deliver a concise, well-written revision preserving every fact and conclude with a compliant one-sentence explanation.\n\n{\"first_step_1\": \"Review the tightened paragraph presented first.\", \"first_step_2\": \"Review the tightened paragraph presented first.\", \"winner\": \"tie\", \"reason\": \"Both replies provide high-quality, fact-preserving tightened revisions followed by a single explanatory sentence with no meaningful difference in correctness or style.\"}\n\n"
+}

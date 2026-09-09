@@ -1,0 +1,64 @@
+{
+  "expectations": [
+    {
+      "text": "Every command from the previous reply appears verbatim: the Get-NetTCPConnection line, Stop-Process -Id <PID> -Force, npm install -D nodemon@latest, netsh interface ipv4 show excludedportrange protocol=tcp, and tsx watch src/server.ts",
+      "passed": false,
+      "evidence": "[script] missing: Stop-Process, nodemon update, netsh excludedportrange, tsx watch"
+    },
+    {
+      "text": "Adds no new commands, tools, or facts that were not in the previous reply",
+      "passed": true,
+      "evidence": "No new commands or tools are introduced; 'was me explaining a hunch about the root cause' recharacterizes the earlier explanation rather than adding new technical content."
+    },
+    {
+      "text": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+      "passed": true,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Keeps the four numbered steps of the original in the same order",
+      "passed": false,
+      "evidence": "The original four steps are entirely absent, replaced by a different 2-item list ('1. You see a line of output...', '2. Nothing prints at all...'): 'Ignore everything from my last message except this one command.'"
+    },
+    {
+      "text": "Sentences are shorter: mean words per sentence is lower than in the previous reply",
+      "passed": true,
+      "evidence": "[script] mean words/sentence: reply 16.8 vs original 25.2"
+    },
+    {
+      "text": "Asks no new question; the only request to the reader, if any, is the original one (run the port check and report the process name and PID)",
+      "passed": false,
+      "evidence": "'If it wasn't the command itself that lost you, tell me specifically where: the PowerShell step, the code block, something else, and I'll adjust.' asks a new question beyond the original request for the process name and PID."
+    },
+    {
+      "text": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+      "passed": true,
+      "evidence": "[script] no apology or meta-commentary found"
+    },
+    {
+      "text": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+      "passed": true,
+      "evidence": "[script] no 'sequence'/'correlation' labels"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 3,
+    "total": 8,
+    "pass_rate": 0.625
+  },
+  "execution_metrics": {
+    "output_chars": 1375,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+        "reason": "The script only checks for header syntax. This response drops the original four steps entirely and substitutes a new, different numbered list ('1. You see a line of output...', '2. Nothing prints at all...') describing possible command outcomes; the 'keeping at most the original numbered steps' clause would catch this but isn't currently checked."
+      }
+    ],
+    "overall": "Mostly solid, discriminating assertions. One gap: the numbered-list clause of the headers assertion isn't verified, so a reply that swaps in an unrelated numbered list still passes."
+  }
+}

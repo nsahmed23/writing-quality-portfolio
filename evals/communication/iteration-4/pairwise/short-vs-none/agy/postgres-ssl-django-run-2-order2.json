@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Search Homebrew for available Postgres versions, install the newest major release (using postgresql@18), and add it to PATH.",
+    "first_step_2": "Install and start PostgreSQL via Homebrew (brew install postgresql@17 and brew services start postgresql@17), then add it to PATH.",
+    "winner": "2",
+    "reason": "Reply 2 correctly starts the service as part of the first step, uses a valid Postgres version, and provides the standard self-signed cert workflow with sslmode=require instead of overcomplicating with an unnecessary local CA setup."
+  },
+  "winner_arm": "none",
+  "seconds": 16.7,
+  "raw_tail": "ons, and uses the standard local development approach of a self-signed certificate with `sslmode=require` (while offering `verify-full` as an optional progression). It also includes essential practical touches for Django users, such as granting `CREATEDB` permission so test suites function, and provides a clear troubleshooting table. \n\nIn contrast, Reply 1 suggests `postgresql@18` (which is not an available major version in Homebrew), separates installation from service startup, and forces a beginner through an elaborate multi-step Certificate Authority and CSR creation process for `verify-full` that overcomplicates local development.\n\n{\"first_step_1\": \"Search Homebrew for available Postgres versions, install the newest major release (using postgresql@18), and add it to PATH.\", \"first_step_2\": \"Install and start PostgreSQL via Homebrew (brew install postgresql@17 and brew services start postgresql@17), then add it to PATH.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly starts the service as part of the first step, uses a valid Postgres version, and provides the standard self-signed cert workflow with sslmode=require instead of overcomplicating with an unnecessary local CA setup.\"}\n\n"
+}

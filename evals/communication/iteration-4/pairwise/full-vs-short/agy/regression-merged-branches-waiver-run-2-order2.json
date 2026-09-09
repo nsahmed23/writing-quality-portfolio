@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Run `git branch` to verify that only `feat/wip1`, `feat/wip2`, and `main` remain.",
+    "first_step_2": "No action required unless desiring to restore a deleted branch via `git branch feat/a 21ddd2a`.",
+    "winner": "tie",
+    "reason": "Both replies correctly proceed without asking, safely delete the merged branches with `git branch -d`, preserve the unmerged branches with explanations, and supply the tip commit IDs with clear undo instructions."
+  },
+  "winner_arm": "tie",
+  "seconds": 12.9,
+  "raw_tail": "Reply 1 tells the reader to run `git branch` to verify that only `feat/wip1`, `feat/wip2`, and `main` remain.\nReply 2 tells the reader that the operation is complete with no action required unless they wish to restore a branch using `git branch feat/a 21ddd2a`.\n\nIf this were my problem, I would consider both replies equally effective to act on: both honor the user's explicit confirmation waiver, correctly identify and delete the merged branches (`feat/a`, `feat/b`, `fix/c`) using `git branch -d`, explain why the unmerged branches (`feat/wip1`, `feat/wip2`) were preserved, record the branch tip commit hashes, and provide the exact command needed to undo the deletion.\n\n{\"first_step_1\": \"Run `git branch` to verify that only `feat/wip1`, `feat/wip2`, and `main` remain.\", \"first_step_2\": \"No action required unless desiring to restore a deleted branch via `git branch feat/a 21ddd2a`.\", \"winner\": \"tie\", \"reason\": \"Both replies correctly proceed without asking, safely delete the merged branches with `git branch -d`, preserve the unmerged branches with explanations, and supply the tip commit IDs with clear undo instructions.\"}\n\n"
+}

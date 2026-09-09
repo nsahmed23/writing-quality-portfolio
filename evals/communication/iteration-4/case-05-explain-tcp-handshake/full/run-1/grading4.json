@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 6606,
+  "first_action_offset": 909,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "duplicate"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"TCP carries two independent byte streams, one in each direction, and each stream's starting number has to be both announced and confirmed.\" opens by directly explaining the four-event mechanism compressed into three packets, affirming three-way is what TCP does."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": false,
+      "evidence": "\"Open Wireshark, start a capture, load any web page, then apply the display filter `tcp.flags.syn == 1`.\" closing \"Watch it happen\" section adds an unrequested action for the user to perform."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "no such passage; checked full reply; it affirms three packets are needed throughout (why not two, why not four or five) and never argues two or some other count would work instead."
+    }
+  ]
+}

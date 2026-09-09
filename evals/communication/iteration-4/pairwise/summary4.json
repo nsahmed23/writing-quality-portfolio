@@ -1,0 +1,44 @@
+{
+  "full-vs-none/agy": {
+    "A": 7,
+    "B": 6,
+    "tie": 4,
+    "both_unacceptable": 2,
+    "inconsistent": 7
+  },
+  "full-vs-none/codex": {
+    "A": 15,
+    "B": 1,
+    "tie": 7,
+    "both_unacceptable": 4,
+    "inconsistent": 1
+  },
+  "full-vs-short/agy": {
+    "A": 4,
+    "B": 6,
+    "tie": 10,
+    "both_unacceptable": 2,
+    "inconsistent": 4
+  },
+  "full-vs-short/codex": {
+    "A": 6,
+    "B": 4,
+    "tie": 8,
+    "both_unacceptable": 3,
+    "inconsistent": 7
+  },
+  "short-vs-none/agy": {
+    "A": 7,
+    "B": 6,
+    "tie": 8,
+    "both_unacceptable": 2,
+    "inconsistent": 4
+  },
+  "short-vs-none/codex": {
+    "A": 7,
+    "B": 1,
+    "tie": 6,
+    "both_unacceptable": 4,
+    "inconsistent": 10
+  }
+}

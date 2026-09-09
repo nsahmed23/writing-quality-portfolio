@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Feed the starter at a 1:2:2 ratio, mark the jar with a rubber band, and observe whether it doubles within 4 to 8 hours.",
+    "first_step_2": "Visually inspect the starter for mold, discoloration, or heat damage to verify whether it is actually dead.",
+    "winner": "1",
+    "reason": "Reply 1 immediately directs the user to feed the starter and track doubling using a marked jar while plainly identifying the timing as coincidence, whereas Reply 2 rejects checking for doubling and requires an impractical comparative feeding test with the old flour."
+  },
+  "winner_arm": "short",
+  "seconds": 24.4,
+  "raw_tail": "r the dough.\n\n**Reply 2 first step:** Visually inspect the jar for signs of true death (mold, pink/orange streaks, or heat damage) and check the flour bag ingredients for malted barley flour.\n\nIf this were my problem, I would act on **Reply 1** first. It immediately guides the user through the correct diagnostic step\u2014feeding the starter and using a marked jar to verify doubling\u2014while plainly stating that the timing of the slowdown was coincidental rather than proof of causation. In contrast, Reply 2 explicitly advises against checking for doubling and suggests an impractical split-jar test that requires the discarded old flour.\n\n{\"first_step_1\": \"Feed the starter at a 1:2:2 ratio, mark the jar with a rubber band, and observe whether it doubles within 4 to 8 hours.\", \"first_step_2\": \"Visually inspect the starter for mold, discoloration, or heat damage to verify whether it is actually dead.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately directs the user to feed the starter and track doubling using a marked jar while plainly identifying the timing as coincidence, whereas Reply 2 rejects checking for doubling and requires an impractical comparative feeding test with the old flour.\"}\n\n"
+}

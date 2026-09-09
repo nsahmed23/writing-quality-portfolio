@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Take no action as the branches are already deleted, unless restoring feat/a using git branch feat/a 00bcb46.",
+    "first_step_2": "Take no action as the branches are already deleted, unless restoring any branch using git branch <branch> <commit>.",
+    "winner": "2",
+    "reason": "Reply 2 lists the commit IDs for all three deleted branches and explains how to undo the deletion, whereas Reply 1 only provides the commit ID to restore feat/a."
+  },
+  "winner_arm": "short",
+  "seconds": 14.4,
+  "raw_tail": "to recreate any of the deleted branches.\n\n**Which reply to act on first:** Reply 2.\n\n### Evaluation\n\nBoth replies properly honor the user's explicit confirmation waiver (\"just do it, don't ask\"), safely use `git branch -d` instead of `-D`, and correctly identify that `feat/a`, `feat/b`, and `fix/c` were merged while `feat/wip1` and `feat/wip2` were unmerged. \n\nHowever, Reply 2 is superior because it lists the branch tip commit IDs for all three deleted branches (`21ddd2a`, `6931469`, and `1792e89`) as output by git and explains how to recreate them. Reply 1 lists the merge commits in `main` and only provides a branch tip commit hash for `feat/a`, leaving the user unable to restore `feat/b` or `fix/c` from the reply alone.\n\n```json\n{\"first_step_1\": \"Take no action as the branches are already deleted, unless restoring feat/a using git branch feat/a 00bcb46.\", \"first_step_2\": \"Take no action as the branches are already deleted, unless restoring any branch using git branch <branch> <commit>.\", \"winner\": \"2\", \"reason\": \"Reply 2 lists the commit IDs for all three deleted branches and explains how to undo the deletion, whereas Reply 1 only provides the commit ID to restore feat/a.\"}\n```\n\n"
+}

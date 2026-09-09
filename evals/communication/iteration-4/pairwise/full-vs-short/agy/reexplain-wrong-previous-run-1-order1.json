@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 10,
+  "case_name": "reexplain-wrong-previous",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 tells the reader to recognize that `git clean -fd` deletes files and run `git clean -nd` instead to safely preview them.",
+    "first_step_2": "Reply 2 tells the reader not to run `git clean -fd` and to run `git clean -nd` first to preview what would be removed.",
+    "winner": "tie",
+    "reason": "There is no decisive difference, as both replies immediately correct the dangerous error, explain the flags accurately, and instruct the user to run `git clean -nd`."
+  },
+  "winner_arm": "tie",
+  "seconds": 26.6,
+  "raw_tail": "Reply 1 tells the reader to recognize that `git clean -fd` deletes files and run `git clean -nd` instead to safely preview them.\nReply 2 tells the reader not to run `git clean -fd` and to run `git clean -nd` first to preview what would be removed.\n\nIf this were my problem, I would act on either reply interchangeably, resulting in a tie.\n\n{\"first_step_1\": \"Reply 1 tells the reader to recognize that `git clean -fd` deletes files and run `git clean -nd` instead to safely preview them.\", \"first_step_2\": \"Reply 2 tells the reader not to run `git clean -fd` and to run `git clean -nd` first to preview what would be removed.\", \"winner\": \"tie\", \"reason\": \"There is no decisive difference, as both replies immediately correct the dangerous error, explain the flags accurately, and instruct the user to run `git clean -nd`.\"}\n\n"
+}

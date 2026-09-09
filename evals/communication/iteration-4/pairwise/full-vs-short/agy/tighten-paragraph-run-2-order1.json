@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Review the revised, tightened paragraph provided upfront.",
+    "first_step_2": "Review the revised, tightened paragraph provided upfront.",
+    "winner": "tie",
+    "reason": "Both replies provide the exact same revised paragraph and adhere to the single-sentence explanation constraint with no meaningful difference in content or quality."
+  },
+  "winner_arm": "tie",
+  "seconds": 14.5,
+  "raw_tail": "Reply 1 presents the revised, tightened paragraph first for the reader to review or use.\nReply 2 presents the identical revised, tightened paragraph first for the reader to review or use.\n\nIf this were my problem, there is no meaningful difference between them\u2014both offer the exact same tightened revision and comply fully with all constraints.\n\n{\"first_step_1\": \"Review the revised, tightened paragraph provided upfront.\", \"first_step_2\": \"Review the revised, tightened paragraph provided upfront.\", \"winner\": \"tie\", \"reason\": \"Both replies provide the exact same revised paragraph and adhere to the single-sentence explanation constraint with no meaningful difference in content or quality.\"}\n\n"
+}

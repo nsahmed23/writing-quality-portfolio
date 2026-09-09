@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Search Homebrew for PostgreSQL versions, then install postgresql@17.",
+    "first_step_2": "Install postgresql@17 and set terminal environment variables.",
+    "winner": "2",
+    "reason": "Reply 2 creates a password-bearing role before testing SSL and explicitly sets Django's password environment variable, while Reply 1 tests password authentication before configuring credentials and omits the environment-variable setup."
+  },
+  "winner_arm": "full",
+  "seconds": 33.9,
+  "raw_tail": "le\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\n2026-09-09T16:16:51.501084Z ERROR codex_memories_write::phase2: Phase 2 no changes\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Search Homebrew for PostgreSQL versions, then install postgresql@17.\",\"first_step_2\":\"Install postgresql@17 and set terminal environment variables.\",\"winner\":\"2\",\"reason\":\"Reply 2 creates a password-bearing role before testing SSL and explicitly sets Django's password environment variable, while Reply 1 tests password authentication before configuring credentials and omits the environment-variable setup.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n27,834\n"
+}

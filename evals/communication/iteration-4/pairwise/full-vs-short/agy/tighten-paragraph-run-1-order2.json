@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Review the revised, tightened paragraph provided first.",
+    "first_step_2": "Review the revised, tightened paragraph provided first.",
+    "winner": "tie",
+    "reason": "There is no meaningful difference between the two replies, as both immediately provide a tightened 64-word paragraph preserving every fact, followed by a single sentence detailing what was changed."
+  },
+  "winner_arm": "tie",
+  "seconds": 23.5,
+  "raw_tail": "Reply 1 tells the reader to review the tightened paragraph first.\nReply 2 tells the reader to review the tightened paragraph first.\n\nIf this were my problem, I would act on either reply equally, as both fulfill all prompt requirements with no meaningful difference in quality or content.\n\n{\"first_step_1\": \"Review the revised, tightened paragraph provided first.\", \"first_step_2\": \"Review the revised, tightened paragraph provided first.\", \"winner\": \"tie\", \"reason\": \"There is no meaningful difference between the two replies, as both immediately provide a tightened 64-word paragraph preserving every fact, followed by a single sentence detailing what was changed.\"}\n\n"
+}

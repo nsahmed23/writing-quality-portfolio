@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Configure and upload a Playwright trace from CI to inspect the DOM snapshot of what the failing run rendered.",
+    "first_step_2": "Run a local reproduction test against a production preview build with CI=1.",
+    "winner": "1",
+    "reason": "Reply 1 immediately prioritizes capturing and inspecting CI artifacts to see what actually rendered during the failure, whereas Reply 2 defers artifact collection behind local reproduction attempts."
+  },
+  "winner_arm": "short",
+  "seconds": 9.9,
+  "raw_tail": "**Reply 1 first step:** Turn on and upload a Playwright trace on CI, then open the trace from a failing run to inspect the DOM snapshot of what was on screen.\n\n**Reply 2 first step:** Attempt to reproduce the issue locally against a production preview build using `CI=1` before checking CI runs.\n\nIf this were my problem, I would act on **Reply 1** first because it immediately directs the reader to obtain evidence from the failing CI run via trace artifacts rather than guessing or attempting local reproduction runs first.\n\n{\"first_step_1\": \"Configure and upload a Playwright trace from CI to inspect the DOM snapshot of what the failing run rendered.\", \"first_step_2\": \"Run a local reproduction test against a production preview build with CI=1.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately prioritizes capturing and inspecting CI artifacts to see what actually rendered during the failure, whereas Reply 2 defers artifact collection behind local reproduction attempts.\"}\n\n"
+}

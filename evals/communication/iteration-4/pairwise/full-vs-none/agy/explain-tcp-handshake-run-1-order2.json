@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "No action is required; read the explanation of sequence numbers and connection establishment.",
+    "first_step_2": "No action is required; read the explanation of sequence numbers and connection establishment.",
+    "winner": "tie",
+    "reason": "Both replies are exceptionally accurate, complete, and explain the exact same mechanics regarding sequence number synchronization and stale connection prevention."
+  },
+  "winner_arm": "tie",
+  "seconds": 13.9,
+  "raw_tail": "at the end).\nReply 2 tells the reader to take no initial action and instead read an explanation of TCP's sequence number mechanics.\n\nIf this were my problem, either reply would serve equally well because both are technically rigorous, comprehensive, and cover the exact same core protocol concepts without error. Both explain that TCP must synchronize two independent sequence spaces (four logical steps compressed into three via SYN-ACK), that a two-way handshake leaves the server without confirmation of its own ISN, and that the third packet is necessary to prevent stale duplicate SYNs from establishing half-open connections. Both also correctly explore simultaneous opens, the Two Generals problem, SYN floods/cookies, teardown, and modern adaptations like TFO and QUIC.\n\n{\"first_step_1\": \"No action is required; read the explanation of sequence numbers and connection establishment.\", \"first_step_2\": \"No action is required; read the explanation of sequence numbers and connection establishment.\", \"winner\": \"tie\", \"reason\": \"Both replies are exceptionally accurate, complete, and explain the exact same mechanics regarding sequence number synchronization and stale connection prevention.\"}\n\n"
+}

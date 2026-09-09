@@ -1,0 +1,73 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "\"The upgrade happening the same week the errors started is a timing correlation, not proof of causation.\" A candidate mechanism (a newer bundled npm shifting script-spawn timing) is offered later but explicitly labeled \"a low-confidence secondary theory, not an established cause.\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "\"Node 24 itself doesn't have a mechanism that produces EADDRINUSE. That error comes from the OS rejecting a `bind()` call because something is already listening on 8080 when the new process starts...\" \u2014 definition in the sentence immediately following first appearance."
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": false,
+      "evidence": "First line is the entire opening paragraph (\"Node 24 itself doesn't have a mechanism that produces EADDRINUSE. That error comes from the OS rejecting a `bind()` call...The far more likely explanation is that the upgrade disturbed your nodemon restart cycle...\"), a claim/explanation, not an action; no command or file to open appears until the numbered list further down."
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "\"If the old `node.exe` doesn't actually die, it keeps port 8080 bound, and the new instance nodemon spawns collides with it.\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "\"What I can't verify at all, since I don't have your machine or repository: the actual contents of `C:\\Dev\\Projects\\inventory-api\\src\\server.ts`, your `package.json` dev script or any `nodemon.json`...\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Node 24 itself doesn't have a mechanism that produces EADDRINUSE. That error comes from the OS rejecting a `bind()` call\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"If step 1 turns up something that isn't Node at all, the Node 24 upgrade is coincidental, and the fix is just freeing po\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final sentence is conditional with two alternative fixes: \"...the Node 24 upgrade is coincidental, and the fix is just freeing port 8080 or moving the dev server to a different one.\""
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 4285,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+        "reason": "Response leads with a dense explanatory paragraph (premise-check + mechanism) before any command; the actual `netstat`/`tasklist` steps only appear as a numbered list well into the response."
+      },
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes",
+        "reason": "The closing sentence offers two alternative fixes joined by 'or' rather than committing to one; this is a recurring pattern across the sample and may be worth tightening the assertion wording to explicitly flag 'or'-joined alternatives as a fail case."
+      }
+    ],
+    "overall": "Reasoning content (sequence-vs-cause, mechanism, verification caveat) is solid; both failures here are about response shape (opening and closing), not the underlying diagnosis."
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "arm": "none",
+  "run": "run-1",
+  "chars": 8773,
+  "first_action_offset": 107,
+  "inventory": [
+    {
+      "item": "dumpdata",
+      "hit": true,
+      "matched": "dumpdata"
+    },
+    {
+      "item": "loaddata",
+      "hit": true,
+      "matched": "loaddata"
+    },
+    {
+      "item": "migrate",
+      "hit": true,
+      "matched": "migrate"
+    },
+    {
+      "item": "createdb",
+      "hit": true,
+      "matched": "createdb"
+    },
+    {
+      "item": "DATABASES",
+      "hit": true,
+      "matched": "DATABASES"
+    },
+    {
+      "item": "contenttypes",
+      "hit": true,
+      "matched": "contenttypes"
+    },
+    {
+      "item": "natural-foreign",
+      "hit": true,
+      "matched": "natural-foreign"
+    },
+    {
+      "item": "sqlsequencereset",
+      "hit": true,
+      "matched": "sqlsequencereset"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The dump happens before the settings change",
+      "passed": true,
+      "evidence": "\"## 4. Dump the data (while settings still point at SQLite)\" precedes \"## 5. Point settings at Postgres\"; the dump explicitly happens before the settings change."
+    },
+    {
+      "text": "Every command is stated",
+      "passed": true,
+      "evidence": "\"cp db.sqlite3 db.sqlite3.backup\"; every step (backup, driver install, role/db creation, dump, settings, migrate, load, verify) has an explicit command."
+    },
+    {
+      "text": "Ends with a verification step",
+      "passed": false,
+      "evidence": "\"Point me at the project directory and I will run steps 1 through 4 and stop with the fixture written, so you can inspect it before anything touches Postgres.\"; final line is an offer to help further, not a verification step (step 8, verify, ends two sections earlier)."
+    }
+  ]
+}

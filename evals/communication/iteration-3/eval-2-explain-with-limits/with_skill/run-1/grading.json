@@ -1,0 +1,72 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "First sentence defines it inline: \"A JWT (JSON Web Token) is a signed, self-contained credential: the server packs proof of identity directly into the token instead of keeping a record of who's logged in.\""
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "The header \"## Why people call it stateless\" is immediately followed by the definition tied to the word's first prose use: \"so verifying a JWT is pure computation, no storage read required. That's the stateless part: any server holding the signing key (or the matching public key, for RSA/ECDSA) can verify any token on its own, without a shared session store.\""
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": true,
+      "evidence": "Section opens with the explicit dual framing: \"Partly true, and the true part is the important part.\" The response then lays out the condition where it holds (bare JWT, no added state) and where it doesn't (with refresh tokens/denylist/timestamp mitigations)."
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "States the trade-off explicitly: \"putting back a small, deliberate amount of the state that JWTs were designed to avoid\" and names a concrete mechanism: \"A denylist (also called a blocklist): the server records the ID of any token that has been explicitly revoked\"."
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'header.payload.signature'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": true,
+      "evidence": "[script] 3 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'A JWT (JSON Web Token) is a signed, self-contained credential: the server packs proof of identity directly into the toke'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: 'Default to short-lived access tokens plus a revocable refresh token, unless there is a specific reason to need an immedi'; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 6063,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+        "reason": "The script only matches the literal string 'think of it like'. A response using an equivalent forced analogy phrased differently (e.g. 'picture a bouncer checking IDs', 'it's similar to a wristband at a concert') would still pass. None of the six runs actually did this, but the check doesn't cover the general case the assertion names."
+      },
+      {
+        "reason": "No assertion verifies the technical accuracy of the JWT mechanics described (signing algorithms, claim names like exp/sub/jti, how HMAC vs RSA/ECDSA verification works, the revocation mechanisms). All six responses happen to be accurate here, but a confidently wrong technical explanation would currently pass every assertion in this eval."
+      }
+    ],
+    "overall": "Assertions are otherwise well-targeted and discriminating (the JWT-definition-timing and stateless-definition checks cleanly separated runs that front-load definitions from ones that don't). The two gaps above are about coverage, not about anything wrong with the graded runs."
+  }
+}

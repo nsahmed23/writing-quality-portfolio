@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 32-byte secret and add environment variables for both the active and legacy keys alongside the existing secret.",
+    "first_step_2": "Run a grep search across the codebase to inventory all JWT call sites, other tokens using the secret, and verifying processes.",
+    "winner": "1",
+    "reason": "Reply 1 provides a fully coherent and functional rollout plan, whereas Reply 2 introduces contradictory migration steps that never actually mint the 'k1' key it tells you to monitor in logs, along with an undeclared logger and raw JSON in environment variables."
+  },
+  "winner_arm": "short",
+  "seconds": 59.4,
+  "raw_tail": "ice, its implementation plan contains confusing contradictions: it sets up a `k1` key ID in step 2 but leaves token issuance untouched, then claims step 3 is \"one variable, then restart\" while simultaneously instructing you to edit code in your login route, resulting in tokens with `kid: k1` never actually being minted despite step 4 instructing you to monitor logs for them (alongside using an undeclared `logger` and embedding raw JSON inside `.env`). Reply 1 provides a clean, fully coherent rollout plan with working verification fallback logic, simple environment variables, and clear deployment boundaries.\n\n{\"first_step_1\": \"Generate a new 32-byte secret and add environment variables for both the active and legacy keys alongside the existing secret.\", \"first_step_2\": \"Run a grep search across the codebase to inventory all JWT call sites, other tokens using the secret, and verifying processes.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides a fully coherent and functional rollout plan, whereas Reply 2 introduces contradictory migration steps that never actually mint the 'k1' key it tells you to monitor in logs, along with an undeclared logger and raw JSON in environment variables.\"}\n\n"
+}

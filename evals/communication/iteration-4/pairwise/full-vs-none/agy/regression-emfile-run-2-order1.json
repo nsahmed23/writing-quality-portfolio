@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Check the running process's actual file descriptor limit using grep 'open files' /proc/$pid/limits.",
+    "first_step_2": "Check the process limits in /proc/$PID/limits and count open descriptors using ls /proc/$PID/fd | wc -l.",
+    "winner": "1",
+    "reason": "Reply 1 directly explains the full causal mechanism and affirms the user's premise, whereas Reply 2 improperly disputes the user's correct causal statement."
+  },
+  "winner_arm": "full",
+  "seconds": 14.7,
+  "raw_tail": "c/$pid/limits`.\n\n**Reply 2 first step:** Inspect the process's file descriptor limits in `/proc/$PID/limits` and count its current open descriptors using `ls /proc/$PID/fd | wc -l`.\n\nIf this were my problem, I would act on **Reply 1** first. \n\nWhile both provide practical troubleshooting steps for Linux services, Reply 1 directly and accurately answers the user's question\u2014explaining the exact mechanism from kernel syscall limits to libuv to the unhandled HTTP server `'error'` event causing the crash\u2014without disputing the user's valid causal premise. In contrast, Reply 2 opens by disputing the premise with false pedantry (\"EMFILE isn't a *consequence* of running out of file descriptors, it's the *name* of that event\"), which contradicts the established facts.\n\n{\"first_step_1\": \"Check the running process's actual file descriptor limit using grep 'open files' /proc/$pid/limits.\", \"first_step_2\": \"Check the process limits in /proc/$PID/limits and count open descriptors using ls /proc/$PID/fd | wc -l.\", \"winner\": \"1\", \"reason\": \"Reply 1 directly explains the full causal mechanism and affirms the user's premise, whereas Reply 2 improperly disputes the user's correct causal statement.\"}\n\n"
+}

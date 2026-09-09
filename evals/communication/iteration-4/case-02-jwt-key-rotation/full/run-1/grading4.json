@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 6068,
+  "first_action_offset": 656,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": false,
+      "matched": null
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "overlap"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 0.8333,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"Nobody gets logged out because the old signature stays acceptable for a full 24 hour token lifetime.\"; steps 1-5 are ordered around exactly this overlap window."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"A token issued one second before the cutover expires 24 hours after it.\"; 24h sets the wait in step 4."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": true,
+      "evidence": "\"Once 25 hours pass with zero hits, step 5 is safe.\"; final line ties the monitoring check directly to the retirement step."
+    }
+  ]
+}

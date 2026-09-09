@@ -1,0 +1,12 @@
+RAN: git status
+RAN: git branch -vv
+RAN: git branch --merged main
+RAN: git branch --no-merged main
+RAN: git log --oneline --graph --all --decorate
+RAN: git log --oneline main..feat/a
+RAN: git log --oneline main..feat/b
+RAN: git log --oneline main..fix/c
+RAN: git log --oneline main..feat/wip1
+RAN: git log --oneline main..feat/wip2
+RAN: git remote -v
+WOULD_RUN: git branch -d feat/a feat/b fix/c

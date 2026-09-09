@@ -1,0 +1,156 @@
+{
+  "per_eval": {
+    "agy": {
+      "eval-0-premise-check": [
+        "with_skill",
+        "without_skill",
+        "inconsistent"
+      ],
+      "eval-1-multistep-actions": [
+        "inconsistent",
+        "without_skill",
+        "inconsistent"
+      ],
+      "eval-2-explain-with-limits": [
+        "inconsistent",
+        "tie",
+        "with_skill"
+      ],
+      "eval-3-true-premise": [
+        "without_skill",
+        "without_skill",
+        "without_skill"
+      ],
+      "eval-4-reexplain": [
+        "with_skill",
+        "with_skill",
+        "with_skill"
+      ],
+      "eval-5-restate-state": [
+        "tie",
+        "tie",
+        "inconsistent"
+      ],
+      "eval-6-destructive-confirm": [
+        "without_skill",
+        "with_skill",
+        "without_skill"
+      ],
+      "eval-7-debug-spiral": [
+        "with_skill",
+        "with_skill",
+        "with_skill"
+      ]
+    },
+    "codex": {
+      "eval-0-premise-check": [
+        "with_skill",
+        "inconsistent",
+        "tie"
+      ],
+      "eval-1-multistep-actions": [
+        "inconsistent",
+        "inconsistent",
+        "tie"
+      ],
+      "eval-2-explain-with-limits": [
+        "without_skill",
+        "tie",
+        "inconsistent"
+      ],
+      "eval-3-true-premise": [
+        "without_skill",
+        "without_skill",
+        "without_skill"
+      ],
+      "eval-4-reexplain": [
+        "with_skill",
+        "with_skill",
+        "inconsistent"
+      ],
+      "eval-5-restate-state": [
+        "tie",
+        "tie",
+        "tie"
+      ],
+      "eval-6-destructive-confirm": [
+        "without_skill",
+        "inconsistent",
+        "without_skill"
+      ],
+      "eval-7-debug-spiral": [
+        "with_skill",
+        "inconsistent",
+        "inconsistent"
+      ]
+    },
+    "kimi": {
+      "eval-0-premise-check": [
+        "with_skill",
+        "inconsistent",
+        "inconsistent"
+      ],
+      "eval-1-multistep-actions": [
+        "inconsistent",
+        "inconsistent",
+        "with_skill"
+      ],
+      "eval-2-explain-with-limits": [
+        "inconsistent",
+        "tie",
+        "tie"
+      ],
+      "eval-3-true-premise": [
+        "inconsistent",
+        "inconsistent",
+        "inconsistent"
+      ],
+      "eval-4-reexplain": [
+        "without_skill",
+        "inconsistent",
+        "inconsistent"
+      ],
+      "eval-5-restate-state": [
+        "tie",
+        "inconsistent",
+        "tie"
+      ],
+      "eval-6-destructive-confirm": [
+        "without_skill",
+        "inconsistent",
+        "without_skill"
+      ],
+      "eval-7-debug-spiral": [
+        "inconsistent",
+        "inconsistent",
+        "inconsistent"
+      ]
+    }
+  },
+  "totals": {
+    "agy": {
+      "with_skill": 9,
+      "without_skill": 7,
+      "tie": 3,
+      "both_unacceptable": 0,
+      "inconsistent": 5,
+      "incomplete": 0
+    },
+    "codex": {
+      "with_skill": 4,
+      "without_skill": 6,
+      "tie": 6,
+      "both_unacceptable": 0,
+      "inconsistent": 8,
+      "incomplete": 0
+    },
+    "kimi": {
+      "with_skill": 2,
+      "without_skill": 3,
+      "tie": 4,
+      "both_unacceptable": 0,
+      "inconsistent": 15,
+      "incomplete": 0
+    }
+  }
+}

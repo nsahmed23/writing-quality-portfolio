@@ -1,0 +1,19 @@
+{
+  "id": 7,
+  "name": "grammar-exact",
+  "kind": "artifact",
+  "prompt": "Fix the grammar only. Return exactly the corrected sentence, with no explanation, action, question, or estimate:\n\n\"The changes was reviewed, but approval is still pending.\"",
+  "expected": {
+    "first": "Return the corrected sentence and nothing else.",
+    "truth": "Only the verb agreement is wrong: 'The changes were reviewed, but approval is still pending.'"
+  },
+  "exact": "The changes were reviewed, but approval is still pending.",
+  "inventory": [
+    [
+      "The changes were reviewed, but approval is still pending."
+    ]
+  ],
+  "shape": [
+    "Output is the corrected sentence alone (quotes optional), nothing else"
+  ]
+}

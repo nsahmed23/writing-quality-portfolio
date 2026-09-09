@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Use the provided rewritten email text directly.",
+    "first_step_2": "Use the provided rewritten email text directly.",
+    "winner": "tie",
+    "reason": "Both replies strictly adhere to all instructions by returning only the email, keeping the exact meeting time and sign-off lines, and warming the tone effectively without any meaningful difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 20.8,
+  "raw_tail": "Reply 1 tells the reader to directly use the provided rewritten email text.\nReply 2 tells the reader to directly use the provided rewritten email text.\n\nIf this were my problem, I would act on either reply interchangeably, as both perfectly follow all positive and negative constraints with no meaningful difference in quality.\n\n{\"first_step_1\": \"Use the provided rewritten email text directly.\", \"first_step_2\": \"Use the provided rewritten email text directly.\", \"winner\": \"tie\", \"reason\": \"Both replies strictly adhere to all instructions by returning only the email, keeping the exact meeting time and sign-off lines, and warming the tone effectively without any meaningful difference.\"}\n\n"
+}

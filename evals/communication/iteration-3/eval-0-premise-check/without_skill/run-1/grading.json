@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "Frames the upgrade timing as a clue, not proof, and hedges toward an indirect trigger rather than direct causation; quote: \"it's more likely that the upgrade triggered this indirectly than that Node 24 causes it directly\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "Explains the error in the sentence immediately following its first appearance; quote: \"something is already bound to port 8080 when your server tries to `listen()`\""
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": false,
+      "evidence": "First line is pure analysis, not an action; opening line: \"Node 24 itself isn't a known cause of EADDRINUSE.\""
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "Names the leftover-process/child-process mechanism directly; quote: \"A leftover process is still holding 8080 when nodemon restarts\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "States explicitly what it cannot check; quote: \"I don't have access to your machine or repo\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Node 24 itself isn't a known cause of EADDRINUSE. That error just means something is already bound to port 8080 when you\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"What I can't verify without your machine: what netstat actually shows on port 8080, your installed nodemon/ts-node versi\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final paragraph is a caveat about what wasn't verified, not a single stated action; closing text: \"What I can't verify without your machine: what netstat actually shows on port 8080, your installed nodemon/ts-node versions, whether `server.ts` has a shutdown handler, and what's in your nodemon config.\""
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 3673,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

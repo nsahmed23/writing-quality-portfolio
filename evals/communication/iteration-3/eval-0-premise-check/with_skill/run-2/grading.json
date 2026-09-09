@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "Explicitly labels the post-upgrade timing as a match, not evidence of mechanism, and argues the every-restart pattern is inconsistent with a Node-24-wide failure; quote: \"is a timing match, not evidence of a mechanism\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": false,
+      "evidence": "First literal appearance of EADDRINUSE is in numbered step 1, and neither that sentence nor the following one explains its meaning; offending span: \"the next EADDRINUSE. A leftover `node.exe` supports the restart-timing theory\""
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": true,
+      "evidence": "First line opens with a command to run, not context; quote: \"Run `netstat -ano | findstr :8080` to see what's currently bound to the port\""
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "Names an equivalent stale-process/socket-release mechanism tied to nodemon's restart cycle; quote: \"nodemon starting the replacement server before Windows finishes releasing port 8080 from the process nodemon just killed\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "States explicitly what it cannot check; quote: \"I don't have access to your machine or logs to check further\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"Run `netstat -ano | findstr :8080` to see what's currently bound to the port, then match the PID it returns against `tas\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: 'Next: reproduce the error once, and read the process name behind the PID that step 1 turns up.'; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "Closing paragraph is a single next step (reproduce the error, then read the already-defined PID's process name); quote: \"Next: reproduce the error once, and read the process name behind the PID that step 1 turns up.\""
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 1,
+    "total": 9,
+    "pass_rate": 0.8889
+  },
+  "execution_metrics": {
+    "output_chars": 2994,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

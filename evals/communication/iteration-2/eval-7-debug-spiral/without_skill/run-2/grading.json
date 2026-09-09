@@ -1,0 +1,63 @@
+{
+  "expectations": [
+    {
+      "text": "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+      "passed": true,
+      "evidence": "Two code blocks, both diagnostic: enabling `trace`/`screenshot`/`video` capture in `playwright.config.ts`, and a temporary `page.screenshot(...)`/`console.log(await page.content())` line for evidence-gathering. Neither touches the locator, timeout, or component logic; the reply opens with \"Time to stop changing the test and look at what CI actually rendered when it failed.\""
+    },
+    {
+      "text": "Names one specific assumption behind the previous three fixes that may be wrong (for example: that the heading renders at all on CI, that CI has a backend to talk to, that auth state or viewport on CI matches local)",
+      "passed": true,
+      "evidence": "\"Raising the timeout, waiting for network idle, and switching to a stable `data-testid` locator all failed the same way, so the heading isn't slow to show up, it isn't showing up at all in CI.\""
+    },
+    {
+      "text": "Asks exactly one diagnostic question",
+      "passed": false,
+      "evidence": "[script] 0 question marks in prose"
+    },
+    {
+      "text": "Asks for evidence rather than guessing: requests a CI artifact (trace, screenshot, video, console log, or the failing run's HTML report)",
+      "passed": true,
+      "evidence": "\"Open the trace with `npx playwright show-trace trace.zip`, or open the HTML report\" and \"Grab the trace, screenshot, or page content from an actual CI failure and share what it shows.\""
+    },
+    {
+      "text": "States plainly, in one sentence, that it is stopping the change-and-retry loop, without apology",
+      "passed": true,
+      "evidence": "\"Time to stop changing the test and look at what CI actually rendered when it failed.\""
+    },
+    {
+      "text": "No dramatized tone ('Uh oh', 'Oh no', 'There seems to be a problem'); matter-of-fact",
+      "passed": true,
+      "evidence": "[script] no dramatized tone phrases"
+    },
+    {
+      "text": "Response is under 1200 characters",
+      "passed": false,
+      "evidence": "[script] 2514 chars"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 2,
+    "total": 7,
+    "pass_rate": 0.7143
+  },
+  "execution_metrics": {
+    "output_chars": 2514,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Asks exactly one diagnostic question",
+        "reason": "Scored by counting literal '?' characters, and this reply has none, despite closing with a clear, single, specific ask (\"Grab the trace, screenshot, or page content from an actual CI failure and share what it shows\") phrased imperatively. The check penalizes phrasing rather than whether the reply narrows the user to one concrete next step."
+      },
+      {
+        "assertion": "Response is under 1200 characters",
+        "reason": "At 2514 characters this is more than double the limit, the largest overage of the six runs, though the extra length goes to a structured three-step diagnostic plan rather than padding. Every run in both arms fails this assertion."
+      }
+    ],
+    "overall": "Two mechanical checks (question-mark count, character count) look miscalibrated; the substantive diagnosis and evidence-gathering plan are strong."
+  }
+}

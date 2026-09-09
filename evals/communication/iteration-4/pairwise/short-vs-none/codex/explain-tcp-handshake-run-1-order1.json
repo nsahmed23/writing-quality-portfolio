@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "No action; understand that both directions' initial sequence numbers must be exchanged and acknowledged.",
+    "first_step_2": "No action; understand how two overlapping sequence-number exchanges produce three packets.",
+    "winner": "1",
+    "reason": "Both explain the missing acknowledgment, but Reply 2 adds substantial errors by claiming FIN and ACK cannot be combined and TCP Fast Open effectively replaces the three-way handshake."
+  },
+  "winner_arm": "short",
+  "seconds": 27.7,
+  "raw_tail": "comes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"No action; understand that both directions' initial sequence numbers must be exchanged and acknowledged.\",\"first_step_2\":\"No action; understand how two overlapping sequence-number exchanges produce three packets.\",\"winner\":\"1\",\"reason\":\"Both explain the missing acknowledgment, but Reply 2 adds substantial errors by claiming FIN and ACK cannot be combined and TCP Fast Open effectively replaces the three-way handshake.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n31,779\n"
+}

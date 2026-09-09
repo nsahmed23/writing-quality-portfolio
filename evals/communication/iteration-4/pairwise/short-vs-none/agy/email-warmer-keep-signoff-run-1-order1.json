@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Directly provides the rewritten email with no conversational preamble or instructions.",
+    "first_step_2": "Directly provides the rewritten email with no conversational preamble or instructions.",
+    "winner": "tie",
+    "reason": "Both replies successfully make the tone warmer and adhere strictly to all negative constraints, keeping the exact meeting time, sign-off lines, and key details with no meaningful difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 18.1,
+  "raw_tail": "Reply 1 tells the reader to review and use the directly provided rewritten email, with no preliminary steps or preamble requested.\nReply 2 tells the reader to review and use the directly provided rewritten email, with no preliminary steps or preamble requested.\n\nIf this were my problem, I would treat them as a tie, as both replies follow all instructions and negative constraints completely and effectively.\n\n{\"first_step_1\": \"Directly provides the rewritten email with no conversational preamble or instructions.\", \"first_step_2\": \"Directly provides the rewritten email with no conversational preamble or instructions.\", \"winner\": \"tie\", \"reason\": \"Both replies successfully make the tone warmer and adhere strictly to all negative constraints, keeping the exact meeting time, sign-off lines, and key details with no meaningful difference.\"}\n\n"
+}

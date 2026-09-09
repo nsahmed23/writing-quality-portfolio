@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Explicitly separates 'started after the Node 24 upgrade' (sequence) from 'caused by Node 24', and does not accept the upgrade as the cause without a mechanism or evidence",
+      "passed": true,
+      "evidence": "Explicitly labels the post-upgrade timing as correlation, not proof of causation; quote: \"is a timing correlation, not proof the upgrade caused it\""
+    },
+    {
+      "text": "Explains what EADDRINUSE means (the port is already held by another process) in the same sentence or the one right after it first appears",
+      "passed": true,
+      "evidence": "Explains the term in the same sentence it first appears; quote: \"EADDRINUSE just means the operating system told Node\""
+    },
+    {
+      "text": "The first line is an action the reader can take now (a command to run or a file to open), not context or a plan",
+      "passed": false,
+      "evidence": "First line is analysis dismissing Node 24 as cause, not an action; opening line: \"Node 24 almost certainly isn't the direct cause here.\""
+    },
+    {
+      "text": "Gives a concrete Windows command to find which process holds port 8080 (netstat -ano with findstr, or Get-NetTCPConnection)",
+      "passed": true,
+      "evidence": "[script] found command: 'netstat -ano'"
+    },
+    {
+      "text": "Names the likely mechanism: the previous server process (or a nodemon/ts-node child) is still alive and holding 8080 across restarts",
+      "passed": true,
+      "evidence": "Names the mechanism almost verbatim to the assertion's own wording; quote: \"a previous instance of your server is still alive and holding port 8080 when the next one tries to start\""
+    },
+    {
+      "text": "Says what it could not verify (it cannot see the machine, the file, or the process table)",
+      "passed": true,
+      "evidence": "States explicitly what it cannot check; quote: \"I can't check from here, since I don't have access to your machine or repo\""
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'Node 24 almost certainly isn\\'t the direct cause here. EADDRINUSE just means the operating system told Node \"something is'"
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', and no dramatized error tone ('Uh oh', 'Oh no', 'There seems to be a problem')",
+      "passed": true,
+      "evidence": "[script] last line: \"One more thirty-second check: run `node -v` inside the actual project terminal, not a fresh shell, to confirm it's reall\"; no closer/tone phrases found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final paragraph names two separate checks (node -v, and separately nodemon/ts-node versions), not exactly one action; second action: \"Also check how old your installed `nodemon` and `ts-node` are\""
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 2,
+    "total": 9,
+    "pass_rate": 0.7778
+  },
+  "execution_metrics": {
+    "output_chars": 3429,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

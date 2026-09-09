@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Check the last ten CI runs to determine whether the failure is deterministic or intermittent before touching any config or capturing traces.",
+    "first_step_2": "Capture and inspect CI artifacts (Playwright trace and screenshots) to see what the page actually rendered at the moment of failure.",
+    "winner": "2",
+    "reason": "Reply 2 immediately executes the correct first diagnostic step by capturing and inspecting the CI trace artifact to see the rendered page, whereas Reply 1 delays this behind an audit of previous CI runs."
+  },
+  "winner_arm": "short",
+  "seconds": 12.7,
+  "raw_tail": "**Reply 1 first step:** Check the last ten CI runs to determine whether the test fails deterministically on every run or intermittently before touching configuration or capturing traces.\n\n**Reply 2 first step:** Configure and upload CI artifacts (Playwright trace and screenshots) to inspect the rendered DOM snapshot at the moment of failure before changing anything else.\n\nIf this were my problem, I would act on **Reply 2** first.\n\n{\"first_step_1\": \"Check the last ten CI runs to determine whether the failure is deterministic or intermittent before touching any config or capturing traces.\", \"first_step_2\": \"Capture and inspect CI artifacts (Playwright trace and screenshots) to see what the page actually rendered at the moment of failure.\", \"winner\": \"2\", \"reason\": \"Reply 2 immediately executes the correct first diagnostic step by capturing and inspecting the CI trace artifact to see the rendered page, whereas Reply 1 delays this behind an audit of previous CI runs.\"}\n\n"
+}

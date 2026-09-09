@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Install PostgreSQL using Homebrew (brew install postgresql@17).",
+    "first_step_2": "Install and start PostgreSQL using Homebrew (brew install postgresql@17 and brew services start postgresql@17).",
+    "winner": "2",
+    "reason": "Reply 2 correctly starts the service alongside installation, uses portable dynamic paths instead of hardcoded Apple Silicon directories, and configures Django with sslmode=require and necessary CREATEDB permissions."
+  },
+  "winner_arm": "none",
+  "seconds": 23.5,
+  "raw_tail": " and uses `$PGDATA` and `$(brew --prefix ...)` throughout. In contrast, Reply 1 claims it asks the server for the path to avoid assumptions, but then hardcodes `/opt/homebrew/...` in steps 5 and 10, which breaks on Intel Macs.\n- **Django Configuration & Testing:** Reply 2 defaults to `sslmode: \"require\"` as standard for local development (offering `verify-full` as an optional extension) and grants `CREATEDB` to the user, preventing `manage.py test` failures. Reply 1 enforces `verify-full` with a hardcoded path and omits `CREATEDB`.\n- **Handling LibreSSL:** Reply 2 provides an actionable Homebrew workaround if `openssl` lacks `-addext`, whereas Reply 1 suggests omitting `-addext` and relying on deprecated CN matching.\n\n```json\n{\"first_step_1\": \"Install PostgreSQL using Homebrew (brew install postgresql@17).\", \"first_step_2\": \"Install and start PostgreSQL using Homebrew (brew install postgresql@17 and brew services start postgresql@17).\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly starts the service alongside installation, uses portable dynamic paths instead of hardcoded Apple Silicon directories, and configures Django with sslmode=require and necessary CREATEDB permissions.\"}\n```\n\n"
+}

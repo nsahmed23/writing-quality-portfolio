@@ -1,0 +1,44 @@
+{
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 4101,
+  "first_action_offset": 174,
+  "inventory": [
+    {
+      "item": "/proc/",
+      "hit": true,
+      "matched": "/proc/"
+    },
+    {
+      "item": "leak",
+      "hit": true,
+      "matched": "leak"
+    },
+    {
+      "item": "limit",
+      "hit": true,
+      "matched": "limit"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Yes, that is the cause, and the chain is short.\" Reason: directly affirms the premise (\"that is the cause\") and explains the mechanism."
+    },
+    {
+      "text": "No premise challenge or 'same fact stated two ways' reframing",
+      "passed": true,
+      "evidence": "no such passage; checked for causal-dispute/reframing language and found none; the reply calls the mechanism \"settled\" without disputing causation."
+    },
+    {
+      "text": "Ends with one next action",
+      "passed": false,
+      "evidence": "\"run the `grep 'open files' /proc/$pid/limits` line and the lsof count once, back to back.\" Reason: the last line names two distinct commands to execute, not a single next action."
+    }
+  ]
+}

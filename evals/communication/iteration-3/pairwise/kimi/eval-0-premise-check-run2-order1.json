@@ -1,0 +1,20 @@
+{
+  "lane": "kimi",
+  "eval_id": 0,
+  "eval_name": "eval-0-premise-check",
+  "run": 2,
+  "order": 1,
+  "mapping": {
+    "1": "with_skill",
+    "2": "without_skill"
+  },
+  "verdict": {
+    "first_step_1": "Run netstat -ano | findstr :8080 and identify the owning PID via tasklist",
+    "first_step_2": "Run Get-NetTCPConnection -LocalPort 8080 in PowerShell and inspect/stop the owning process",
+    "winner": "tie",
+    "reason": "Both lead with the correct port-ownership diagnostic, correctly debunk the Node 24 causation, and cover the same causes and fixes; their remaining differences (delay config vs. shutdown code, minor framing) are not material."
+  },
+  "winner_arm": "tie",
+  "seconds": 32.3,
+  "raw_tail": "the inference (\"fails on every restart, not on first launch\" arguing against Node-wide problem). Actually Reply 1 said \"If Node 24 itself couldn't bind... the first npm run dev after a clean boot would fail too\" \u2014 also an inference but framed as argument. Reply 2 states \"works on a cold start\" as the user's pattern, which the user never confirmed. Minor.\n\n  Reply 1's first instruction is the exact fact-recommended first step (netstat). Reply 2 also. Both good. I'd say tie or slight edge. Reply 1 gives a concrete immediate remediation (taskkill + delay + graceful shutdown) and verification loop. Reply 2 gives code for shutdown handler and ts-node compat note. Both complete. Tie seems right, or slight edge to 1 for matching the facts' first step exactly with netstat and the diagnostic ordering. But 2 uses PowerShell Get-NetTCPConnection which is also listed in facts. Decisive difference hard. I'll call tie \u2014 no, the rubric wants a winner if meaningful. Reply 2's assertion that the user \"works on cold start\" is a mild fabrication but harmless. Reply 1 is marginally more rigorous. I'll pick 1 with reason: matches the prescribed first diagnostic exactly and avoids assuming cold-start behavior the user never stated. Actually that's thin. Both are acceptable; differences are minor. Tie is honest. Reason: both give the same correct first step and diagnosis; remaining differences are stylistic. I'll go tie.\n\nTo resume this session: kimi -r session_ea181a8d-97cc-4bf8-bf9a-f01fb2d8b1cd\n"
+}

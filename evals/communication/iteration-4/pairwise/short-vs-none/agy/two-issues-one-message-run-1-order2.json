@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Configure Playwright to record traces on retry, upload CI artifacts, and inspect the failing DOM snapshot with show-trace.",
+    "first_step_2": "Enable trace capture on failure in playwright.config.ts, upload artifacts from CI, and inspect the trace DOM snapshot.",
+    "winner": "2",
+    "reason": "Reply 2 provides an immediately actionable CI artifact config with retain-on-failure, identifies auth state issues, and avoids a network race condition by setting up waitForResponse before navigation."
+  },
+  "winner_arm": "short",
+  "seconds": 25.5,
+  "raw_tail": " immediately on the failing run without relying on retries (`on-first-retry` in Reply 1 only records if a retry actually executes).\n- Reply 2 provides the exact GitHub Actions artifact upload step.\n- Reply 2 correctly identifies missing/expired auth state (`storageState`) as a primary suspect for a CI-only dashboard timeout, which matches common real-world failure modes.\n- Reply 2's implementation of `waitForResponse` correctly registers the promise before calling `page.goto()`, whereas Reply 1 suggests awaiting `waitForResponse` right before the assertion (after navigation), a known Playwright anti-pattern that causes tests to hang if the network response has already completed.\n\n{\"first_step_1\": \"Configure Playwright to record traces on retry, upload CI artifacts, and inspect the failing DOM snapshot with show-trace.\", \"first_step_2\": \"Enable trace capture on failure in playwright.config.ts, upload artifacts from CI, and inspect the trace DOM snapshot.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides an immediately actionable CI artifact config with retain-on-failure, identifies auth state issues, and avoids a network race condition by setting up waitForResponse before navigation.\"}\n\n"
+}

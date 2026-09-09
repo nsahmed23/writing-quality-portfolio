@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Start a packet capture in Wireshark, load any web page, and filter on tcp.flags.syn == 1.",
+    "first_step_2": "No action is required because the prompt is an explanation request.",
+    "winner": "2",
+    "reason": "Reply 2 correctly recognizes that no action is needed for an explanatory question rather than assigning an unprompted Wireshark capture, and it illustrates the mechanism with an explicit sequence and acknowledgment number packet exchange."
+  },
+  "winner_arm": "none",
+  "seconds": 29.3,
+  "raw_tail": "ep:** Reply 1 tells the reader to open Wireshark, start a packet capture, load a web page, and filter for `tcp.flags.syn == 1`.  \n**Reply 2 first step:** Reply 2 prescribes no action, correctly treating the request as purely conceptual and explanatory.\n\nIf this were my problem, I would act on **Reply 2** first. The user asked a conceptual question about network protocol design rather than reporting a live troubleshooting issue, so no action is required. Reply 2 correctly avoids assigning unprompted tasks like capturing packets in Wireshark, while also providing a clearer breakdown that includes the concrete sequence and acknowledgment number exchange (`seq=x`, `seq=y ack=x+1`, `ack=y+1`) and the analogous four-way teardown.\n\n{\"first_step_1\": \"Start a packet capture in Wireshark, load any web page, and filter on tcp.flags.syn == 1.\", \"first_step_2\": \"No action is required because the prompt is an explanation request.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly recognizes that no action is needed for an explanatory question rather than assigning an unprompted Wireshark capture, and it illustrates the mechanism with an explicit sequence and acknowledgment number packet exchange.\"}\n\n"
+}

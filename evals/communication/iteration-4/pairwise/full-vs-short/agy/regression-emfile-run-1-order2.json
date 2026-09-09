@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Check the process limits and immediately count currently open file descriptors using ls /proc/$PID/fd | wc -l.",
+    "first_step_2": "Check the service limits via systemctl show and /proc/$PID/limits (or double the server load to test time-to-death).",
+    "winner": "1",
+    "reason": "Reply 1 immediately counts the process's open descriptors alongside its limits and correctly accepts the user's causal statement rather than disputing it."
+  },
+  "winner_arm": "full",
+  "seconds": 11.6,
+  "raw_tail": "**Reply 1 first step:** Inspect the service's process limits (`/proc/$PID/limits`) alongside its current open descriptor count (`ls /proc/$PID/fd | wc -l`).  \n**Reply 2 first step:** Inspect the service limits via `systemctl show` and `/proc/$PID/limits` (or double production load to observe time-to-death).\n\nIf this were my problem, I would act on **Reply 1** first. Reply 1 aligns with the facts by validating the user's premise (rather than disputing the user's correct causal statement as Reply 2 does) and immediately checks the running process's open descriptor count alongside its configured limits as the first diagnostic step.\n\n{\"first_step_1\": \"Check the process limits and immediately count currently open file descriptors using ls /proc/$PID/fd | wc -l.\", \"first_step_2\": \"Check the service limits via systemctl show and /proc/$PID/limits (or double the server load to test time-to-death).\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately counts the process's open descriptors alongside its limits and correctly accepts the user's causal statement rather than disputing it.\"}\n\n"
+}

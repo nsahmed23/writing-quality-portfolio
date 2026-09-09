@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+      "passed": true,
+      "evidence": "No edits to dashboard.spec.ts or a component. The only config change requested is diagnostic capture: \"confirm `use: { screenshot: 'only-on-failure', trace: 'on-first-retry' }` is set; add it if it's missing.\""
+    },
+    {
+      "text": "Names one specific assumption behind the previous three fixes that may be wrong (for example: that the heading renders at all on CI, that CI has a backend to talk to, that auth state or viewport on CI matches local)",
+      "passed": true,
+      "evidence": "Explicit: \"All three fixes so far assumed the same thing: that\" ... \"renders late on CI and just needs more time or a better wait. That assumption is now the thing to question.\""
+    },
+    {
+      "text": "Asks the reader for exactly one thing (one question or one imperative request), not a list of things to try or report",
+      "passed": false,
+      "evidence": "Beyond the opening imperative, the reply gives a numbered procedure of three distinct action items (\"2. Re-run the CI job. About 5 minutes if capture was already on, 10 if you had to add it.\" is one of three numbered steps) and then adds a further separate closing question (\"What does the page show at the timeout...?\"). That is a numbered list plus a follow-up question, more than exactly one request of the reader."
+    },
+    {
+      "text": "Asks for evidence rather than guessing: requests a CI artifact (trace, screenshot, video, console log, or the failing run's HTML report)",
+      "passed": true,
+      "evidence": "\"Pull the trace or screenshot from a failed CI run and look at what's actually on the page when the timeout hits.\""
+    },
+    {
+      "text": "States plainly, in one sentence, that it is stopping the change-and-retry loop, without apology",
+      "passed": true,
+      "evidence": "\"That's the next step, not another locator or timing change.\" No apology anywhere in the reply."
+    },
+    {
+      "text": "No dramatized tone ('Uh oh', 'Oh no', 'There seems to be a problem'); matter-of-fact",
+      "passed": true,
+      "evidence": "[script] no dramatized tone phrases"
+    },
+    {
+      "text": "Response is under 2000 characters",
+      "passed": true,
+      "evidence": "[script] 1721 chars (cap 2000)"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 1,
+    "total": 7,
+    "pass_rate": 0.8571
+  },
+  "execution_metrics": {
+    "output_chars": 1721,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Asks the reader for exactly one thing (one question or one imperative request), not a list of things to try or report",
+        "reason": "This run's \"To find out which: 1. 2. 3.\" steps are sequential sub-parts of a single deliverable (view the artifact), similar in substance to run-3's prose-conditional path to the same deliverable, which passes. The verdict here turns on surface formatting (an explicit numbered list) rather than the number of substantively distinct asks, plus a genuinely separate closing question. Worth a wording tweak so graders aren't forced to weigh format over substance."
+      }
+    ],
+    "overall": "Assertions are otherwise sound; the one-ask assertion could specify more precisely how it treats an explicit numbered procedure that serves a single goal."
+  }
+}

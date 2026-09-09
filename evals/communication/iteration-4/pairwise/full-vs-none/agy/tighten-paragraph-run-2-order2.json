@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Read and review the revised paragraph presented first.",
+    "first_step_2": "Read and review the revised paragraph presented first.",
+    "winner": "tie",
+    "reason": "Both replies follow all instructions perfectly by leading with the tightened paragraph, preserving all facts, and providing an accurate one-sentence summary with no meaningful difference between them."
+  },
+  "winner_arm": "tie",
+  "seconds": 28.8,
+  "raw_tail": "Reply 1 presents the tightened paragraph first for the reader to review, with no explicit directive given.\nReply 2 presents the tightened paragraph first for the reader to review, with no explicit directive given.\n\nIf this were my problem, I would consider this a tie. Both replies strictly adhere to all constraints: each returns the revised paragraph first, retains every single fact, cuts the word count effectively (64 words vs. 63 words), and provides exactly one sentence explaining the edits with accurate word counts. The minor wording distinction (\"several undocumented edge cases\" vs. \"undocumented edge cases\") is not a meaningful difference.\n\n{\"first_step_1\": \"Read and review the revised paragraph presented first.\", \"first_step_2\": \"Read and review the revised paragraph presented first.\", \"winner\": \"tie\", \"reason\": \"Both replies follow all instructions perfectly by leading with the tightened paragraph, preserving all facts, and providing an accurate one-sentence summary with no meaningful difference between them.\"}\n\n"
+}

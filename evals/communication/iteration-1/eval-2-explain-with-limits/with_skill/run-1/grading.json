@@ -1,0 +1,61 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": true,
+      "evidence": "\"If they're valid, the server creates a JWT (JSON Web Token): a compact, signed string with three parts separated by dots, `header.payload.signature`.\" - expansion and plain-word definition in the same sentence as first appearance."
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "\"That's the stateless part: the server doesn't need to remember anything about who's logged in between one request and the next.\" - defined in the same sentence at its first prose use (the term appears earlier only in the section heading)."
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": true,
+      "evidence": "\"Partly true, and partly an oversimplification, depending on what \\\"log out\\\" has to mean.\" followed by an explicit split: true for bare JWT auth (\"as a description of bare JWT auth, it's accurate\"), mitigated in practice (\"almost nobody ships bare JWT auth where real logout security matters\")."
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "\"anything that needs real logout buys that back by reintroducing some state\" plus concrete options: \"**Short-lived JWTs plus a revocable refresh token.**\" and \"**A denylist.** The server keeps a small store, often Redis, listing the token or user IDs that have been logged out...\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: 'header.payload.signature'"
+    },
+    {
+      "text": "Uses headers or another skimmable structure for the full explanation (the 'explain' override allows a long body)",
+      "passed": true,
+      "evidence": "[script] 3 header-like lines"
+    },
+    {
+      "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: '## The basic flow'"
+    },
+    {
+      "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: \"One more distinction worth being precise about: a logout button that only deletes the token from the browser isn't revoc\"; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pending": 0,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 4932,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

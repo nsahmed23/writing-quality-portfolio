@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "none",
+  "run": "run-1",
+  "chars": 5787,
+  "first_action_offset": 591,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": false,
+      "evidence": "\"I do not have your repo, your CI logs, or `playwright.config.ts`, so the list above is ordered by frequency in general, not by evidence from your run.\" is a sentence entirely about the flaky-test causes list, appearing under \"## What I could not verify\" after \"## 2. Structuring the repo\" already concluded."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"One rule holds the whole thing up: a feature may import from `shared/`, never from another feature.\" answers the structure question with real detail."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": false,
+      "evidence": "\"I do not have your repo, your CI logs, or `playwright.config.ts`, so the list above is ordered by frequency in general, not by evidence from your run.\" reintroduces issue-1 content after issue-2's section, and the next sentence mixes both topics in one sentence, breaking the two-block structure."
+    }
+  ]
+}

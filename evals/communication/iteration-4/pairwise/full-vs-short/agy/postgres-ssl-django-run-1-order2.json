@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Open a terminal, install postgresql@17 using Homebrew, and export environment variables for the package name, data directory, and PATH.",
+    "first_step_2": "Search for available PostgreSQL versions using brew search postgresql@ and install postgresql@17 using Homebrew.",
+    "winner": "1",
+    "reason": "Reply 1 creates a user with a password before testing the TCP SSL connection, whereas Reply 2 tests SCRAM-authenticated SSL over TCP before creating a password-protected role, causing the verification command to fail with an authentication error."
+  },
+  "winner_arm": "full",
+  "seconds": 38.0,
+  "raw_tail": "eates a password-protected role *after* that verification step.\n\n**Reply 1** handles the sequence correctly:\n1. It verifies the daemon restarted cleanly using `pg_isready -h localhost` (which does not require authentication).\n2. It connects via the local Unix socket (`local ... trust`) to create the user and assign a password.\n3. It tests the SSL TCP connection using that newly created user (`user=django_user`), successfully prompting for the password.\n4. It includes a negative test (`sslmode=disable`) to prove that plaintext connections are actually rejected, and provides complete environment variable instructions for Django.\n\n{\"first_step_1\": \"Open a terminal, install postgresql@17 using Homebrew, and export environment variables for the package name, data directory, and PATH.\", \"first_step_2\": \"Search for available PostgreSQL versions using brew search postgresql@ and install postgresql@17 using Homebrew.\", \"winner\": \"1\", \"reason\": \"Reply 1 creates a user with a password before testing the TCP SSL connection, whereas Reply 2 tests SCRAM-authenticated SSL over TCP before creating a password-protected role, causing the verification command to fail with an authentication error.\"}\n\n"
+}

@@ -1,0 +1,69 @@
+{
+  "expectations": [
+    {
+      "text": "The first line is an action (create/open a specific file or run a command), not preamble or context",
+      "passed": false,
+      "evidence": "First line: \"GitHub Actions reads YAML files from a `.github/workflows/` folder at the root of your repo and runs them automatically when the events you specify happen (here, a pull request against `main`).\" - explanatory context, not an action."
+    },
+    {
+      "text": "Steps are given as a numbered list, and no list in the response has more than 5 items",
+      "passed": true,
+      "evidence": "[script, iteration-1 rule] numbered list present=True (bold numbered headings counted under the iteration-1 rule); longest same-level list run=1. Iteration 2 tightened this rule; see benchmark notes."
+    },
+    {
+      "text": "Includes a complete workflow YAML that triggers on pull_request to main, runs go vet and go test, and caches modules (setup-go cache or actions/cache)",
+      "passed": true,
+      "evidence": "[script] all of pull_request/main/go vet/go test/cache present"
+    },
+    {
+      "text": "Defines at least one GitHub Actions term (workflow, runner, job, or action) in the same sentence it first appears",
+      "passed": false,
+      "evidence": "The terms 'workflow' and 'job' are used repeatedly (e.g. \"this job runs whenever a PR is opened or updated against `main`, and nowhere else\") but never defined in plain words; 'runner' does not appear in the prose at all (only as YAML key `runs-on`)."
+    },
+    {
+      "text": "Gives a time estimate in concrete units (minutes or hours), not vague phrasing",
+      "passed": false,
+      "evidence": "[script] no concrete minutes/hours estimate found"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "Final paragraph is pure caveat with no action: \"A few things I couldn't check since I don't have the repo: this assumes `go.mod` lives at the repo root and you have a single module... worth a quick glance at their Marketplace pages if you want to confirm nothing newer has shipped since.\""
+    },
+    {
+      "text": "Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: 'GitHub Actions reads YAML files from a `.github/workflows/` folder at the root of your repo and runs them automatically '"
+    },
+    {
+      "text": "Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'anything else'",
+      "passed": true,
+      "evidence": "[script] last line: \"A few things I couldn't check since I don't have the repo: this assumes `go.mod` lives at the repo root and you have a s\"; no closer phrases found"
+    },
+    {
+      "text": "Does not require the reader to guess an untaught fact: every file path and command needed to finish is stated explicitly",
+      "passed": true,
+      "evidence": "\"In `C:\\Dev\\Projects\\ledger-svc`, create the folder `.github/workflows/` and a file inside it named `ci.yml`. In Git Bash: ```bash\\ncd C:/Dev/Projects/ledger-svc\\nmkdir -p .github/workflows\\n```\" - explicit path and command given."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 4,
+    "total": 9,
+    "pass_rate": 0.5556
+  },
+  "execution_metrics": {
+    "output_chars": 3491,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Steps are given as a numbered list, and no list in the response has more than 5 items",
+        "reason": "The script's 'numbered list present' check matched on bold section dividers ('**1. Create the workflow file**', '**2. What each part is doing**', etc.) rather than an actual sequential checklist; its own 'longest same-level list run=1' shows no run of 2+ consecutive numbered items was found. The response does not really present the how-to steps as a scannable numbered list the way the with_skill response does, yet this passed."
+      }
+    ],
+    "overall": "Mostly discriminating, but the numbered-list assertion passed on a technicality that the script's own secondary metric (longest run=1) contradicts."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 14,
+  "case_name": "regression-merged-branches-waiver",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 does not instruct the reader to perform an immediate action, mentioning only how to recover feat/a if needed.",
+    "first_step_2": "Reply 2 tells the reader to run git branch to verify the remaining branches.",
+    "winner": "2",
+    "reason": "Reply 2 lists the tip commit IDs for all three deleted branches along with an undo command and verification step, whereas Reply 1 omits commit IDs for feat/b and fix/c."
+  },
+  "winner_arm": "full",
+  "seconds": 15.8,
+  "raw_tail": "**Reply 1 first step:** Reply 1 does not direct the reader to take any immediate action, only mentioning how to restore `feat/a` from the reflog if desired.  \n**Reply 2 first step:** Reply 2 directs the reader to run `git branch` to verify that only `feat/wip1`, `feat/wip2`, and `main` remain.\n\nIf this were my problem, I would act on **Reply 2** first because it provides the verification step and explicitly records the tip commit IDs for all three deleted branches alongside a restoration command, whereas Reply 1 omits the commit IDs for `feat/b` and `fix/c`.\n\n{\"first_step_1\": \"Reply 1 does not instruct the reader to perform an immediate action, mentioning only how to recover feat/a if needed.\", \"first_step_2\": \"Reply 2 tells the reader to run git branch to verify the remaining branches.\", \"winner\": \"2\", \"reason\": \"Reply 2 lists the tip commit IDs for all three deleted branches along with an undo command and verification step, whereas Reply 1 omits commit IDs for feat/b and fix/c.\"}\n\n"
+}

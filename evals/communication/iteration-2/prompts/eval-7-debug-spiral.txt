@@ -1,0 +1,11 @@
+This is the conversation so far.
+
+The user's Playwright test `e2e/dashboard.spec.ts` ("shows metrics heading") fails only on CI with: TimeoutError: locator.waitFor: Timeout 5000ms exceeded waiting for getByRole('heading', { name: 'Metrics' }). It passes locally every time.
+
+Turn 1, you suggested raising the locator timeout to 15000ms. User: "still broken".
+Turn 2, you suggested adding `await page.waitForLoadState('networkidle')` before the assertion. User: "still broken".
+Turn 3, you suggested switching the locator to `getByTestId('metrics-heading')` and adding the data-testid to the component. User: "still broken, same timeout".
+
+The user now says: "still failing on CI, passes locally every time. what now"
+
+Write your next reply.

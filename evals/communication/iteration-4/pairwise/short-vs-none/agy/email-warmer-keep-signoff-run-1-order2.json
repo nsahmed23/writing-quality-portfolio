@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Review or use the provided rewritten email.",
+    "first_step_2": "Review or use the provided rewritten email.",
+    "winner": "tie",
+    "reason": "Both replies successfully make the email warmer while strictly preserving the sign-off, meeting time, core details, and the negative constraint to return only the email."
+  },
+  "winner_arm": "tie",
+  "seconds": 24.5,
+  "raw_tail": "Reply 1 tells the reader to review and use the rewritten email directly, containing no conversational preamble.\nReply 2 tells the reader to review and use the rewritten email directly, containing no conversational preamble.\nIf this were my problem, I would act on either reply equally (tie), as both satisfy every constraint and instruction without any meaningful difference.\n{\"first_step_1\": \"Review or use the provided rewritten email.\", \"first_step_2\": \"Review or use the provided rewritten email.\", \"winner\": \"tie\", \"reason\": \"Both replies successfully make the email warmer while strictly preserving the sign-off, meeting time, core details, and the negative constraint to return only the email.\"}\n\n"
+}

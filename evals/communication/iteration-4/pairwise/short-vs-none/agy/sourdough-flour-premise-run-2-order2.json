@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Inspect the starter for visible signs of mold or heat damage, then split it into two jars to run a side-by-side feeding test comparing the old flour to the new flour.",
+    "first_step_2": "Feed a sample of starter at a 1:2:2 ratio, mark the jar with a rubber band, and check whether it doubles within 4 to 8 hours.",
+    "winner": "2",
+    "reason": "Reply 2 provides an immediate, practical test using a marked jar to check if the starter doubles without requiring leftover old flour, and plainly explains that the timing was coincidence rather than cause."
+  },
+  "winner_arm": "short",
+  "seconds": 42.6,
+  "raw_tail": "serve whether it doubles within 4 to 8 hours at 75\u201380\u00b0F.\n\nIf this were my problem, I would act on **Reply 2** first. Reply 2 immediately provides an actionable, single-jar baseline test to verify if the starter doubles, which does not unrealistically require having the old flour on hand after switching last week. In contrast, Reply 1 advises an impractical two-jar comparison using the old flour, explicitly dismisses watching whether the starter doubles, and rejects the float test entirely. Furthermore, Reply 2 directly explains in plain words that the timing of the switch was coincidence rather than the cause of the issue.\n\n{\"first_step_1\": \"Inspect the starter for visible signs of mold or heat damage, then split it into two jars to run a side-by-side feeding test comparing the old flour to the new flour.\", \"first_step_2\": \"Feed a sample of starter at a 1:2:2 ratio, mark the jar with a rubber band, and check whether it doubles within 4 to 8 hours.\", \"winner\": \"2\", \"reason\": \"Reply 2 provides an immediate, practical test using a marked jar to check if the starter doubles without requiring leftover old flour, and plainly explains that the timing was coincidence rather than cause.\"}\n\n"
+}

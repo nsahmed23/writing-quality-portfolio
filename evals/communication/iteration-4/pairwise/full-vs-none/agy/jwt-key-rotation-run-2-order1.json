@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Check git history to determine whether the rotation is routine hygiene or due to an active leak before generating a new secret.",
+    "first_step_2": "Search the codebase with grep to identify every process and service that verifies tokens with JWT_SECRET.",
+    "winner": "1",
+    "reason": "Reply 1 provides a safer implementation that preserves existing signing call sites, logs fallback verifications to track when old tokens actually drain, and correctly handles verification error types."
+  },
+  "winner_arm": "none",
+  "seconds": 91.4,
+  "raw_tail": "t step:** Search the codebase using `grep` to find every place and service that verifies tokens with `JWT_SECRET`.\n\nIf this were my problem, I would act on **Reply 1** first. Both replies correctly implement a zero-logout overlap strategy by deploying dual-key verification before switching the signing key and waiting out the token lifetime. However, Reply 1 is technically and operationally superior: it keeps `JWT_SECRET` as the primary signing key so existing signing call sites do not break, adds fallback logging telemetry to verify when old tokens have actually drained rather than guessing against the clock, and handles `jsonwebtoken` errors correctly without retrying malformed tokens.\n\n{\"first_step_1\": \"Check git history to determine whether the rotation is routine hygiene or due to an active leak before generating a new secret.\", \"first_step_2\": \"Search the codebase with grep to identify every process and service that verifies tokens with JWT_SECRET.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides a safer implementation that preserves existing signing call sites, logs fallback verifications to track when old tokens actually drain, and correctly handles verification error types.\"}\n\n"
+}

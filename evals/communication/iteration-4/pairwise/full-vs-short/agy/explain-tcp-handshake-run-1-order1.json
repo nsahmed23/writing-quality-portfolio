@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "No action is required; Reply 1 immediately begins explaining why TCP requires a three-way handshake.",
+    "first_step_2": "No action is required; Reply 2 immediately begins explaining why TCP requires a three-way handshake.",
+    "winner": "tie",
+    "reason": "Both replies correctly treat the request as an explanation requiring no action and provide completely accurate, fact-aligned explanations of sequence number synchronization, piggybacking, and stale duplicate handling."
+  },
+  "winner_arm": "tie",
+  "seconds": 22.9,
+  "raw_tail": "an explanation of the TCP handshake.\n\nIf this were my problem, either reply would serve equally well. Both correctly recognize that this is purely an explanation request requiring no initial action, validate the premise that a three-way handshake is necessary, explain how four logical synchronization steps are compressed into three packets via piggybacking, and identify the critical failure modes of a two-way handshake (the server cannot confirm receipt of its own sequence number, and stale duplicate SYNs would create half-open connections). Because length is neither a virtue nor a fault by itself and both cover all technical facts accurately, there is no meaningful difference in their core answers.\n\n{\"first_step_1\": \"No action is required; Reply 1 immediately begins explaining why TCP requires a three-way handshake.\", \"first_step_2\": \"No action is required; Reply 2 immediately begins explaining why TCP requires a three-way handshake.\", \"winner\": \"tie\", \"reason\": \"Both replies correctly treat the request as an explanation requiring no action and provide completely accurate, fact-aligned explanations of sequence number synchronization, piggybacking, and stale duplicate handling.\"}\n\n"
+}

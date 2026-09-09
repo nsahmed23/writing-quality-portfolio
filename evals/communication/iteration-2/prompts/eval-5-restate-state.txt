@@ -1,0 +1,12 @@
+This is the conversation so far.
+
+Earlier you gave the user this 5-step plan for adding a status column to their Prisma schema:
+1. Add `status String @default("active")` to the `Listing` model in `prisma/schema.prisma`.
+2. Run `npx prisma migrate dev --name add_listing_status` against the dev database.
+3. Run `npx prisma generate` so the generated client includes the new field.
+4. Backfill existing rows with `npx tsx scripts/backfill-listing-status.ts` (the script sets status from `archivedAt`).
+5. Deploy with `npx prisma migrate deploy` in the Cloud Run release step.
+
+The user now says: "ok did 1 and 2, both fine. next?"
+
+Write your next reply.

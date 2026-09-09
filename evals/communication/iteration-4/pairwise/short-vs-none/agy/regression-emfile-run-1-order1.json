@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Log the process's open file descriptor count at regular intervals using ls /proc/$PID/fd | wc -l to confirm whether descriptors are leaking over time.",
+    "first_step_2": "Check the service's configured file descriptor limits using systemctl show and /proc/$PID/limits.",
+    "winner": "1",
+    "reason": "Reply 1 immediately begins tracking the process's open file descriptor count over time with ls /proc/<pid>/fd | wc -l to verify a leak, matching the correct first diagnostic step, whereas Reply 2 checks static limits first."
+  },
+  "winner_arm": "none",
+  "seconds": 73.7,
+  "raw_tail": "scriptors are monotonically climbing.\n\n**First step in Reply 2:** Reply 2 instructs the reader to check the active soft and hard descriptor limits governing the service using `systemctl show` and `/proc/$PID/limits`.\n\nIf this were my problem, I would act on **Reply 1** first. While both replies pedantically dispute the user's valid causal premise, Reply 1 immediately implements the correct first troubleshooting step: monitoring and recording the running process's open descriptor count over time using `ls /proc/<pid>/fd | wc -l` to verify a leak curve, whereas Reply 2 starts by inspecting static configuration limits before tracking descriptor growth.\n\n{\"first_step_1\": \"Log the process's open file descriptor count at regular intervals using ls /proc/$PID/fd | wc -l to confirm whether descriptors are leaking over time.\", \"first_step_2\": \"Check the service's configured file descriptor limits using systemctl show and /proc/$PID/limits.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately begins tracking the process's open file descriptor count over time with ls /proc/<pid>/fd | wc -l to verify a leak, matching the correct first diagnostic step, whereas Reply 2 checks static limits first.\"}\n\n"
+}

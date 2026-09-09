@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Use the corrected sentence provided directly.",
+    "first_step_2": "Use the corrected sentence provided directly.",
+    "winner": "tie",
+    "reason": "Both replies correctly fix the grammatical agreement and provide the exact requested sentence with no commentary, differing only in minor whitespace."
+  },
+  "winner_arm": "tie",
+  "seconds": 10.1,
+  "raw_tail": "Reply 1 tells the reader to take the provided corrected sentence directly, offering no separate action instructions.\nReply 2 tells the reader to take the provided corrected sentence directly, offering no separate action instructions.\n\nIf this were my problem, I would act on either reply equally because both correctly fix the verb agreement error and return the exact sentence requested without any explanation or extra commentary.\n\n{\"first_step_1\": \"Use the corrected sentence provided directly.\", \"first_step_2\": \"Use the corrected sentence provided directly.\", \"winner\": \"tie\", \"reason\": \"Both replies correctly fix the grammatical agreement and provide the exact requested sentence with no commentary, differing only in minor whitespace.\"}\n\n"
+}

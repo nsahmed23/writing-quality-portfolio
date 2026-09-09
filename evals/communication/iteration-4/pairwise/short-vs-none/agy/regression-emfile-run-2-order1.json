@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Find the application PID via systemd or pgrep, inspect the open files limit in /proc/$PID/limits, and count open descriptors with ls /proc/$PID/fd | wc -l.",
+    "first_step_2": "Find the application PID via pgrep, inspect the open files limit in /proc/$pid/limits, and count open descriptors with ls /proc/$pid/fd | wc -l.",
+    "winner": "1",
+    "reason": "Reply 1 provides more robust diagnostic commands (using readlink rather than fragile ls -l parsing), includes Node's --report-on-signal for libuv handle inspection, and gives a more accurate breakdown of Fastify and stream leak mechanisms."
+  },
+  "winner_arm": "none",
+  "seconds": 58.8,
+  "raw_tail": "on-signal` to inspect `libuv` TCP handles and remote endpoints directly via `jq`, which is often the fastest way to pinpoint leaking outbound connections.\n- Reply 1 provides leak-rate arithmetic to help deduce whether the leak stems from normal traffic, error branches, or scheduled timers.\n- Reply 1 accurately explains stream leaks (`.pipe()` failing to destroy sources on error vs. `stream.pipeline()`) and multipart temporary file cleanup, whereas Reply 2 cites inaccurate Fastify configuration details (such as `connectionTimeout: 0` and an alleged default `keepAliveTimeout` of 72s).\n\n{\"first_step_1\": \"Find the application PID via systemd or pgrep, inspect the open files limit in /proc/$PID/limits, and count open descriptors with ls /proc/$PID/fd | wc -l.\", \"first_step_2\": \"Find the application PID via pgrep, inspect the open files limit in /proc/$pid/limits, and count open descriptors with ls /proc/$pid/fd | wc -l.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides more robust diagnostic commands (using readlink rather than fragile ls -l parsing), includes Node's --report-on-signal for libuv handle inspection, and gives a more accurate breakdown of Fastify and stream leak mechanisms.\"}\n\n"
+}

@@ -1,0 +1,68 @@
+{
+  "expectations": [
+    {
+      "text": "Every command from the previous reply appears verbatim: the Get-NetTCPConnection line, Stop-Process -Id <PID> -Force, npm install -D nodemon@latest, netsh interface ipv4 show excludedportrange protocol=tcp, and tsx watch src/server.ts",
+      "passed": false,
+      "evidence": "[script] missing: Stop-Process, nodemon update, netsh excludedportrange, tsx watch"
+    },
+    {
+      "text": "Adds no new commands, tools, or facts that were not in the previous reply",
+      "passed": false,
+      "evidence": "The reply introduces a new claim about the command's behavior not present in the original: \"An error, which means nothing is actually listening on 8080.\" The original only described the no-match case as the command having \"returned nothing,\" never as an error; this is new factual content layered on top of a response that otherwise withholds nearly all of the original material."
+    },
+    {
+      "text": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+      "passed": true,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Keeps the four numbered steps of the original in the same order",
+      "passed": false,
+      "evidence": "None of the four steps (kill stray process, add shutdown handler, update nodemon, check excluded port range) appear anywhere. The reply explicitly defers them: \"Everything else from my last message (the Node 24 versus nodemon reasoning, the four-step list) can wait until we know that.\""
+    },
+    {
+      "text": "Sentences are shorter: mean words per sentence is lower than in the previous reply",
+      "passed": true,
+      "evidence": "[script] mean words/sentence: reply 18.1 vs original 25.2"
+    },
+    {
+      "text": "Asks no new question; the only request to the reader, if any, is the original one (run the port check and report the process name and PID)",
+      "passed": false,
+      "evidence": "Beyond the port-check request, the reply adds a second, new request: \"If it was actually the reasoning that lost you rather than the command, say so and I'll re-explain just that one part, on its own, without the rest.\" This asks the reader to diagnose what confused them, which is not the original request."
+    },
+    {
+      "text": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+      "passed": true,
+      "evidence": "[script] no apology or meta-commentary found"
+    },
+    {
+      "text": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+      "passed": true,
+      "evidence": "[script] no 'sequence'/'correlation' labels"
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 4,
+    "total": 8,
+    "pass_rate": 0.5
+  },
+  "execution_metrics": {
+    "output_chars": 1011,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+        "reason": "The script only checks for the absence of the words 'sequence'/'correlation'. This reply omits the timing-versus-cause explanation entirely (\"the Node 24 versus nodemon reasoning ... can wait\"), yet still passes because it never uses either forbidden word. The assertion can't distinguish 'explained it in plain words' from 'never explained it at all.'"
+      },
+      {
+        "assertion": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+        "reason": "The opening line \"Let's back up; that was a lot to take in at once\" is meta-commentary about the previous message's volume, but it doesn't match any of the script's four literal phrases, so it passes despite arguably violating the assertion's intent."
+      }
+    ],
+    "overall": "Both the timing-versus-cause check and the apology/meta-commentary check are implemented as narrow keyword matches, so a reply that omits the required content or uses an unlisted meta-commentary phrase can still pass. Checking for content presence, not just forbidden-word absence, would make these more discriminating."
+  }
+}

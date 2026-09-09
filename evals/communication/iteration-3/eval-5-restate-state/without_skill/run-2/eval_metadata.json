@@ -1,0 +1,14 @@
+{
+  "eval_id": 5,
+  "eval_name": "eval-5-restate-state",
+  "prompt": "This is the conversation so far.\n\nEarlier you gave the user this 5-step plan for adding a status column to their Prisma schema:\n1. Add `status String @default(\"active\")` to the `Listing` model in `prisma/schema.prisma`.\n2. Run `npx prisma migrate dev --name add_listing_status` against the dev database (this also regenerates the Prisma client).\n3. Backfill existing rows with `npx tsx scripts/backfill-listing-status.ts`; it sets status to \"archived\" wherever `archivedAt` is set, since the migration gave every existing row the default \"active\".\n4. Check the result with `npx tsx scripts/count-listing-status.ts`, which prints row counts per status.\n5. Deploy with `npx prisma migrate deploy` in the Cloud Run release step.\n\nThe user now says: \"ok did 1 and 2, both fine. next?\"\n\nWrite your next reply.",
+  "assertions": [
+    "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+    "Gives step 3 with its exact command, npx tsx scripts/backfill-listing-status.ts",
+    "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+    "Ends with exactly one concrete next action (run the backfill, or run it and report the count)",
+    "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+    "Explains why step 3 is needed in one clause (existing rows got the default \"active\" even where archivedAt is set), not a paragraph",
+    "Response is under 900 characters"
+  ]
+}

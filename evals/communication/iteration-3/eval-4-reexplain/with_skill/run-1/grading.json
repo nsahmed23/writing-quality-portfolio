@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Every command from the previous reply appears verbatim: the Get-NetTCPConnection line, Stop-Process -Id <PID> -Force, npm install -D nodemon@latest, netsh interface ipv4 show excludedportrange protocol=tcp, and tsx watch src/server.ts",
+      "passed": true,
+      "evidence": "[script] all 5 commands present verbatim"
+    },
+    {
+      "text": "Adds no new commands, tools, or facts that were not in the previous reply",
+      "passed": true,
+      "evidence": "The reply restates the original causal claims without adding new ones, e.g. \"Node just reports what Windows already decided; it isn't the one making that call.\" mirrors the original's Windows-not-Node claim. The parking-spot analogy (\"nodemon waves the first car out and waves the second one in, but if the first car is still pulling out when the second one pulls forward, they collide\") illustrates the existing handoff-collision point rather than introducing a new one. No new command, tool, or diagnostic branch appears."
+    },
+    {
+      "text": "Uses no headers; structure is flattened to prose, keeping at most the original numbered steps",
+      "passed": true,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "Keeps the four numbered steps of the original in the same order",
+      "passed": true,
+      "evidence": "All four branches appear in order: (1) \"If it shows a process called `node.exe`\" with Stop-Process; (2) \"Fix that by adding a shutdown handler\"; (3) \"update nodemon itself, with `npm install -D nodemon@latest`\"; (4) \"something else on Windows has already claimed port 8080\" with the netsh check."
+    },
+    {
+      "text": "Sentences are shorter: mean words per sentence is lower than in the previous reply",
+      "passed": true,
+      "evidence": "[script] mean words/sentence: reply 15.8 vs original 25.2"
+    },
+    {
+      "text": "Asks no new question; the only request to the reader, if any, is the original one (run the port check and report the process name and PID)",
+      "passed": true,
+      "evidence": "No question mark appears anywhere in the reply. The closing line \"tell me the process name and the process ID number it gives back\" restates the original request only."
+    },
+    {
+      "text": "Contains no apology or meta-commentary about the previous message ('sorry', 'let me try again', 'to clarify what I meant', 'in other words')",
+      "passed": true,
+      "evidence": "[script] no apology or meta-commentary found"
+    },
+    {
+      "text": "Explains the timing-versus-cause point in plain words without using 'sequence' or 'correlation' as category labels",
+      "passed": true,
+      "evidence": "[script] no 'sequence'/'correlation' labels"
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 5109,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

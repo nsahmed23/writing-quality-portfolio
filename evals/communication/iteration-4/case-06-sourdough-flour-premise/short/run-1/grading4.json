@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 4608,
+  "first_action_offset": 3176,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": true,
+      "evidence": "\"Worth asking what else changed the same week: the season, the heating, where the jar sits.\" plain-words framing that other candidates share the same timing, so timing alone does not point to flour."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Run a side-by-side feed. Two straight-sided jars, each 20 g starter + 20 g flour + 20 g water, one with the new flour and one with the old bag\" concrete side-by-side test given."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"A healthy starter roughly doubles in 4 to 8 hours at 24 to 26 C.\" concrete hour units given."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply; explanations are literal (bran and germ, malt, protein, temperature), no comparison to an unrelated domain."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply for \"sequence\", \"correlation\", \"premise\", \"mechanism\"; none appear."
+    }
+  ]
+}

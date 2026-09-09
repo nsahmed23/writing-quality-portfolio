@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "States the position explicitly in the first line (step 3 of 5, or steps 1 and 2 done and 3 next)",
+      "passed": true,
+      "evidence": "[script] first line: 'Steps 1 and 2 are done, so the `status` column is in the schema with its `\"active\"` default, and the dev database and Prisma client are curr'"
+    },
+    {
+      "text": "Gives step 3 with its exact command, npx tsx scripts/backfill-listing-status.ts",
+      "passed": true,
+      "evidence": "[script] contains 'npx tsx scripts/backfill-listing-status.ts'"
+    },
+    {
+      "text": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+      "passed": false,
+      "evidence": "Step 5 gets full command and plan-matching explanation: \"step 5 deploys with `npx prisma migrate deploy` in the Cloud Run release step.\" reproduces the plan's step 5 wording almost exactly, not a brief mention."
+    },
+    {
+      "text": "Ends with exactly one concrete next action (run the backfill, or run it and report the count)",
+      "passed": false,
+      "evidence": "The response ends by describing step 5 rather than directing an action: \"step 5 deploys with `npx prisma migrate deploy` in the Cloud Run release step.\" is the final sentence; no closing directive to run the backfill."
+    },
+    {
+      "text": "Introduces no new steps or commands beyond the plan (no schema edits, no extra migrations, no new tooling)",
+      "passed": true,
+      "evidence": "Only plan commands appear, e.g. \"npx tsx scripts/backfill-listing-status.ts\" used exactly as specified; no schema edits, dry runs, or other new tooling introduced."
+    },
+    {
+      "text": "Explains why step 3 is needed in one clause (existing rows got the default \"active\" even where archivedAt is set), not a paragraph",
+      "passed": true,
+      "evidence": "Single sentence, one why-clause: \"since the migration left every existing row on the \"active\" default\", matching the required substance without extra elaboration."
+    },
+    {
+      "text": "Response is under 900 characters",
+      "passed": true,
+      "evidence": "[script] 553 chars (cap 900)"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 2,
+    "total": 7,
+    "pass_rate": 0.7143
+  },
+  "execution_metrics": {
+    "output_chars": 553,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Does not re-list steps 4 and 5 in full: each gets at most one line, or is omitted",
+        "reason": "The step 4/5 summary and the response's closing line are the same sentence, so a full restatement of step 5 there also causes the missing-closing-action failure. The two assertions may be catching one lapse (trailing into step 5 detail instead of closing on the backfill) rather than two independent ones."
+      }
+    ],
+    "overall": "Re-listing and closing-action failures share a root cause in this response; worth checking whether that overlap is intended."
+  }
+}

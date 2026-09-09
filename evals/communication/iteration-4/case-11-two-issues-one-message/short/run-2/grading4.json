@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 6315,
+  "first_action_offset": 278,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": true,
+      "evidence": "\"Two unrelated problems, so two separate answers. Do the flake first: restructuring moves files that your imports and Playwright config point at\" states the order upfront (allowed top acknowledgement), then flake content precedes structure content with no later reversal."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"One rule keeps this from rotting: a feature may import from `shared/`, never from another feature's internals.\" answers the structure question with real detail."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": true,
+      "evidence": "no such passage; checked the end of the reply after \"## 2. Repo structure\" begins. The final line concerns keeping Playwright config paths valid after the file move (a structure-migration precaution), not a return to diagnosing the flake."
+    }
+  ]
+}

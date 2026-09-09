@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 32-byte secret and configure the environment with both the new key, the legacy key, and an active key ID (kid).",
+    "first_step_2": "Generate a new 32-byte secret and store it externally without installing it into the environment.",
+    "winner": "1",
+    "reason": "Reply 1 properly incorporates a key ID (`kid`) header and deploys verification for both keys across all instances before switching the signing key, whereas Reply 2 omits `kid` entirely and requires a convoluted multi-stage restart to distribute keys."
+  },
+  "winner_arm": "short",
+  "seconds": 15.4,
+  "raw_tail": "**Reply 1 first step:** Generate a new 32-byte secret and configure the environment with both the new key, the legacy key, and an active key ID (`kid`).\n\n**Reply 2 first step:** Generate a new 32-byte secret and save it in a password manager or secret store without installing it into the environment.\n\n**Which reply to act on first:** \nI would act on **Reply 1**. It follows standard JWT rotation best practices by adding a `kid` header to newly issued tokens, keeping both keys available for verification across all instances before flipping the signing key, and avoiding the awkward multi-stage rollout restarts required by Reply 2.\n\n{\"first_step_1\": \"Generate a new 32-byte secret and configure the environment with both the new key, the legacy key, and an active key ID (kid).\", \"first_step_2\": \"Generate a new 32-byte secret and store it externally without installing it into the environment.\", \"winner\": \"1\", \"reason\": \"Reply 1 properly incorporates a key ID (`kid`) header and deploys verification for both keys across all instances before switching the signing key, whereas Reply 2 omits `kid` entirely and requires a convoluted multi-stage restart to distribute keys.\"}\n\n"
+}

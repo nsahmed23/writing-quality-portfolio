@@ -1,0 +1,59 @@
+{
+  "case_id": 4,
+  "case_name": "explain-vector-clock",
+  "kind": "explanation",
+  "arm": "none",
+  "run": "run-1",
+  "chars": 6696,
+  "first_action_offset": 405,
+  "inventory": [
+    {
+      "item": "Lamport",
+      "hit": true,
+      "matched": "Lamport"
+    },
+    {
+      "item": "concurren",
+      "hit": true,
+      "matched": "concurren"
+    },
+    {
+      "item": "causal",
+      "hit": true,
+      "matched": "causal"
+    },
+    {
+      "item": "per process",
+      "hit": true,
+      "matched": "per process"
+    },
+    {
+      "item": "conflict",
+      "hit": true,
+      "matched": "conflict"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Does not open with a manufactured command or task",
+      "passed": true,
+      "evidence": "\"A vector clock is a list of counters, one slot per process in the system, attached to every event and every message.\"; opens with a direct definition, not a manufactured command or task."
+    },
+    {
+      "text": "Defines terms before relying on them",
+      "passed": true,
+      "evidence": "\"If `a` happened-before `b` (written `a -> b`, meaning they are on the same process in that order, or a chain of messages connects them), then `L(a) < L(b)`.\"; happened-before is defined structurally at its first formal use, and concurrent is glossed inline where first used."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; the explanation uses literal process/vector definitions, a concrete A/B/C trace table, and Go code throughout; no metaphor or analogy appears anywhere in the response."
+    },
+    {
+      "text": "Ends when the explanation ends; no invented next step",
+      "passed": true,
+      "evidence": "no such passage; last line is \"That capability only comes from carrying per-process state.\"; still explaining the hybrid-logical-clock tradeoff, not an invented next step or offer."
+    }
+  ]
+}

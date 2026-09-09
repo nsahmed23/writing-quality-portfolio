@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 4429,
+  "first_action_offset": 739,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": false,
+      "matched": null
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "old key"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 0.8333,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"Keeping the old secret in the verify list for one full token lifetime is what stops anyone from being logged out.\"; the five numbered steps follow that overlap order."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"up to 24 hours' worth, keep verifying against the old one\"; 24h governs how long the old secret stays in the verify list."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": true,
+      "evidence": "\"Both should return 200. If the older token gets a 401, that machine's `JWT_SECRETS` lost its second entry.\"; final line is the post-deploy verification check."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": false,
+      "evidence": "FAIL: first line is \"Check the current ceiling first: `cat /proc/<pid>/limits | grep \"Max open files\"` (swap in your Fastify process's PID).\" -- opens with a diagnostic command/preamble, not the mechanism. The mechanism statement is delayed to sentence 2, and that sentence itself disputes the causal framing (see next assertion)."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": false,
+      "evidence": "FAIL: \"Hitting that ceiling and getting EMFILE are not two events in a chain, cause and then effect: they are the same event described twice.\" This explicitly denies a causal chain in favor of identity -- functionally equivalent to \"sequence, not cause\" boilerplate."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": false,
+      "evidence": "FAIL: term first appears in \"Every process gets a kernel-enforced cap on open file descriptors (`RLIMIT_NOFILE`, the number `ulimit -n` shows you)\" -- the parenthetical defines how to read the cap (RLIMIT_NOFILE/ulimit -n), not what a file descriptor itself is (a handle for an open file or socket). The closer phrase \"instead of handing back a handle\" appears two sentences later, not attached to the first appearance."
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "PASS: \"is the signature of a leak\" -- in context: \"A slow, steady climb to the ceiling over hours is the signature of a leak: something is acquiring descriptors faster than it releases them.\" Also explicitly contrasts this with a too-low cap (\"fails near the start of a traffic spike, not five or six hours into steady load\") and ranks five concrete leak sources."
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: 'ulimit -n'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "PASS: \"raising the ceiling delays the crash but doesn't stop the leak\" -- under the heading \"Stopgap versus the actual fix,\" explicitly states raising the limit only delays recurrence while the leak keeps climbing against the new ceiling, and treats fixing the leak as the actual fix."
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "PASS: \"I don't have access to your server, code, or logs\" -- states it cannot confirm which leak source is real, the current ulimit/LimitNOFILE, or the nginx upstream config."
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": true,
+      "evidence": "PASS: closing line is \"Start by finding the PID (step 1 above, under a minute): every other command here, including the limits check at the very top, needs it before you can run it for real.\" One action, explicitly time-boxed under two minutes (\"under a minute\"), no alternatives listed."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 3,
+    "total": 8,
+    "pass_rate": 0.625
+  },
+  "execution_metrics": {
+    "output_chars": 5125,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

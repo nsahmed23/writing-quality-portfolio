@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Audit the codebase to locate all usages of the secret and determine token lifetimes.",
+    "first_step_2": "Check git history for leaks and generate a new random secret.",
+    "winner": "1",
+    "reason": "Reply 1 introduces a key ID (kid) to newly issued tokens immediately with a legacy fallback for seamless key lookup, whereas Reply 2 relies on inefficient trial-and-error verification and defers kid support until after the rotation."
+  },
+  "winner_arm": "short",
+  "seconds": 28.9,
+  "raw_tail": "r to do first:**  \nDetermine whether the rotation is due to a leak or routine hygiene (checking git history for exposure) and generate a new cryptographic key.\n\n**Which reply to act on first:**  \nI would act on **Reply 1** first. \n\nReply 1 follows the standard and correct practice of immediately adding a `kid` (Key ID) header to newly signed tokens while maintaining a legacy fallback (`v1`) for existing tokens without one, allowing the verifier to cleanly look up the correct secret without trial and error. In contrast, Reply 2 avoids using `kid` during the actual rotation, relying instead on throwing and catching `jwt.verify` exceptions in a loop across valid tokens, only suggesting `kid` as an afterthought for future rotations.\n\n```json\n{\"first_step_1\": \"Audit the codebase to locate all usages of the secret and determine token lifetimes.\", \"first_step_2\": \"Check git history for leaks and generate a new random secret.\", \"winner\": \"1\", \"reason\": \"Reply 1 introduces a key ID (kid) to newly issued tokens immediately with a legacy fallback for seamless key lookup, whereas Reply 2 relies on inefficient trial-and-error verification and defers kid support until after the rotation.\"}\n```\n\n"
+}

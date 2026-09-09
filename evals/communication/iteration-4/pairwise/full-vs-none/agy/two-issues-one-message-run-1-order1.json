@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Configure Playwright to record traces and failure artifacts, upload them in CI, and inspect the DOM snapshot at the point of timeout.",
+    "first_step_2": "Run a local reproduction attempt by building the production bundle and running the test with CI=1 and --repeat-each=10.",
+    "winner": "1",
+    "reason": "Reply 1 follows the correct first step of capturing and inspecting CI artifacts (trace/DOM snapshot) before changing code or guessing, whereas Reply 2 first attempts a local reproduction."
+  },
+  "winner_arm": "none",
+  "seconds": 10.3,
+  "raw_tail": "pect the DOM snapshot from the failing run.\n\n**Reply 2 first step:** Attempt to reproduce the issue locally by building and previewing the production app while running tests with `CI=1` and `--repeat-each=10`.\n\nIf this were my problem, I would act on **Reply 1** first. Per the established facts, the correct initial step for an environment-specific CI failure is to inspect evidence from the failing CI run (trace or screenshot) to see what the page actually rendered, rather than attempting local reproductions first. Reply 1 immediately directs the user to configure and pull the CI trace artifact, and it neatly addresses the flaky test first before turning to the repo restructuring.\n\n{\"first_step_1\": \"Configure Playwright to record traces and failure artifacts, upload them in CI, and inspect the DOM snapshot at the point of timeout.\", \"first_step_2\": \"Run a local reproduction attempt by building the production bundle and running the test with CI=1 and --repeat-each=10.\", \"winner\": \"1\", \"reason\": \"Reply 1 follows the correct first step of capturing and inspecting CI artifacts (trace/DOM snapshot) before changing code or guessing, whereas Reply 2 first attempts a local reproduction.\"}\n\n"
+}

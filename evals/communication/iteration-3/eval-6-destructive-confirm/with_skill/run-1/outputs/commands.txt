@@ -1,0 +1,8 @@
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" rev-parse --is-inside-work-tree
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" status
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" branch -vv
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" branch --merged main
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" branch --no-merged main
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" remote -v
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" worktree list
+RAN: git -C "C:/Users/nsahm/.claude/skills/communication-workspace/iteration-3/eval-6-destructive-confirm/with_skill/run-1/inputs/repo" log --oneline --graph --all --decorate

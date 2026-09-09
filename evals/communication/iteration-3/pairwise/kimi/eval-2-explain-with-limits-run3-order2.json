@@ -1,0 +1,20 @@
+{
+  "lane": "kimi",
+  "eval_id": 2,
+  "eval_name": "eval-2-explain-with-limits",
+  "run": 3,
+  "order": 2,
+  "mapping": {
+    "1": "without_skill",
+    "2": "with_skill"
+  },
+  "verdict": {
+    "first_step_1": "No action; explains that JWT auth differs from session auth because the server keeps no record of logins",
+    "first_step_2": "No action; defines a JWT as a signed claims string and walks through the login/validation flow",
+    "winner": "tie",
+    "reason": "Both are accurate, complete explanations of JWT statelessness and the revocation tradeoffs, differing only in minor framing details."
+  },
+  "winner_arm": "tie",
+  "seconds": 16.3,
+  "raw_tail": "eeps no record of who's logged in, then walks through the token flow. Reply 2 first defines a JWT as a signed claims string, then walks through the numbered login-to-validation flow. Neither prescribes an action; both are explanations, which matches the request.\n\n  Both replies are technically correct and complete: they explain the three-part token structure, signing vs encoding, what stateless means versus session auth, and confirm that a bare JWT can't be revoked before expiry while listing the standard fixes (short-lived tokens with revocable refresh tokens, revocation lists via `jti`, token versioning). Reply 2 adds key rotation as a blunt option and distinguishes the narrow true claim from the broad overreach slightly more explicitly; Reply 1 separates client-side logout from server-side revocation, which Reply 2 covers less crisply. These differences are marginal, with no correctness or completeness failure in either.\n\n  {\"first_step_1\": \"No action; explains that JWT auth differs from session auth because the server keeps no record of logins\", \"first_step_2\": \"No action; defines a JWT as a signed claims string and walks through the login/validation flow\", \"winner\": \"tie\", \"reason\": \"Both are accurate, complete explanations of JWT statelessness and the revocation tradeoffs, differing only in minor framing details.\"}\n\n\nkimi version 0.37.2\n\u2022 No action needed, both are explanation replies. Judge.\n\nTo resume this session: kimi -r session_bb10d763-070a-4dff-baef-1b8e3c8f5cdd\n"
+}

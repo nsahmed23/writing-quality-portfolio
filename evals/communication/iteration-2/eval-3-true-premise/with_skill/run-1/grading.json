@@ -1,0 +1,64 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": true,
+      "evidence": "Opening paragraph: 'The moment your process tries to open a new socket or file and the kernel refuses because you're already at your file-descriptor ceiling, that refusal is what comes back as `EMFILE: too many open files`.' The mechanism is stated before any other content."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": true,
+      "evidence": "'EMFILE isn't a separate effect that running out of file descriptors causes; it *is* that event.' Reframes cause as identity but affirms the causal link; no hedging boilerplate present."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": false,
+      "evidence": "No sentence anywhere in the response defines what a file descriptor is. The term is used throughout ('file-descriptor ceiling', 'open-descriptor count') but never explained as a handle/reference for an open file or socket."
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "'Either something leaks a few descriptors per request that never get closed, or your legitimately concurrent connection count is growing...' followed by a 5-item ranked list under 'If it's CLOSE_WAIT: likely spots, ranked.'"
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: 'ulimit -n'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "'If you saw CLOSE_WAIT piling up, raising it only delays the identical crash; the real fix is closing whatever step 5's ranked list points at.'"
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "'I can't see your code or how the process is deployed, so I can't tell you which call is responsible, but this is checkable directly on the box.'"
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "'Next: get the PID and run steps 2 and 3 right after a restart, then again an hour into load.' Bundles two diagnostic commands and an explicit repeat an hour later, not a single quick action."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 2,
+    "total": 8,
+    "pass_rate": 0.75
+  },
+  "execution_metrics": {
+    "output_chars": 5377,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Ends with exactly one concrete next action the reader can do in under two minutes",
+        "reason": "No response ever states an explicit time estimate for its closing action, so 'under two minutes' has to be inferred. Borderline cases (a single continuously-running watch command vs. an explicit 'do this, then repeat in an hour' instruction) require a judgment call about implied repetition that the assertion wording doesn't spell out."
+      }
+    ],
+    "overall": "Assertions are otherwise well-specified and discriminating; only the closing-action timing criterion required interpretation beyond what the wording states."
+  }
+}

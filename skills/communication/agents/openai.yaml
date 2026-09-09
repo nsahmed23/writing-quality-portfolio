@@ -1,0 +1,15 @@
+interface:
+  display_name: Communication
+  short_description: Default reply shape, action first, terms defined, premises verified
+  default_prompt: Use $communication for every reply. Lead with the next action, number
+    multi-step work, define a term in the sentence it first appears, verify premises,
+    say what is unverified, and end with one next action.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

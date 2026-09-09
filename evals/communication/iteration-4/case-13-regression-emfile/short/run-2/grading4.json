@@ -1,0 +1,44 @@
+{
+  "case_id": 13,
+  "case_name": "regression-emfile",
+  "kind": "regression",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 6437,
+  "first_action_offset": 0,
+  "inventory": [
+    {
+      "item": "/proc/",
+      "hit": true,
+      "matched": "/proc/"
+    },
+    {
+      "item": "leak",
+      "hit": true,
+      "matched": "leak"
+    },
+    {
+      "item": "limit",
+      "hit": true,
+      "matched": "limit"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": false,
+      "evidence": "\"Running out of file descriptors doesn't *cause* EMFILE; EMFILE is the name the kernel gives to that condition.\" Reason: disputes the premise rather than affirming it."
+    },
+    {
+      "text": "No premise challenge or 'same fact stated two ways' reframing",
+      "passed": false,
+      "evidence": "\"Running out of file descriptors doesn't *cause* EMFILE; EMFILE is the name the kernel gives to that condition.\" Reason: reframes cause as naming, the exact \"same fact stated two ways\" pattern."
+    },
+    {
+      "text": "Ends with one next action",
+      "passed": true,
+      "evidence": "\"Send back the step 3 breakdown taken twice, once shortly after a restart and once two or three hours in, plus the `open files` line from step 1.\" Reason: ends with one action (\"Send back...\") bundling the needed data."
+    }
+  ]
+}

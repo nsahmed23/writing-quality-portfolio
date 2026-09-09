@@ -1,0 +1,3 @@
+Fix the grammar only. Return exactly the corrected sentence, with no explanation, action, question, or estimate:
+
+"The changes was reviewed, but approval is still pending."

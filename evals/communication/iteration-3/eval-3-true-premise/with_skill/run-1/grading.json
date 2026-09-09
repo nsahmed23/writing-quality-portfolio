@@ -1,0 +1,55 @@
+{
+  "expectations": [
+    {
+      "text": "Opens with the direct answer to the why (the mechanism: each socket or open file consumes one descriptor from a per-process limit, and the limit is hit), not with a premise challenge, context, or preamble",
+      "passed": false,
+      "evidence": "FAIL: first line is 'EMFILE and \"running out of file descriptors\" aren't cause and effect; they're the same fact stated two ways.' This is a reframing/challenge of the causal framing in the question, not a statement of the mechanism. The mechanism (hitting the per-process RLIMIT_NOFILE cap) is not stated until the second sentence."
+    },
+    {
+      "text": "Does not dispute or hedge the premise: contains no 'correlation is not causation', 'sequence, not cause', 'coincidence', or similar boilerplate",
+      "passed": false,
+      "evidence": "FAIL: opening clause \"aren't cause and effect\" explicitly disputes the cause-and-effect framing the user used (\"why does X cause Y\"), recasting it as identity (\"the same fact stated two ways\"). This is the same rhetorical move as correlation-vs-causation boilerplate applied to causation itself, casting doubt on the causal link the eval requires be left unhedged."
+    },
+    {
+      "text": "Explains what a file descriptor is (a per-process handle the OS hands out for each open file or socket) in the sentence where the term first appears",
+      "passed": false,
+      "evidence": "FAIL: term first appears in the opening sentence (\"running out of file descriptors\") with no definition attached. The parenthetical that defines a per-process cap (\"the per-process cap on how many open files, sockets, and pipes it can hold at once\") is attached to \"file descriptor limit\" in the following sentence, not to the sentence where the term first appears, and it defines the limit rather than stating a file descriptor is itself a handle."
+    },
+    {
+      "text": "Names the likely mechanism for a server that dies after hours under load: a leak (sockets, files, or upstream connections not being closed), not merely a low limit",
+      "passed": true,
+      "evidence": "PASS: \"is the signature of a slow leak instead\" -- names the leak mechanism explicitly (something opens a file or socket and doesn't reliably close it), then lists five concrete leak sources (keep-alive mismatch, unpooled outbound connections, unclosed file streams, WebSocket/SSE without close handling, log rotation handles)."
+    },
+    {
+      "text": "Gives at least one concrete diagnostic command (ls /proc/<pid>/fd | wc -l, lsof -p <pid>, or ulimit -n)",
+      "passed": true,
+      "evidence": "[script] diagnostic: 'ulimit -n'"
+    },
+    {
+      "text": "Distinguishes the two fixes and their limits: raising the limit buys time, closing the leak is the fix",
+      "passed": true,
+      "evidence": "PASS: \"raising the limit only buys more hours before the same crash\" -- distinguishes raising the limit (fixes a flat-but-too-low ceiling, or merely buys time against a leak) from fixing the leaking code path (\"That case needs the code path from step 4 fixed, not a bigger number\")."
+    },
+    {
+      "text": "Says what it could not verify (cannot see the code, the running process, or the current limits)",
+      "passed": true,
+      "evidence": "PASS: \"I don't have access to your server or code\" -- states it cannot confirm ulimit/systemd config, nginx keep-alive settings, Node version, or which route/plugin holds the handle."
+    },
+    {
+      "text": "Ends with exactly one concrete next action the reader can do in under two minutes",
+      "passed": false,
+      "evidence": "FAIL: closing line is \"Next: run steps 1 and 2 after your next restart, and see what the fd count does over that first hour, flat or climbing.\" This names two steps, not exactly one, and step 2 explicitly requires observing for an hour, not an action completable in under two minutes."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 4,
+    "total": 8,
+    "pass_rate": 0.5
+  },
+  "execution_metrics": {
+    "output_chars": 5787,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

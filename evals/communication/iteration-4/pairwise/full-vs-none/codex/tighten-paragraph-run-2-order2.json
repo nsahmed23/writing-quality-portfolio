@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Use the tightened paragraph provided first.",
+    "first_step_2": "Use the tightened paragraph provided first.",
+    "winner": "tie",
+    "reason": "Both provide a tightened paragraph first and preserve every fact; the extra word \"several\" in Reply 1 makes no meaningful difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 19.5,
+  "raw_tail": "ne each what Reply 1 and Reply 2 tell the reader to do first.\nThen answer this question: if this were your problem, which reply would you act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Use the tightened paragraph provided first.\",\"first_step_2\":\"Use the tightened paragraph provided first.\",\"winner\":\"tie\",\"reason\":\"Both provide a tightened paragraph first and preserve every fact; the extra word \\\"several\\\" in Reply 1 makes no meaningful difference.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n5,753\n"
+}

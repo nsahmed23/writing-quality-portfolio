@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Split the starter into two marked jars (feeding one with the new flour and the other with the old flour or whole wheat/rye at a 20:50:50 ratio) and record the hours until each peaks.",
+    "first_step_2": "Inspect the starter for visible signs of death (such as fuzzy mold or pink/orange streaks) and confirm it was not heated above roughly 120\u00b0F.",
+    "winner": "1",
+    "reason": "Reply 1 adheres to the facts by stating in plain words that timing does not prove causation and using a marked jar to monitor activity, whereas Reply 2 omits the causation distinction and directly contradicts the facts by telling the reader to skip the float test."
+  },
+  "winner_arm": "full",
+  "seconds": 99.8,
+  "raw_tail": " \n**Reply 2 first step:** Inspect the starter for visible signs of death (such as fuzzy mold or pink/orange streaks) and confirm it was not heated above roughly 120\u00b0F.\n\nIf this were my problem, I would act on **Reply 1** first. Reply 1 gives a clear, singular diagnostic protocol to run right away without changing other variables, adheres to the requirement to explain in plain words that timing is not proof of cause, and uses marked jars to track activity rather than contradicting the facts by dismissing the float test as Reply 2 does.\n\n{\"first_step_1\": \"Split the starter into two marked jars (feeding one with the new flour and the other with the old flour or whole wheat/rye at a 20:50:50 ratio) and record the hours until each peaks.\", \"first_step_2\": \"Inspect the starter for visible signs of death (such as fuzzy mold or pink/orange streaks) and confirm it was not heated above roughly 120\u00b0F.\", \"winner\": \"1\", \"reason\": \"Reply 1 adheres to the facts by stating in plain words that timing does not prove causation and using a marked jar to monitor activity, whereas Reply 2 omits the causation distinction and directly contradicts the facts by telling the reader to skip the float test.\"}\n\n"
+}

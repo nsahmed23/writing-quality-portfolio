@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Return the rewritten email directly without preamble.",
+    "first_step_2": "Return the rewritten email directly without preamble.",
+    "winner": "2",
+    "reason": "Reply 2 achieves a noticeably warmer, more collegial tone while correcting the comma splice and grammatical error present in Reply 1."
+  },
+  "winner_arm": "full",
+  "seconds": 20.2,
+  "raw_tail": "Reply 1 immediately provides the rewritten email text without any preamble or commentary.\nReply 2 immediately provides the rewritten email text without any preamble or commentary.\n\nIf this were my problem, I would act on Reply 2 first. Both replies follow all instructions\u2014returning only the email, preserving the meeting time, and keeping the exact sign-off lines\u2014but Reply 2 strikes a noticeably warmer and more collaborative tone (\"They were a real help, and the deck is stronger for them\", \"have your read on them\") while fixing the comma splice and participle error (\"have... re-ran\") found in Reply 1.\n\n{\"first_step_1\": \"Return the rewritten email directly without preamble.\", \"first_step_2\": \"Return the rewritten email directly without preamble.\", \"winner\": \"2\", \"reason\": \"Reply 2 achieves a noticeably warmer, more collegial tone while correcting the comma splice and grammatical error present in Reply 1.\"}\n\n"
+}

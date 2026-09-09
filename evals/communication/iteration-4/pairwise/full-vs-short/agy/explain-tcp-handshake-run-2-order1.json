@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "No action is required first; it immediately provides the explanation, though it suggests observing a handshake in Wireshark at the end.",
+    "first_step_2": "No action is required first; it immediately provides the explanation.",
+    "winner": "tie",
+    "reason": "Both replies accurately and thoroughly explain why TCP requires a three-way handshake\u2014covering mutual ISN synchronization, the failure mode of unconfirmed server sequence numbers in a two-way exchange, and the prevention of duplicate stale SYNs\u2014with no material factual difference."
+  },
+  "winner_arm": "tie",
+  "seconds": 18.6,
+  "raw_tail": "Reply 1 tells the reader to read the explanation immediately (no preliminary action required), with an optional suggestion at the end to inspect a handshake in Wireshark.\nReply 2 tells the reader to read the explanation immediately, requiring no preliminary action.\n\nIf this were my problem, either reply would serve equally well because both directly, accurately, and comprehensively explain why a three-way handshake is necessary based on the established facts.\n\n{\"first_step_1\": \"No action is required first; it immediately provides the explanation, though it suggests observing a handshake in Wireshark at the end.\", \"first_step_2\": \"No action is required first; it immediately provides the explanation.\", \"winner\": \"tie\", \"reason\": \"Both replies accurately and thoroughly explain why TCP requires a three-way handshake\u2014covering mutual ISN synchronization, the failure mode of unconfirmed server sequence numbers in a two-way exchange, and the prevention of duplicate stale SYNs\u2014with no material factual difference.\"}\n\n"
+}

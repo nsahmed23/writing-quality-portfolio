@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Install PostgreSQL 17 using Homebrew and set environment variables for the package, data directory, and PATH.",
+    "first_step_2": "Check if port 5432 is already occupied using lsof.",
+    "winner": "1",
+    "reason": "Reply 1 follows the correct first step of installing Postgres with Homebrew and uses a straightforward self-signed certificate setup, whereas Reply 2 introduces an unnecessarily complex custom CA workflow based on the false claim that verify-full requires one, and omits setting the environment variable needed for its Django test."
+  },
+  "winner_arm": "full",
+  "seconds": 40.4,
+  "raw_tail": " serve as its own root cert in `sslrootcert`), imposing an unnecessarily complex multi-step PKI process (CA key/cert, server CSR, extension config, CA signing) on a beginner.\n- **Verification:** Reply 1 tests the connection using `sslmode=require` with `psql` as expected, and tests both positive and negative cases.\n- **Completeness:** Reply 1 explicitly instructs the user to export the database password environment variable before running migrations, whereas Reply 2 references `os.environ[\"DB_PASSWORD\"]` in `settings.py` without ever telling the user to set it, causing its Django test command to fail with an immediate `KeyError`.\n\n{\"first_step_1\": \"Install PostgreSQL 17 using Homebrew and set environment variables for the package, data directory, and PATH.\", \"first_step_2\": \"Check if port 5432 is already occupied using lsof.\", \"winner\": \"1\", \"reason\": \"Reply 1 follows the correct first step of installing Postgres with Homebrew and uses a straightforward self-signed certificate setup, whereas Reply 2 introduces an unnecessarily complex custom CA workflow based on the false claim that verify-full requires one, and omits setting the environment variable needed for its Django test.\"}\n\n"
+}

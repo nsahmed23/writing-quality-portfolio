@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "none",
+  "run": "run-2",
+  "chars": 4962,
+  "first_action_offset": 4962,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": true,
+      "evidence": "\"Something else probably changed last week too.\" plain-words statement pointing to a coincidental alternative cause, not proof from timing alone."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Split the starter into two jars. Feed both identically, same ratio, same water, same shelf, one with the old flour and one with the new.\" concrete side-by-side test given."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"Once it peaks reliably in four to eight hours\" concrete hour units given."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply; explanations are literal (malt, whole grain, protein, bleaching, temperature), no comparison to an unrelated domain."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": true,
+      "evidence": "no such passage; scanned full reply for \"sequence\", \"correlation\", \"premise\", \"mechanism\"; none appear."
+    }
+  ]
+}

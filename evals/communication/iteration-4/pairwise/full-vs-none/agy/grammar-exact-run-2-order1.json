@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 7,
+  "case_name": "grammar-exact",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Use the corrected sentence provided.",
+    "first_step_2": "Use the corrected sentence provided.",
+    "winner": "tie",
+    "reason": "Both replies are completely identical and correctly return only the grammatical correction without any extraneous text."
+  },
+  "winner_arm": "tie",
+  "seconds": 7.4,
+  "raw_tail": "Reply 1 tells the reader to use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\nReply 2 tells the reader to use the corrected sentence: \"The changes were reviewed, but approval is still pending.\"\n\nIf this were my problem, I would act on either reply interchangeably because both are completely identical and strictly follow the prompt constraints.\n\n{\"first_step_1\": \"Use the corrected sentence provided.\", \"first_step_2\": \"Use the corrected sentence provided.\", \"winner\": \"tie\", \"reason\": \"Both replies are completely identical and correctly return only the grammatical correction without any extraneous text.\"}\n\n"
+}

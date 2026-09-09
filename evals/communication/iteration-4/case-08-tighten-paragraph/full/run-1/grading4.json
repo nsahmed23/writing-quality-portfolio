@@ -1,0 +1,74 @@
+{
+  "case_id": 8,
+  "case_name": "tighten-paragraph",
+  "kind": "artifact",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 531,
+  "first_action_offset": 531,
+  "inventory": [
+    {
+      "item": "August 14",
+      "hit": true,
+      "matched": "August 14"
+    },
+    {
+      "item": "three weeks",
+      "hit": true,
+      "matched": "three weeks"
+    },
+    {
+      "item": "4,212",
+      "hit": true,
+      "matched": "4,212"
+    },
+    {
+      "item": "$50",
+      "hit": true,
+      "matched": "$50"
+    },
+    {
+      "item": "runbook",
+      "hit": true,
+      "matched": "runbook"
+    },
+    {
+      "item": "edge cases",
+      "hit": true,
+      "matched": "edge cases"
+    },
+    {
+      "item": "Q3",
+      "hit": true,
+      "matched": "Q3"
+    },
+    {
+      "item": "reconciled",
+      "hit": true,
+      "matched": "reconciled"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The revised paragraph comes first, with no preamble",
+      "passed": true,
+      "evidence": "no such passage; checked the first line of the reply; it opens directly with the revised paragraph (\"Our Q3 migration to the new billing provider finished on August 14,...\") and no lead-in phrase precedes it."
+    },
+    {
+      "text": "No closing next action or offer",
+      "passed": true,
+      "evidence": "no such passage; the closing line is the one-sentence change summary the prompt itself asked for (starts \"The cuts are all filler\"), not a next action or offer."
+    },
+    {
+      "text": "Shorter than the original",
+      "passed": true,
+      "evidence": "\"Our Q3 migration to the new billing provider finished on...\" reply paragraph = 374 chars; original = 545 chars; shorter."
+    },
+    {
+      "text": "No numbered list imposed on prose",
+      "passed": true,
+      "evidence": "no such passage; both paragraphs are plain prose; no numbered or bulleted list appears anywhere in the reply."
+    }
+  ]
+}

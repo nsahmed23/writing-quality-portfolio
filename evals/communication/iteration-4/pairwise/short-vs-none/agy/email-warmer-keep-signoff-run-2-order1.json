@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 9,
+  "case_name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "Review and send the provided rewritten email directly, which asks the recipient if she is free to meet Thursday at 2pm.",
+    "first_step_2": "Review and send the provided rewritten email directly, which asks the recipient if Thursday at 2pm works for her.",
+    "winner": "tie",
+    "reason": "Both replies follow all instructions and negative constraints perfectly\u2014returning only the email with a warmer tone, preserving the Thursday at 2pm meeting time, keeping the two changes and attached deck, and retaining the exact sign-off lines\u2014with no meaningful difference in quality."
+  },
+  "winner_arm": "tie",
+  "seconds": 15.9,
+  "raw_tail": "**Reply 1:** Reply 1 provides the rewritten email directly without preamble, presenting the warmed-up text for the user to review and send (asking Priya if she is free to meet Thursday at 2pm).  \n**Reply 2:** Reply 2 provides the rewritten email directly without preamble, presenting the warmed-up text for the user to review and send (asking Priya if Thursday at 2pm works for her).\n\nIf this were my problem, I would act on either reply equally; both follow all constraints perfectly, making this a tie.\n\n{\"first_step_1\": \"Review and send the provided rewritten email directly, which asks the recipient if she is free to meet Thursday at 2pm.\", \"first_step_2\": \"Review and send the provided rewritten email directly, which asks the recipient if Thursday at 2pm works for her.\", \"winner\": \"tie\", \"reason\": \"Both replies follow all instructions and negative constraints perfectly\u2014returning only the email with a warmer tone, preserving the Thursday at 2pm meeting time, keeping the two changes and attached deck, and retaining the exact sign-off lines\u2014with no meaningful difference in quality.\"}\n\n"
+}

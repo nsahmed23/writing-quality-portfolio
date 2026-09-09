@@ -1,0 +1,1 @@
+my node api started throwing EADDRINUSE on every restart since i upgraded to node 24 last thursday. why does node 24 cause EADDRINUSE? windows 11, server is C:\Dev\Projects\inventory-api\src\server.ts, listens on 8080, i start it with npm run dev (nodemon + ts-node)

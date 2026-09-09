@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full",
+    "2": "none"
+  },
+  "verdict": {
+    "first_step_1": "No action required; understand why each side's initial sequence number needs acknowledgment.",
+    "first_step_2": "No action required; understand the four logical events combined into three packets.",
+    "winner": "1",
+    "reason": "Reply 1 explains the missing server-side confirmation accurately, while Reply 2 falsely claims that an incomplete handshake limits server exposure to one retransmitted SYN-ACK."
+  },
+  "winner_arm": "full",
+  "seconds": 35.6,
+  "raw_tail": "ould you act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"No action required; understand why each side's initial sequence number needs acknowledgment.\",\"first_step_2\":\"No action required; understand the four logical events combined into three packets.\",\"winner\":\"1\",\"reason\":\"Reply 1 explains the missing server-side confirmation accurately, while Reply 2 falsely claims that an incomplete handshake limits server exposure to one retransmitted SYN-ACK.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n25,567\n"
+}

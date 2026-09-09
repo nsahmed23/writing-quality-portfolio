@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short",
+    "none"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "none",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "No action required as the prompt is an informational question.",
+    "first_step_2": "No action required as the prompt is an informational question.",
+    "winner": "tie",
+    "reason": "Both replies accurately and thoroughly explain the four-step ISN exchange compressed into three packets and the prevention of half-open connections from stale duplicate SYNs."
+  },
+  "winner_arm": "tie",
+  "seconds": 11.4,
+  "raw_tail": "No action is required as this is an informational explanation request.\n**Reply 2 first step:** No action is required as this is an informational explanation request.\n\nIf this were my question, either reply would serve equally well. Both correctly explain that a TCP connection consists of two independent byte streams requiring four logical operations (announcing and acknowledging both initial sequence numbers) compressed into three packets via piggybacking. Both also accurately articulate why a two-way exchange fails: the server cannot confirm that the client received its ISN, and stale duplicate SYNs would create phantom half-open connections without the client having an opportunity to reset them. Because both answers align completely with the protocol facts without material error, there is no meaningful difference.\n\n{\"first_step_1\": \"No action required as the prompt is an informational question.\", \"first_step_2\": \"No action required as the prompt is an informational question.\", \"winner\": \"tie\", \"reason\": \"Both replies accurately and thoroughly explain the four-step ISN exchange compressed into three packets and the prevention of half-open connections from stale duplicate SYNs.\"}\n\n"
+}

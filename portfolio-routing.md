@@ -36,3 +36,7 @@ Explicit user wording selects the narrowest matching skill. Do not fan out merel
 ## Preservation contract
 
 Every pass must preserve factual scope, quantities, negation, conditions, justified uncertainty, attribution, citations, technical terms, legal effect, relevant agency, useful repetition, and authorial voice unless the user asks for a substantive/register change. A clean sentence or section is a protected asset.
+
+## Relation to `communication`
+
+`skills/communication` is a second layer, not an eighth editing skill. It is always on and governs how the model talks to the reader; this contract is narrow-activation and governs how the model edits text it is handed. At the seam, when a user hands over text to edit: the portfolio owns the method, the pass order, and the preservation contract; `communication` owns how the result is reported (revised text first, one brief note only for a material choice, no preamble, no closer). Its "facts survive verbatim" rule is this contract's preservation clause at reply scale. Its five-item list cap yields to a whole-document audit under its own "a rule fights the task" clause: a long inventory is split and ranked, not truncated. Nothing in `communication` loads the portfolio's references into every turn, and nothing here changes how `communication` shapes an ordinary reply.

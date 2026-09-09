@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full",
+    "short"
+  ],
+  "case_id": 1,
+  "case_name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full",
+    "2": "short"
+  },
+  "verdict": {
+    "first_step_1": "Install PostgreSQL 17 with brew install postgresql@17.",
+    "first_step_2": "Run brew search postgresql@ and choose the newest available major version.",
+    "winner": "1",
+    "reason": "Reply 1 starts directly with installation and provides a simpler self-signed SSL setup suited to a beginner, whereas Reply 2 adds version selection and an unnecessary local certificate authority."
+  },
+  "winner_arm": "full",
+  "seconds": 30.8,
+  "raw_tail": " your problem, which reply would you act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Install PostgreSQL 17 with brew install postgresql@17.\",\"first_step_2\":\"Run brew search postgresql@ and choose the newest available major version.\",\"winner\":\"1\",\"reason\":\"Reply 1 starts directly with installation and provides a simpler self-signed SSL setup suited to a beginner, whereas Reply 2 adds version selection and an unnecessary local certificate authority.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n28,102\n"
+}

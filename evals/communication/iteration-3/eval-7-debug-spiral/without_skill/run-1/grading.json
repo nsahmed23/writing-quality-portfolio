@@ -1,0 +1,59 @@
+{
+  "expectations": [
+    {
+      "text": "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+      "passed": true,
+      "evidence": "The two code blocks only enable trace capture and run the trace viewer, both explicitly diagnostic, not a fix: \"That shows the DOM, console output, and network requests at the exact moment the locator gave up.\" No change to the assertion, locator, or component."
+    },
+    {
+      "text": "Names one specific assumption behind the previous three fixes that may be wrong (for example: that the heading renders at all on CI, that CI has a backend to talk to, that auth state or viewport on CI matches local)",
+      "passed": true,
+      "evidence": "\"That's a strong signal this isn't a Playwright timing or selector problem\", naming and rejecting the shared assumption behind the timeout, networkidle, and testid fixes."
+    },
+    {
+      "text": "Asks the reader for exactly one thing (one question or one imperative request), not a list of things to try or report",
+      "passed": true,
+      "evidence": "One imperative, with an alternate method offered as a fallback for the same deliverable rather than a second distinct ask; the two bulleted items afterward are the assistant's own explanatory hypotheses, not reader tasks: \"Get a trace or screenshot from the actual failure.\""
+    },
+    {
+      "text": "Asks for evidence rather than guessing: requests a CI artifact (trace, screenshot, video, console log, or the failing run's HTML report)",
+      "passed": true,
+      "evidence": "\"pull the `playwright-report` / `test-results` artifact\""
+    },
+    {
+      "text": "States plainly, in one sentence, that it is stopping the change-and-retry loop, without apology",
+      "passed": true,
+      "evidence": "\"so let's fix that before trying a fourth locator tweak.\" No apology anywhere in the reply."
+    },
+    {
+      "text": "No dramatized tone ('Uh oh', 'Oh no', 'There seems to be a problem'); matter-of-fact",
+      "passed": true,
+      "evidence": "[script] no dramatized tone phrases"
+    },
+    {
+      "text": "Response is under 2000 characters",
+      "passed": true,
+      "evidence": "[script] 1959 chars (cap 2000)"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "output_chars": 1959,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Proposes no fourth code change to the test or the app (no code block that edits dashboard.spec.ts or a component; a diagnostic command is fine)",
+        "reason": "This run's fallback suggestion (\"drop `console.log(await page.content())` right before the failing assertion\") is a literal edit to dashboard.spec.ts. It is defensible as the interpretation guide's named \"printing a log\" exception, but a stricter reading of \"no code block that edits dashboard.spec.ts\" would call it borderline. The assertion's diagnostic carve-out and its file-location clause can conflict; worth clarifying which one wins when a diagnostic edit lands inside the spec file itself."
+      }
+    ],
+    "overall": "Assertions are otherwise sound and discriminating; one boundary case around the diagnostic-edit carve-out is worth tightening."
+  }
+}

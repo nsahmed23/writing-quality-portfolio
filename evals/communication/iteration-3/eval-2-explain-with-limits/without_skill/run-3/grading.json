@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "Defines JWT in plain words (a signed token carrying claims / JSON Web Token) in the same sentence it first appears",
+      "passed": false,
+      "evidence": "The sentence where JWT first appears defines 'stateless', not JWT: \"JWT auth works differently from classic session auth in one key way: the server doesn't keep a record of who's logged in.\" 'JSON Web Token' never appears anywhere in the response, and the closest description ('the server creates a JWT, a signed token') arrives at the second occurrence, not the first."
+    },
+    {
+      "text": "Defines 'stateless' in plain words (the server keeps no per-session record) the first time it is used",
+      "passed": true,
+      "evidence": "Descriptive sentence immediately followed by the labeling sentence at the word's first use: \"That's it: no database or session store involved.\" ... \"That's what \"stateless\" means here. Classic session auth needs the server to generate a random session ID, store a record mapping that ID to a user ... and look up that record on every request; that's server-side state.\""
+    },
+    {
+      "text": "Answers the 'you can't log someone out' premise as partly true with conditions, rather than a flat yes or no",
+      "passed": false,
+      "evidence": "Opens with a flat affirmation, not a partly-true framing: \"yes, that's true, and it's the real cost of being stateless.\" The qualifying distinction (pure JWTs vs. mitigated systems) only shows up two paragraphs later (\"Worth separating two things people conflate...is what pure JWTs can't do\"), matching the flat-yes-qualified-later pattern that fails this assertion."
+    },
+    {
+      "text": "States the limit of the stateless model: server-side revocation needs some state, naming at least one concrete option (denylist/blocklist, short expiry with refresh tokens, or rotating a signing key)",
+      "passed": true,
+      "evidence": "States \"The standard fixes all quietly bring a little state back:\" and names a concrete option: \"keep a small server-side list of revoked token IDs (the `jti` claim) or user IDs, and check incoming tokens against it.\""
+    },
+    {
+      "text": "Includes at least one concrete example (a header.payload.signature layout, a sample claim such as exp or sub, or an example request header)",
+      "passed": true,
+      "evidence": "[script] example marker: '`exp`'"
+    },
+    {
+      "text": "Uses markdown headers to structure the full explanation (the explain override asks for headers so the reader can skim back); at least two headers",
+      "passed": false,
+      "evidence": "[script] 0 header-like lines"
+    },
+    {
+      "text": "[sanity] Contains no forbidden opener: 'Great question', 'Let me', 'I'll', 'Sure', 'Looking at your', 'To answer your question'",
+      "passed": true,
+      "evidence": "[script] first line: \"JWT auth works differently from classic session auth in one key way: the server doesn't keep a record of who's logged in\""
+    },
+    {
+      "text": "[sanity] Contains no closer such as 'Let me know', 'Hope this helps', 'Happy to', 'Feel free', 'Want me to'",
+      "passed": true,
+      "evidence": "[script] last line: 'So \"stateless\" is really a spectrum. A pure JWT, no extra bookkeeping, genuinely can\\'t be revoked early; that\\'s not a my'; no closer phrases found"
+    },
+    {
+      "text": "Uses no forced analogy of the 'think of it like a ...' kind; explanation stays literal",
+      "passed": true,
+      "evidence": "[script] no 'think of it like' style phrasing found"
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 3,
+    "total": 9,
+    "pass_rate": 0.6667
+  },
+  "execution_metrics": {
+    "output_chars": 3537,
+    "total_tool_calls": 0,
+    "errors_encountered": 0
+  }
+}

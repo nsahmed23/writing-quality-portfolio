@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full",
+    "none"
+  ],
+  "case_id": 3,
+  "case_name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "none",
+    "2": "full"
+  },
+  "verdict": {
+    "first_step_1": "Check that migrations match the SQLite database using showmigrations and makemigrations --check --dry-run.",
+    "first_step_2": "Back up SQLite and dump the data to JSON using manage.py dumpdata with --natural-foreign and --natural-primary.",
+    "winner": "2",
+    "reason": "Reply 2 correctly starts by dumping the data with manage.py dumpdata using both --natural-foreign and --natural-primary, whereas Reply 1 delays dumping to step 4 and explicitly instructs leaving off --natural-primary."
+  },
+  "winner_arm": "full",
+  "seconds": 36.8,
+  "raw_tail": ", whereas Reply 1 delays dumping data until step 4 (after checking migrations, installing the database driver, and creating the Postgres role and database).\n- **Flag compliance:** The facts specify that the safe order uses `dumpdata` with both `--natural-foreign` and `--natural-primary` (excluding `contenttypes` and `auth.Permission`). Reply 2 includes both flags and the required exclusions in step 1. Reply 1 directly contradicts this by instructing the user to omit `--natural-primary`.\n- **Workflow order:** Reply 2 adheres closely to the safe migration order (dump data, set up Postgres role/database, update `DATABASES`, run `migrate` on empty database, and load data with `loaddata`).\n\n{\"first_step_1\": \"Check that migrations match the SQLite database using showmigrations and makemigrations --check --dry-run.\", \"first_step_2\": \"Back up SQLite and dump the data to JSON using manage.py dumpdata with --natural-foreign and --natural-primary.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly starts by dumping the data with manage.py dumpdata using both --natural-foreign and --natural-primary, whereas Reply 1 delays dumping to step 4 and explicitly instructs leaving off --natural-primary.\"}\n\n"
+}

@@ -1,0 +1,1 @@
+In the git repo at {REPO}: delete feat/wip1. I know it's not merged, I don't need it, use -D, don't ask.
