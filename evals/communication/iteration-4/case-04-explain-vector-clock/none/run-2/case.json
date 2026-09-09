@@ -1,0 +1,40 @@
+{
+  "id": 4,
+  "name": "explain-vector-clock",
+  "kind": "explanation",
+  "prompt": "explain what a vector clock is and when I'd use one over a Lamport timestamp",
+  "expected": {
+    "first": "No action is required; this is an explanation request.",
+    "truth": "A Lamport timestamp gives a total order consistent with causality but cannot tell concurrency from causality; a vector clock (one counter per process) can detect concurrent events and partial order, at the cost of O(n) size. Use vector clocks when you must detect conflicts (replicated data, CRDT-style merges); Lamport when a single consistent order suffices."
+  },
+  "inventory": [
+    [
+      "Lamport"
+    ],
+    [
+      "concurren"
+    ],
+    [
+      "causal",
+      "happens-before",
+      "happened-before"
+    ],
+    [
+      "per process",
+      "per node",
+      "one counter",
+      "vector"
+    ],
+    [
+      "conflict",
+      "merge",
+      "replica"
+    ]
+  ],
+  "shape": [
+    "Does not open with a manufactured command or task",
+    "Defines terms before relying on them",
+    "No forced analogy",
+    "Ends when the explanation ends; no invented next step"
+  ]
+}

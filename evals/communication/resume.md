@@ -52,3 +52,8 @@ Eval model: sonnet (both arms). Baseline = no skill.
 ## Pairwise judging done (2026-09-09 ~05:00)
 - pairwise.py ran on codex (gpt-6-astra, stdin prompt, effort high), agy (gemini-3.8-flash-high), kimi (k3-256k; 13 calls missing, 5-hour quota). Report: iteration-3/pairwise-report.md. Kimi rerun: py -3.11 pairwise.py iteration-3 --lane kimi (resumes) after the window resets.
 - User decisions: conditional action framing; deployment after the three-arm run. NEXT: v4 edits (iteration-4-plan.md S1-S11), then three-arm run. Model-doc update pending fact-pack agent + Obsidian write path (MCP down, CLI needs the app open).
+
+## State at 2026-09-09 ~06:00
+- Skill v4 applied (snapshot v3 in skill-snapshot-v3/), pushed to PR #6. Pairwise judging done (pairwise-report.md); Kimi 13 calls pending quota reset: py -3.11 pairwise.py iteration-3 --lane kimi.
+- Iteration-4 scaffolded: build_iter4.py, 14 cases x 3 arms (none/full/short) x 2 runs = 84; arm short = skill-candidate-25/SKILL.md. Needs: executor runs (target model DECIDE: Opus 5 vs Sonnet), grade4 (exact + inventory + shape diagnostics), pairwise across arms, report.
+- Model docs: fact-pack at model-factpack-2026-09.md (agent used a browser UA, not the CLAUDE.md UA; flagged); staged page model-routing-2026-09-09.md; apply_vault_update.py writes it into the vault (raw write, needs user OK) or use the Obsidian MCP/CLI when available.

@@ -1,0 +1,1 @@
+Move my Django app's dev database from SQLite to Postgres. I have data in SQLite I need to keep. Postgres is already installed and running locally.

@@ -1,0 +1,1 @@
+two things: my playwright e2e tests flake on CI only (locator timeout on the dashboard heading, passes locally every time), and also how should I structure this repo, it's a mess, everything is in src/ with no folders

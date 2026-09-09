@@ -1,0 +1,48 @@
+{
+  "id": 8,
+  "name": "tighten-paragraph",
+  "kind": "artifact",
+  "prompt": "Tighten this paragraph. Keep every fact. Give me the revised paragraph, then at most one sentence on what you changed if it matters.\n\nOur Q3 migration to the new billing provider was completed on August 14 after a delay of roughly three weeks, which was primarily due to the fact that the legacy export job had a number of edge cases that were not documented anywhere. At this point in time, all 4,212 active subscriptions have been moved over and reconciled against the old system, and in the event that a discrepancy is found by a customer, the support team has been given a runbook that walks them through how to issue a manual credit of up to $50 without needing to escalate.",
+  "expected": {
+    "first": "Return the tightened paragraph first.",
+    "truth": "The facts to keep: Q3 migration, new billing provider, completed August 14, about three weeks late, cause was undocumented edge cases in the legacy export job, 4,212 active subscriptions moved and reconciled, support runbook allows manual credits up to $50 without escalation."
+  },
+  "inventory": [
+    [
+      "August 14"
+    ],
+    [
+      "three weeks",
+      "3 weeks",
+      "three-week"
+    ],
+    [
+      "4,212",
+      "4212"
+    ],
+    [
+      "$50",
+      "50 dollars"
+    ],
+    [
+      "runbook"
+    ],
+    [
+      "edge cases",
+      "edge-case"
+    ],
+    [
+      "Q3"
+    ],
+    [
+      "reconciled",
+      "reconcile"
+    ]
+  ],
+  "shape": [
+    "The revised paragraph comes first, with no preamble",
+    "No closing next action or offer",
+    "Shorter than the original",
+    "No numbered list imposed on prose"
+  ]
+}

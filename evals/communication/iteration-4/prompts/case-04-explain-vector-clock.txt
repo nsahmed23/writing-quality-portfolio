@@ -1,0 +1,1 @@
+explain what a vector clock is and when I'd use one over a Lamport timestamp

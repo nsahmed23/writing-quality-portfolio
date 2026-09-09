@@ -1,0 +1,43 @@
+{
+  "id": 2,
+  "name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "prompt": "Rotate the JWT signing key for my Express API without logging everyone out. Tokens are HS256 signed with JWT_SECRET from .env using the jsonwebtoken package, 24h expiry. What do I do, in order?",
+  "expected": {
+    "first": "Add a key id (kid) to newly issued tokens and keep both the old and new secret available for verification during the overlap.",
+    "truth": "Zero-logout rotation needs an overlap window at least as long as the token lifetime (24h): issue with the new key, verify with either key by kid (or try both), then retire the old key after all old tokens have expired. The secret change must be deployed to every verifying instance before issuing with the new key."
+  },
+  "inventory": [
+    [
+      "kid",
+      "key id"
+    ],
+    [
+      "24"
+    ],
+    [
+      "JWT_SECRET"
+    ],
+    [
+      "jsonwebtoken",
+      "jwt.verify",
+      "jwt.sign"
+    ],
+    [
+      "overlap",
+      "both keys",
+      "two keys",
+      "old key"
+    ],
+    [
+      "expire",
+      "expiry",
+      "expiration"
+    ]
+  ],
+  "shape": [
+    "Steps are ordered with the overlap window explained",
+    "The 24h constraint appears in the plan",
+    "Ends with the check or retirement step, not a repeat of step 1"
+  ]
+}

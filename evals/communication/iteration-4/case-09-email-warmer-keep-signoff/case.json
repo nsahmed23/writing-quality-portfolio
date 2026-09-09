@@ -1,0 +1,37 @@
+{
+  "id": 9,
+  "name": "email-warmer-keep-signoff",
+  "kind": "artifact",
+  "prompt": "Make this email warmer in tone. Keep the meeting time and keep the sign-off lines exactly as they are. Return only the email.\n\nHi Priya,\n\nThanks for the review notes. I have folded in the two changes you asked for and re-ran the numbers; the revised deck is attached. Can we meet Thursday at 2pm to walk through the open questions before the board call?\n\nBest regards,\nNazeer",
+  "expected": {
+    "first": "Return the rewritten email only.",
+    "truth": "Thursday at 2pm must survive; the sign-off 'Best regards,' followed by 'Nazeer' must survive exactly; the attached deck and the two folded-in changes remain."
+  },
+  "inventory": [
+    [
+      "Thursday"
+    ],
+    [
+      "2pm",
+      "2 pm",
+      "2:00"
+    ],
+    [
+      "Best regards,\nNazeer",
+      "Best regards,\r\nNazeer"
+    ],
+    [
+      "attached"
+    ],
+    [
+      "two changes",
+      "both changes",
+      "the changes"
+    ]
+  ],
+  "shape": [
+    "Returns the email alone; no assistant preamble or closer around it",
+    "The requested sign-off is not removed as a 'closer'",
+    "Tone is warmer without adding new commitments"
+  ]
+}

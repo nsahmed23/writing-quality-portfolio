@@ -1,0 +1,45 @@
+{
+  "id": 3,
+  "name": "sqlite-to-postgres-django",
+  "kind": "ordered_action",
+  "prompt": "Move my Django app's dev database from SQLite to Postgres. I have data in SQLite I need to keep. Postgres is already installed and running locally.",
+  "expected": {
+    "first": "Dump the existing data from SQLite with manage.py dumpdata before changing settings.",
+    "truth": "The safe order is: dumpdata to JSON (with --natural-foreign --natural-primary, excluding contenttypes and auth.Permission), create the Postgres database and user, switch DATABASES in settings, run migrate on the empty Postgres database, loaddata the JSON, then verify row counts. Sequences may need resetting after loaddata (sqlsequencereset)."
+  },
+  "inventory": [
+    [
+      "dumpdata"
+    ],
+    [
+      "loaddata"
+    ],
+    [
+      "migrate"
+    ],
+    [
+      "createdb",
+      "CREATE DATABASE"
+    ],
+    [
+      "DATABASES"
+    ],
+    [
+      "contenttypes"
+    ],
+    [
+      "natural-foreign",
+      "natural-primary",
+      "natural"
+    ],
+    [
+      "sqlsequencereset",
+      "sequence"
+    ]
+  ],
+  "shape": [
+    "The dump happens before the settings change",
+    "Every command is stated",
+    "Ends with a verification step"
+  ]
+}

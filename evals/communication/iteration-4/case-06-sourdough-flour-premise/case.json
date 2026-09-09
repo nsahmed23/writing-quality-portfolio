@@ -1,0 +1,40 @@
+{
+  "id": 6,
+  "name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "prompt": "My sourdough stopped rising after I switched flour brands last week. why does the new flour kill the starter?",
+  "expected": {
+    "first": "Feed the starter on its usual schedule for two or three cycles and watch whether it doubles; a float test or a marked jar shows activity.",
+    "truth": "A flour change can slow a starter (different protein, ash, or enzyme content, bleaching), but it rarely kills one; the timing alone does not show the flour is the cause, and temperature, feeding ratio, or water are common alternatives. Say the timing is not proof of cause in plain words, without category labels."
+  },
+  "inventory": [
+    [
+      "feed",
+      "feeding"
+    ],
+    [
+      "temperature",
+      "warm",
+      "cold"
+    ],
+    [
+      "double",
+      "rise",
+      "float"
+    ],
+    [
+      "protein",
+      "whole",
+      "bleach",
+      "ash",
+      "enzyme"
+    ]
+  ],
+  "shape": [
+    "Treats 'after I switched' as timing, not proof, in plain words",
+    "Gives something concrete to do",
+    "Time estimate in concrete units (hours or feedings) if any",
+    "No forced analogy",
+    "No rule vocabulary (sequence, correlation, premise, mechanism)"
+  ]
+}

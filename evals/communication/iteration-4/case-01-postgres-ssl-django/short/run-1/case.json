@@ -1,0 +1,49 @@
+{
+  "id": 1,
+  "name": "postgres-ssl-django",
+  "kind": "ordered_action",
+  "prompt": "Set up local Postgres with SSL for Django on macOS. I've never done this. Homebrew is installed.",
+  "expected": {
+    "first": "Install and start Postgres with Homebrew (brew install postgresql@16, brew services start postgresql@16).",
+    "truth": "Local SSL needs a server certificate and key referenced from postgresql.conf with ssl = on, a hostssl line in pg_hba.conf, and Django's DATABASES OPTIONS sslmode set to require (or verify-ca with the cert); verify with psql using sslmode=require. A self-signed cert is normal for local development."
+  },
+  "inventory": [
+    [
+      "brew install postgresql",
+      "brew install postgres"
+    ],
+    [
+      "brew services start",
+      "pg_ctl"
+    ],
+    [
+      "openssl req",
+      "openssl"
+    ],
+    [
+      "ssl = on",
+      "ssl=on"
+    ],
+    [
+      "pg_hba.conf"
+    ],
+    [
+      "hostssl"
+    ],
+    [
+      "sslmode"
+    ],
+    [
+      "OPTIONS"
+    ],
+    [
+      "psql"
+    ]
+  ],
+  "shape": [
+    "First line is the first action, not context",
+    "Prerequisites (install, start) precede the steps that depend on them",
+    "Every command the reader needs is stated",
+    "Ends with the check that shows it worked"
+  ]
+}
