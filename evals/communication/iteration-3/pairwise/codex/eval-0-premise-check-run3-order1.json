@@ -1,0 +1,20 @@
+{
+  "lane": "codex",
+  "eval_id": 0,
+  "eval_name": "eval-0-premise-check",
+  "run": 3,
+  "order": 1,
+  "mapping": {
+    "1": "with_skill",
+    "2": "without_skill"
+  },
+  "verdict": {
+    "first_step_1": "Run netstat -ano | findstr :8080 to find the PID holding port 8080.",
+    "first_step_2": "Run netstat -ano | findstr :8080 or Get-NetTCPConnection -LocalPort 8080 -State Listen to identify the port holder.",
+    "winner": "tie",
+    "reason": "Both give the same correct initial action, identify and terminate the leftover process before restarting, and explain that upgrade timing does not establish Node 24 as the cause."
+  },
+  "winner_arm": "tie",
+  "seconds": 22.8,
+  "raw_tail": " predates a new Node major version is a common source of exactly this kind of flaky restart behavior, and bumping both is low-risk.\n\n>>>\n\nFirst, state in one line each what Reply 1 and Reply 2 tell the reader to do first.\nThen answer this question: if this were your problem, which reply would you act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Run netstat -ano | findstr :8080 to find the PID holding port 8080.\",\"first_step_2\":\"Run netstat -ano | findstr :8080 or Get-NetTCPConnection -LocalPort 8080 -State Listen to identify the port holder.\",\"winner\":\"tie\",\"reason\":\"Both give the same correct initial action, identify and terminate the leftover process before restarting, and explain that upgrade timing does not establish Node 24 as the cause.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n24,683\n"
+}

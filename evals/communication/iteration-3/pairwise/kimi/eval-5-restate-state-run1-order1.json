@@ -1,0 +1,20 @@
+{
+  "lane": "kimi",
+  "eval_id": 5,
+  "eval_name": "eval-5-restate-state",
+  "run": 1,
+  "order": 1,
+  "mapping": {
+    "1": "with_skill",
+    "2": "without_skill"
+  },
+  "verdict": {
+    "first_step_1": "Run npx tsx scripts/backfill-listing-status.ts (step 3 backfill)",
+    "first_step_2": "Run npx tsx scripts/backfill-listing-status.ts (step 3 backfill)",
+    "winner": "tie",
+    "reason": "Both correctly direct the user to run the step 3 backfill script first with accurate context about what it does and what follows."
+  },
+  "winner_arm": "tie",
+  "seconds": 15.5,
+  "raw_tail": "\u2022 Reply 1 tells the reader to run step 3's backfill script now. Reply 2 also tells the reader to run step 3's backfill script first, with a bit more on verifying counts before deploying. Both are correct, complete, and essentially interchangeable; Reply 2's note about checking the archived count in step 4 is a slight practical plus but not decisive.\n\n  {\"first_step_1\": \"Run npx tsx scripts/backfill-listing-status.ts (step 3 backfill)\", \"first_step_2\": \"Run npx tsx scripts/backfill-listing-status.ts (step 3 backfill)\", \"winner\": \"tie\", \"reason\": \"Both correctly direct the user to run the step 3 backfill script first with accurate context about what it does and what follows.\"}\n\n\nkimi version 0.37.2\n\u2022 Both say run step 3 backfill. Essentially equivalent. Reply 2 adds verification guidance for step 4. Reply 1 says \"later rather than now\" for deploy, arguably extra. Tie.\n\nTo resume this session: kimi -r session_bd7270e7-18f1-4329-ba9f-3e53ae54d08a\n"
+}

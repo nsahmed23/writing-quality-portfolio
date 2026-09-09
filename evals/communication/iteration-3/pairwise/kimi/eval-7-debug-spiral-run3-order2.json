@@ -1,0 +1,15 @@
+{
+  "lane": "kimi",
+  "eval_id": 7,
+  "eval_name": "eval-7-debug-spiral",
+  "run": 3,
+  "order": 2,
+  "mapping": {
+    "1": "without_skill",
+    "2": "with_skill"
+  },
+  "verdict": null,
+  "winner_arm": null,
+  "seconds": 5.1,
+  "raw_tail": "\nkimi version 0.37.2\nerror: failed to run prompt: provider.auth_error: 403 You've reached your 5-hour usage limit. Your quota will reset when the current 5-hour window ends. To continue now, purchase extra usage or upgrade your plan: https://www.kimi.com/membership/subscription?tab=quota\nSee log: C:/Users/nsahm/.kimi-code/logs/kimi-code.log\n"
+}

@@ -1,0 +1,20 @@
+{
+  "lane": "codex",
+  "eval_id": 3,
+  "eval_name": "eval-3-true-premise",
+  "run": 1,
+  "order": 1,
+  "mapping": {
+    "1": "without_skill",
+    "2": "with_skill"
+  },
+  "verdict": {
+    "first_step_1": "Check the running process\u2019s descriptor limit in /proc/<pid>/limits, then sample its open descriptor count over time.",
+    "first_step_2": "Find the Node PID and check /proc/<pid>/limits, then watch its open descriptor count over time.",
+    "winner": "1",
+    "reason": "Reply 1 correctly explains that exhausting the per-process descriptor limit causes EMFILE, while Reply 2 incorrectly rejects that causal relationship and prioritizes an unsupported nginx keep-alive diagnosis."
+  },
+  "winner_arm": "without_skill",
+  "seconds": 19.4,
+  "raw_tail": "art, and see what the fd count does over that first hour, flat or climbing.\n\n>>>\n\nFirst, state in one line each what Reply 1 and Reply 2 tell the reader to do first.\nThen answer this question: if this were your problem, which reply would you act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Check the running process\u2019s descriptor limit in /proc/<pid>/limits, then sample its open descriptor count over time.\",\"first_step_2\":\"Find the Node PID and check /proc/<pid>/limits, then watch its open descriptor count over time.\",\"winner\":\"1\",\"reason\":\"Reply 1 correctly explains that exhausting the per-process descriptor limit causes EMFILE, while Reply 2 incorrectly rejects that causal relationship and prioritizes an unsupported nginx keep-alive diagnosis.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n8,294\n"
+}

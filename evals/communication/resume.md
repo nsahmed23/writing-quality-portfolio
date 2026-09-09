@@ -48,3 +48,7 @@ Eval model: sonnet (both arms). Baseline = no skill.
 ## Consult answers in (2026-09-08 ~14:30)
 - Filed: consult-answers-gpt.md (attribution inferred), consult-answers-reviewer-b.md (unattributed), consult-answers-kimi.md (attribution inferred), plus consult-answers-claude.md. Synthesis: consult-synthesis.md. iteration-4-plan.md rewritten from it (steps 1-4).
 - NEXT: user decides split 1 (conditional vs universal action-first), judge for pairwise (Kimi CLI vs Codex), deployment timing. Then step 1 = blind pairwise on iteration-3 corpus (48 judge calls, zero executor runs).
+
+## Pairwise judging done (2026-09-09 ~05:00)
+- pairwise.py ran on codex (gpt-6-astra, stdin prompt, effort high), agy (gemini-3.8-flash-high), kimi (k3-256k; 13 calls missing, 5-hour quota). Report: iteration-3/pairwise-report.md. Kimi rerun: py -3.11 pairwise.py iteration-3 --lane kimi (resumes) after the window resets.
+- User decisions: conditional action framing; deployment after the three-arm run. NEXT: v4 edits (iteration-4-plan.md S1-S11), then three-arm run. Model-doc update pending fact-pack agent + Obsidian write path (MCP down, CLI needs the app open).
