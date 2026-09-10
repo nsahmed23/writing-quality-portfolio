@@ -1,0 +1,56 @@
+[
+  {
+    "case": "grammar-exact",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c7-t1",
+    "verdict": "asserts_claim",
+    "quote": "The changes were reviewed, but approval is still pending.",
+    "note": "exact match to expected output"
+  },
+  {
+    "case": "grammar-exact",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c7-t1",
+    "verdict": "asserts_claim",
+    "quote": "The changes were reviewed, but approval is still pending.",
+    "note": "exact match to expected output"
+  },
+  {
+    "case": "grammar-exact",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c7-t1",
+    "verdict": "asserts_claim",
+    "quote": "The changes were reviewed, but approval is still pending.",
+    "note": "exact match to expected output"
+  },
+  {
+    "case": "grammar-exact",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c7-t1",
+    "verdict": "asserts_claim",
+    "quote": "The changes were reviewed, but approval is still pending.",
+    "note": "exact match to expected output"
+  },
+  {
+    "case": "grammar-exact",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c7-t1",
+    "verdict": "asserts_claim",
+    "quote": "The changes were reviewed, but approval is still pending.",
+    "note": "exact match to expected output"
+  },
+  {
+    "case": "grammar-exact",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c7-t1",
+    "verdict": "asserts_claim",
+    "quote": "The changes were reviewed, but approval is still pending.",
+    "note": "exact match to expected output"
+  }
+]

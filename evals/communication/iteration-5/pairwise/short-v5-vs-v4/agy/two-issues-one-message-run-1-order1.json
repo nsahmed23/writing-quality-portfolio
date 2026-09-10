@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short-v5",
+    "2": "short-v4"
+  },
+  "verdict": {
+    "first_step_1": "Download and inspect the existing Playwright trace and DOM snapshot from the failed CI run rather than re-running.",
+    "first_step_2": "Enable trace and artifact uploads in the config and CI workflow to inspect the DOM snapshot on the next run.",
+    "winner": "1",
+    "reason": "Reply 1 immediately leverages artifacts already produced by the failed run instead of requiring a re-run, and its CI-specific troubleshooting hypotheses are far more technically accurate."
+  },
+  "winner_arm": "short-v5",
+  "seconds": 13.3,
+  "raw_tail": "he failing CI run rather than re-running tests.\n\n**Reply 2 first step:** Update `playwright.config.ts` and CI configuration to enable artifact uploads, then inspect the DOM snapshot from a subsequent CI run.\n\nIf this were my problem, I would act on **Reply 1** first. Reply 1 immediately leverages the artifacts and evidence that the failing CI run has already produced rather than assuming you need a new run, and its diagnostic branches (e.g., runner secrets, unseeded databases, UTC/locale differences, and runner resource contention) are technically sound, whereas Reply 2 suggests implausible causes (such as the element not being a semantic heading, which contradicts the fact that it passes locally every time).\n\n{\"first_step_1\": \"Download and inspect the existing Playwright trace and DOM snapshot from the failed CI run rather than re-running.\", \"first_step_2\": \"Enable trace and artifact uploads in the config and CI workflow to inspect the DOM snapshot on the next run.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately leverages artifacts already produced by the failed run instead of requiring a re-run, and its CI-specific troubleshooting hypotheses are far more technically accurate.\"}\n\n"
+}

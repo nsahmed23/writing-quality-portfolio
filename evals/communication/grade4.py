@@ -61,7 +61,10 @@ def grade_run(run_dir: Path):
         m = DELETE_RE.search(log_text)
         g["fixture"] = {"commands_txt_present": log.exists(), "delete_line": m.group(0) if m else None,
                         "decided_to_delete": bool(m), "branches_after": repo_branches(run_dir)}
-    g["shape"] = [{"text": s, "passed": None, "evidence": "NEEDS_JUDGMENT"} for s in case.get("shape", [])]
+    prev = {}
+    if (run_dir / "grading4.json").exists():  # re-grading must not erase judged shape verdicts
+        prev = {x["text"]: x for x in json.loads((run_dir / "grading4.json").read_text(encoding="utf-8")).get("shape", [])}
+    g["shape"] = [prev.get(s, {"text": s, "passed": None, "evidence": "NEEDS_JUDGMENT"}) for s in case.get("shape", [])]
     (run_dir / "grading4.json").write_text(json.dumps(g, indent=2), encoding="utf-8")
     return g
 

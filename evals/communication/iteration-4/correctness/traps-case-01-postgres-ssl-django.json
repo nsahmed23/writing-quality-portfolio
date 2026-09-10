@@ -1,0 +1,272 @@
+[
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c1-t1",
+    "verdict": "asserts_wrong",
+    "quote": "a certificate with only a common name and no SAN is rejected by modern clients.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c1-t2",
+    "verdict": "asserts_claim",
+    "quote": "Django connects over a Unix domain socket, which is a local file, carries no TLS at all, and ignores `sslmode` entirely.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c1-t3",
+    "verdict": "asserts_claim",
+    "quote": "Postgres refuses to start if the private key is readable by anyone other than its owner.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c1-t4",
+    "verdict": "asserts_claim",
+    "quote": "Run `mkdir -p ~/.postgresql && cp ~/pgcerts/ca.crt ~/.postgresql/root.crt` and then plain `sslmode=verify-full` works without the `sslrootcert` argument.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c1-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c1-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c1-t2",
+    "verdict": "asserts_claim",
+    "quote": "Postgres speaks SSL only over TCP, never over the Unix domain socket.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c1-t3",
+    "verdict": "asserts_claim",
+    "quote": "The key must be mode `600` and owned by the user running the server, or Postgres refuses to start.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c1-t4",
+    "verdict": "asserts_claim",
+    "quote": "`~/.postgresql/root.crt` is libpq's default trust store location, so no `sslrootcert` entry is needed.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c1-t5",
+    "verdict": "asserts_claim",
+    "quote": "Find the `#ssl = off` line and change it to:",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c1-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c1-t2",
+    "verdict": "asserts_claim",
+    "quote": "If you leave it empty, Django connects over the Unix socket, and the connection is unencrypted no matter what `sslmode` says, because sockets have no TLS.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c1-t3",
+    "verdict": "asserts_claim",
+    "quote": "Postgres refuses to start if anyone but the owning user can read the key.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c1-t4",
+    "verdict": "asserts_claim",
+    "quote": "`verify-full` checks the server's certificate against `sslrootcert` and checks that the hostname matches the name in the certificate",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c1-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c1-t1",
+    "verdict": "asserts_claim",
+    "quote": "clients fall back to the common name when a certificate carries no subject alternative name.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c1-t2",
+    "verdict": "asserts_claim",
+    "quote": "It connects through a Unix domain socket, which is a file on disk, and sockets never carry TLS.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c1-t3",
+    "verdict": "asserts_claim",
+    "quote": "`chmod 600` is not optional. Postgres refuses to start with `FATAL: private key file \"server.key\" has group or world access`.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c1-t4",
+    "verdict": "asserts_claim",
+    "quote": "`verify-full` additionally checks that the certificate chains up to the file named in `sslrootcert` and that the name on it matches `localhost`.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c1-t5",
+    "verdict": "asserts_claim",
+    "quote": "The shipped config already contains a commented-out `#ssl = off`.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c1-t1",
+    "verdict": "asserts_wrong",
+    "quote": "current TLS clients ignore `CN` for hostname checking, so a cert without a SAN works for `require` but can never satisfy `verify-full`.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c1-t2",
+    "verdict": "asserts_claim",
+    "quote": "Leave `HOST` empty and Django connects over the Unix socket, `hostssl` never comes into play, `sslmode` is ignored",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c1-t3",
+    "verdict": "asserts_claim",
+    "quote": "`chmod 600` is not optional: Postgres refuses to start if the key is readable by group or others",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c1-t4",
+    "verdict": "asserts_claim",
+    "quote": "`~/.postgresql/root.crt` is libpq's default trust store location, so no other setting is needed",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c1-t5",
+    "verdict": "asserts_claim",
+    "quote": "Homebrew installs Postgres with SSL compiled in but turned off, so the job is four edits plus a certificate",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c1-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c1-t2",
+    "verdict": "asserts_claim",
+    "quote": "Postgres over a Unix socket is never encrypted, and it never errors about it.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c1-t3",
+    "verdict": "asserts_claim",
+    "quote": "Postgres refuses to start if the private key is readable by group or others.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c1-t4",
+    "verdict": "asserts_claim",
+    "quote": "`verify-full` is the mode that checks the certificate was signed by a CA you trust and that the hostname matches.",
+    "note": ""
+  },
+  {
+    "case": "postgres-ssl-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c1-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  }
+]

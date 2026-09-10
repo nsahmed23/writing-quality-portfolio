@@ -1,0 +1,39 @@
+{
+  "id": 5,
+  "name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "prompt": "why does TCP need a three-way handshake? why not two?",
+  "expected": {
+    "first": "No action is required; this is an explanation request.",
+    "truth": "Both sides must agree on initial sequence numbers and each must know the other received its SYN; two messages let the client confirm the server but not the reverse, and stale duplicate SYNs from old connections would create half-open connections. The premise (three-way is needed) is correct."
+  },
+  "inventory": [
+    [
+      "sequence number",
+      "ISN",
+      "initial sequence"
+    ],
+    [
+      "SYN"
+    ],
+    [
+      "ACK"
+    ],
+    [
+      "both",
+      "each side",
+      "both directions"
+    ],
+    [
+      "duplicate",
+      "stale",
+      "old connection",
+      "half-open"
+    ]
+  ],
+  "shape": [
+    "Affirms the premise and explains the mechanism directly",
+    "No manufactured action line",
+    "No premise challenge"
+  ]
+}

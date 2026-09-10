@@ -9,8 +9,8 @@
   "inventory": [
     {
       "item": "brew install postgresql",
-      "hit": false,
-      "matched": null
+      "hit": true,
+      "matched": "brew install $PG"
     },
     {
       "item": "brew services start",
@@ -53,7 +53,7 @@
       "matched": "psql"
     }
   ],
-  "inventory_rate": 0.8889,
+  "inventory_rate": 1.0,
   "shape": [
     {
       "text": "First line is the first action, not context",

@@ -67,3 +67,16 @@ Eval model: sonnet (both arms). Baseline = no skill.
 - DONE: 84 runs graded (grade4 + 4 shape graders + quote audit, 228/228 quotes verified after re-grading 8 crossed runs); 336 pairwise verdicts (codex + agy, three arm pairs; 2 agy retries needed --no-tools); report4.py -> iteration-4/report.{md,json,html}, narrative.md; Kimi iteration-3 rerun finished (48/48) and pairwise-report.md updated.
 - RESULT: full v4 > short (25-line) > none; net wins +18 / +7 / -25; no arm rejected; shared defect on case 12 (-D on explicit waiver). v5 targets: -D ask-first survives the waiver; no manufactured action on explanations; no rule vocabulary.
 - NEXT: user decides deployment form (CLAUDE.md pointer vs output style vs 25-line inline) and whether to draft v5; iteration 5 = Kimi's multi-turn simulated-user suite (iteration-4-plan.md step 4).
+
+## v4 merged to main (2026-09-09 ~18:50 local)
+- PR #6 squash-merged as 7ccc5df on nsahmed23/writing-quality-portfolio main; local clone on main. Remote branch feat/communication-skill-evals left in place (delete via gh if wanted). Local feature branch kept (squash merge, so git branch -d refuses it).
+- Still open: CLAUDE.md pointer or output style for the skill in Claude Code sessions; v5 draft (two wording fixes); iteration 5 (Kimi multi-turn suite).
+
+## Review round on iteration 4 (2026-09-09 ~19:30)
+- Three reviews filed (review-iter4-a/b/c). Decisions from the user: delete both branches (done), import the skill via @~/.claude/skills/communication/SKILL.md in CLAUDE.md (added; LINE TEMPORARILY REMOVED while iteration-5 executors run so the short arm cannot see the full skill; RESTORE IT after the runs), v5 drafted (193 lines, disable-model-invocation: true, Credits and full why-list restored by publish_to_portfolio.py in the repo copy), short candidate v5, correctness layer (iteration-4/traps.json + Sonnet trap/contradiction graders -> iteration-4/correctness/), inventory matcher fixed (all arms 1.0), sourdough key rewritten as a property, report4.py rebuilt with held-out and per-judge nets, sign tests, and prose filled from data (narrative.md placeholders).
+- IN FLIGHT: 4 correctness graders; iteration-5 executors (cases 2, 5, 6, 11 x full/short x 2 = 16 running; case 12 x 4 to launch when slots free). Then: grade4 iteration-5, shape + trap graders, pairwise5.py (v5 arm vs the same arm's v4 replies, codex + agy), report, docs PR.
+
+## Iteration 5 complete (2026-09-09 ~20:30)
+- DONE: 20 v5 runs (cases 2, 5, 6, 11, 12 x full/short x 2), shape graded (60/60 quotes verified), traps + contradictions, pairwise5 v5-vs-v4 (80 verdicts, codex + agy): full v5 7-0 Gemini / 6-1 Codex, short v5 6-2 / 6-2; case 12 flipped to 4/4 single confirmations on both arms. Reports: iteration-5/report.{md,html}; iteration-4/report regenerated with held-out/per-judge nets, sign tests, correctness layer (6 minor wrong assertions, 12 contradictions, none critical).
+- CLAUDE.md import line restored after the runs. v5 deployed at ~/.claude/skills/communication/SKILL.md (193 lines, disable-model-invocation: true).
+- NEXT: portfolio PR with v5 + iteration 5 + review files; user's own blinded judgments on the disagreement pairs (reviewer C); iteration 6 = Kimi's multi-turn simulated-user suite; grader briefs to add: one-action-naming-two-commands rule, absence claims must quote the nearest passage.

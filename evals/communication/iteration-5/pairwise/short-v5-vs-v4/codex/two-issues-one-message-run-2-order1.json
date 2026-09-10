@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short-v5",
+    "2": "short-v4"
+  },
+  "verdict": {
+    "first_step_1": "Download the existing failed CI run\u2019s artifact and inspect what the page rendered at timeout.",
+    "first_step_2": "Add trace, screenshot, and video capture plus CI artifact uploads, then inspect a failing run.",
+    "winner": "1",
+    "reason": "Reply 1 starts with evidence from the run that already failed, while Reply 2 starts by changing artifact configuration before checking whether that evidence already exists."
+  },
+  "winner_arm": "short-v5",
+  "seconds": 16.7,
+  "raw_tail": " act on first?\nOutcomes: \"1\", \"2\", \"tie\" (no meaningful difference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Download the existing failed CI run\u2019s artifact and inspect what the page rendered at timeout.\",\"first_step_2\":\"Add trace, screenshot, and video capture plus CI artifact uploads, then inspect a failing run.\",\"winner\":\"1\",\"reason\":\"Reply 1 starts with evidence from the run that already failed, while Reply 2 starts by changing artifact configuration before checking whether that evidence already exists.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n25,782\n"
+}

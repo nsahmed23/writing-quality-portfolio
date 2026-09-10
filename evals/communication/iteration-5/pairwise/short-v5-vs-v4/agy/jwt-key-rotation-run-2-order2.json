@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short-v5",
+    "2": "short-v4"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 32-byte secret and add it to environment config alongside the existing secret.",
+    "first_step_2": "Search the codebase using grep for JWT_SECRET and jsonwebtoken calls to identify all verifying services and token lifetimes.",
+    "winner": "2",
+    "reason": "Reply 2 correctly audits call sites and token lifetimes as its first step rather than an afterthought, provides runnable code without undefined variables, and allows key retirement without code redeployment."
+  },
+  "winner_arm": "short-v4",
+  "seconds": 32.4,
+  "raw_tail": "this critical check to a \"What I couldn't verify\" appendix at the very end after prescribing steps and timelines.\n2. **Runnable code:** Reply 2 provides fully functional code using `console.log`, whereas Reply 1 introduces an undefined `metrics` identifier (`metrics.increment(...)`) that will cause runtime `ReferenceError` crashes if run as provided.\n3. **Cleaner retirement:** Reply 2 filters loaded keys based on defined environment variables, allowing the old key to be retired simply by deleting the environment variable and restarting, whereas Reply 1's implementation throws at startup if keys are missing from `.env`, forcing code modifications and an extra deployment just to drop the old key.\n\n{\"first_step_1\": \"Generate a new 32-byte secret and add it to environment config alongside the existing secret.\", \"first_step_2\": \"Search the codebase using grep for JWT_SECRET and jsonwebtoken calls to identify all verifying services and token lifetimes.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly audits call sites and token lifetimes as its first step rather than an afterthought, provides runnable code without undefined variables, and allows key retirement without code redeployment.\"}\n\n"
+}

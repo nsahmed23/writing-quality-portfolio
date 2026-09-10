@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full-v5",
+    "2": "full-v4"
+  },
+  "verdict": {
+    "first_step_1": "Check the flour label to verify protein and rule out additives, then feed at a standard 1:1:1 ratio to test for doubling.",
+    "first_step_2": "Set up a side-by-side test at a 1:5:5 ratio, or feed at 1:5:5 with added whole wheat or rye at 26 \u00b0C.",
+    "winner": "1",
+    "reason": "Reply 1 isolates variables with a label check and a standard 1:1:1 feeding, whereas Reply 2 changes the flour type, feeding ratio, and temperature all at once."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 45.0,
+  "raw_tail": "t 1:5:5 with a quarter whole wheat or rye at 26 \u00b0C.\n\n### Evaluation\n\nIf this were my problem, I would act on **Reply 1** first. \n\nBoth replies correctly point out in plain language that timing alone does not prove the flour killed the starter, and both provide accurate background on fermentation mechanics. However, Reply 1 offers a sound diagnostic first step: it checks the bag for genuine disruptors (such as self-rising flour containing salt) and tests culture health with an isolated, standard 1:1:1 feed. In contrast, Reply 2 recommends an aggressive 1:5:5 feeding ratio and suggests introducing a whole wheat/rye blend while shifting the temperature, changing the flour, ratio, and schedule all at once rather than isolating one variable.\n\n{\"first_step_1\": \"Check the flour label to verify protein and rule out additives, then feed at a standard 1:1:1 ratio to test for doubling.\", \"first_step_2\": \"Set up a side-by-side test at a 1:5:5 ratio, or feed at 1:5:5 with added whole wheat or rye at 26 \u00b0C.\", \"winner\": \"1\", \"reason\": \"Reply 1 isolates variables with a label check and a standard 1:1:1 feeding, whereas Reply 2 changes the flour type, feeding ratio, and temperature all at once.\"}\n\n"
+}

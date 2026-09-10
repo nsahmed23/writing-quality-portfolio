@@ -1,0 +1,218 @@
+[
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c10-t1",
+    "verdict": "asserts_claim",
+    "quote": "`-n`: dry run. Print what *would* be deleted, delete nothing.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c10-t2",
+    "verdict": "asserts_claim",
+    "quote": "`-f`: force. Actually delete. Git requires this flag, so you can't wipe files by typing `git clean` on its own.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c10-t3",
+    "verdict": "asserts_claim",
+    "quote": "Files matched by `.gitignore` are safe from plain `git clean -fd` (it skips them); only `git clean -fdx` removes those too.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c10-t4",
+    "verdict": "asserts_claim",
+    "quote": "\"untracked\" means git has never stored a copy of that file, so once it's deleted git cannot bring it back.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c10-t1",
+    "verdict": "asserts_claim",
+    "quote": "`-n` is dry run: show me, don't do it.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c10-t2",
+    "verdict": "asserts_claim",
+    "quote": "`-f` is force: actually delete. `-f` and `-n` are opposites, so you use one or the other, never both.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c10-t3",
+    "verdict": "asserts_claim",
+    "quote": "by default it skips files ignored by `.gitignore`, such as `node_modules/` or a local `.env`. Add `-x` to see those too",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c10-t4",
+    "verdict": "asserts_claim",
+    "quote": "because git never had copies of them, there is no undo.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c10-t1",
+    "verdict": "asserts_claim",
+    "quote": "`-n` means dry run: git prints the list of files it would remove, and removes nothing.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c10-t2",
+    "verdict": "asserts_claim",
+    "quote": "`-f` means force, and git refuses to actually delete unless you pass it, which is exactly what made my first version destructive instead of a preview.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c10-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c10-t4",
+    "verdict": "asserts_claim",
+    "quote": "Git cannot restore a file it never had a copy of.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c10-t1",
+    "verdict": "asserts_claim",
+    "quote": "`-n` means dry run: Git prints what it would remove, and removes nothing.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c10-t2",
+    "verdict": "asserts_claim",
+    "quote": "`-f` means force: Git actually performs the deletion.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c10-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c10-t4",
+    "verdict": "asserts_claim",
+    "quote": "Those files were never saved into Git, so there is no earlier version to restore.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c10-t1",
+    "verdict": "asserts_claim",
+    "quote": "`-n` is a dry run. It prints what would be removed and removes nothing.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c10-t2",
+    "verdict": "asserts_claim",
+    "quote": "`-f` means \"force\", and it is the flag that actually does the deleting. Git requires it because the deletion cannot be undone.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c10-t3",
+    "verdict": "asserts_claim",
+    "quote": "files matched by `.gitignore` are skipped by `git clean` unless you also pass `-x`",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c10-t4",
+    "verdict": "asserts_claim",
+    "quote": "There is no saved copy to restore from.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c10-t1",
+    "verdict": "asserts_claim",
+    "quote": "`-n` is \"dry run\": print what would be deleted, delete nothing.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c10-t2",
+    "verdict": "asserts_claim",
+    "quote": "`-f` is \"force\", and it is the flag that actually performs the deletion.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c10-t3",
+    "verdict": "asserts_claim",
+    "quote": "files matched by `.gitignore` are skipped by both commands unless you add `-x`.",
+    "note": ""
+  },
+  {
+    "case": "reexplain-wrong-previous",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c10-t4",
+    "verdict": "asserts_claim",
+    "quote": "those files are gone; git clean removes them outright rather than sending them to a recycle bin.",
+    "note": ""
+  }
+]

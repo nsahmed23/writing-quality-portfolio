@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "short-v5",
+    "2": "short-v4"
+  },
+  "verdict": {
+    "first_step_1": "Feed two jars side by side at a 1:1:1 ratio\u2014one with the old flour and one with the new\u2014under identical conditions to compare their rise.",
+    "first_step_2": "Feed a jar at a 1:2:2 ratio and place it at 75\u201380\u00b0F to check if it doubles in 4 to 8 hours.",
+    "winner": "1",
+    "reason": "Reply 1 isolates the flour as a single variable via a side-by-side test with the old flour, whereas Reply 2 introduces multiple confounding changes to the feeding ratio and temperature at once."
+  },
+  "winner_arm": "short-v5",
+  "seconds": 19.7,
+  "raw_tail": "Reply 1 follows this principle directly by setting up a side-by-side comparison between the old and new flours under the exact same environmental conditions and ratio, allowing the baker to definitively isolate whether the flour brand is responsible or if temperature/culture health is the real culprit. Reply 2 immediately introduces multiple confounding variables at once by altering both the feeding ratio (shifting to 1:2:2) and the ambient temperature (moving to 75\u201380\u00b0F) without isolating the flour brand itself. Furthermore, Reply 1 provides the helpful, practical insight that switching flour brands often changes density, which silently skews hydration and feeding ratios when measuring by volume.\n\n{\"first_step_1\": \"Feed two jars side by side at a 1:1:1 ratio\u2014one with the old flour and one with the new\u2014under identical conditions to compare their rise.\", \"first_step_2\": \"Feed a jar at a 1:2:2 ratio and place it at 75\u201380\u00b0F to check if it doubles in 4 to 8 hours.\", \"winner\": \"1\", \"reason\": \"Reply 1 isolates the flour as a single variable via a side-by-side test with the old flour, whereas Reply 2 introduces multiple confounding changes to the feeding ratio and temperature at once.\"}\n\n"
+}

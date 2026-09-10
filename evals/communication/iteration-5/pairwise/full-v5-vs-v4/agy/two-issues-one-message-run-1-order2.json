@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full-v5",
+    "2": "full-v4"
+  },
+  "verdict": {
+    "first_step_1": "Download and inspect the CI trace artifact from the failed run to check what the page actually rendered at the moment of timeout.",
+    "first_step_2": "Attempt a local reproduction by running the production build and preview server with CI=1.",
+    "winner": "1",
+    "reason": "Reply 1 follows the correct first step by examining the CI artifact/trace from the failing run rather than attempting a speculative local reproduction first."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 6.8,
+  "raw_tail": "**First step in Reply 1:** Download and inspect the CI trace artifact from the failed run to see what the page actually rendered at the moment of timeout.\n\n**First step in Reply 2:** Run a local reproduction attempt against a production build and preview server with `CI=1`.\n\n**Which reply to act on first:** I would act on **Reply 1** first because it follows the correct initial diagnostic step: gathering concrete evidence from the failing CI run (trace/DOM snapshot) before attempting reruns or speculative local reproductions. It also clearly separates the flaky test diagnosis from the repository restructuring without interleaving them.\n\n{\"first_step_1\": \"Download and inspect the CI trace artifact from the failed run to check what the page actually rendered at the moment of timeout.\", \"first_step_2\": \"Attempt a local reproduction by running the production build and preview server with CI=1.\", \"winner\": \"1\", \"reason\": \"Reply 1 follows the correct first step by examining the CI artifact/trace from the failing run rather than attempting a speculative local reproduction first.\"}\n\n"
+}

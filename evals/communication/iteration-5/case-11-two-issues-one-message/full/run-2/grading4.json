@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 5499,
+  "first_action_offset": 80,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": false,
+      "evidence": "\"Do the flake first: once `CI=1 npx playwright test dashboard --repeat-each=5` passes locally and the CI job is green three runs in a row, the suite is a signal you can trust\" This flake-directive sentence is the reply's very last line, appearing after the entire \"## Repo structure, as a second job\" section, so a sentence about the flaky test follows sentences about repo structure."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"## Repo structure, as a second job\" Explicitly labeled, dedicated section with layout, migration order, and time budget."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": true,
+      "evidence": "\"Move it in slices:\" The two issues appear as two contiguous blocks (flake section, then structure section), not alternating paragraph by paragraph."
+    }
+  ]
+}

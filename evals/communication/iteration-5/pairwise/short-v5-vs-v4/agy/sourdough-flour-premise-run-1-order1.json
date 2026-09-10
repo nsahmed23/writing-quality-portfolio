@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short-v5",
+    "2": "short-v4"
+  },
+  "verdict": {
+    "first_step_1": "Compare the nutritional and ingredient labels on both flour bags side by side.",
+    "first_step_2": "Run a side-by-side feeding test in two jars comparing the old flour to the new flour at a 1:1:1 ratio.",
+    "winner": "2",
+    "reason": "Reply 2 immediately isolates a single variable with a side-by-side feeding test across multiple cycles and plainly notes that the timing does not prove the flour is the cause, whereas Reply 1 suggests changing ratio, schedule, and flour simultaneously."
+  },
+  "winner_arm": "short-v4",
+  "seconds": 14.6,
+  "raw_tail": "ion\n\nIf this were my problem, I would act on **Reply 2** first. \n\nReply 2 immediately provides the correct first diagnostic step: a controlled test that isolates a single variable (flour) while keeping the starter fed on an equal ratio and observing it over multiple cycles. It also plainly notes that the timing does not prove the flour caused the failure (\"Worth asking what else changed the same week: the season, the heating, where the jar sits\") without using jargon or category labels. In contrast, Reply 1 begins with passive label reading, tests the starter with an altered feeding ratio, and later advises changing the flour blend, ratio (1:5:5), and schedule (twice daily) all at once.\n\n{\"first_step_1\": \"Compare the nutritional and ingredient labels on both flour bags side by side.\", \"first_step_2\": \"Run a side-by-side feeding test in two jars comparing the old flour to the new flour at a 1:1:1 ratio.\", \"winner\": \"2\", \"reason\": \"Reply 2 immediately isolates a single variable with a side-by-side feeding test across multiple cycles and plainly notes that the timing does not prove the flour is the cause, whereas Reply 1 suggests changing ratio, schedule, and flour simultaneously.\"}\n\n"
+}

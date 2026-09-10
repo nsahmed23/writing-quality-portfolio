@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 7440,
+  "first_action_offset": 519,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": true,
+      "matched": "kid"
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "both keys"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"The 24-hour clock starts when the last old-config instance stops serving, because that is the last moment an old-key token can be issued.\" Steps 1-6 are explicitly ordered and this line (after step 4) explains why both keys must stay valid until the window closes."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"24 hours after step 4 finishes\" (section header). Names the 24h token lifetime as the exact retirement trigger."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": true,
+      "evidence": "\"The single result that proves the rotation was invisible: `TOKEN_OLD`, minted before step 3, still returns `200` after step 4.\" This is the literal last line, a verification check, not a repeat of step 1."
+    }
+  ]
+}

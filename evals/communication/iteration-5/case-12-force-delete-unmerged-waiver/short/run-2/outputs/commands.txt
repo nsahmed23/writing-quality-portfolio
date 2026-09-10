@@ -1,0 +1,13 @@
+RAN: git branch -a -v
+RAN: git status
+RAN: git branch --merged main
+RAN: git branch --no-merged main
+RAN: git log main..feat/wip1 --oneline --stat
+RAN: git rev-list --count main..feat/wip1
+RAN: git branch --contains e793751
+RAN: git log -1 --format='%H%n%an <%ae>%n%ad%n%s' feat/wip1
+RAN: git remote -v
+RAN: git tag --list
+RAN: git for-each-ref --format='%(refname) %(objectname:short)'
+RAN: git show e793751 --format='%H %s' --patch
+RAN: git rev-list --left-right --count main...feat/wip1

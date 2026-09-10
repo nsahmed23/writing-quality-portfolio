@@ -1,0 +1,164 @@
+[
+  {
+    "case": "tighten-paragraph",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c8-t1",
+    "verdict": "asserts_claim",
+    "quote": "Our Q3 migration to the new billing provider finished August 14, roughly three weeks late, mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c8-t2",
+    "verdict": "asserts_claim",
+    "quote": "finished August 14, roughly three weeks late",
+    "note": "4,212 and $50 also unchanged elsewhere in the paragraph"
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c8-t3",
+    "verdict": "asserts_claim",
+    "quote": "mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c8-t1",
+    "verdict": "asserts_claim",
+    "quote": "Our Q3 migration to the new billing provider finished on August 14, roughly three weeks late, mainly because the legacy export job had several undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c8-t2",
+    "verdict": "asserts_claim",
+    "quote": "finished on August 14, roughly three weeks late",
+    "note": "4,212 and $50 also unchanged elsewhere"
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c8-t3",
+    "verdict": "asserts_claim",
+    "quote": "mainly because the legacy export job had several undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c8-t1",
+    "verdict": "asserts_claim",
+    "quote": "Our Q3 migration to the new billing provider finished on August 14, about three weeks late, mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c8-t2",
+    "verdict": "asserts_claim",
+    "quote": "finished on August 14, about three weeks late",
+    "note": "4,212 and $50 also unchanged elsewhere"
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c8-t3",
+    "verdict": "asserts_claim",
+    "quote": "mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c8-t1",
+    "verdict": "asserts_claim",
+    "quote": "Our Q3 migration to the new billing provider finished on August 14, roughly three weeks late, mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c8-t2",
+    "verdict": "asserts_claim",
+    "quote": "finished on August 14, roughly three weeks late",
+    "note": "4,212 and $50 also unchanged elsewhere"
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c8-t3",
+    "verdict": "asserts_claim",
+    "quote": "mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c8-t1",
+    "verdict": "asserts_claim",
+    "quote": "Our Q3 migration to the new billing provider finished on August 14, roughly three weeks late, mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c8-t2",
+    "verdict": "asserts_claim",
+    "quote": "finished on August 14, roughly three weeks late",
+    "note": "4,212 and $50 also unchanged elsewhere"
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c8-t3",
+    "verdict": "asserts_claim",
+    "quote": "mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c8-t1",
+    "verdict": "asserts_claim",
+    "quote": "Our Q3 migration to the new billing provider finished on August 14, roughly three weeks late, mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c8-t2",
+    "verdict": "asserts_claim",
+    "quote": "finished on August 14, roughly three weeks late",
+    "note": "4,212 and $50 also unchanged elsewhere"
+  },
+  {
+    "case": "tighten-paragraph",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c8-t3",
+    "verdict": "asserts_claim",
+    "quote": "mainly because the legacy export job had undocumented edge cases.",
+    "note": ""
+  }
+]

@@ -1,0 +1,218 @@
+[
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c4-t1",
+    "verdict": "asserts_claim",
+    "quote": "The converse does not hold, and that is the entire limitation.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c4-t2",
+    "verdict": "asserts_claim",
+    "quote": "Vector clocks characterize happens-before exactly, so concurrency stops being invisible.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c4-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": "pruning discussion names only spurious conflicts, not reversal/dataloss"
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c4-t4",
+    "verdict": "asserts_claim",
+    "quote": "A vector is O(N) in the number of participating processes, and it has to be stored with each value and shipped with each message.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c4-t1",
+    "verdict": "asserts_claim",
+    "quote": "The converse is **not** true.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c4-t2",
+    "verdict": "asserts_claim",
+    "quote": "Since concurrency is precisely what a write conflict *is*, a Lamport timestamp structurally cannot detect one.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c4-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": "calls false conflicts 'the safe direction to fail' but never names the reversal/dataloss direction"
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c4-t4",
+    "verdict": "asserts_claim",
+    "quote": "**Size is O(N), and N is every node that has ever written**, not every node currently alive.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c4-t1",
+    "verdict": "asserts_claim",
+    "quote": "What is missing is the converse. `C(a) < C(b)` does not mean `a → b`.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c4-t2",
+    "verdict": "asserts_claim",
+    "quote": "a comparison has three outcomes instead of two: `a` before `b`, `b` before `a`, or neither, which means concurrent.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c4-t3",
+    "verdict": "asserts_claim",
+    "quote": "The comparison flipped, and you are back to overwriting a newer version with an older one.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c4-t4",
+    "verdict": "asserts_claim",
+    "quote": "Size is O(N) per version, where N is the number of independent writers, not the number of machines.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c4-t1",
+    "verdict": "asserts_claim",
+    "quote": "The converse does not hold, and that is the whole point.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c4-t2",
+    "verdict": "asserts_claim",
+    "quote": "If neither vector dominates the other, the two events are concurrent.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c4-t3",
+    "verdict": "asserts_claim",
+    "quote": "a false conflict costs a merge while a missed conflict costs data.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c4-t4",
+    "verdict": "asserts_claim",
+    "quote": "Every message and every stored version carries N counters.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c4-t1",
+    "verdict": "asserts_claim",
+    "quote": "The converse fails. Seeing L(a) < L(b) tells you nothing, because two events that never influenced each other still get different numbers",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c4-t2",
+    "verdict": "asserts_claim",
+    "quote": "incomparable vectors are a positive detection of concurrency, not an absence of information.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c4-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": "pruning discussion names only false conflicts, not reversal/dataloss"
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c4-t4",
+    "verdict": "asserts_claim",
+    "quote": "A vector clock is O(N) integers where N is the number of tracked processes, and it rides on every message and is stored alongside every version of the data.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c4-t1",
+    "verdict": "asserts_claim",
+    "quote": "The guarantee runs one way only: if a happened before b, then `L(a) < L(b)`. The converse fails.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c4-t2",
+    "verdict": "asserts_claim",
+    "quote": "If each vector has an entry the other beats, the events are concurrent.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c4-t3",
+    "verdict": "asserts_claim",
+    "quote": "a pruned entry can turn a genuine conflict into a false ordering.",
+    "note": ""
+  },
+  {
+    "case": "explain-vector-clock",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c4-t4",
+    "verdict": "asserts_claim",
+    "quote": "A vector clock is O(N) in the number of distinct writing actors, carried on every message and stored alongside every version.",
+    "note": ""
+  }
+]

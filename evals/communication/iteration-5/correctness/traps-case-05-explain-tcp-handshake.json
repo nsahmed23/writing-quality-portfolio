@@ -1,0 +1,25 @@
+[
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-1", "trap_id": "c5-t1", "verdict": "asserts_claim", "quote": "Three packets, four confirmations.", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-1", "trap_id": "c5-t2", "verdict": "silent", "quote": "", "note": "describes acknowledging the ISN but never gives the +1 numeric relationship"},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-1", "trap_id": "c5-t3", "verdict": "silent", "quote": "", "note": "says client can attach data to its ACK but does not claim this is the norm, nor say the request usually follows separately"},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-1", "trap_id": "c5-t4", "verdict": "asserts_claim", "quote": "The numbering does not start at zero.", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-1", "trap_id": "c5-t5", "verdict": "asserts_claim", "quote": "Three packets cost one round trip before the first application byte, since the client can attach data to its ACK.", "note": ""},
+
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-2", "trap_id": "c5-t1", "verdict": "asserts_claim", "quote": "The four facts, three packets", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-2", "trap_id": "c5-t2", "verdict": "asserts_claim", "quote": "SYN+ACK, seq=y, ack=x+1", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-2", "trap_id": "c5-t3", "verdict": "silent", "quote": "", "note": "says A's ACK can carry the first request bytes but does not claim this is the norm"},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-2", "trap_id": "c5-t4", "verdict": "asserts_claim", "quote": "each side picks its own starting value rather than beginning at zero", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "full", "run": "run-2", "trap_id": "c5-t5", "verdict": "asserts_claim", "quote": "Three packets still mean one round trip before A can send data, exactly as two would, because A's ACK can carry the first request bytes in the same segment.", "note": ""},
+
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-1", "trap_id": "c5-t1", "verdict": "asserts_claim", "quote": "so three is the compressed form of four rather than a padded form of two", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-1", "trap_id": "c5-t2", "verdict": "silent", "quote": "", "note": "phrases each ack as 'I have x' / 'I have y' without a numeric +1 relationship"},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-1", "trap_id": "c5-t3", "verdict": "silent", "quote": "", "note": "no mention of whether the client's first request rides the third packet or a later one"},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-1", "trap_id": "c5-t4", "verdict": "asserts_claim", "quote": "Randomized ISNs plus that final ACK are what let a server tell a live peer from a replayed packet", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-1", "trap_id": "c5-t5", "verdict": "silent", "quote": "", "note": "no round-trip-before-data cost is stated"},
+
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-2", "trap_id": "c5-t1", "verdict": "asserts_claim", "quote": "Three is the minimum number of messages that gets both directions' sequence numbers acknowledged.", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-2", "trap_id": "c5-t2", "verdict": "silent", "quote": "", "note": "phrases each ack as confirming receipt of x / y without a numeric +1 relationship"},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-2", "trap_id": "c5-t3", "verdict": "silent", "quote": "", "note": "no mention of whether the client's first request rides the third packet or a later one"},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-2", "trap_id": "c5-t4", "verdict": "asserts_claim", "quote": "The ISN is not zero; it is randomized, so segments from the current connection can be distinguished from old or forged ones.", "note": ""},
+  {"case": "explain-tcp-handshake", "arm": "short", "run": "run-2", "trap_id": "c5-t5", "verdict": "silent", "quote": "", "note": "no round-trip-before-data cost is stated; only TFO/QUIC's 0-RTT is contrasted"}
+]

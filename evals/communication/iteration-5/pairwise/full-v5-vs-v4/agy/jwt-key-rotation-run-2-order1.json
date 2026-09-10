@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full-v5",
+    "2": "full-v4"
+  },
+  "verdict": {
+    "first_step_1": "Search the codebase using grep to locate all usages of JWT_SECRET, jwt.sign, and jwt.verify to determine verification sites and token lifespans.",
+    "first_step_2": "Search the codebase using grep for references to JWT_SECRET to locate everything that verifies tokens.",
+    "winner": "1",
+    "reason": "Reply 1 implements proper key ID (kid) stamping and deterministic key lookup rather than relying on a trial-and-error verification loop over an ad-hoc comma-separated list of secrets."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 11.9,
+  "raw_tail": "h the codebase using `grep` for all references to `JWT_SECRET` to locate all processes that verify tokens.\n\nIf this were my problem, I would act on **Reply 1** first. \n\nAs established in the facts, the correct approach to zero-logout rotation is to introduce a key ID (`kid`) to newly issued tokens while making both old and new secrets available for verification. Reply 1 implements this standard pattern by attaching `kid` in the token header, falling back gracefully for legacy tokens, and selecting the verifying key deterministically. In contrast, Reply 2 omits `kid` entirely and relies on an unidiomatic trial-and-error `try/catch` verification loop across a comma-delimited list of secrets.\n\n{\"first_step_1\": \"Search the codebase using grep to locate all usages of JWT_SECRET, jwt.sign, and jwt.verify to determine verification sites and token lifespans.\", \"first_step_2\": \"Search the codebase using grep for references to JWT_SECRET to locate everything that verifies tokens.\", \"winner\": \"1\", \"reason\": \"Reply 1 implements proper key ID (kid) stamping and deterministic key lookup rather than relying on a trial-and-error verification loop over an ad-hoc comma-separated list of secrets.\"}\n\n"
+}

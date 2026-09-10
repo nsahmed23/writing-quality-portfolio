@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "short-v5",
+    "2": "short-v4"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 64-byte secret and deploy dual-key verification while adding a kid header to tokens signed with the existing key.",
+    "first_step_2": "Generate a new 32-byte secret and deploy a multi-key verification fallback while leaving token signing unchanged without a kid.",
+    "winner": "1",
+    "reason": "Reply 1 introduces the kid header to newly issued tokens before cutover and decouples the signing flip into a config change rather than requiring multiple code deployments."
+  },
+  "winner_arm": "short-v5",
+  "seconds": 28.5,
+  "raw_tail": "ctly implements the necessary first step: introducing the `kid` header to newly issued tokens while still signing with the old key and accepting both keys for verification. Furthermore, Reply 1 designs the deployment cleanly by separating code changes from configuration changes\u2014the verifier and `kid`-aware signer are shipped once, allowing the key cutover to happen via an environment variable pointer flip rather than a second round of code deployment. In contrast, Reply 2 omits `kid` from token issuance until the signing cutover, requires editing code across multiple deployments, and resorts to trial-and-error signature verification across an array of keys on every request for legacy tokens.\n\n{\"first_step_1\": \"Generate a new 64-byte secret and deploy dual-key verification while adding a kid header to tokens signed with the existing key.\", \"first_step_2\": \"Generate a new 32-byte secret and deploy a multi-key verification fallback while leaving token signing unchanged without a kid.\", \"winner\": \"1\", \"reason\": \"Reply 1 introduces the kid header to newly issued tokens before cutover and decouples the signing flip into a config change rather than requiring multiple code deployments.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short-v5",
+    "2": "short-v4"
+  },
+  "verdict": {
+    "first_step_1": "Download and inspect the trace artifact from the already failed CI run using gh run download to view the DOM snapshot at the moment of timeout.",
+    "first_step_2": "Edit playwright.config.ts and the CI workflow to capture and upload traces on failure before inspecting a run.",
+    "winner": "1",
+    "reason": "Reply 1 immediately investigates the existing failed CI run artifact rather than requiring workflow edits and a rerun first, while diagnosing realistic CI differences like viewport size and locale."
+  },
+  "winner_arm": "short-v5",
+  "seconds": 15.0,
+  "raw_tail": " trace artifact from the existing failed CI run via `gh run download` to inspect the DOM snapshot at the moment of timeout.\n\n**Reply 2 first step:** Modify `playwright.config.ts` and the CI workflow to capture and upload artifacts on failure, re-run CI, and then inspect the resulting trace.\n\nIf this were my problem, I would act on **Reply 1** first. Reply 1 immediately leverages the run that has already failed rather than demanding configuration changes and a re-run upfront, and it identifies the most common CI-specific root causes (such as headless viewport dimensions and locale differences) while adhering to Playwright best practices over manual request interception.\n\n{\"first_step_1\": \"Download and inspect the trace artifact from the already failed CI run using gh run download to view the DOM snapshot at the moment of timeout.\", \"first_step_2\": \"Edit playwright.config.ts and the CI workflow to capture and upload traces on failure before inspecting a run.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately investigates the existing failed CI run artifact rather than requiring workflow edits and a rerun first, while diagnosing realistic CI differences like viewport size and locale.\"}\n\n"
+}

@@ -1,0 +1,16 @@
+Three is the minimum number of messages that gets both directions' sequence numbers acknowledged. Two gets only one direction's.
+
+TCP is full-duplex, meaning the connection carries two independent byte streams, one per direction, and each stream is numbered from its own starting point, the initial sequence number (ISN). The ISN is not zero; it is randomized, so segments from the current connection can be distinguished from old or forged ones. Reliable delivery in both directions requires four facts to be settled before data flows:
+
+1. The client sends its ISN, x.
+2. The server confirms it received x.
+3. The server sends its ISN, y.
+4. The client confirms it received y.
+
+Facts 2 and 3 ride in the same packet, the SYN-ACK, which is the only reason the count is three and not four. The three-way handshake is a four-fact exchange with the middle two piggybacked.
+
+Drop to two messages and fact 4 is what you lose. The server has announced y with no evidence that anyone received it. If that SYN-ACK is dropped, the two ends disagree about reality: the server considers the connection established and starts sending data numbered from y, while the client, having heard nothing, treats those segments as belonging to no connection and answers with RST (reset, meaning "I have no such connection"). The server has spent a round trip and a socket on a connection that was never agreed. Reliability in TCP rests on one rule, that any state you need your peer to hold must be acknowledged, and an ISN is exactly such a piece of state. Two messages leave one ISN unacknowledged, whichever way you arrange them.
+
+The sharper problem, and the one that actually drove the design in the 1970s, is duplicate SYNs. Networks retain and re-deliver packets late, so an old connection request can arrive long after the client gave up on it. With a two-message handshake the server would open a connection on the strength of that stale request and sit there half-open, holding resources for a peer that has no intention of talking. Since it also never confirmed that the source address is reachable, a spoofed SYN would work just as well. The third message closes both holes: the server's fresh, random y forces the other end to prove it is here and now. A real client ACKs y; a machine that never asked replies RST, and the server tears the attempt down. (The server does commit some state after message two, which is what SYN flooding exploits and what SYN cookies were invented to defer, but that is a cost of three, not an argument for two.)
+
+Worth noting where this stops. The third ACK is itself unacknowledged, so the client does not know the server received it, and a fourth message would not fix that, since the fifth would have the same gap. Three is not the point where both sides know everything; it is the point where each side has what it actually needs. The client knows the server has x, the server knows the client has y, and anything beyond that can be inferred from data arriving or from a retransmission timeout. This is also why protocols that appear to skip the handshake do not really skip it. TCP Fast Open and QUIC's 0-RTT let data ride on the first packet, but both substitute a cookie or ticket issued during an earlier full handshake as the proof of round trip. With no prior relationship, three is the floor.

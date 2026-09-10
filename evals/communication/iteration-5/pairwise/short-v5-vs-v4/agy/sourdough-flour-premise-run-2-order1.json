@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short-v4",
+    "2": "short-v5"
+  },
+  "verdict": {
+    "first_step_1": "Feed the starter at a 1:2:2 ratio at 75\u201380\u00b0F and observe if it doubles within 4 to 8 hours to determine whether the starter or the dough is failing.",
+    "first_step_2": "Feed two jars side-by-side at a 1:1:1 ratio\u2014one with the old flour and one with the new\u2014to observe whether the new flour is lagging under identical conditions.",
+    "winner": "2",
+    "reason": "Reply 2 isolates the single variable in question by testing the old and new flours side-by-side under identical conditions, whereas Reply 1 alters the feeding ratio and temperature without directly testing the flours against each other."
+  },
+  "winner_arm": "short-v5",
+  "seconds": 17.4,
+  "raw_tail": " if the new flour specifically causes a lag.\n\nIf this were my problem, I would act on **Reply 2** first. It provides the ideal diagnostic test by changing only a single variable\u2014comparing the old flour against the new flour side-by-side under identical conditions\u2014allowing you to immediately verify whether the flour brand is actually responsible or if external factors (like ambient temperature) are the true culprit. In contrast, Reply 1 introduces an altered feeding ratio (1:2:2) and a controlled temperature environment without directly testing the two flours against each other.\n\n{\"first_step_1\": \"Feed the starter at a 1:2:2 ratio at 75\u201380\u00b0F and observe if it doubles within 4 to 8 hours to determine whether the starter or the dough is failing.\", \"first_step_2\": \"Feed two jars side-by-side at a 1:1:1 ratio\u2014one with the old flour and one with the new\u2014to observe whether the new flour is lagging under identical conditions.\", \"winner\": \"2\", \"reason\": \"Reply 2 isolates the single variable in question by testing the old and new flours side-by-side under identical conditions, whereas Reply 1 alters the feeding ratio and temperature without directly testing the flours against each other.\"}\n\n"
+}

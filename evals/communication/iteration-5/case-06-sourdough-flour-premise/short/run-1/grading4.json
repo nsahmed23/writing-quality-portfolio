@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 3738,
+  "first_action_offset": 3738,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": false,
+      "evidence": "\"A new flour brand almost certainly did not kill your starter.\" Rejects the causal claim via mechanism (food vs. source) but never mentions the \"switched last week\" timing at all, so it never treats that timing as non-proof."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Feed 20g starter with 50g new flour and 50g water, mark the level with a rubber band, and keep it somewhere 76 to 80F.\" Concrete feeding and marking action."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"feed twice daily at 1:5:5, and hold it near 78F for three days before judging it\" Concrete feeding-frequency and day-count units."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "\"Gray liquid on top and a nail-polish or acetone smell mean hungry, not dead.\" Checked throughout; descriptions stay literal, no forced analogy used."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": true,
+      "evidence": "\"flour is their food, not their source\" Checked throughout; plain words used, none of sequence/correlation/premise/mechanism appear."
+    }
+  ]
+}

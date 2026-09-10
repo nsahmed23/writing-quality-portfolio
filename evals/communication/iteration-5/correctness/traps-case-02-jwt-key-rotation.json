@@ -1,0 +1,25 @@
+[
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-1", "trap_id": "c2-t1", "verdict": "asserts_claim", "quote": "Accept both secrets for one full token lifetime, sign only with the new one, then retire the old.", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-1", "trap_id": "c2-t2", "verdict": "asserts_claim", "quote": "instances running the old config and the new config serve traffic at the same time, and an instance that has never heard of the new secret rejects every token signed with it", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-1", "trap_id": "c2-t3", "verdict": "asserts_claim", "quote": "every old token still verifies against the secondary", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-1", "trap_id": "c2-t4", "verdict": "asserts_claim", "quote": "which is the right answer for a leak: set `JWT_SECRET_PRIMARY` to the new secret with no secondary at all, restart", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-1", "trap_id": "c2-t5", "verdict": "asserts_claim", "quote": "32 random bytes is 256 bits, the minimum size HS256 should use.", "note": ""},
+
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-2", "trap_id": "c2-t1", "verdict": "asserts_claim", "quote": "Keep both keys valid for one token lifetime: verify against the old and the new key, sign with the new one, drop the old one 24 hours later.", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-2", "trap_id": "c2-t2", "verdict": "asserts_claim", "quote": "during a rolling deploy the old and new instances serve traffic at the same time, and an old instance that has never heard of v2 answers a v2 token with a 401", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-2", "trap_id": "c2-t3", "verdict": "asserts_claim", "quote": "tokens issued before T keep working until they expire", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-2", "trap_id": "c2-t4", "verdict": "asserts_claim", "quote": "If you are rotating because the old secret leaked, this plan is the wrong one: for the whole 24 hour overlap, anyone holding that secret can still mint tokens your API accepts.", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "full", "run": "run-2", "trap_id": "c2-t5", "verdict": "asserts_claim", "quote": "Generate the new key, 32 bytes for HS256:", "note": "states the used size rather than an explicit floor, but does not endorse a short passphrase"},
+
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-1", "trap_id": "c2-t1", "verdict": "asserts_claim", "quote": "you accept both the old and the new secret for a window at least as long as your longest-lived token, but you sign only with the new one", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-1", "trap_id": "c2-t2", "verdict": "asserts_claim", "quote": "Splitting the deploy means every process can verify both keys before any process starts producing tokens with the new one.", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-1", "trap_id": "c2-t3", "verdict": "asserts_claim", "quote": "The old key must stay verifiable until the last token signed with it has expired.", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-1", "trap_id": "c2-t4", "verdict": "asserts_claim", "quote": "If you are rotating because it leaked, was committed to git, or was pasted somewhere, then keeping it valid for another 24 hours keeps the exposure open for another 24 hours.", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-1", "trap_id": "c2-t5", "verdict": "asserts_claim", "quote": "32 bytes is the floor for HS256; 64 bytes matches the HMAC-SHA256 block size, so use 64.", "note": ""},
+
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-2", "trap_id": "c2-t1", "verdict": "asserts_claim", "quote": "verify against a *set* of keys, and retire the old key only after every token it signed has expired", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-2", "trap_id": "c2-t2", "verdict": "asserts_claim", "quote": "deploy the ability to verify the new key before anything signs with it", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-2", "trap_id": "c2-t3", "verdict": "asserts_claim", "quote": "a k1 token issued before the flip still passes", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-2", "trap_id": "c2-t4", "verdict": "asserts_claim", "quote": "cut the old key immediately and accept the logouts, or add a per-user `tokensValidAfter` timestamp and reject tokens whose `iat` is earlier", "note": ""},
+  {"case": "jwt-key-rotation", "arm": "short", "run": "run-2", "trap_id": "c2-t5", "verdict": "asserts_claim", "quote": "32 bytes is the right size for HS256, which is HMAC-SHA256.", "note": ""}
+]

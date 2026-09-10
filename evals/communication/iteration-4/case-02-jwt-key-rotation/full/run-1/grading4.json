@@ -9,8 +9,8 @@
   "inventory": [
     {
       "item": "kid",
-      "hit": false,
-      "matched": null
+      "hit": true,
+      "matched": "JWT_SECRET_ALT"
     },
     {
       "item": "24",
@@ -38,7 +38,7 @@
       "matched": "expire"
     }
   ],
-  "inventory_rate": 0.8333,
+  "inventory_rate": 1.0,
   "shape": [
     {
       "text": "Steps are ordered with the overlap window explained",

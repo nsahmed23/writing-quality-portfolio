@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short-v4",
+    "2": "short-v5"
+  },
+  "verdict": {
+    "first_step_1": "Deploy verification for both keys while continuing to issue tokens with the old secret without a kid.",
+    "first_step_2": "Deploy verification for both keys and legacy tokens while stamping a kid on newly issued tokens signed with the old secret.",
+    "winner": "2",
+    "reason": "Reply 2 correctly adds a key id (kid) to newly issued tokens while keeping both secrets available for verification before flipping to the new key."
+  },
+  "winner_arm": "short-v5",
+  "seconds": 31.3,
+  "raw_tail": "s were my problem, I would act on **Reply 2** first.\n\nAs established in the facts, the correct first step when introducing key rotation to existing tokens is to add a `kid` to newly issued tokens while keeping both the old and new secrets available for verification during the overlap. Reply 2 correctly starts issuing tokens with a `kid` (`k1`) while still signing with the old key, allowing unambiguous, single-lookup verification and setting up future rotations cleanly without code changes. In contrast, Reply 1 continues issuing tokens without a `kid` during its verification deploy and only introduces `kid` when switching signing to the new key, forcing all old-key tokens to trigger an exception on the new key before falling back to the legacy key.\n\n{\"first_step_1\": \"Deploy verification for both keys while continuing to issue tokens with the old secret without a kid.\", \"first_step_2\": \"Deploy verification for both keys and legacy tokens while stamping a kid on newly issued tokens signed with the old secret.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly adds a key id (kid) to newly issued tokens while keeping both secrets available for verification before flipping to the new key.\"}\n\n"
+}

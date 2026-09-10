@@ -1,0 +1,218 @@
+[
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c11-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c11-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c11-t3",
+    "verdict": "asserts_claim",
+    "quote": "If the trace shows the heading arriving correct but late, raise that one assertion with `{ timeout: 15000 }` instead of the global timeout, so the rest of the suite still fails fast.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c11-t4",
+    "verdict": "asserts_wrong",
+    "quote": "Start with the two-minute check, because most \"CI only\" Playwright failures reproduce locally once you match what CI does differently:",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c11-t1",
+    "verdict": "asserts_claim",
+    "quote": "trace: 'on-first-retry',       // records a timeline + DOM snapshots for the retried run",
+    "note": "pairs with retries: process.env.CI ? 2 : 0 (non-zero in CI)"
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c11-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c11-t3",
+    "verdict": "asserts_claim",
+    "quote": "Raising the global `timeout` as the opening move turns a 30 second failure into a 60 second failure in three of the four rows above and hides the cause.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c11-t4",
+    "verdict": "asserts_claim",
+    "quote": "green locally tells you the two environments differ, not which difference matters.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c11-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c11-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c11-t3",
+    "verdict": "asserts_claim",
+    "quote": "The fix is not a longer timeout, it is waiting on the thing you actually mean:",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c11-t4",
+    "verdict": "asserts_claim",
+    "quote": "Get evidence before changing anything.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c11-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c11-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c11-t3",
+    "verdict": "asserts_claim",
+    "quote": "This is the *least* interesting cause, so only accept it after the trace has ruled out the others.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c11-t4",
+    "verdict": "asserts_claim",
+    "quote": "The only question that matters is what was on the page instead, and the trace viewer answers that in about thirty seconds.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c11-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c11-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c11-t3",
+    "verdict": "asserts_claim",
+    "quote": "Raising the timeout is the last resort, and only once the trace shows the content arrives correctly but late.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c11-t4",
+    "verdict": "asserts_claim",
+    "quote": "Stop guessing and capture a trace.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c11-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c11-t2",
+    "verdict": "asserts_claim",
+    "quote": "treat a passing retry as an open bug, not a pass",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c11-t3",
+    "verdict": "asserts_claim",
+    "quote": "If one assertion genuinely needs longer on CI, raise that one (`toBeVisible({ timeout: 15_000 })`) rather than the global `expect.timeout`, so a real regression still fails fast.",
+    "note": ""
+  },
+  {
+    "case": "two-issues-one-message",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c11-t4",
+    "verdict": "asserts_claim",
+    "quote": "Capture evidence before changing anything.",
+    "note": ""
+  }
+]

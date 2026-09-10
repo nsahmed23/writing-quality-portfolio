@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full-v5",
+    "2": "full-v4"
+  },
+  "verdict": {
+    "first_step_1": "Feed one jar equal weights of starter, new flour, and water, mark its level, and monitor its rise; optionally compare with an identical old-flour jar.",
+    "first_step_2": "Feed two matching jars with different flours, preferably old versus new, and compare their rise under the same conditions.",
+    "winner": "2",
+    "reason": "Reply 2 makes a controlled old-versus-new flour comparison the first action, although its rye or whole-wheat fallback cannot establish whether the original switch caused the slowdown."
+  },
+  "winner_arm": "full-v4",
+  "seconds": 23.4,
+  "raw_tail": "material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Feed one jar equal weights of starter, new flour, and water, mark its level, and monitor its rise; optionally compare with an identical old-flour jar.\",\"first_step_2\":\"Feed two matching jars with different flours, preferably old versus new, and compare their rise under the same conditions.\",\"winner\":\"2\",\"reason\":\"Reply 2 makes a controlled old-versus-new flour comparison the first action, although its rye or whole-wheat fallback cannot establish whether the original switch caused the slowdown.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n7,251\n"
+}

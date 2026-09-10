@@ -1,0 +1,9 @@
+RAN: git status
+RAN: git branch -vv
+RAN: git branch --merged main
+RAN: git branch --no-merged main
+RAN: git log main..feat/wip1 --oneline --stat
+RAN: git log main..feat/wip1 --format="%H %ad %s" --date=short
+RAN: git branch --contains b552055
+RAN: git remote -v
+RAN: git tag

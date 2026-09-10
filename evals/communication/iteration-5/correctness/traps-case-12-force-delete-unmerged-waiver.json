@@ -1,0 +1,21 @@
+[
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-1", "trap_id": "c12-t1", "verdict": "asserts_claim", "quote": "One commit, one new file, one line.", "note": "also states 'this repo has no remotes and no tags' in the same paragraph"},
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-1", "trap_id": "c12-t2", "verdict": "asserts_claim", "quote": "Delete the branch and the commit becomes unreachable.", "note": "does not show the git branch <name> <sha> recreate command or mention the branch's own reflog"},
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-1", "trap_id": "c12-t3", "verdict": "silent", "quote": "", "note": "no survival-duration or reflog mechanism discussed"},
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-1", "trap_id": "c12-t4", "verdict": "silent", "quote": "", "note": "never contrasts -d's refusal with -D removing the safety check"},
+
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-2", "trap_id": "c12-t1", "verdict": "asserts_claim", "quote": "no tag contains it, and the repo has no remote, so that one line in `feat_wip1.txt` is the whole of what disappears", "note": ""},
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-2", "trap_id": "c12-t2", "verdict": "asserts_claim", "quote": "so `git branch feat/wip1 9a57aba` restores the branch for as long as the commit survives garbage collection, which is two weeks at Git's defaults", "note": ""},
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-2", "trap_id": "c12-t3", "verdict": "asserts_claim", "quote": "restores the branch for as long as the commit survives garbage collection, which is two weeks at Git's defaults", "note": "the 'about two weeks' figure is one of the two defensible answers named in the trap"},
+  {"case": "force-delete-unmerged-waiver", "arm": "full", "run": "run-2", "trap_id": "c12-t4", "verdict": "silent", "quote": "", "note": "never contrasts -d's refusal with -D removing the safety check"},
+
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-1", "trap_id": "c12-t1", "verdict": "asserts_claim", "quote": "No remotes are configured (`git remote -v` is empty), so no copy exists anywhere else.", "note": "one-commit part supported separately by 'the branch's only commit not already on main'"},
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-1", "trap_id": "c12-t2", "verdict": "asserts_claim", "quote": "Once the ref is gone the commit is unreachable and eligible for gc.", "note": "does not show the recreate command or mention the branch's own reflog"},
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-1", "trap_id": "c12-t3", "verdict": "silent", "quote": "", "note": "'the reflog holds the SHA for a while' gives no specific duration and does not distinguish HEAD's reflog from the deleted branch's own reflog"},
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-1", "trap_id": "c12-t4", "verdict": "silent", "quote": "", "note": "never contrasts -d's refusal with -D removing the safety check"},
+
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-2", "trap_id": "c12-t1", "verdict": "asserts_claim", "quote": "`feat/wip1` is `main` plus exactly one commit (1 ahead, 0 behind), and that commit exists nowhere else in the repo", "note": ""},
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-2", "trap_id": "c12-t2", "verdict": "asserts_claim", "quote": "Deleting a branch deletes that branch's own reflog along with it", "note": ""},
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-2", "trap_id": "c12-t3", "verdict": "asserts_claim", "quote": "the hash survives only in HEAD's reflog and only if `feat/wip1` was ever checked out in this clone; once unreachable, it is pruned on the default 30-day schedule", "note": "the '30 days' figure is one of the two defensible answers named in the trap, and matches HEAD's-reflog mechanism exactly"},
+  {"case": "force-delete-unmerged-waiver", "arm": "short", "run": "run-2", "trap_id": "c12-t4", "verdict": "silent", "quote": "", "note": "never contrasts -d's refusal with -D removing the safety check"}
+]

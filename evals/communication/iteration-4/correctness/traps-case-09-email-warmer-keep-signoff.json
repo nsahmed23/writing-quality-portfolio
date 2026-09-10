@@ -1,0 +1,164 @@
+[
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c9-t1",
+    "verdict": "asserts_claim",
+    "quote": "Would Thursday at 2pm work for you?",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c9-t2",
+    "verdict": "asserts_claim",
+    "quote": "It would be good to walk through the open questions together before the board call.",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c9-t3",
+    "verdict": "asserts_claim",
+    "quote": "I have folded in the two changes you asked for and re-ran the numbers, and the revised deck is attached.",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c9-t1",
+    "verdict": "asserts_claim",
+    "quote": "Would Thursday at 2pm work for you?",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c9-t2",
+    "verdict": "asserts_claim",
+    "quote": "It would be good to walk through the open questions together before the board call.",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c9-t3",
+    "verdict": "asserts_claim",
+    "quote": "I have folded in both of the changes you asked for and re-ran the numbers, and the revised deck is attached.",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c9-t1",
+    "verdict": "asserts_claim",
+    "quote": "Could we meet Thursday at 2pm to talk through the open questions together before the board call?",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c9-t2",
+    "verdict": "asserts_claim",
+    "quote": "It would be good to have your read on them.",
+    "note": "mild added line requesting feedback, not a concrete new promise/deadline/offer"
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c9-t3",
+    "verdict": "asserts_claim",
+    "quote": "the deck is stronger for them. I have folded in both of the changes you asked for and re-run the numbers, and the revised version is attached.",
+    "note": "deck referred to as “version” when paired with “attached”, but deck named earlier"
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c9-t1",
+    "verdict": "asserts_claim",
+    "quote": "Could we meet Thursday at 2pm to walk through the open questions together before the board call?",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c9-t2",
+    "verdict": "asserts_claim",
+    "quote": "I would value your thinking on them while there is still room to adjust.",
+    "note": "borderline: vague added line, no concrete new date/promise; board-call framing already implies a window to adjust"
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c9-t3",
+    "verdict": "asserts_claim",
+    "quote": "I have folded in the two changes you asked for and re-ran the numbers, and the revised deck is attached.",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c9-t1",
+    "verdict": "asserts_claim",
+    "quote": "Could we meet Thursday at 2pm to walk through the open questions together before the board call?",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c9-t2",
+    "verdict": "asserts_claim",
+    "quote": "It would be great to have your thoughts before we go in.",
+    "note": "mild added line, not a concrete new promise/deadline/offer"
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c9-t3",
+    "verdict": "asserts_claim",
+    "quote": "I have folded in both of the changes you asked for and re-ran the numbers, so the revised deck is attached for you.",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c9-t1",
+    "verdict": "asserts_claim",
+    "quote": "Would you be free to meet Thursday at 2pm so we can walk through the open questions together before the board call?",
+    "note": ""
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c9-t2",
+    "verdict": "asserts_claim",
+    "quote": "I have folded in the two changes you asked for and re-ran the numbers, and the revised deck is attached.",
+    "note": "no line added beyond original two facts"
+  },
+  {
+    "case": "email-warmer-keep-signoff",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c9-t3",
+    "verdict": "asserts_claim",
+    "quote": "I have folded in the two changes you asked for and re-ran the numbers, and the revised deck is attached.",
+    "note": ""
+  }
+]

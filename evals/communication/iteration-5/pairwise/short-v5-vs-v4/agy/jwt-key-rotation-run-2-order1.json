@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "short-v4",
+    "2": "short-v5"
+  },
+  "verdict": {
+    "first_step_1": "Audit the codebase using grep to locate all services verifying tokens and find any other artifacts signed by JWT_SECRET that dictate the rotation window.",
+    "first_step_2": "Generate a new 32-byte cryptographic secret and add it alongside the existing key in the environment configuration.",
+    "winner": "1",
+    "reason": "Reply 1 provides self-contained, crash-free code with a clean zero-code retirement step, and correctly places the codebase audit first to determine the actual lifetime and scope of the overlap."
+  },
+  "winner_arm": "short-v4",
+  "seconds": 25.8,
+  "raw_tail": "outs. Reply 2 buries this critical check at the very end.\n2. **Self-contained, working code:** Reply 2 includes `metrics.increment(...)` in its verification middleware without defining or importing `metrics`, causing a `ReferenceError` at runtime in a standard Express app. Reply 1 uses standard `console.log`.\n3. **Graceful retirement:** Reply 1 filters out undefined environment variables dynamically, allowing the old key to be retired simply by deleting the environment variable. Reply 2 hardcodes validation that throws if `JWT_SECRET` is missing, requiring code modifications and redeployments alongside environment variable renames just to retire the old key.\n\n{\"first_step_1\": \"Audit the codebase using grep to locate all services verifying tokens and find any other artifacts signed by JWT_SECRET that dictate the rotation window.\", \"first_step_2\": \"Generate a new 32-byte cryptographic secret and add it alongside the existing key in the environment configuration.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides self-contained, crash-free code with a clean zero-code retirement step, and correctly places the codebase audit first to determine the actual lifetime and scope of the overlap.\"}\n\n"
+}

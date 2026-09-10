@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "Feed two jars side-by-side with identical ratios and starter\u2014one with the new flour and one with the old or reference flour\u2014and track when each peaks.",
+    "first_step_2": "Mix a single jar of equal parts starter, new flour, and water (1:1:1) and monitor its rise at 4, 8, and 12 hours.",
+    "winner": "1",
+    "reason": "Reply 1 immediately establishes a controlled side-by-side test that isolates the flour variable, whereas Reply 2 directs the user to test only a single jar with the new flour."
+  },
+  "winner_arm": "full-v4",
+  "seconds": 20.8,
+  "raw_tail": "ew flour and one with the old (or a reference flour)\u2014and record room temperature and peaking times.\n\n**Reply 2 first step:** Mix a single jar with equal parts starter, new flour, and water (1:1:1), note room temperature, and check its rise at 4, 8, and 12 hours.\n\nIf this were my problem, I would act on **Reply 1** first. Reply 1 immediately sets up a controlled test that isolates the flour variable by running the new flour alongside a reference flour under the exact same conditions, whereas Reply 2 primarily instructs testing only a single jar with the new flour (relegating the side-by-side test to an optional afterthought despite noting it is the only way to answer the question).\n\n{\"first_step_1\": \"Feed two jars side-by-side with identical ratios and starter\u2014one with the new flour and one with the old or reference flour\u2014and track when each peaks.\", \"first_step_2\": \"Mix a single jar of equal parts starter, new flour, and water (1:1:1) and monitor its rise at 4, 8, and 12 hours.\", \"winner\": \"1\", \"reason\": \"Reply 1 immediately establishes a controlled side-by-side test that isolates the flour variable, whereas Reply 2 directs the user to test only a single jar with the new flour.\"}\n\n"
+}

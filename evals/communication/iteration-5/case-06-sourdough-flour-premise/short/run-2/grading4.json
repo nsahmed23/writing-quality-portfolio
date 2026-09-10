@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 3390,
+  "first_action_offset": 3390,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": false,
+      "evidence": "\"Correlation with the flour switch is suggestive, not proof.\" Does address the timing-vs-proof point, but with the category-label word \"correlation\" instead of plain words, so it fails the plain-words requirement."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Set up two small jars, each with 20g starter, 20g water, 20g flour.\" Concrete jar-test action."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"Check at 4, 8, and 12 hours\" Concrete hour checkpoints."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "\"Fuzzy growth in pink, orange, or black is mold, and that is the only case that calls for discarding and starting over.\" (ending, checked). No forced analogy anywhere in the reply."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": false,
+      "evidence": "\"The mechanism is a slowdown, not a die-off.\" Uses the forbidden rule-vocabulary word \"mechanism\" (and separately \"correlation\" later), violating the plain-words requirement."
+    }
+  ]
+}

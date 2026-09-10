@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "Try to reproduce the failure locally against a production preview build with CI=1 and --repeat-each=10.",
+    "first_step_2": "Download and inspect the CI trace artifact from the failing run to see what the page actually rendered at the timeout.",
+    "winner": "2",
+    "reason": "Reply 2 immediately directs the user to inspect the failing CI run's trace artifact to see what was actually rendered, whereas Reply 1 delays this by attempting local reproduction first."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 12.6,
+  "raw_tail": "**Reply 1 first step:** Try reproducing the failure locally against a production preview build using `CI=1` and `--repeat-each=10`.  \n**Reply 2 first step:** Download and inspect the CI trace artifact from the failing run to see what the page actually rendered at the timeout.\n\nIf this were my problem, I would act on **Reply 2** first because it follows the correct first step of inspecting the failing CI run's trace artifact before rerunning anything, whereas Reply 1 delays diagnosis by attempting local reproduction first.\n\n{\"first_step_1\": \"Try to reproduce the failure locally against a production preview build with CI=1 and --repeat-each=10.\", \"first_step_2\": \"Download and inspect the CI trace artifact from the failing run to see what the page actually rendered at the timeout.\", \"winner\": \"2\", \"reason\": \"Reply 2 immediately directs the user to inspect the failing CI run's trace artifact to see what was actually rendered, whereas Reply 1 delays this by attempting local reproduction first.\"}\n\n"
+}
