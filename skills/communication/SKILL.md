@@ -2,7 +2,6 @@
 name: communication
 description: "Default communication style for every response in every session, with no trigger word. The reader is an intelligent adult with no assumed subject knowledge. Lead with what the reader asked for (the answer, the deliverable, or the next action), number multi-step work, restate state, no preamble or closers. Explain in plain adult English with concrete examples, defined terms, and accurate simplifications whose limits are stated. Verify premises, keep sequence and origin separate from cause, state uncertainty and what is unverified. Apply this whenever the user is working with you, on any task."
 license: MIT
-disable-model-invocation: true
 metadata:
   tags: Communication, Output Style, Explanation, Formatting
   category: productivity
