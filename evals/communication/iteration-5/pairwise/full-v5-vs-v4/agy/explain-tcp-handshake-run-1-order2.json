@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full-v5",
+    "2": "full-v4"
+  },
+  "verdict": {
+    "first_step_1": "No action is required first; read the conceptual explanation.",
+    "first_step_2": "No action is required first; read the conceptual explanation.",
+    "winner": "tie",
+    "reason": "Both replies accurately and thoroughly explain bidirectional sequence number agreement, the failure modes of a two-way exchange with stale SYNs, and the Two Generals problem with no meaningful difference in correctness or completeness."
+  },
+  "winner_arm": "tie",
+  "seconds": 28.4,
+  "raw_tail": "Reply 1 tells the reader to do nothing first, as it directly begins with a conceptual explanation.\nReply 2 tells the reader to do nothing first, as it also directly begins with a conceptual explanation (suggesting Wireshark inspection only at the very end).\n\nIf this were my problem, neither requires action first because this is an explanation request; both replies are exceptionally clear, comprehensive, and technically accurate regarding sequence number synchronization, asymmetric confirmation, stale duplicate SYNs, and the Two Generals problem, resulting in no meaningful difference.\n\n{\"first_step_1\": \"No action is required first; read the conceptual explanation.\", \"first_step_2\": \"No action is required first; read the conceptual explanation.\", \"winner\": \"tie\", \"reason\": \"Both replies accurately and thoroughly explain bidirectional sequence number agreement, the failure modes of a two-way exchange with stale SYNs, and the Two Generals problem with no meaningful difference in correctness or completeness.\"}\n\n"
+}

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "Split the starter into two jars to test old versus new flour at a 1:5:5 ratio (or feed the starter a 1:5:5 ratio containing 25% whole wheat or rye in a warm spot).",
+    "first_step_2": "Check the new flour bag label to ensure it is not self-rising, cake, or gluten-free flour, then feed the starter at a standard 1:1:1 ratio and monitor for doubling.",
+    "winner": "2",
+    "reason": "Reply 2 correctly isolates variables with an initial bag inspection and a standard 1:1:1 feeding, whereas Reply 1 suggests an aggressive 1:5:5 feed and changes flour composition, ratio, and temperature all at once."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 36.6,
+  "raw_tail": "\n\nReply 2 begins with an immediate, non-invasive check of the flour bag (ruling out additives like salt and leaveners in self-rising flour that can suppress or alter fermentation) and follows with a standard 1:1:1 feeding that isolates variables without over-diluting a potentially sluggish culture. In contrast, Reply 1 prescribes an aggressive 1:5:5 feeding ratio and suggests altering the flour blend (introducing whole wheat/rye), ratio, and temperature all at once, which violates the core diagnostic principle of changing only one variable at a time while keeping the starter fed.\n\n{\"first_step_1\": \"Split the starter into two jars to test old versus new flour at a 1:5:5 ratio (or feed the starter a 1:5:5 ratio containing 25% whole wheat or rye in a warm spot).\", \"first_step_2\": \"Check the new flour bag label to ensure it is not self-rising, cake, or gluten-free flour, then feed the starter at a standard 1:1:1 ratio and monitor for doubling.\", \"winner\": \"2\", \"reason\": \"Reply 2 correctly isolates variables with an initial bag inspection and a standard 1:1:1 feeding, whereas Reply 1 suggests an aggressive 1:5:5 feed and changes flour composition, ratio, and temperature all at once.\"}\n\n"
+}

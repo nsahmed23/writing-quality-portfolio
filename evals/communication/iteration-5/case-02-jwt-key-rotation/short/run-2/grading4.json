@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 7330,
+  "first_action_offset": 461,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": true,
+      "matched": "kid"
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "overlap"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"Wait out the overlap, using the counter rather than the clock\" (step 6 header). Step 6 is explicitly the overlap step, ordered after the flip (step 5) and before retirement (step 7)."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"hold k1 in the map for at least 24h from that point, plus margin for clock skew.\" 24h duration explicitly set as the wait threshold."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": false,
+      "evidence": "\"How production env is actually set.\" Literal last line is a caveat bullet in the \"what I couldn't verify\" epilogue, not a check or retirement step."
+    }
+  ]
+}

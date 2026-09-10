@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 4320,
+  "first_action_offset": 4320,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": true,
+      "evidence": "\"The rise stopped the week you switched, and nothing in that alone shows the flour did it.\" Names the timing directly and says in plain words that it isn't proof."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"Feed 20 g of starter with 20 g flour and 20 g water, mark the starting level with tape or a rubber band\" Concrete feeding and marking action."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"A healthy starter at least doubles, usually within 4 to 8 hours.\" Concrete hour range given."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "\"any wheat or rye flour will sustain a starter, but a white rice, corn, or tapioca blend gives it very little to work with and gives the loaf no gluten at all\" (closing boundary note, checked). No analogy used anywhere in the reply."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": true,
+      "evidence": "\"What makes this hard to see is that a sluggish starter, a weak dough, and a genuinely dead starter all produce the same flat loaf.\" Checked throughout; explains in plain words, none of sequence/correlation/premise/mechanism appear."
+    }
+  ]
+}

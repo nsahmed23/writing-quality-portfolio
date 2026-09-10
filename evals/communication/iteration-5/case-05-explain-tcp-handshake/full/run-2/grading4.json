@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 4508,
+  "first_action_offset": 1109,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "stale"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Because two starting points have to be agreed on, not one, and each side has to hear that its own starting point arrived.\" Affirms the premise and gives the mechanism in the opening line."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": true,
+      "evidence": "\"Three is the smallest exchange that establishes both sequence numbers and gives every loss case a defined recovery, not a proof that the two ends agree.\" (last line). Checked throughout; ending is explanatory, no action or check appended."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "\"That is four pieces of information, and two of them can travel in the same packet, which leaves three.\" Checked throughout; premise affirmed, never challenged."
+    }
+  ]
+}

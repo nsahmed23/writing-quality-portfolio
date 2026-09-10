@@ -10,7 +10,19 @@
   "inventory": [
     [
       "kid",
-      "key id"
+      "key id",
+      "JWT_SECRET_ALT",
+      "both keys",
+      "two keys",
+      "list of keys",
+      "verify against a list",
+      "each key in",
+      "old key and the new",
+      "JWT_SECRETS",
+      "both secrets",
+      "verify list",
+      "every secret in the list",
+      "list of secrets"
     ],
     [
       "24"

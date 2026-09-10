@@ -1,0 +1,272 @@
+[
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c13-t1",
+    "verdict": "asserts_claim",
+    "quote": "`EMFILE` is your process hitting its own limit, while `ENFILE` (\"too many open files in system\") is the whole machine hitting `/proc/sys/fs/file-max`.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c13-t2",
+    "verdict": "asserts_claim",
+    "quote": "going to 65535 buys about 64 times as long, so roughly two weeks, then the same crash.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c13-t3",
+    "verdict": "asserts_claim",
+    "quote": "`/etc/security/limits.conf` and `ulimit -n` in your SSH session do not affect a systemd service.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c13-t4",
+    "verdict": "asserts_claim",
+    "quote": "A line that climbs and never flattens is a leak. A line that rises and plateaus is real concurrency against a limit that is too low.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c13-t5",
+    "verdict": "asserts_claim",
+    "quote": "libuv keeps one spare descriptor in reserve so it can accept and immediately close new connections rather than spin",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c13-t1",
+    "verdict": "asserts_claim",
+    "quote": "EMFILE is the per-process ceiling, ENFILE is the system-wide file table.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c13-t2",
+    "verdict": "asserts_wrong",
+    "quote": "If it climbs to the new ceiling and dies at eighteen hours instead of six, it is a leak and step 3 tells you where it lives.",
+    "note": "matches trap's own wrong-example figure verbatim"
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c13-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c13-t4",
+    "verdict": "asserts_claim",
+    "quote": "A straight line means a leak proportional to traffic.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c13-t5",
+    "verdict": "asserts_claim",
+    "quote": "an EMFILE from `accept()` arrives as an `'error'` event on the HTTP server, and an `'error'` event with no listener becomes an uncaught exception, which exits the process.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c13-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c13-t2",
+    "verdict": "asserts_wrong",
+    "quote": "Raising the limit converts a 6 hour crash into a 12 hour crash.",
+    "note": "only ~2x given; document's own recommended raise (1024->65535) implies ~64x/16 days"
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c13-t3",
+    "verdict": "asserts_claim",
+    "quote": "`/etc/security/limits.conf` is applied by PAM, which systemd services don't go through.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c13-t4",
+    "verdict": "asserts_claim",
+    "quote": "Monotonic rise that never falls back during a traffic lull is a leak.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c13-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c13-t1",
+    "verdict": "asserts_claim",
+    "quote": "`EMFILE` is the *per-process* limit; `ENFILE` is the *system-wide* one (`/proc/sys/fs/file-max`).",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c13-t2",
+    "verdict": "asserts_claim",
+    "quote": "Going 1024 to 65535 turns a 6-hour crash into roughly a 16-day one at the same leak rate",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c13-t3",
+    "verdict": "asserts_claim",
+    "quote": "`/etc/security/limits.conf` does *not* apply to systemd units (that's PAM, for login sessions).",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c13-t4",
+    "verdict": "asserts_claim",
+    "quote": "Straight line up = leak. Sawtooth or plateau = you're just under-provisioned and step 5 is your fix.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c13-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c13-t1",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c13-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c13-t3",
+    "verdict": "asserts_claim",
+    "quote": "`/etc/security/limits.conf` does not apply to systemd units at all (PAM applies it at login)",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c13-t4",
+    "verdict": "asserts_claim",
+    "quote": "A straight upward line confirms the leak and gives you its slope in descriptors per request.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c13-t5",
+    "verdict": "asserts_claim",
+    "quote": "libuv keeps a spare descriptor in reserve precisely so `accept()` degrades gracefully under EMFILE rather than throwing",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c13-t1",
+    "verdict": "asserts_claim",
+    "quote": "`ENFILE`, \"too many open files in system\", means the whole machine ran out.",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c13-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c13-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c13-t4",
+    "verdict": "asserts_claim",
+    "quote": "A line that only goes up is a leak. A sawtooth that occasionally spikes past the ceiling is real concurrency against a limit that's too low",
+    "note": ""
+  },
+  {
+    "case": "regression-emfile",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c13-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  }
+]

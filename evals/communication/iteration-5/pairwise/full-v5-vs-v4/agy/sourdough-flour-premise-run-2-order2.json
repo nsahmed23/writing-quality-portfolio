@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full-v5",
+    "2": "full-v4"
+  },
+  "verdict": {
+    "first_step_1": "Feed a jar with equal parts starter, new flour, and water (25 g each), mark the level, note the room temperature, and check for doubling at 4, 8, and 12 hours.",
+    "first_step_2": "Feed two jars at a 20:50:50 ratio comparing the new flour against the old flour (or whole wheat/rye if unavailable) and inspect hourly to record peak rise time.",
+    "winner": "1",
+    "reason": "Reply 1 provides a practical, single-variable test with realistic check intervals, whereas Reply 2 introduces confounding variables by suggesting whole wheat or rye as an invalid control and requires impractical hourly monitoring."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 31.0,
+  "raw_tail": "h the exact moment of peaking, which is unnecessarily demanding.\n3. **Accurate framing:** Reply 1 immediately distinguishes between the starter stalling in the jar versus dough failing later in proofing or baking\u2014a common confusion when a baker reports that their \"sourdough stopped rising.\" Furthermore, Reply 1 explains that timing does not prove causation in clear, plain language (\"The loaf stopped rising the week you switched, but nothing in that yet shows the flour did it\"), whereas Reply 2 resorts to category labels (\"What you have so far is a sequence, not a cause\").\n\n{\"first_step_1\": \"Feed a jar with equal parts starter, new flour, and water (25 g each), mark the level, note the room temperature, and check for doubling at 4, 8, and 12 hours.\", \"first_step_2\": \"Feed two jars at a 20:50:50 ratio comparing the new flour against the old flour (or whole wheat/rye if unavailable) and inspect hourly to record peak rise time.\", \"winner\": \"1\", \"reason\": \"Reply 1 provides a practical, single-variable test with realistic check intervals, whereas Reply 2 introduces confounding variables by suggesting whole wheat or rye as an invalid control and requires impractical hourly monitoring.\"}\n\n"
+}

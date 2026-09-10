@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full-v5",
+    "2": "full-v4"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 32-byte secret and capture an existing production token to test against later.",
+    "first_step_2": "Generate a new 32-byte hex secret and store it in a secret manager without installing it yet.",
+    "winner": "1",
+    "reason": "Reply 1 deploys the new secret to all verifying instances before switching the signing key to prevent verification failures during rolling restarts, whereas Reply 2's primary procedure switches the signing key before all instances hold the new secret."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 72.8,
+  "raw_tail": " is materially safer in execution. Fact 2 requires that the new secret be deployed to every verifying instance before any instance begins signing with it. Reply 1 enforces this order in Step 3 by deploying both keys while keeping the old key as primary for signing, and only swapping them in Step 4 after all instances can verify against both. In contrast, Reply 2's primary workflow (steps 2 and 3) switches the signing key in step 3 before the new secret has been pre-deployed to all instances, which causes tokens issued by updated instances to be rejected by un-restarted instances during a rolling deployment. Reply 1 also includes concrete verification steps using the captured token.\n\n{\"first_step_1\": \"Generate a new 32-byte secret and capture an existing production token to test against later.\", \"first_step_2\": \"Generate a new 32-byte hex secret and store it in a secret manager without installing it yet.\", \"winner\": \"1\", \"reason\": \"Reply 1 deploys the new secret to all verifying instances before switching the signing key to prevent verification failures during rolling restarts, whereas Reply 2's primary procedure switches the signing key before all instances hold the new secret.\"}\n\n"
+}

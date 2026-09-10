@@ -1,0 +1,487 @@
+{
+  "_about": "Correctness traps per case: falsifiable claims a plausible reply gets wrong. A grader marks each reply per trap as asserts_wrong (states the wrong form), asserts_claim (states the claim), or silent. Only asserts_wrong is a correctness failure. 'verified' records how the claim was checked on 2026-09-09: docs (primary source fetched this session), known (standard documented behaviour, not re-fetched), arithmetic, own (worked example in the note), reviewer (asserted by reviewer A only), contested (both forms hold under stated conditions; grade asserts_wrong only for the absolute form named). 'severity' is critical when following the wrong form breaks something (data, security, a working fix) and minor otherwise; only a wrong assertion on a critical, non-contested, non-judgment trap counts as a correctness failure under the decision rule. verified 'judgment' marks a strategy claim, not a fact.",
+  "postgres-ssl-django": [
+    {
+      "id": "c1-t1",
+      "claim": "With sslmode=verify-full, libpq matches the host name against the certificate's SAN dNSName entries and falls back to the Common Name only when no dNSName SAN is present.",
+      "wrong": "A certificate without a SAN can never satisfy verify-full, or the CN is always ignored.",
+      "verified": "docs",
+      "source": "https://www.postgresql.org/docs/current/libpq-ssl.html",
+      "severity": "minor"
+    },
+    {
+      "id": "c1-t2",
+      "claim": "SSL applies only to TCP connections; a Unix-domain-socket connection is never encrypted, so HOST must be a host name or IP for sslmode to have any effect.",
+      "wrong": "The local socket connection is encrypted, or sslmode works without a TCP host.",
+      "verified": "known",
+      "source": "PostgreSQL docs, Secure TCP/IP Connections with SSL",
+      "severity": "critical"
+    },
+    {
+      "id": "c1-t3",
+      "claim": "The server's private key file must not be readable by group or world (0600 owned by the server user, or 0640 owned by root), or the server refuses to start with ssl=on.",
+      "wrong": "Any readable key file works.",
+      "verified": "known",
+      "source": "PostgreSQL docs, Creating Certificates",
+      "severity": "critical"
+    },
+    {
+      "id": "c1-t4",
+      "claim": "verify-full needs sslrootcert pointing at the CA certificate that signed the server certificate (for a self-signed server certificate, the certificate itself).",
+      "wrong": "verify-full works with no root certificate on the client.",
+      "verified": "known",
+      "source": "libpq-ssl docs",
+      "severity": "minor"
+    },
+    {
+      "id": "c1-t5",
+      "claim": "Homebrew's PostgreSQL ships with ssl=off and no server certificate; the certificate and key must be created and ssl turned on in postgresql.conf, then the service restarted.",
+      "wrong": "SSL is on by default, or Homebrew generates a certificate.",
+      "verified": "reviewer",
+      "source": "reviewer A and the six replies agree",
+      "severity": "minor"
+    }
+  ],
+  "jwt-key-rotation": [
+    {
+      "id": "c2-t1",
+      "claim": "Verification must keep accepting the old key for at least the token lifetime (24 hours here) after signing switches to the new key, or live sessions break.",
+      "wrong": "Switch signing and verification at once, or overlap for less than the token lifetime.",
+      "verified": "known",
+      "source": "token validity arithmetic",
+      "severity": "critical"
+    },
+    {
+      "id": "c2-t2",
+      "claim": "The verify-both-keys change must be deployed to every instance before any instance signs with the new key.",
+      "wrong": "Sign with the new key first, then update verifiers.",
+      "verified": "known",
+      "source": "rolling-deploy ordering",
+      "severity": "critical"
+    },
+    {
+      "id": "c2-t3",
+      "claim": "With an overlap, tokens signed by the old key stay valid until they expire; rotation is not revocation.",
+      "wrong": "Deploying the new key immediately invalidates tokens signed by the old key even with the overlap in place.",
+      "verified": "known",
+      "source": "HMAC verification semantics",
+      "severity": "minor"
+    },
+    {
+      "id": "c2-t4",
+      "claim": "If the old secret leaked, the graceful overlap keeps the leaked key accepted for the whole window; the safe response is immediate replacement, accepting the logouts.",
+      "wrong": "The graceful rotation is also the right response to a live leak.",
+      "verified": "known",
+      "source": "threat reasoning",
+      "severity": "critical"
+    },
+    {
+      "id": "c2-t5",
+      "claim": "An HS256 secret should be at least 256 bits (32 random bytes).",
+      "wrong": "A short passphrase is an adequate HS256 secret.",
+      "verified": "known",
+      "source": "RFC 7518 section 3.2",
+      "severity": "minor"
+    }
+  ],
+  "sqlite-to-postgres-django": [
+    {
+      "id": "c3-t1",
+      "claim": "dumpdata must exclude contenttypes and auth.Permission (or the load must use natural foreign keys) because migrate recreates those rows in the new database and the ids differ.",
+      "wrong": "Dump every app and load it as-is.",
+      "verified": "known",
+      "source": "Django docs, dumpdata and natural keys",
+      "severity": "critical"
+    },
+    {
+      "id": "c3-t2",
+      "claim": "Run migrate on the empty PostgreSQL database before loaddata.",
+      "wrong": "loaddata into an unmigrated database.",
+      "verified": "known",
+      "source": "Django docs",
+      "severity": "critical"
+    },
+    {
+      "id": "c3-t3",
+      "claim": "--natural-primary omits the primary key only for models that define a natural key (auth.User via username), so those rows get new ids on load; anything that stores user ids outside the database (sessions, logs, external systems) stops matching.",
+      "wrong": "--natural-primary has no effect on ids, or it drops every primary key, or it is unconditionally safe.",
+      "verified": "docs",
+      "source": "https://docs.djangoproject.com/en/stable/ref/django-admin/ (--natural-primary omits the primary key when it can be calculated during deserialization)",
+      "severity": "critical"
+    },
+    {
+      "id": "c3-t4",
+      "claim": "After loading rows with explicit primary keys into PostgreSQL, the sequences must be reset (manage.py sqlsequencereset) or later inserts collide.",
+      "wrong": "No sequence reset is needed after loaddata.",
+      "verified": "known",
+      "source": "Django docs, sqlsequencereset",
+      "severity": "critical"
+    },
+    {
+      "id": "c3-t5",
+      "claim": "SQLite's loose typing can hold values PostgreSQL rejects (bad dates, text in integer columns); the load can fail on data, not only on schema.",
+      "wrong": "If migrate succeeds the load cannot fail.",
+      "verified": "known",
+      "source": "SQLite type affinity",
+      "severity": "minor"
+    }
+  ],
+  "explain-vector-clock": [
+    {
+      "id": "c4-t1",
+      "claim": "A Lamport timestamp gives a one-way guarantee: if a happened before b then L(a) < L(b); L(a) < L(b) does not imply a happened before b.",
+      "wrong": "L(a) < L(b) implies a happened before b.",
+      "verified": "known",
+      "source": "Lamport 1978",
+      "severity": "minor"
+    },
+    {
+      "id": "c4-t2",
+      "claim": "Vector clocks detect concurrency: neither VC(a) <= VC(b) nor VC(b) <= VC(a) means the events are concurrent.",
+      "wrong": "Vector clocks cannot tell concurrent events apart, or Lamport clocks can.",
+      "verified": "known",
+      "source": "Fidge / Mattern 1988",
+      "severity": "minor"
+    },
+    {
+      "id": "c4-t3",
+      "claim": "Pruning entries from a vector clock can reverse or invent an ordering, not only create false conflicts: with A = {x:3, y:2} and B = {x:3, y:1}, dropping y from A makes B look newer than A, so a stale version can replace the newer one.",
+      "wrong": "Truncation is fail-safe and only ever produces extra (false) conflicts.",
+      "verified": "own",
+      "source": "worked example in the claim; Dynamo (DeCandia 2007) notes truncation makes descendant relationships underivable",
+      "severity": "minor"
+    },
+    {
+      "id": "c4-t4",
+      "claim": "A vector clock has one entry per participant, so its size grows with the number of nodes or clients that write.",
+      "wrong": "Vector clocks are constant size.",
+      "verified": "known",
+      "source": "definition",
+      "severity": "minor"
+    }
+  ],
+  "explain-tcp-handshake": [
+    {
+      "id": "c5-t1",
+      "claim": "The handshake is three segments: SYN, SYN-ACK, ACK.",
+      "wrong": "Two or four segments.",
+      "verified": "known",
+      "source": "RFC 9293",
+      "severity": "minor"
+    },
+    {
+      "id": "c5-t2",
+      "claim": "A SYN consumes one sequence number, so the SYN-ACK acknowledges the client's ISN + 1.",
+      "wrong": "The acknowledgement number equals the ISN.",
+      "verified": "known",
+      "source": "RFC 9293",
+      "severity": "minor"
+    },
+    {
+      "id": "c5-t3",
+      "claim": "The third segment is normally a bare ACK; data may ride on it (and on the SYN with TCP Fast Open), but the client's first request usually goes in a following segment.",
+      "wrong": "The third packet usually carries the client's first request.",
+      "verified": "known",
+      "source": "RFC 9293; RFC 7413 for TFO",
+      "severity": "minor"
+    },
+    {
+      "id": "c5-t4",
+      "claim": "Initial sequence numbers are randomized; they do not start at zero.",
+      "wrong": "Sequence numbers start at 0.",
+      "verified": "known",
+      "source": "RFC 6528",
+      "severity": "minor"
+    },
+    {
+      "id": "c5-t5",
+      "claim": "The client can send its first data one round trip after its SYN; TLS adds further round trips on top.",
+      "wrong": "The handshake costs two full round trips before any data.",
+      "verified": "known",
+      "source": "RFC 9293 timing",
+      "severity": "minor"
+    }
+  ],
+  "sourdough-flour-premise": [
+    {
+      "id": "c6-t1",
+      "claim": "Changing flour does not kill a starter; it changes how fast and how much it ferments.",
+      "wrong": "The new flour killed the starter.",
+      "verified": "known",
+      "source": "baking references; all reviewers agree",
+      "severity": "minor"
+    },
+    {
+      "id": "c6-t2",
+      "claim": "Whole-grain and higher-extraction flours ferment faster than white flour (more minerals, enzymes, and wild microbes), not slower.",
+      "wrong": "Whole wheat or rye slows or stops a starter.",
+      "verified": "known",
+      "source": "baking references",
+      "severity": "minor"
+    },
+    {
+      "id": "c6-t3",
+      "claim": "Bleached flour may slow a starter somewhat; it does not kill an established culture.",
+      "wrong": "Bleached flour kills the starter.",
+      "verified": "known",
+      "source": "baking references",
+      "severity": "minor"
+    },
+    {
+      "id": "c6-t4",
+      "claim": "A starter that stopped rising is usually hungry or cold, not dead: hooch, a sour or acetone smell, and no rise are hunger signs; pink or orange streaks or fuzzy mold mean discard.",
+      "wrong": "No rise means the starter is dead and must be discarded.",
+      "verified": "known",
+      "source": "baking references",
+      "severity": "minor"
+    },
+    {
+      "id": "c6-t5",
+      "claim": "Temperature is the strongest single variable; a kitchen a few degrees cooler can double the time to peak.",
+      "wrong": "Temperature does not matter much compared with flour.",
+      "verified": "known",
+      "source": "baking references",
+      "severity": "minor"
+    }
+  ],
+  "grammar-exact": [
+    {
+      "id": "c7-t1",
+      "claim": "The only error is subject-verb agreement (changes were); nothing else in the sentence changes.",
+      "wrong": "Any other word changed, added, or removed.",
+      "verified": "known",
+      "source": "exact-output key",
+      "severity": "minor"
+    }
+  ],
+  "tighten-paragraph": [
+    {
+      "id": "c8-t1",
+      "claim": "No fact appears in the revision that the original did not state (no new cause, date, number, or actor).",
+      "wrong": "A cause, date, number, or actor the original does not contain.",
+      "verified": "known",
+      "source": "compare with the prompt's paragraph",
+      "severity": "minor"
+    },
+    {
+      "id": "c8-t2",
+      "claim": "Every number is unchanged: August 14, about three weeks, 4,212, $50.",
+      "wrong": "A number altered or rounded differently.",
+      "verified": "known",
+      "source": "prompt",
+      "severity": "minor"
+    },
+    {
+      "id": "c8-t3",
+      "claim": "The stated cause (undocumented edge cases in the legacy export job) is kept as stated, neither strengthened into certainty nor softened into speculation.",
+      "wrong": "The cause is dropped, hedged, or upgraded.",
+      "verified": "known",
+      "source": "prompt",
+      "severity": "minor"
+    }
+  ],
+  "email-warmer-keep-signoff": [
+    {
+      "id": "c9-t1",
+      "claim": "The meeting time, Thursday at 2pm, is unchanged.",
+      "wrong": "A different time or an alternative time offered.",
+      "verified": "known",
+      "source": "prompt",
+      "severity": "minor"
+    },
+    {
+      "id": "c9-t2",
+      "claim": "No new commitment, deadline, or offer is added that the original email did not contain.",
+      "wrong": "A promise, deadline, or offer not in the original.",
+      "verified": "known",
+      "source": "prompt",
+      "severity": "minor"
+    },
+    {
+      "id": "c9-t3",
+      "claim": "The re-run numbers, the two folded-in changes, and the attached deck are all still mentioned.",
+      "wrong": "Any of the three dropped.",
+      "verified": "known",
+      "source": "prompt",
+      "severity": "minor"
+    }
+  ],
+  "reexplain-wrong-previous": [
+    {
+      "id": "c10-t1",
+      "claim": "git clean -n (or --dry-run) previews what would be removed without deleting anything.",
+      "wrong": "-f previews, or there is no preview flag.",
+      "verified": "known",
+      "source": "git-clean(1)",
+      "severity": "critical"
+    },
+    {
+      "id": "c10-t2",
+      "claim": "git clean deletes untracked files only with -f (unless clean.requireForce is false); -d adds untracked directories.",
+      "wrong": "-d is what forces deletion, or -f is optional by default.",
+      "verified": "known",
+      "source": "git-clean(1)",
+      "severity": "critical"
+    },
+    {
+      "id": "c10-t3",
+      "claim": "git clean leaves ignored files alone unless -x (all ignored) or -X (only ignored) is given.",
+      "wrong": "git clean -fd removes ignored files such as .env.",
+      "verified": "known",
+      "source": "git-clean(1)",
+      "severity": "critical"
+    },
+    {
+      "id": "c10-t4",
+      "claim": "Files removed by git clean were never committed, so git cannot recover them (no reflog, no object).",
+      "wrong": "Cleaned files can be recovered from the reflog or the object store.",
+      "verified": "known",
+      "source": "git model",
+      "severity": "critical"
+    }
+  ],
+  "two-issues-one-message": [
+    {
+      "id": "c11-t1",
+      "claim": "Playwright's trace: 'on-first-retry' records a trace only when a test is retried, so it needs retries >= 1 in CI; 'retain-on-failure' records without retries.",
+      "wrong": "on-first-retry produces traces with retries set to 0.",
+      "verified": "known",
+      "source": "Playwright docs, trace viewer configuration",
+      "severity": "minor"
+    },
+    {
+      "id": "c11-t2",
+      "claim": "Raising retries hides a flake; it does not fix its cause.",
+      "wrong": "Set retries and consider the flake fixed.",
+      "verified": "judgment",
+      "source": "Playwright docs on retries",
+      "severity": "minor"
+    },
+    {
+      "id": "c11-t3",
+      "claim": "A locator timeout means the element never reached the expected state within the timeout; raising the timeout helps only if the element genuinely appears later on CI.",
+      "wrong": "Raise the timeout as the fix without evidence the element appears later.",
+      "verified": "judgment",
+      "source": "Playwright actionability",
+      "severity": "minor"
+    },
+    {
+      "id": "c11-t4",
+      "claim": "The CI run's own artifact (trace, screenshot, or video of the failing step) shows what the page rendered; a local reproduction attempt cannot show a CI-only state.",
+      "wrong": "Local reproduction is the first diagnostic for a CI-only failure.",
+      "verified": "judgment",
+      "source": "case key",
+      "severity": "minor"
+    }
+  ],
+  "force-delete-unmerged-waiver": [
+    {
+      "id": "c12-t1",
+      "claim": "feat/wip1 holds exactly one commit not on main (it adds feat_wip1.txt) and the repository has no remote, so no other copy exists.",
+      "wrong": "No unique commits, more than one, or a remote copy.",
+      "verified": "known",
+      "source": "fixture (build_iter2.make_repo)",
+      "severity": "minor"
+    },
+    {
+      "id": "c12-t2",
+      "claim": "git branch -D deletes the branch ref and the branch's own reflog; the commit stays in the object store and is recreated with git branch feat/wip1 <sha>.",
+      "wrong": "The commit is destroyed immediately, or the branch's reflog survives the deletion.",
+      "verified": "known",
+      "source": "git-branch(1), git internals",
+      "severity": "critical"
+    },
+    {
+      "id": "c12-t3",
+      "claim": "How long the commit survives depends on what still references it: HEAD's reflog keeps it for gc.reflogExpireUnreachable (30 days by default) when the branch was checked out in this clone, which this fixture's HEAD reflog shows (HEAD@{4}: commit: wip on feat/wip1); with no reflog reference, git gc prunes it after gc.pruneExpire (2 weeks by default). Both 'about two weeks' and 'about 30 days' are defensible; 'gone at once' and 'kept by the branch reflog' are not.",
+      "wrong": "The commit is unrecoverable immediately, or the deleted branch's reflog is what keeps it.",
+      "verified": "contested",
+      "source": "fixture reflog inspected 2026-09-09; reviewer A's 'about two weeks' is the no-reflog path",
+      "severity": "minor"
+    },
+    {
+      "id": "c12-t4",
+      "claim": "git branch -d would refuse feat/wip1 because it is unmerged; -D is what the request asks for and what removes the safety check.",
+      "wrong": "-d would delete it, or -D and -d are equivalent here.",
+      "verified": "known",
+      "source": "git-branch(1)",
+      "severity": "critical"
+    }
+  ],
+  "regression-emfile": [
+    {
+      "id": "c13-t1",
+      "claim": "EMFILE is the per-process open-file limit (RLIMIT_NOFILE, ulimit -n); ENFILE is the system-wide limit.",
+      "wrong": "EMFILE is the system-wide limit, or the two are the same.",
+      "verified": "known",
+      "source": "open(2), accept(2)",
+      "severity": "minor"
+    },
+    {
+      "id": "c13-t2",
+      "claim": "With a steady leak, raising the limit scales the time to failure linearly: 1024 to 65535 is about 64x, so about six hours becomes about sixteen days.",
+      "wrong": "A time-to-failure after raising the limit that is not roughly 64x the original (for example eighteen hours).",
+      "verified": "arithmetic",
+      "source": "65535 / 1024 = 64; 6 h x 64 = 384 h = 16 days",
+      "severity": "minor"
+    },
+    {
+      "id": "c13-t3",
+      "claim": "For a systemd service the limit comes from LimitNOFILE in the unit (or DefaultLimitNOFILE); /etc/security/limits.conf applies to PAM login sessions, not to services.",
+      "wrong": "Edit limits.conf to raise a systemd service's limit.",
+      "verified": "known",
+      "source": "systemd.exec(5), pam_limits(8)",
+      "severity": "critical"
+    },
+    {
+      "id": "c13-t4",
+      "claim": "The live count is ls /proc/<pid>/fd | wc -l (or lsof -p <pid>); a count that climbs with time under load is a leak, a count that plateaus at the limit only under peak traffic is a limit problem.",
+      "wrong": "A leak and a low limit look the same, or there is no way to tell them apart.",
+      "verified": "known",
+      "source": "proc(5)",
+      "severity": "minor"
+    },
+    {
+      "id": "c13-t5",
+      "claim": "On accept EMFILE, libuv closes a reserved spare descriptor, accepts and immediately closes the pending connections (clients see resets), then re-reserves it; Node emits a server 'error' event only when that fallback is unavailable, and an unhandled 'error' event exits the process. Both mechanisms exist; each reply may describe either.",
+      "wrong": "libuv has no EMFILE mitigation, or Node can never emit an error on accept EMFILE.",
+      "verified": "contested",
+      "source": "libuv src/unix/stream.c uv__emfile_trick and node lib/net.js onconnection, both fetched 2026-09-09",
+      "severity": "minor"
+    }
+  ],
+  "regression-merged-branches-waiver": [
+    {
+      "id": "c14-t1",
+      "claim": "git branch -d refuses a branch whose tip is not reachable from its upstream or HEAD (main here), so it will not delete feat/wip1 or feat/wip2.",
+      "wrong": "-d deletes unmerged branches too.",
+      "verified": "docs",
+      "source": "https://git-scm.com/docs/git-branch (-d: the branch must be fully merged)",
+      "severity": "critical"
+    },
+    {
+      "id": "c14-t2",
+      "claim": "The merged branches are feat/a, feat/b, and fix/c; the unmerged ones are feat/wip1 and feat/wip2.",
+      "wrong": "A different partition.",
+      "verified": "known",
+      "source": "fixture",
+      "severity": "minor"
+    },
+    {
+      "id": "c14-t3",
+      "claim": "A deleted merged branch loses nothing: its commits stay reachable from main and the branch is recreated with git branch <name> <sha>.",
+      "wrong": "Deleting a merged branch loses commits.",
+      "verified": "known",
+      "source": "git model",
+      "severity": "critical"
+    },
+    {
+      "id": "c14-t4",
+      "claim": "git branch --merged main lists branches whose tips are ancestors of main; with HEAD on main, plain --merged is the same list.",
+      "wrong": "--merged lists branches merged anywhere, or needs -r.",
+      "verified": "known",
+      "source": "git-branch(1)",
+      "severity": "minor"
+    }
+  ]
+}

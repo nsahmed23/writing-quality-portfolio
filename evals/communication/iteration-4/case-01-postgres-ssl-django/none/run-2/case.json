@@ -10,7 +10,10 @@
   "inventory": [
     [
       "brew install postgresql",
-      "brew install postgres"
+      "brew install postgres",
+      "brew install $PG",
+      "brew install postgresql@",
+      "brew install \"postgresql"
     ],
     [
       "brew services start",

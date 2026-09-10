@@ -14,8 +14,8 @@
     },
     {
       "item": "main..feat/wip1",
-      "hit": false,
-      "matched": null
+      "hit": true,
+      "matched": "plus one commit"
     },
     {
       "item": "-D",
@@ -23,7 +23,7 @@
       "matched": "-D"
     }
   ],
-  "inventory_rate": 0.6667,
+  "inventory_rate": 1.0,
   "fixture": {
     "commands_txt_present": true,
     "delete_line": "WOULD_RUN: git branch -D",

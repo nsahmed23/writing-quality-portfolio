@@ -1,0 +1,272 @@
+[
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c5-t1",
+    "verdict": "asserts_claim",
+    "quote": "Facts 2 and 3 both travel server to client, so they ride in a single segment with the SYN and ACK flags set together.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c5-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": "uses abstract facts (x, y) without wire-level +1 offset"
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c5-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c5-t4",
+    "verdict": "asserts_claim",
+    "quote": "ISNs are generated from a keyed hash rather than a simple counter (RFC 6528).",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c5-t5",
+    "verdict": "asserts_claim",
+    "quote": "The price of all this is one round trip before the first byte of application data.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c5-t1",
+    "verdict": "asserts_claim",
+    "quote": "three is the floor for any protocol that wants both directions synchronized before data moves.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c5-t2",
+    "verdict": "asserts_claim",
+    "quote": "The SYN flag itself consumes one sequence number, which is why the acknowledgements are `x+1` and `y+1` rather than `x` and `y`.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c5-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c5-t4",
+    "verdict": "asserts_claim",
+    "quote": "Modern stacks derive the ISN from a keyed hash of the four-tuple plus a clock (RFC 6528) rather than the predictable 4-microsecond counter of the 1981 spec.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c5-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c5-t1",
+    "verdict": "asserts_claim",
+    "quote": "Four logical events, three packets on the wire.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c5-t2",
+    "verdict": "asserts_claim",
+    "quote": "The confirmations acknowledge ISN + 1, not ISN, because a SYN occupies one sequence number even though it carries no data.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c5-t3",
+    "verdict": "asserts_claim",
+    "quote": "Most stacks send a bare ACK simply because the application usually has not written anything yet.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c5-t4",
+    "verdict": "asserts_claim",
+    "quote": "which each side picks for its own outgoing stream, randomly rather than at zero.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c5-t5",
+    "verdict": "asserts_claim",
+    "quote": "The handshake costs one full round trip before any data moves, which is the whole reason QUIC folds transport setup and encryption setup into a single exchange.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c5-t1",
+    "verdict": "asserts_claim",
+    "quote": "The three-way handshake is a four-way handshake with the redundant packet removed, not a cleverer protocol.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c5-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c5-t3",
+    "verdict": "asserts_claim",
+    "quote": "the next packet in that stream is the bare ACK that finishes the handshake.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c5-t4",
+    "verdict": "asserts_claim",
+    "quote": "Neither side can just start at 0 (reason below), so each picks its own ISN and has to communicate it.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c5-t5",
+    "verdict": "asserts_claim",
+    "quote": "TCP Fast Open (RFC 7413) lets a client put data in the initial SYN using a cookie saved from an earlier connection, so the round trip is not always paid.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c5-t1",
+    "verdict": "asserts_claim",
+    "quote": "So four logical steps compress into three packets.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c5-t2",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c5-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c5-t4",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c5-t5",
+    "verdict": "silent",
+    "quote": "",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c5-t1",
+    "verdict": "asserts_claim",
+    "quote": "Server replies `SYN-ACK`: `seq=y` announces the server's ISN, `ack=x+1` confirms it received the client's. Two events, one packet.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c5-t2",
+    "verdict": "asserts_claim",
+    "quote": "Server replies `SYN-ACK`: `seq=y` announces the server's ISN, `ack=x+1` confirms it received the client's.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c5-t3",
+    "verdict": "asserts_wrong",
+    "quote": "The third packet usually carries the client's first request, so it is not a wasted packet, but the RTT is real.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c5-t4",
+    "verdict": "asserts_claim",
+    "quote": "Each side picks a random initial sequence number (ISN), and the other side has to both learn it and confirm it.",
+    "note": ""
+  },
+  {
+    "case": "explain-tcp-handshake",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c5-t5",
+    "verdict": "asserts_claim",
+    "quote": "The cost is one round trip before data can flow.",
+    "note": ""
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "short-v4",
+    "2": "short-v5"
+  },
+  "verdict": {
+    "first_step_1": "No action is required; read the explanation of why TCP requires mutual sequence number acknowledgment and stale SYN handling.",
+    "first_step_2": "No action is required; read the explanation of why TCP requires mutual sequence number acknowledgment and stale SYN handling.",
+    "winner": "tie",
+    "reason": "Both replies correctly and clearly explain bidirectional sequence number acknowledgment, the compression of four logical steps into three, and the mitigation of stale duplicate SYNs without any material errors."
+  },
+  "winner_arm": "tie",
+  "seconds": 17.8,
+  "raw_tail": "Reply 1 tells the reader to do nothing first, as it provides a purely conceptual explanation of TCP's design.\nReply 2 tells the reader to do nothing first, as it provides a purely conceptual explanation of TCP's design.\n\nIf this were my problem, I would treat both replies as a tie because both accurately and thoroughly explain the bidirectional exchange of initial sequence numbers, how 4 logical steps compress into 3, and how the third packet prevents half-open connections caused by delayed duplicate SYNs.\n\n{\"first_step_1\": \"No action is required; read the explanation of why TCP requires mutual sequence number acknowledgment and stale SYN handling.\", \"first_step_2\": \"No action is required; read the explanation of why TCP requires mutual sequence number acknowledgment and stale SYN handling.\", \"winner\": \"tie\", \"reason\": \"Both replies correctly and clearly explain bidirectional sequence number acknowledgment, the compression of four logical steps into three, and the mitigation of stale duplicate SYNs without any material errors.\"}\n\n"
+}

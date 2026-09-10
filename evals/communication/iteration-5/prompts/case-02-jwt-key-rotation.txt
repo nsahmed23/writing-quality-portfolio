@@ -1,0 +1,1 @@
+Rotate the JWT signing key for my Express API without logging everyone out. Tokens are HS256 signed with JWT_SECRET from .env using the jsonwebtoken package, 24h expiry. What do I do, in order?

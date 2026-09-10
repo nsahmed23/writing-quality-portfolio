@@ -1,0 +1,20 @@
+[
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "topic": "whether weeks of unfed neglect alone kills a starter, or only makes it hungry/dormant",
+    "run1_quote": "Weeks without feeding, which makes a starter acidic and slow rather than dead. Two or three daily feeds usually bring it back.",
+    "run2_quote": "Sustained heat above roughly 50 C (120 F), weeks with no feeding, or visible fuzzy mold. A flour brand is not on that list.",
+    "which_is_right": "run-1",
+    "basis": "traps.json c6-t4 (verified known): hooch, sour/acetone smell, and no rise are hunger signs, not death; only mold or pink/orange streaks warrant discard. Run-2 lists unfed neglect itself, unqualified, as a starter-killer alongside heat and mold, with no hungry-not-dead qualifier anywhere in that reply."
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "topic": "whether weeks of neglect alone kills a starter, or only via the mold it can eventually grow",
+    "run1_quote": "What does kill a starter: sustained heat above roughly 120F, real mold (fuzzy colored spots, not the gray liquid), a salt-heavy feed, or weeks of neglect at room temperature.",
+    "run2_quote": "ending it takes real violence: heat above roughly 120F, a heavy dose of salt, or weeks of neglect until mold takes hold",
+    "which_is_right": "run-2",
+    "basis": "traps.json c6-t4 (verified known): a starter that stopped rising is usually hungry or cold, not dead; discard is warranted only for mold or discoloration. Run-2's 'until mold takes hold' correctly makes mold the operative cause; run-1 lists 'weeks of neglect at room temperature' as an independent killer, parallel to and undistinguished from mold."
+  }
+]

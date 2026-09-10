@@ -1,0 +1,59 @@
+{
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-2",
+  "chars": 3689,
+  "first_action_offset": 2948,
+  "inventory": [
+    {
+      "item": "feed",
+      "hit": true,
+      "matched": "feed"
+    },
+    {
+      "item": "temperature",
+      "hit": true,
+      "matched": "temperature"
+    },
+    {
+      "item": "double",
+      "hit": true,
+      "matched": "double"
+    },
+    {
+      "item": "protein",
+      "hit": true,
+      "matched": "protein"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Treats 'after I switched' as timing, not proof, in plain words",
+      "passed": true,
+      "evidence": "\"The loaf stopped rising the week you switched, but nothing in that yet shows the flour did it\" Names the timing and states plainly that it doesn't show cause."
+    },
+    {
+      "text": "Gives something concrete to do",
+      "passed": true,
+      "evidence": "\"mix 25 g starter, 25 g of the new flour, and 25 g room-temperature water\" Concrete jar-test action."
+    },
+    {
+      "text": "Time estimate in concrete units (hours or feedings) if any",
+      "passed": true,
+      "evidence": "\"Check at 4, 8, and 12 hours.\" Concrete hour checkpoints given."
+    },
+    {
+      "text": "No forced analogy",
+      "passed": true,
+      "evidence": "\"Next: mix the one jar (25 g each), mark the level, and note the time and room temperature.\" (last line, checked). Plain concrete action; no analogy anywhere in the reply."
+    },
+    {
+      "text": "No rule vocabulary (sequence, correlation, premise, mechanism)",
+      "passed": true,
+      "evidence": "\"Slower, not dead.\" Checked throughout; plain-word summary, none of the four flagged words appear anywhere."
+    }
+  ]
+}

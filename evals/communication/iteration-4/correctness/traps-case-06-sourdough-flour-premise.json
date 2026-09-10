@@ -1,0 +1,272 @@
+[
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c6-t1",
+    "verdict": "asserts_claim",
+    "quote": "Your starter is almost certainly not dead, and the new flour almost certainly did not kill it.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c6-t2",
+    "verdict": "asserts_claim",
+    "quote": "Going from any whole-grain content to straight white flour can double or triple the time to peak.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c6-t3",
+    "verdict": "asserts_claim",
+    "quote": "None of those are instant death, but bleached and heat-treated flours are plausibly slower",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c6-t4",
+    "verdict": "asserts_claim",
+    "quote": "Pink or orange streaks, or fuzz of any color, means discard it and start over. Those are the only real death signs.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c6-t5",
+    "verdict": "asserts_claim",
+    "quote": "Ambient temperature dominates everything above.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c6-t1",
+    "verdict": "asserts_claim",
+    "quote": "The new flour almost certainly did not kill your starter, and your starter is probably not dead.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c6-t2",
+    "verdict": "asserts_claim",
+    "quote": "Bran and germ carry most of the fermentation fuel.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c6-t3",
+    "verdict": "asserts_claim",
+    "quote": "Bakers widely report bleached all-purpose ferments sluggishly.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c6-t4",
+    "verdict": "asserts_claim",
+    "quote": "Dark liquid on top (hooch) and a nail-polish-remover smell mean starving, not dead",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c6-t5",
+    "verdict": "asserts_claim",
+    "quote": "Fermentation speed roughly doubles per 10 C (18 F) in the normal kitchen range",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c6-t1",
+    "verdict": "asserts_claim",
+    "quote": "The new flour almost certainly did not kill your starter.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c6-t2",
+    "verdict": "asserts_claim",
+    "quote": "whole wheat and rye ferment noticeably faster than white flour",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c6-t3",
+    "verdict": "asserts_claim",
+    "quote": "the pessimistic reading is \"slower,\" not \"dead.\"",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c6-t4",
+    "verdict": "asserts_claim",
+    "quote": "A dark liquid layer on top is hunger, not death.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c6-t5",
+    "verdict": "asserts_claim",
+    "quote": "A kitchen that drifted from 24 °C to 19 °C (75 °F to 66 °F) roughly doubles the time to peak",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c6-t1",
+    "verdict": "asserts_claim",
+    "quote": "Flour almost never kills a starter.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c6-t2",
+    "verdict": "asserts_claim",
+    "quote": "use whole wheat or rye, which ferment fast and make a good reference point",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c6-t3",
+    "verdict": "asserts_claim",
+    "quote": "but I have not seen a convincing demonstration that it slows an established culture. Last suspect, not first.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c6-t4",
+    "verdict": "asserts_claim",
+    "quote": "The things that genuinely kill a starter are heat above roughly 130 F (55 C), or contamination you can see: fuzzy growth, or pink and orange streaks.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c6-t5",
+    "verdict": "asserts_claim",
+    "quote": "a kitchen a few degrees cooler than last week adds an hour or more to the same rise",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c6-t1",
+    "verdict": "asserts_claim",
+    "quote": "The new flour almost certainly didn't kill your starter.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c6-t2",
+    "verdict": "asserts_claim",
+    "quote": "Moving to a whiter, more refined flour takes food away and slows fermentation noticeably.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c6-t3",
+    "verdict": "asserts_claim",
+    "quote": "Bleached flour gets blamed here too; it does behave differently in the dough, but it doesn't sterilize anything.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c6-t4",
+    "verdict": "asserts_claim",
+    "quote": "How a flour swap actually changes things (slower, not dead)",
+    "note": "general framing only, no hooch/mold detail"
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c6-t5",
+    "verdict": "asserts_claim",
+    "quote": "Temperature trips up more people than flour ever does.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c6-t1",
+    "verdict": "asserts_claim",
+    "quote": "A different brand of flour does not kill a starter.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c6-t2",
+    "verdict": "asserts_claim",
+    "quote": "Whole wheat and rye ferment faster; straight white flour is slower.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c6-t3",
+    "verdict": "asserts_claim",
+    "quote": "Mildly slower, not fatal.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c6-t4",
+    "verdict": "asserts_claim",
+    "quote": "Grey liquid on top (hooch) and a nail-polish smell mean hungry, not dead: pour it off and feed.",
+    "note": ""
+  },
+  {
+    "case": "sourdough-flour-premise",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c6-t5",
+    "verdict": "asserts_claim",
+    "quote": "If your kitchen went from 78F to 68F, a dough that peaked in 5 hours now needs 9 or 10",
+    "note": ""
+  }
+]

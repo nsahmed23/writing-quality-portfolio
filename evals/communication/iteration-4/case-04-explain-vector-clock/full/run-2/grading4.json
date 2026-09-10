@@ -43,7 +43,7 @@
     {
       "text": "Defines terms before relying on them",
       "passed": true,
-      "evidence": "\"If neither A → B nor B → A, the events are **concurrent**: nothing in the system's history links them, and no observer can say which came first.\"; concurrent and happened-before are both defined at the point they are introduced, before either is used in an argument."
+      "evidence": "\"If neither A \u2192 B nor B \u2192 A, the events are **concurrent**: nothing in the system's history links them, and no observer can say which came first.\"; concurrent and happened-before are both defined at the point they are introduced, before either is used in an argument."
     },
     {
       "text": "No forced analogy",

@@ -1,0 +1,272 @@
+[
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c2-t1",
+    "verdict": "asserts_claim",
+    "quote": "the old key stays accepted for one full token lifetime after the switch.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c2-t2",
+    "verdict": "asserts_claim",
+    "quote": "Wait until every instance is running this build before continuing.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c2-t3",
+    "verdict": "asserts_claim",
+    "quote": "The last token signed with `k1` was minted a moment before the step 3 restart finished, so it lives for 24 hours past that point.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c2-t4",
+    "verdict": "asserts_claim",
+    "quote": "If you are rotating because the secret leaked, this whole procedure is wrong.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c2-t5",
+    "verdict": "asserts_claim",
+    "quote": "32 bytes is the right size for HMAC-SHA256.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c2-t1",
+    "verdict": "asserts_claim",
+    "quote": "At minimum 24 hours from the moment in step 4, plus a few hours of margin for clock skew and stragglers.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c2-t2",
+    "verdict": "asserts_claim",
+    "quote": "Every process that verifies these tokens needs phase 1 before any process reaches phase 2.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c2-t3",
+    "verdict": "asserts_claim",
+    "quote": "Nothing below changes normal expiry. People still get logged out 24 hours after their last token was issued, exactly as they do today.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c2-t4",
+    "verdict": "asserts_claim",
+    "quote": "the overlap window is the problem, not the solution: anyone holding that key can mint valid tokens for as long as you keep accepting it.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c2-t5",
+    "verdict": "asserts_claim",
+    "quote": "48 random bytes gives you comfortably more than the 256 bits HS256 requires",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c2-t1",
+    "verdict": "asserts_claim",
+    "quote": "the old signature stays acceptable for a full 24 hour token lifetime.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c2-t2",
+    "verdict": "asserts_claim",
+    "quote": "every instance must be able to accept both keys before any instance starts signing with the new one.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c2-t3",
+    "verdict": "asserts_claim",
+    "quote": "anyone already logged in stays logged in and starts producing `verified with JWT_SECRET_ALT` warnings.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c2-t4",
+    "verdict": "asserts_claim",
+    "quote": "If the leak is live, skip the overlap, set the new key alone, and take the logouts.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c2-t5",
+    "verdict": "asserts_claim",
+    "quote": "32 random bytes gives 256 bits, matching the SHA-256 output that HS256 is built on.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c2-t1",
+    "verdict": "asserts_claim",
+    "quote": "Keeping the old secret in the verify list for one full token lifetime is what stops anyone from being logged out.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c2-t2",
+    "verdict": "asserts_claim",
+    "quote": "Every process that calls `jwt.verify` needs the step 3 change before step 4 lands",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c2-t3",
+    "verdict": "asserts_claim",
+    "quote": "the tokens already out there, up to 24 hours' worth, keep verifying against the old one.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c2-t4",
+    "verdict": "asserts_claim",
+    "quote": "If you are rotating because the old secret leaked, this plan is the wrong one",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c2-t5",
+    "verdict": "asserts_claim",
+    "quote": "32 random bytes, the minimum key size HS256 is built for.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c2-t1",
+    "verdict": "asserts_claim",
+    "quote": "only by making verification accept two keys for one full token lifetime before you retire the old one.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c2-t2",
+    "verdict": "asserts_claim",
+    "quote": "some replicas will still be single-key mid-rollout, and flipping the signer while any of them are live will 401 a random slice of requests.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c2-t3",
+    "verdict": "asserts_claim",
+    "quote": "rotation does not revoke anything.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c2-t4",
+    "verdict": "asserts_claim",
+    "quote": "an overlap window is the wrong move: anyone holding the old secret can mint valid tokens for as long as you keep accepting it.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c2-t5",
+    "verdict": "asserts_claim",
+    "quote": "A short human-chosen passphrase can be brute-forced offline against any token you have ever issued, so do not hand-write this value.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c2-t1",
+    "verdict": "asserts_claim",
+    "quote": "keep accepting the old one for longer than any token signed with it can live, then delete the old one.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c2-t2",
+    "verdict": "asserts_claim",
+    "quote": "during a rolling update, an already-updated instance signs a `v2` token, the next request from that user lands on an instance that has never heard of `v2`, and they get a 401.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c2-t3",
+    "verdict": "asserts_claim",
+    "quote": "the up-to-24h of `v1` tokens already in the wild keep working.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c2-t4",
+    "verdict": "asserts_claim",
+    "quote": "if you are rotating because the old secret leaked, this procedure is the wrong one.",
+    "note": ""
+  },
+  {
+    "case": "jwt-key-rotation",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c2-t5",
+    "verdict": "asserts_claim",
+    "quote": "32 bytes is 256 bits, which matches what HS256 actually uses.",
+    "note": ""
+  }
+]

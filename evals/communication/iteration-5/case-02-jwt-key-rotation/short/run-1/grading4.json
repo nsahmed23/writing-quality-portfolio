@@ -1,0 +1,59 @@
+{
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 8389,
+  "first_action_offset": 250,
+  "inventory": [
+    {
+      "item": "kid",
+      "hit": true,
+      "matched": "kid"
+    },
+    {
+      "item": "24",
+      "hit": true,
+      "matched": "24"
+    },
+    {
+      "item": "JWT_SECRET",
+      "hit": true,
+      "matched": "JWT_SECRET"
+    },
+    {
+      "item": "jsonwebtoken",
+      "hit": true,
+      "matched": "jsonwebtoken"
+    },
+    {
+      "item": "overlap",
+      "hit": true,
+      "matched": "overlap"
+    },
+    {
+      "item": "expire",
+      "hit": true,
+      "matched": "expire"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Steps are ordered with the overlap window explained",
+      "passed": true,
+      "evidence": "\"Wait out the overlap, then confirm it drained\" (step 6 header). Step 6 is explicitly the overlap-wait step, ordered between the signing flip (step 5) and retirement (step 7)."
+    },
+    {
+      "text": "The 24h constraint appears in the plan",
+      "passed": true,
+      "evidence": "\"That is 24 hours after the final `k1` signature, meaning 24 hours after step 5 finished on the last instance\" Explicit 24h constraint tied to the plan's timeline."
+    },
+    {
+      "text": "Ends with the check or retirement step, not a repeat of step 1",
+      "passed": false,
+      "evidence": "\"Run the grep in step 3 and read off the largest `expiresIn` it turns up before you pick the overlap window.\" Literal last line is a caveat-driven instruction to gather more info, not a check that the rotation succeeded or a retirement step."
+    }
+  ]
+}

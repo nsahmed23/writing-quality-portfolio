@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 2161,
+  "first_action_offset": 653,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "duplicate"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Because two messages only confirm one direction.\" Direct mechanism-first opening that affirms the premise."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": true,
+      "evidence": "\"Three is the point where both sides hold enough to start sending safely, and where extra messages stop buying anything.\" (last line). Checked throughout; ending is explanatory, no manufactured action."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "\"TCP has to agree on a starting sequence number for each direction before either side can send data reliably\" Checked throughout; states the mechanism plainly, never challenges the three-way premise."
+    }
+  ]
+}

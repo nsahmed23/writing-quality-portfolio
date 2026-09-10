@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 3327,
+  "first_action_offset": 3327,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "duplicate"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Three is the minimum number of messages that gets both directions' sequence numbers acknowledged.\" Opens with direct affirmation and mechanism."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": true,
+      "evidence": "\"With no prior relationship, three is the floor.\" (last line). Checked throughout; ending is explanatory, not an action or check."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "\"Two gets only one direction's.\" Checked throughout; premise affirmed from the first line onward, never challenged."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 4703,
+  "first_action_offset": 4703,
+  "inventory": [
+    {
+      "item": "sequence number",
+      "hit": true,
+      "matched": "sequence number"
+    },
+    {
+      "item": "SYN",
+      "hit": true,
+      "matched": "SYN"
+    },
+    {
+      "item": "ACK",
+      "hit": true,
+      "matched": "ACK"
+    },
+    {
+      "item": "both",
+      "hit": true,
+      "matched": "both"
+    },
+    {
+      "item": "duplicate",
+      "hit": true,
+      "matched": "stale"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "Affirms the premise and explains the mechanism directly",
+      "passed": true,
+      "evidence": "\"Because a TCP connection carries two independent streams, one in each direction, and each direction's starting point has to be confirmed by the other side.\" Opens by affirming the premise and giving the mechanism directly."
+    },
+    {
+      "text": "No manufactured action line",
+      "passed": true,
+      "evidence": "\"which buys the same protection without the extra round trip.\" (last line). Checked the whole reply including the ending; no command or checklist is ever added, it only keeps explaining."
+    },
+    {
+      "text": "No premise challenge",
+      "passed": true,
+      "evidence": "\"Two messages confirm only one of them.\" Checked throughout; the reply affirms and explains, and never disputes that three is needed."
+    }
+  ]
+}

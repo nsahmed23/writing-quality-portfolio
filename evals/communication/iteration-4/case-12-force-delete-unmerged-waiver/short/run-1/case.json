@@ -16,7 +16,11 @@
       "main..feat/wip1",
       "not merged",
       "unmerged",
-      "unique"
+      "unique",
+      "plus one commit",
+      "one commit",
+      "wip on feat/wip1",
+      "feat_wip1.txt"
     ],
     [
       "-D",

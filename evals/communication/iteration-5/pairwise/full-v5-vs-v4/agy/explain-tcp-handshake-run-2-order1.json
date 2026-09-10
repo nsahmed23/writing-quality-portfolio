@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "Reply 1 provides a conceptual explanation and suggests capturing traffic in Wireshark to observe handshake packets.",
+    "first_step_2": "Reply 2 provides a conceptual explanation with no action required.",
+    "winner": "tie",
+    "reason": "Both replies accurately and thoroughly explain the necessity of the three-way handshake\u2014including ISN synchronization, acknowledgment asymmetry, and the prevention of half-open connections from stale duplicate SYNs\u2014with no material factual differences."
+  },
+  "winner_arm": "tie",
+  "seconds": 23.7,
+  "raw_tail": "**Reply 1 first step:** Reply 1 provides a conceptual explanation and suggests capturing packets in Wireshark at the end to observe handshake flags, though no initial action is required.  \n**Reply 2 first step:** Reply 2 provides an explanation with no action required.\n\n**Which reply to act on first:**  \nNeither requires action because the prompt is purely an informational request; on the merits of the explanation, both correctly and thoroughly cover the need to exchange and acknowledge initial sequence numbers, the asymmetry that leaves a two-message server unconfirmed, and the prevention of half-open connections from stale duplicate SYNs. Therefore, the outcome is a tie.\n\n{\"first_step_1\": \"Reply 1 provides a conceptual explanation and suggests capturing traffic in Wireshark to observe handshake packets.\", \"first_step_2\": \"Reply 2 provides a conceptual explanation with no action required.\", \"winner\": \"tie\", \"reason\": \"Both replies accurately and thoroughly explain the necessity of the three-way handshake\u2014including ISN synchronization, acknowledgment asymmetry, and the prevention of half-open connections from stale duplicate SYNs\u2014with no material factual differences.\"}\n\n"
+}

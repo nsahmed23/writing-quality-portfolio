@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-2",
+  "order": 2,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "Grep for JWT_SECRET to find all verifiers, then deploy dual-key verification using a trial-and-error loop across an array of secrets.",
+    "first_step_2": "Grep for token operations to verify token lifespans, then deploy dual-key support using a key ID (kid) on issued tokens with a legacy fallback for verification.",
+    "winner": "2",
+    "reason": "Reply 2 adds a key ID (kid) to newly issued tokens and uses kid-based key lookup for verification during the overlap window instead of relying on trial-and-error verification."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 13.0,
+  "raw_tail": "sing trial-and-error.\n\n**Reply 2 first step:** Grep the codebase for token operations to determine the longest token lifetime, then deploy key-id (`kid`) support to newly issued tokens while verifying against both old and new keys using `kid` with a legacy fallback.\n\nIf this were my problem, I would act on **Reply 2** first. Reply 2 correctly incorporates a key ID (`kid`) into token headers and verifies specifically by `kid` (including a fallback for legacy tokens minted prior to the rotation), matching the standard and specified best practice, whereas Reply 1 relies on inefficient and unstructured trial-and-error verification across multiple secrets.\n\n{\"first_step_1\": \"Grep for JWT_SECRET to find all verifiers, then deploy dual-key verification using a trial-and-error loop across an array of secrets.\", \"first_step_2\": \"Grep for token operations to verify token lifespans, then deploy dual-key support using a key ID (kid) on issued tokens with a legacy fallback for verification.\", \"winner\": \"2\", \"reason\": \"Reply 2 adds a key ID (kid) to newly issued tokens and uses kid-based key lookup for verification during the overlap window instead of relying on trial-and-error verification.\"}\n\n"
+}

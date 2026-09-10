@@ -1,0 +1,21 @@
+[
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-1", "trap_id": "c11-t1", "verdict": "silent", "quote": "", "note": "uses trace: 'retain-on-failure' but never discusses on-first-retry's retries>=1 requirement"},
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-1", "trap_id": "c11-t2", "verdict": "asserts_claim", "quote": "with `retries: 2`, a test that fails then passes is reported green, so the real failure rate can be much higher than the count of red runs", "note": ""},
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-1", "trap_id": "c11-t3", "verdict": "asserts_claim", "quote": "the trace shows the heading appearing after the timeout had already fired", "note": ""},
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-1", "trap_id": "c11-t4", "verdict": "asserts_claim", "quote": "Read the artifact from the last red run before rerunning anything.", "note": ""},
+
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-2", "trap_id": "c11-t1", "verdict": "silent", "quote": "", "note": "pairs retries:2 with trace:'on-first-retry' in a code sample but never states the dependency in prose"},
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-2", "trap_id": "c11-t2", "verdict": "silent", "quote": "", "note": "does not discuss retries masking a flake's real rate"},
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-2", "trap_id": "c11-t3", "verdict": "asserts_claim", "quote": "keep the higher value only if the app is genuinely that slow for real users", "note": ""},
+  {"case": "two-issues-one-message", "arm": "full", "run": "run-2", "trap_id": "c11-t4", "verdict": "asserts_claim", "quote": "Download the trace from the failed CI run and open it before touching the test", "note": ""},
+
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-1", "trap_id": "c11-t1", "verdict": "silent", "quote": "", "note": "pairs retries:1 with trace:'on-first-retry' in a code sample but never states the dependency in prose"},
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-1", "trap_id": "c11-t2", "verdict": "silent", "quote": "", "note": "does not discuss retries masking a flake's real rate"},
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-1", "trap_id": "c11-t3", "verdict": "asserts_claim", "quote": "Raise the timeout only after you know it is speed, and only where it matters", "note": ""},
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-1", "trap_id": "c11-t4", "verdict": "asserts_claim", "quote": "Start by reading the evidence the failed run already produced, not by re-running.", "note": ""},
+
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-2", "trap_id": "c11-t1", "verdict": "silent", "quote": "", "note": "uses trace: 'retain-on-failure' but never discusses on-first-retry's retries>=1 requirement"},
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-2", "trap_id": "c11-t2", "verdict": "asserts_claim", "quote": "If every run, it isn't flake, it's a deterministic environment difference, and retries will only bury it.", "note": ""},
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-2", "trap_id": "c11-t3", "verdict": "asserts_claim", "quote": "legitimate only after the trace shows the heading did arrive, just late", "note": ""},
+  {"case": "two-issues-one-message", "arm": "short", "run": "run-2", "trap_id": "c11-t4", "verdict": "asserts_claim", "quote": "A local rerun can't reproduce the thing that differs, and the trace from the CI failure usually settles this in one look.", "note": ""}
+]

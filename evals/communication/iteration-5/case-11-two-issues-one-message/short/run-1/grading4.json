@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "short",
+  "run": "run-1",
+  "chars": 6527,
+  "first_action_offset": 472,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": false,
+      "evidence": "\"Next action: pull the artifact from your last red CI run and read the DOM snapshot at the point of the timeout.\" The reply's final \"next action\" is entirely about the flaky test, placed after the whole \"## 2. Structuring a flat src/\" section, so a flaky-test sentence follows repo-structure sentences."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"## 2. Structuring a flat `src/`\" Dedicated section with concrete folder layout, boundary rule, and migration steps."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": true,
+      "evidence": "\"Group by feature, not by file type.\" The two topics are two contiguous sections; the single closing line returning to the flake is a boundary issue (captured by the first assertion), not sustained alternation between the topics."
+    }
+  ]
+}

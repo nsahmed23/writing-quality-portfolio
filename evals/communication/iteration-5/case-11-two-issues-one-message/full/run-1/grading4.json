@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "full",
+  "run": "run-1",
+  "chars": 7318,
+  "first_action_offset": 99,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": true,
+      "evidence": "\"Fix the flake first, restructure second.\" This one-line opening (the allowed top acknowledgement) is the only mention of restructuring before the CI-flake section finishes; \"## Repo structure\" starts only after the flake section (through \"Confirm the fix\") is complete, and the closing line states the migration's own done-bar rather than re-addressing the flake."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"Group by feature, not by file type:\" Dedicated, substantive section for the second issue, not dropped."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": true,
+      "evidence": "\"## Repo structure\" The two issues occupy two contiguous, non-alternating sections with a clean header boundary; no mixing within either section."
+    }
+  ]
+}

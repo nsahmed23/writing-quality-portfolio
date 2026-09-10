@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "short-v5",
+    "short-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "short-v4",
+    "2": "short-v5"
+  },
+  "verdict": {
+    "first_step_1": "Run a side-by-side feeding test comparing the new flour against the old flour in identical jars and conditions at a 1:1:1 ratio.",
+    "first_step_2": "Compare the nutrition and ingredient labels on both flour bags side by side for protein, bleaching, malted barley, and heat treatment.",
+    "winner": "1",
+    "reason": "Reply 1 prescribes the correct first step by isolating a single variable in a side-by-side feeding test, whereas Reply 2 begins with label reading and later suggests changing the flour, ratio, and schedule simultaneously."
+  },
+  "winner_arm": "short-v4",
+  "seconds": 17.5,
+  "raw_tail": "ditions at a 1:1:1 ratio.\n\n**Reply 2 first step:** Compare the nutrition and ingredient labels on both flour bags to check protein content, bleaching, malted barley flour, and heat treatment.\n\nIf this were my problem, I would act on **Reply 1** first. Reply 1 immediately implements the correct first step by isolating a single variable in a side-by-side feeding test while keeping the starter fed, and plainly points out that timing alone does not make the flour the cause. In contrast, Reply 2 begins with label inspection, uses an uncalibrated feeding test, and eventually advises altering the flour, feeding ratio, and schedule all at once.\n\n{\"first_step_1\": \"Run a side-by-side feeding test comparing the new flour against the old flour in identical jars and conditions at a 1:1:1 ratio.\", \"first_step_2\": \"Compare the nutrition and ingredient labels on both flour bags side by side for protein, bleaching, malted barley, and heat treatment.\", \"winner\": \"1\", \"reason\": \"Reply 1 prescribes the correct first step by isolating a single variable in a side-by-side feeding test, whereas Reply 2 begins with label reading and later suggests changing the flour, ratio, and schedule simultaneously.\"}\n\n"
+}

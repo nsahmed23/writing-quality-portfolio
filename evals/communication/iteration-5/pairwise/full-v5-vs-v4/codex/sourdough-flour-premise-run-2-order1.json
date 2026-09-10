@@ -1,0 +1,25 @@
+{
+  "lane": "codex",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 6,
+  "case_name": "sourdough-flour-premise",
+  "kind": "explanation",
+  "run": "run-2",
+  "order": 1,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "Feed two matched jars with new flour and old flour (or whole wheat/rye), keep conditions identical, and track their rise.",
+    "first_step_2": "Feed one jar equal weights of starter, new flour, and water, mark its level, and check its rise; optionally compare an old-flour jar.",
+    "winner": "1",
+    "reason": "Reply 1 makes a controlled flour comparison the first action, while Reply 2 prioritizes a single-jar test that cannot isolate whether the flour caused the slowdown."
+  },
+  "winner_arm": "full-v4",
+  "seconds": 19.1,
+  "raw_tail": "ference), or \"both_unacceptable\" (a material correctness, safety, or completeness failure in both).\nReturn ONLY a JSON object as the last line of your answer:\n{\"first_step_1\": \"...\", \"first_step_2\": \"...\", \"winner\": \"1|2|tie|both_unacceptable\", \"reason\": \"one sentence naming the decisive difference\"}\nwarning: clamping SessionEnd hook timeout to 3s in C:\\Users\\nsahm\\.codex\\plugins\\cache\\openai-codex\\codex\\1.0.6\\hooks\\hooks.json\nwarning: Exceeded skills context budget. All skill descriptions were removed and 28 additional skills were not included in the model-visible skills list.\nhook: SessionStart\nhook: SessionStart Completed\ncodex\n{\"first_step_1\":\"Feed two matched jars with new flour and old flour (or whole wheat/rye), keep conditions identical, and track their rise.\",\"first_step_2\":\"Feed one jar equal weights of starter, new flour, and water, mark its level, and check its rise; optionally compare an old-flour jar.\",\"winner\":\"1\",\"reason\":\"Reply 1 makes a controlled flour comparison the first action, while Reply 2 prioritizes a single-jar test that cannot isolate whether the flour caused the slowdown.\"}\nhook: Stop\nhook: Stop\nhook: Stop Failed\nhook: Stop Completed\ntokens used\n24,964\n"
+}

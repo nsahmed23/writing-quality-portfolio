@@ -1,0 +1,44 @@
+{
+  "case_id": 11,
+  "case_name": "two-issues-one-message",
+  "kind": "recovery",
+  "arm": "short",
+  "run": "run-2",
+  "chars": 4852,
+  "first_action_offset": 73,
+  "inventory": [
+    {
+      "item": "trace",
+      "hit": true,
+      "matched": "trace"
+    },
+    {
+      "item": "CI",
+      "hit": true,
+      "matched": "CI"
+    },
+    {
+      "item": "structure",
+      "hit": true,
+      "matched": "structure"
+    }
+  ],
+  "inventory_rate": 1.0,
+  "shape": [
+    {
+      "text": "The first issue is finished before the second is addressed",
+      "passed": false,
+      "evidence": "\"Sequencing note connecting the two: do the restructure after the e2e suite is trustworthy.\" This closing sentence, explicitly labeled as connecting both issues, revisits the flaky-test topic (suite trustworthiness) after the entire repo-structure section, breaking the required order beyond the allowed top-only acknowledgement."
+    },
+    {
+      "text": "The second issue is acknowledged, not dropped",
+      "passed": true,
+      "evidence": "\"## 2. Repo structure\" Dedicated section with concrete folder layout and migration steps."
+    },
+    {
+      "text": "The two are not interleaved",
+      "passed": true,
+      "evidence": "\"Organize by feature, not by file type.\" The two issues occupy two contiguous sections; only the single closing sentence ties them together, not sustained mixing."
+    }
+  ]
+}

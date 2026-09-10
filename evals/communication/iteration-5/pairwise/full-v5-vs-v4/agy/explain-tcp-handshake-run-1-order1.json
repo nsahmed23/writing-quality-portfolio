@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 5,
+  "case_name": "explain-tcp-handshake",
+  "kind": "explanation",
+  "run": "run-1",
+  "order": 1,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "No action is required because this is an explanation request; Reply 1 begins directly with an explanation of the four logical handshake events.",
+    "first_step_2": "No action is required because this is an explanation request; Reply 2 begins directly with an explanation of two-way stream synchronization.",
+    "winner": "1",
+    "reason": "Reply 1 correctly identifies that a two-way handshake leaves the server unable to verify if its own ISN arrived (causing connection failure on lost SYN-ACK), whereas Reply 2 inaccurately dismisses SYN-ACK loss as easily survivable."
+  },
+  "winner_arm": "full-v4",
+  "seconds": 24.4,
+  "raw_tail": "equest; Reply 2 immediately begins explaining stream synchronization and sequence numbers.\n\nIf this were my problem, I would act on **Reply 1** first. While both give strong conceptual explanations of the four logical steps and stale connections, Reply 1 accurately explains why two messages fail on basic delivery (the server never learns whether its own ISN arrived, turning a lost SYN-ACK into a broken connection), whereas Reply 2 incorrectly brushes aside lost SYN-ACKs as \"plain loss is survivable.\" Reply 1 is also more thorough regarding simultaneous open, teardown asymmetry, and protocol specifications.\n\n{\"first_step_1\": \"No action is required because this is an explanation request; Reply 1 begins directly with an explanation of the four logical handshake events.\", \"first_step_2\": \"No action is required because this is an explanation request; Reply 2 begins directly with an explanation of two-way stream synchronization.\", \"winner\": \"1\", \"reason\": \"Reply 1 correctly identifies that a two-way handshake leaves the server unable to verify if its own ISN arrived (causing connection failure on lost SYN-ACK), whereas Reply 2 inaccurately dismisses SYN-ACK loss as easily survivable.\"}\n\n"
+}

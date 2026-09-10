@@ -4,8 +4,9 @@
   "kind": "explanation",
   "prompt": "My sourdough stopped rising after I switched flour brands last week. why does the new flour kill the starter?",
   "expected": {
-    "first": "Feed the starter on its usual schedule for two or three cycles and watch whether it doubles; a float test or a marked jar shows activity.",
-    "truth": "A flour change can slow a starter (different protein, ash, or enzyme content, bleaching), but it rarely kills one; the timing alone does not show the flour is the cause, and temperature, feeding ratio, or water are common alternatives. Say the timing is not proof of cause in plain words, without category labels."
+    "first": "Any first step that changes one variable and keeps the starter fed: for example, feed on the usual schedule two or three times and watch for doubling, or feed one jar with the old flour beside one with the new. A first step that changes flour, ratio, and schedule at once, or that discards the starter, is the wrong first step.",
+    "truth": "A flour change can slow a starter (different protein, ash, or enzyme content, bleaching), but it rarely kills one; the timing alone does not show the flour is the cause, and temperature, feeding ratio, or water are common alternatives. Say the timing is not proof of cause in plain words, without category labels.",
+    "first_original": "Feed the starter on its usual schedule for two or three cycles and watch whether it doubles; a float test or a marked jar shows activity."
   },
   "inventory": [
     [

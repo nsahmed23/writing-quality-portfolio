@@ -1,0 +1,272 @@
+[
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c3-t1",
+    "verdict": "asserts_claim",
+    "quote": "leaves out rows that `migrate` recreates on the Postgres side. Loading yours on top of those trips the unique constraint on `(app_label, model)` and the load aborts.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c3-t2",
+    "verdict": "asserts_claim",
+    "quote": "If any app lacks a `migrations/` package, follow the first command with `python manage.py migrate --run-syncdb`, or its tables will not exist and the load will fail on them.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c3-t3",
+    "verdict": "asserts_claim",
+    "quote": "It omits the primary key for any model that defines `natural_key()`, and `AbstractBaseUser` defines one, so your users get renumbered on load.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c3-t4",
+    "verdict": "asserts_claim",
+    "quote": "If your first create instead raises `duplicate key value violates unique constraint \"..._pkey\"`, that is the sequence sitting behind your loaded ids:",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-1",
+    "trap_id": "c3-t5",
+    "verdict": "asserts_claim",
+    "quote": "SQLite has dynamic typing and mostly ignores `max_length`, so it stored things your Postgres schema forbids.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c3-t1",
+    "verdict": "asserts_claim",
+    "quote": "because `migrate` recreates both from your models. Dumping them gives you duplicate-key errors on load.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c3-t2",
+    "verdict": "asserts_claim",
+    "quote": "`migrate` against the empty database creates your tables plus fresh contenttypes and permissions.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c3-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": "uses --natural-primary but never explains its id-reassignment effect"
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c3-t4",
+    "verdict": "asserts_claim",
+    "quote": "It also resets the Postgres sequences for the models it loaded, so the next insert will not collide with an existing ID.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "none",
+    "run": "run-2",
+    "trap_id": "c3-t5",
+    "verdict": "asserts_claim",
+    "quote": "`max_length` was ignored by SQLite and becomes a real `varchar(n)`, so an over-long value that saved fine before will be rejected.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c3-t1",
+    "verdict": "asserts_claim",
+    "quote": "`migrate` recreates the rows in `django_content_type` and `auth_permission` itself on the new database, so reloading your old copies collides with rows Postgres already has.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c3-t2",
+    "verdict": "asserts_claim",
+    "quote": "Do not run `loaddata` before this; the tables do not exist yet.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c3-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": "uses --natural-primary but explanation covers only --natural-foreign"
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c3-t4",
+    "verdict": "asserts_claim",
+    "quote": "so new inserts will not collide with loaded ids. If you ever load data by some other route, reset them by hand with",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-1",
+    "trap_id": "c3-t5",
+    "verdict": "asserts_claim",
+    "quote": "SQLite lets a string sit in an integer column; Postgres rejects it on insert.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c3-t1",
+    "verdict": "asserts_claim",
+    "quote": "`migrate` recreates the content type and permission rows on the new database by itself, so loading dumped copies on top raises",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c3-t2",
+    "verdict": "asserts_claim",
+    "quote": "This creates the empty tables plus the content type and permission rows you excluded from the dump.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c3-t3",
+    "verdict": "asserts_claim",
+    "quote": "it omits the primary key for models that define a natural key, and `auth.User` is one, so your users get fresh IDs in Postgres.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c3-t4",
+    "verdict": "asserts_claim",
+    "quote": "`loaddata` normally resets sequences itself, so if you see this anyway, run `python manage.py sqlsequencereset myapp | python manage.py dbshell`, once per app label.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "full",
+    "run": "run-2",
+    "trap_id": "c3-t5",
+    "verdict": "asserts_claim",
+    "quote": "SQLite does not enforce `max_length` on a `CharField` and Postgres does, so an overlong string has been sitting in the file unnoticed.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c3-t1",
+    "verdict": "asserts_claim",
+    "quote": "skips the two tables Django repopulates automatically during `migrate`. Without these, `loaddata` fails on duplicate keys.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c3-t2",
+    "verdict": "asserts_claim",
+    "quote": "This runs against an empty database, so it should apply every migration in order.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c3-t3",
+    "verdict": "silent",
+    "quote": "",
+    "note": "vague: describes id reassignment via content types, not the natural-key-model mechanism"
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c3-t4",
+    "verdict": "asserts_claim",
+    "quote": "`loaddata` resets each loaded model's Postgres sequence when it finishes, so the next `INSERT` will not collide with an imported id.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-1",
+    "trap_id": "c3-t5",
+    "verdict": "asserts_claim",
+    "quote": "SQLite does not enforce `max_length`, Postgres does.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c3-t1",
+    "verdict": "asserts_claim",
+    "quote": "`contenttypes` and `auth.permission` are regenerated by `migrate` on the new database. Loading them as well produces duplicate-key errors.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c3-t2",
+    "verdict": "asserts_claim",
+    "quote": "`migrate` has to run first against the empty database. `loaddata` only inserts rows; it does not create tables.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c3-t3",
+    "verdict": "asserts_claim",
+    "quote": "It omits the primary key of any object whose model defines `natural_key()`, and `AbstractBaseUser` does define one (returning the username).",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c3-t4",
+    "verdict": "asserts_claim",
+    "quote": "Django resets sequences at the end of a successful `loaddata`, so this only shows up if you loaded per-app or interrupted the load.",
+    "note": ""
+  },
+  {
+    "case": "sqlite-to-postgres-django",
+    "arm": "short",
+    "run": "run-2",
+    "trap_id": "c3-t5",
+    "verdict": "asserts_claim",
+    "quote": "is the expected consequence of SQLite not enforcing much. A NULL, an empty string, or a wrong-typed value has been sitting in that column and Postgres is the first thing to object.",
+    "note": ""
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "lane": "agy",
+  "arms": [
+    "full-v5",
+    "full-v4"
+  ],
+  "case_id": 2,
+  "case_name": "jwt-key-rotation",
+  "kind": "ordered_action",
+  "run": "run-1",
+  "order": 2,
+  "mapping": {
+    "1": "full-v4",
+    "2": "full-v5"
+  },
+  "verdict": {
+    "first_step_1": "Generate a new 256-bit key via Node crypto and store it securely without installing it yet.",
+    "first_step_2": "Generate a new 256-bit secret via Node crypto, keep the current secret unchanged, and capture an existing valid production token to test against.",
+    "winner": "2",
+    "reason": "Reply 2 deploys the new secret to all verifying instances before issuing tokens with the new key, preventing authentication failures during rolling restarts, whereas Reply 1's primary procedure switches the signing key immediately without pre-deploying the secret."
+  },
+  "winner_arm": "full-v5",
+  "seconds": 149.2,
+  "raw_tail": ". However, the decisive difference lies in deployment safety: Fact 2 establishes that the secret change must be deployed to every verifying instance before issuing tokens with the new key. Reply 2 structures this as its core requirement by deploying both keys in Step 3 while still signing with the old secret, and only swapping the signing secret in Step 4 once all instances can verify both. In contrast, Reply 1's primary sequence introduces the new key and switches signing in the same restart (Step 3), which causes verification failures for users hitting instances that have not yet restarted during a rolling deployment.\n\n{\"first_step_1\": \"Generate a new 256-bit key via Node crypto and store it securely without installing it yet.\", \"first_step_2\": \"Generate a new 256-bit secret via Node crypto, keep the current secret unchanged, and capture an existing valid production token to test against.\", \"winner\": \"2\", \"reason\": \"Reply 2 deploys the new secret to all verifying instances before issuing tokens with the new key, preventing authentication failures during rolling restarts, whereas Reply 1's primary procedure switches the signing key immediately without pre-deploying the secret.\"}\n\n"
+}

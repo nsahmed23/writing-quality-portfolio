@@ -1,0 +1,25 @@
+[
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-1", "trap_id": "c6-t1", "verdict": "asserts_claim", "quote": "The new flour is almost certainly not killing your starter.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-1", "trap_id": "c6-t2", "verdict": "asserts_claim", "quote": "Bran particles cut through the gluten strands and bring extra enzymes and minerals, which speeds fermentation up.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-1", "trap_id": "c6-t3", "verdict": "silent", "quote": "", "note": "no mention of bleached flour"},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-1", "trap_id": "c6-t4", "verdict": "asserts_claim", "quote": "Weeks without feeding, which makes a starter acidic and slow rather than dead.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-1", "trap_id": "c6-t5", "verdict": "asserts_claim", "quote": "Fermentation is very temperature sensitive: dough that peaks in five hours at 24 C (75 F) can need eight or more at 20 C (68 F).", "note": ""},
+
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-2", "trap_id": "c6-t1", "verdict": "asserts_claim", "quote": "A different brand of wheat flour does not kill a starter.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-2", "trap_id": "c6-t2", "verdict": "asserts_claim", "quote": "Whole-grain or higher-extraction flour (more bran and germ left in) ferments faster, because it carries more nutrients and enzymes.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-2", "trap_id": "c6-t3", "verdict": "silent", "quote": "", "note": "no mention of bleached flour"},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-2", "trap_id": "c6-t4", "verdict": "asserts_wrong", "quote": "Sustained heat above roughly 50 C (120 F), weeks with no feeding, or visible fuzzy mold. A flour brand is not on that list.", "note": "lists prolonged non-feeding itself, unqualified, as something that kills the starter, with no hungry-not-dead qualifier anywhere in the reply"},
+  {"case": "sourdough-flour-premise", "arm": "full", "run": "run-2", "trap_id": "c6-t5", "verdict": "asserts_claim", "quote": "Fermentation speed roughly halves for every 10 C (18 F) the dough cools, within normal kitchen range.", "note": ""},
+
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-1", "trap_id": "c6-t1", "verdict": "asserts_claim", "quote": "A new flour brand almost certainly did not kill your starter.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-1", "trap_id": "c6-t2", "verdict": "asserts_claim", "quote": "If the old bag was whole wheat or rye and the new one is white, you removed most of the minerals, enzymes, and bran-borne microbes.", "note": "framed as removal-slows-it, the converse of whole-grain-speeds-it, not a contradiction"},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-1", "trap_id": "c6-t3", "verdict": "asserts_claim", "quote": "Bleached flour ferments somewhat slower than unbleached.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-1", "trap_id": "c6-t4", "verdict": "asserts_claim", "quote": "Gray liquid on top and a nail-polish or acetone smell mean hungry, not dead.", "note": "kill list also names 'weeks of neglect at room temperature' unqualified, in tension with this sentence; the explicit hungry-not-dead statement is the dominant, final word"},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-1", "trap_id": "c6-t5", "verdict": "asserts_claim", "quote": "a kitchen that slid from 78F to 68F can easily double your timings with no flour involved at all", "note": ""},
+
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-2", "trap_id": "c6-t1", "verdict": "asserts_claim", "quote": "Flour brands do not kill sourdough starters.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-2", "trap_id": "c6-t2", "verdict": "asserts_claim", "quote": "Add 20 to 25 percent whole wheat or rye to every feeding, which supplies minerals and enzymes that white flour is stripped of.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-2", "trap_id": "c6-t3", "verdict": "asserts_claim", "quote": "Bleached all-purpose still works, just less vigorously.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-2", "trap_id": "c6-t4", "verdict": "asserts_claim", "quote": "Fuzzy growth in pink, orange, or black is mold, and that is the only case that calls for discarding and starting over.", "note": ""},
+  {"case": "sourdough-flour-premise", "arm": "short", "run": "run-2", "trap_id": "c6-t5", "verdict": "asserts_claim", "quote": "Kitchen temperature dominates everything else; fermentation roughly halves in speed for every 15F drop.", "note": ""}
+]
