@@ -7,7 +7,7 @@
 - Main source commit: `28454c197246e6147da952b72d044273f6bb192f`.
 - Reviewed evaluation tip: `ac6d52e1c57c71d43070884bb56335ee3176888f`.
 - Original evaluation audit reference: `5d1f2b4cf83c54b5b70e5d10f16a85cbc07b9ba4`.
-- Initial integration merge: `a4cd638e368f44bb6e1d6bb3c72a3671f9174587` (2,168 tracked files).
+- Local integration merge: `a4cd638e368f44bb6e1d6bb3c72a3671f9174587` (2,168 tracked files). Publication through the connector may reconstruct Git commits while retaining identical trees and history because CLI write credentials are unavailable.
 
 The historical source-review and pilot evidence, original sealed outputs, labels, and frozen report are immutable inputs for this verification. Neither the root `MANIFEST.sha256` nor any historical file is rewritten here. The independent script and this status note are new paths under `evaluation/status/`. Comparing both the working tree and the staged index against the original audit reference with `git diff --quiet 5d1f2b4cf83c54b5b70e5d10f16a85cbc07b9ba4 -- evaluation/source-review evaluation/pilot` (and `git diff --cached --quiet` with the same operands) gave exit status 0 for both. That scope includes 454 tracked paths in the audit tree. This path comparison does not certify the entire integrated repository.
 
@@ -17,13 +17,19 @@ These baseline observations identify the starting conditions; they are **not fin
 
 | Baseline observation | Result |
 |---|---:|
-| Legacy unittest suite on Linux CPython 3.12.14 | 198 total; 187 passed, 11 skipped, 0 failures |
+| Legacy unittest suite on Linux CPython 3.12.14 | 198 ran in 10.960s; 187 passed, 11 skipped, 0 failures |
 | Main root manifest | 1,691 entries; 1,373 Git-blob mismatches |
 | Main mismatch decomposition | 1,372 CRLF-derived hashes and one separately stale `evals/communication/resume.md` |
 | Reviewed evaluation tip root manifest | 562 entries; zero mismatches |
 | Initial integrated tree at `a4cd638e` | 2,168 tracked files |
 
-The controller supplied the unittest and manifest mismatch baseline for this entry. I separately confirmed the two manifest line counts and initial integration file count with `git show <source>:MANIFEST.sha256 | wc -l` and `git ls-tree -r --name-only a4cd638e | wc -l`. The root manifest's preexisting mismatch count must not be mistaken for newly introduced integration damage.
+The controller supplied the Linux unittest output and manifest mismatch baseline for this entry; I did not rerun that suite. The unittest command ran from `evaluation/pilot`:
+
+```sh
+PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests
+```
+
+I separately confirmed the two manifest line counts and initial integration file count with `git show <source>:MANIFEST.sha256 | wc -l` and `git ls-tree -r --name-only a4cd638e | wc -l`. The root manifest's preexisting mismatch count must not be mistaken for newly introduced integration damage.
 
 ## Independent pilot recount
 
