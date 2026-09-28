@@ -7,7 +7,7 @@ ecf6c2eb4e50f29f023d9f252b8e8c486f95b5d9e015acab0176dfe998d378e1  ./README.md
 172d97d38194a4c122ced1bdad643b8e6a841bb10e6c244c28f3b72aed9358f2  ./claim-to-source-ledger.csv
 4856127fb7c9f679950ca4a2eedcad8c1c1d9d44309eb3578172e8c1958dc816  ./conflict-ledger.md
 04f3111162509ddda165b8da7322ac549bea01fcb051f4c99cd6cd1ea805dfc9  ./defect-and-change-report.md
-a1b269d105b3a3a22749a06de0559d53e524ab55f2a6423fe36263260b677ec3  ./docs/superpowers/plans/2026-09-28-writing-evaluation-forward.md
+fd1cfeb88f96eda041171153260d87554259d4a51a23bdecaad7e4444fa6b2db  ./docs/superpowers/plans/2026-09-28-writing-evaluation-forward.md
 390b3932fd462ef8f38ddb9f84afc5a0f06ad5a4b506329b9280ba0e155a007c  ./docs/superpowers/specs/2026-09-28-writing-evaluation-forward-design.md
 069fb1a0730b91b9d01880c8d7ddd98829c0cc652f6b7aa781269ae7e1dc47ec  ./evals/communication/apply_vault_update.py
 c5ed7c8572ee9effe72945bb42ae080e3c9590b990a63e39b039ec8078c56049  ./evals/communication/build_iter2.py
@@ -2088,6 +2088,7 @@ b155651b708966c61a4f8ffdf2213b42d7830d9b2effcd8e52ea3a243972c9ad  ./evaluation/s
 4983aac2ea9123f6a48d075a2a36dd5ae12abc891daf9d17dc5c70003d6477e0  ./evaluation/source-review/research_run/worker_returns/WS-006.yaml
 11332fa0e2502484133604110d99ed7bf983ed52fddff5747319ab59e2cb3e35  ./evaluation/source-review/research_run/workstreams.csv
 7b90f935a908736eb9b35399fc4814d6784d3b45c7ef72885fe2a034b8fc3fff  ./evaluation/source-review/resume.md
+7626958dae14c5f56c79f00cb958241d52d75651ebc7c14fbb53b8f740d64846  ./evaluation/status/2026-09-28-delivery.md
 9238ac54303ef33d59df58691075ae16bcf2128a4debe6b5b286f5352150b633  ./evaluation/status/2026-09-28-final-review.md
 5af2650c532ccb91e34ae3dc945167c92c4a8da39f550cc070b2d18e7be303de  ./evaluation/status/2026-09-28-integration-verification.md
 286b588872bbc43e837f41c71b31e0ee1206e32cb7cd734bd62ab7061a4a20f4  ./evaluation/status/README.md

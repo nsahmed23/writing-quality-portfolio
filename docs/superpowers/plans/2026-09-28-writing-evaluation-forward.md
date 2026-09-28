@@ -85,7 +85,8 @@
 - [x] Stage final tracked files, regenerate only the root manifest, and verify both scopes.
 - [x] Run portfolio validation, all new tests, and the frozen evaluator suite; report exact pass/skip counts.
 - [x] Independently review the whole change including preservation and readiness language.
-- [ ] Push the new branch and create a draft PR; record remote CI outcomes only when observed.
+- [ ] Push the new branch and create a draft PR; record remote CI outcomes only when observed. Blocked: GitHub connector write returned HTTP 403; local Git has no push credentials.
+- [x] Prepare the source, exact-history Git bundle, review records and publishing instructions for download.
 
 ## Self-review
 
