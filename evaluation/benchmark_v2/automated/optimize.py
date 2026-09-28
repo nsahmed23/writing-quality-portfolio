@@ -60,8 +60,10 @@ def optimize(suite_path,rubric_path,config_path,out,*,rounds=1):
     metric='development' if any(c['split']=='development' for c in controls) else 'calibration'
     selected=max(candidates,key=lambda c:(c['scores'][metric]['accuracy'] or 0, -c['index']))
     (out/'selected-rubric.json').write_bytes((out/selected['rubric_file']).read_bytes())
+    invalid_judgments=sum(not r['valid'] for c in candidates for r in c['records'])
     report={'schema_version':1,'artifact_type':'rubric_optimization',
-            'complete':state=='completed',
+            'complete':state=='completed' and invalid_judgments==0,
+            'invalid_judgments':invalid_judgments,
             'state':state,'selected_index':selected['index'],'selection_split':metric,
             'candidates':[{'index':c['index'],'rubric_file':c['rubric_file'],'scores':c['scores']} for c in candidates],
             'provenance':_provenance(suite_path,rubric_path,config_path,config),

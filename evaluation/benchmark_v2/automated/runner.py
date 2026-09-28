@@ -70,7 +70,8 @@ def _judge_cases(cases,rubric,config,out,budget):
 
 def calibrate(suite_path,rubric_path,config_path,out):
     suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
-    cases=[case for case in suite['cases'] if case['split']=='calibration']
+    cases=[case for case in suite['cases'] if case['split']=='calibration' and case['expected'] is not None]
+    if not cases: raise ValueError('calibration requires labeled calibration controls')
     budget=Budget(config['max_calls']); budget.preflight(len(cases)*len(config['judges'])*2)
     out=_prepare(out)
     selected={**suite,'cases':cases}
@@ -120,6 +121,7 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
     if isinstance(repetitions,bool) or not isinstance(repetitions,int) or repetitions<1 or repetitions>20:
         raise ValueError('repetitions must be 1..20')
     cases=[case for case in suite['cases'] if case['split']=='test']
+    if not cases: raise ValueError('compare requires test cases')
     if 'writer' not in config: raise ValueError('writer adapter required for compare')
     budget=Budget(config['max_calls'])
     budget.preflight(len(cases)*repetitions*(2+len(config['judges'])*2))
