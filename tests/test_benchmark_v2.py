@@ -115,13 +115,32 @@ class IngestTests(unittest.TestCase):
                 self.assertEqual(result["accepted_findings"], [])
                 self.assertEqual(result["rejected_findings"], [])
 
-    def test_json_unicode_scalar_and_excessive_nesting_are_response_errors(self):
-        for raw in (b'{"findings":[{"native_label":"\\ud800","quote":"x","explanation":"why"}]}',
-                    b'{"findings":' + b'[' * 2000 + b'0' + b']' * 2000 + b'}'):
-            with self.subTest(raw_length=len(raw)):
-                result = ingest_response("a", "x", raw)
-                self.assertEqual(result["response_error"], "INVALID_JSON")
-                self.assertEqual(result["accepted_findings"], [])
+    def test_deep_unknown_field_is_local_and_preserves_valid_sibling(self):
+        deep = 0
+        for _ in range(130):
+            deep = [deep]
+        good = {"native_label": "tone", "quote": "x", "explanation": "why"}
+        result = self.ingest({"findings": [{**good, "unknown": deep}, good]})
+        self.assertIsNone(result["response_error"])
+        self.assertEqual(result["rejected_findings"], [{"index": 0, "code": "UNKNOWN_FIELD"}])
+        self.assertEqual(result["accepted_findings"], [{"index": 1, **good, "start": 0, "end": 1}])
+
+    def test_escaped_lone_surrogate_in_one_finding_is_local(self):
+        raw = (b'{"findings":[{"native_label":"\\ud800","quote":"x","explanation":"why"},'
+               b'{"native_label":"tone","quote":"x","explanation":"why"}]}')
+        result = ingest_response("a", "x", raw)
+        self.assertIsNone(result["response_error"])
+        self.assertEqual(result["rejected_findings"], [{"index": 0, "code": "INVALID_FINDING"}])
+        self.assertEqual([item["index"] for item in result["accepted_findings"]], [1])
+
+    def test_escaped_lone_surrogate_context_is_local(self):
+        raw = (b'{"findings":[{"native_label":"tone","quote":"x","explanation":"why",'
+               b'"left_context":"\\ud800"},'
+               b'{"native_label":"tone","quote":"x","explanation":"why"}]}')
+        result = ingest_response("a", "x", raw)
+        self.assertIsNone(result["response_error"])
+        self.assertEqual(result["rejected_findings"], [{"index": 0, "code": "INVALID_CONTEXT"}])
+        self.assertEqual([item["index"] for item in result["accepted_findings"]], [1])
 
     def test_invalid_envelopes_reject_whole_response(self):
         for body in ([], None, {}, {"findings": None}, {"findings": {}},

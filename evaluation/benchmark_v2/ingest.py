@@ -31,21 +31,6 @@ def _reject_constant(value):
     raise ValueError("nonfinite JSON constant")
 
 
-def _validate_json_value(value, depth=0):
-    """Reject escaped lone surrogates and unreasonable structural depth."""
-    if depth > 128:
-        raise ValueError("JSON nesting exceeds 128 levels")
-    if isinstance(value, str):
-        value.encode("utf-8")
-    elif isinstance(value, list):
-        for element in value:
-            _validate_json_value(element, depth + 1)
-    elif isinstance(value, dict):
-        for key, element in value.items():
-            key.encode("utf-8")
-            _validate_json_value(element, depth + 1)
-
-
 def _valid_finding(item, text):
     if not isinstance(item, dict) or not _REQUIRED <= item.keys():
         raise AnchorError("INVALID_FINDING")
@@ -53,6 +38,11 @@ def _valid_finding(item, text):
         raise AnchorError("UNKNOWN_FIELD")
     if any(not isinstance(item[key], str) or not item[key].strip() for key in _REQUIRED):
         raise AnchorError("INVALID_FINDING")
+    try:
+        for key in _REQUIRED:
+            item[key].encode("utf-8")
+    except UnicodeEncodeError as exc:
+        raise AnchorError("INVALID_FINDING") from exc
 
     options = {key: item[key] for key in _OPTIONAL if key in item}
     # Explicit JSON null is not the same as an omitted optional field.
@@ -61,6 +51,12 @@ def _valid_finding(item, text):
     if any(key in options and not isinstance(options[key], str)
            for key in ("left_context", "right_context")):
         raise AnchorError("INVALID_CONTEXT")
+    try:
+        for key in ("left_context", "right_context"):
+            if key in options:
+                options[key].encode("utf-8")
+    except UnicodeEncodeError as exc:
+        raise AnchorError("INVALID_CONTEXT") from exc
     start, end = resolve_anchor(text, item["quote"], **options)
     return start, end
 
@@ -97,7 +93,6 @@ def ingest_response(case_id: str, text: str, response_bytes: bytes) -> dict:
                             object_pairs_hook=_unique_pairs,
                             parse_constant=_reject_constant,
                             parse_float=_finite_float)
-        _validate_json_value(parsed)
     except (UnicodeError, json.JSONDecodeError, ValueError, RecursionError):
         output["response_error"] = "INVALID_JSON"
         return output
