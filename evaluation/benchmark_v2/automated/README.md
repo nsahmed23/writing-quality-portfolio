@@ -32,17 +32,17 @@ Calibration requires at least eight labeled controls across four documents, two 
 
 ## Plugin Eval extension or direct JSON
 
-The optional local-only metric pack reads an **existing** report; `analyze` never starts model work. Install Plugin Eval's CLI so `plugin-eval` is on `PATH` (the installed package declares that binary at `scripts/plugin-eval.js`). If your installation does not expose a command, replace `plugin-eval` below with `node PATH_TO_PLUGIN_EVAL/scripts/plugin-eval.js`, using your own installed package path. The manifest calls `python`; if your Python 3.11+ executable has another name, update only that command's executable. Choose the exact report file emitted in the comparison output directory and analyze the same skill snapshot. From the repository root, on POSIX:
+The optional local-only metric pack reads an **existing** report; `analyze` never starts model work. Install Plugin Eval's CLI so `plugin-eval` is on `PATH` (the installed package declares that binary at `scripts/plugin-eval.js`). If your installation does not expose a command, replace `plugin-eval` below with `node PATH_TO_PLUGIN_EVAL/scripts/plugin-eval.js`, using your own installed package path. The manifest calls `python`; if your Python 3.11+ executable has another name, update only that command's executable. Choose the exact report file emitted in the comparison output directory and analyze the same skill snapshot. `WQ_EVAL_REPORT` must be absolute because Plugin Eval starts the adapter from the manifest directory. From the repository root, on POSIX:
 
 ```sh
-WQ_EVAL_REPORT=.eval-runs/comparison-1/report.json plugin-eval analyze skills/concision --format json --metric-pack evaluation/benchmark_v2/automated/plugin_eval/manifest.json
-WQ_EVAL_REPORT=.eval-runs/comparison-1/report.json python evaluation/benchmark_v2/automated/metric_pack.py skills/concision skill
+WQ_EVAL_REPORT="$(pwd)/.eval-runs/comparison-1/report.json" plugin-eval analyze skills/concision --format json --metric-pack evaluation/benchmark_v2/automated/plugin_eval/manifest.json
+WQ_EVAL_REPORT="$(pwd)/.eval-runs/comparison-1/report.json" python evaluation/benchmark_v2/automated/metric_pack.py skills/concision skill
 ```
 
 In PowerShell:
 
 ```powershell
-$env:WQ_EVAL_REPORT = ".eval-runs/comparison-1/report.json"
+$env:WQ_EVAL_REPORT = (Resolve-Path '.eval-runs/comparison-1/report.json').Path
 plugin-eval analyze skills/concision --format json --metric-pack evaluation/benchmark_v2/automated/plugin_eval/manifest.json
 python evaluation/benchmark_v2/automated/metric_pack.py skills/concision skill
 ```
