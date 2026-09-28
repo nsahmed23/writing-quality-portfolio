@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "judges": [
+    {
+      "id": "codex-judge",
+      "family": "codex",
+      "command": ["python3", "codex_adapter.py"]
+    }
+  ],
+  "writer": {
+    "id": "codex-writer",
+    "family": "codex",
+    "command": ["python3", "codex_adapter.py"]
+  },
+  "optimizer": {
+    "id": "codex-optimizer",
+    "family": "codex",
+    "command": ["python3", "codex_adapter.py"]
+  },
+  "timeout_seconds": 120,
+  "max_calls": 200
+}
