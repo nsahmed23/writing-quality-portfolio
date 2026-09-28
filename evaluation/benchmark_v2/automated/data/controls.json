@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "name": "Public synthetic controls for software calibration",
+  "cases": [
+    {
+      "id": "edit-deadline-control",
+      "document_id": "cal-doc-1",
+      "split": "calibration",
+      "lane": "editing",
+      "prompt": "Revise this deadline preservation example without changing the intended factual target.",
+      "context": "Synthetic control topic: Deadline preservation.",
+      "a": "We will send the report on Thursday.",
+      "b": "We will send the report on Tuesday.",
+      "expected": "b",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "edit-fact-control",
+      "document_id": "cal-doc-1",
+      "split": "calibration",
+      "lane": "editing",
+      "prompt": "Revise this fact preservation example without changing the intended factual target.",
+      "context": "Synthetic control topic: Fact preservation.",
+      "a": "The study involved 80 people.",
+      "b": "The study involved 18 people.",
+      "expected": "a",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "edit-scope-control",
+      "document_id": "cal-doc-2",
+      "split": "calibration",
+      "lane": "editing",
+      "prompt": "Revise this scope preservation example without changing the intended factual target.",
+      "context": "Synthetic control topic: Scope preservation.",
+      "a": "This policy applies to all locations.",
+      "b": "This policy applies to the Chicago office.",
+      "expected": "b",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "edit-economy-control",
+      "document_id": "cal-doc-2",
+      "split": "calibration",
+      "lane": "editing",
+      "prompt": "Revise this economy example without changing the intended factual target.",
+      "context": "Synthetic control topic: Economy.",
+      "a": "At this point in time, we are currently considering the option of delaying.",
+      "b": "We are considering a delay.",
+      "expected": "b",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "comm-qualification-control",
+      "document_id": "cal-doc-3",
+      "split": "calibration",
+      "lane": "communication",
+      "prompt": "Revise this qualification preservation example without changing the intended factual target.",
+      "context": "Synthetic control topic: Qualification preservation.",
+      "a": "The result proves the treatment works for everyone.",
+      "b": "The early result suggests the treatment may help some people.",
+      "expected": "b",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "comm-action-control",
+      "document_id": "cal-doc-3",
+      "split": "calibration",
+      "lane": "communication",
+      "prompt": "Revise this action clarity example without changing the intended factual target.",
+      "context": "Synthetic control topic: Action clarity.",
+      "a": "Please make arrangements to provide your response at some point.",
+      "b": "Please reply by Friday at noon.",
+      "expected": "b",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "comm-padding-control",
+      "document_id": "cal-doc-4",
+      "split": "calibration",
+      "lane": "communication",
+      "prompt": "Revise this irrelevant padding example without changing the intended factual target.",
+      "context": "Synthetic control topic: Irrelevant padding.",
+      "a": "Thank you for your note. Before responding, I would like to take a moment to discuss the broad importance of thoughtful communication in professional contexts. The meeting is at noon.",
+      "b": "The meeting is at noon.",
+      "expected": "b",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "comm-unchanged-control",
+      "document_id": "cal-doc-4",
+      "split": "calibration",
+      "lane": "communication",
+      "prompt": "Revise this already effective example without changing the intended factual target.",
+      "context": "Synthetic control topic: Already effective.",
+      "a": "I can send the draft by 3 p.m.",
+      "b": "I can send the draft by 3 p.m.",
+      "expected": "tie",
+      "checks": {},
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "editing-test-1",
+      "document_id": "editing-test-doc-1",
+      "split": "test",
+      "lane": "editing",
+      "prompt": "Preserve date Monday in this synthetic editing example 1.",
+      "context": "The correct deadline is Monday.",
+      "a": "The deadline is tomorrow for item 1.",
+      "b": "The deadline is Monday for item 1.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Monday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "editing-test-2",
+      "document_id": "editing-test-doc-2",
+      "split": "test",
+      "lane": "editing",
+      "prompt": "Preserve date Tuesday in this synthetic editing example 2.",
+      "context": "The correct deadline is Tuesday.",
+      "a": "The deadline is tomorrow for item 2.",
+      "b": "The deadline is Tuesday for item 2.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Tuesday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "editing-test-3",
+      "document_id": "editing-test-doc-3",
+      "split": "test",
+      "lane": "editing",
+      "prompt": "Preserve date Wednesday in this synthetic editing example 3.",
+      "context": "The correct deadline is Wednesday.",
+      "a": "The deadline is tomorrow for item 3.",
+      "b": "The deadline is Wednesday for item 3.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Wednesday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "editing-test-4",
+      "document_id": "editing-test-doc-4",
+      "split": "test",
+      "lane": "editing",
+      "prompt": "Preserve date Thursday in this synthetic editing example 4.",
+      "context": "The correct deadline is Thursday.",
+      "a": "The deadline is tomorrow for item 4.",
+      "b": "The deadline is Thursday for item 4.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Thursday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "editing-test-5",
+      "document_id": "editing-test-doc-5",
+      "split": "test",
+      "lane": "editing",
+      "prompt": "Preserve date Friday in this synthetic editing example 5.",
+      "context": "The correct deadline is Friday.",
+      "a": "The deadline is tomorrow for item 5.",
+      "b": "The deadline is Friday for item 5.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Friday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "communication-test-1",
+      "document_id": "communication-test-doc-1",
+      "split": "test",
+      "lane": "communication",
+      "prompt": "Preserve date Monday in this synthetic communication example 1.",
+      "context": "The correct deadline is Monday.",
+      "a": "The deadline is tomorrow for item 1.",
+      "b": "The deadline is Monday for item 1.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Monday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "communication-test-2",
+      "document_id": "communication-test-doc-2",
+      "split": "test",
+      "lane": "communication",
+      "prompt": "Preserve date Tuesday in this synthetic communication example 2.",
+      "context": "The correct deadline is Tuesday.",
+      "a": "The deadline is tomorrow for item 2.",
+      "b": "The deadline is Tuesday for item 2.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Tuesday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "communication-test-3",
+      "document_id": "communication-test-doc-3",
+      "split": "test",
+      "lane": "communication",
+      "prompt": "Preserve date Wednesday in this synthetic communication example 3.",
+      "context": "The correct deadline is Wednesday.",
+      "a": "The deadline is tomorrow for item 3.",
+      "b": "The deadline is Wednesday for item 3.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Wednesday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "communication-test-4",
+      "document_id": "communication-test-doc-4",
+      "split": "test",
+      "lane": "communication",
+      "prompt": "Preserve date Thursday in this synthetic communication example 4.",
+      "context": "The correct deadline is Thursday.",
+      "a": "The deadline is tomorrow for item 4.",
+      "b": "The deadline is Thursday for item 4.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Thursday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    },
+    {
+      "id": "communication-test-5",
+      "document_id": "communication-test-doc-5",
+      "split": "test",
+      "lane": "communication",
+      "prompt": "Preserve date Friday in this synthetic communication example 5.",
+      "context": "The correct deadline is Friday.",
+      "a": "The deadline is tomorrow for item 5.",
+      "b": "The deadline is Friday for item 5.",
+      "expected": "b",
+      "checks": {
+        "required": [
+          "Friday"
+        ]
+      },
+      "provenance": {
+        "kind": "synthetic_control",
+        "source": "authored synthetic calibration/test fixture",
+        "license": "CC0-1.0",
+        "note": "Synthetic engineering control; not an expert quality label."
+      }
+    }
+  ]
+}
