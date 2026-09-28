@@ -32,21 +32,21 @@
 
 **Interfaces:** Implement the exact contracts.py/scoring.py functions and report keys from the spec. Task2 consumes these; Task3 consumes reports. Publish a tiny valid report example in the task report, not the source tree.
 
-- [ ] Write failing tests for schema validation, hidden answer leakage through split aliases, literal evidence, order reversal, incomplete/duplicate results, min controls, demo ineligibility, per-document intervals and candidate correctness gates.
-- [ ] Run focused tests and record expected failures before implementation.
-- [ ] Implement contracts, scoring and honest synthetic controls with distinct document groups. Keep load/parse and aggregation responsibilities separate.
-- [ ] Run focused tests, then all root tests once; record counts and commit only owned files.
+- [x] Write failing tests for schema validation, hidden answer leakage through split aliases, literal evidence, order reversal, incomplete/duplicate results, min controls, demo ineligibility, per-document intervals and candidate correctness gates.
+- [x] Run focused tests and record expected failures before implementation.
+- [x] Implement contracts, scoring and honest synthetic controls with distinct document groups. Keep load/parse and aggregation responsibilities separate.
+- [x] Run focused tests, then all root tests once; record counts and commit only owned files.
 
 ### Task 2: Unattended runner and bounded rubric refinement
 
-**Files:** Create evaluation/benchmark_v2/automated/{__main__.py,runner.py,adapters.py,optimize.py}, adapters/{codex_adapter.py,example-config.json}, tests/test_automated_runner.py.
+**Files:** Create evaluation/benchmark_v2/automated/{__main__.py,runner.py,adapters.py,optimize.py}, adapters/{codex_adapter.py,generic_json_adapter.py,example-config.json}, tests/test_automated_runner.py.
 
-**Interfaces:** Consume Task1's exact interfaces. Implement CLI/data contracts from spec. Provide a working codex CLI adapter that accepts JSON on stdin and extracts final JSON via a temporary output file; no shell or generated command execution. Other model CLIs use the documented generic JSON command contract; do not invent provider APIs. Demo works without external commands.
+**Interfaces:** Consume Task1's exact interfaces. Implement CLI/data contracts from spec. Provide a working codex CLI adapter that accepts JSON on stdin and extracts final JSON via a temporary output file; no shell or generated command execution. A small generic stdin/stdout CLI bridge lets other model CLIs use the documented JSON command contract; do not invent provider APIs. Demo works without external commands.
 
-- [ ] Write failing integration tests with a tiny local subprocess adapter for timeout/nonzero/malformed response handling, stdout/stderr/partial evidence retention, identity/label exclusion, budget-before-calls, existing-output refusal, skill snapshot hashes, calibration signatures and optimizer test-split exclusion.
-- [ ] Implement shell-free subprocess execution and artifact persistence; implement validate/demo/calibrate/compare/optimize with bounded calls and visible failures.
-- [ ] Ensure demo exercises incomplete judgments and always stays demo/ineligible. Build a usable CLI adapter and JSON example with clear executable configuration and explicit judge families.
-- [ ] Run focused tests and all root tests after Task1 is integrated into this worktree; commit only owned files with report.
+- [x] Write failing integration tests with a tiny local subprocess adapter for timeout/nonzero/malformed response handling, stdout/stderr/partial evidence retention, identity/label exclusion, budget-before-calls, existing-output refusal, skill snapshot hashes, calibration signatures and optimizer test-split exclusion.
+- [x] Implement shell-free subprocess execution and artifact persistence; implement validate/demo/calibrate/compare/optimize with bounded calls and visible failures.
+- [x] Ensure demo exercises incomplete judgments and always stays demo/ineligible. Build a usable CLI adapter and JSON example with clear executable configuration and explicit judge families.
+- [x] Run focused tests and all root tests after Task1 is integrated into this worktree; commit only owned files with report.
 
 ### Task 3: Plugin Eval adapter, reference examples and user documentation
 
@@ -54,17 +54,17 @@
 
 **Interfaces:** Consume common report contract and runner provenance: runner report must include `provenance` with `candidate_skill_sha256` (null for calibration/demo), `suite_sha256`, `rubric_sha256`, `config_sha256`, and `judge_signature` (sha256 over canonical list of judge id/family/command). Task2 must expose these exact keys. Metric pack compares candidate hash with target SKILL.md raw bytes; reports must be compare/live for any quality pass. Calibration/demo are informative only.
 
-- [ ] Inspect installed Plugin Eval metric-pack contract; create failing tests for missing report, invalid schema, stale skill hash, correct extension output and demo warning behavior.
-- [ ] Implement local-only metric adapter and manifest. Never initiate model work from analyze.
-- [ ] Retrieve a few explicitly reusable primary-source writing examples; record exact provenance and no winner labels. Keep them development-only and document limited genre coverage. Use primary license evidence. If retrieval is blocked, deliver schema/import recipe and report concern; no invented corpus.
-- [ ] Document exact runnable commands and no-human outcomes. Current status explicitly distinguishes automated proxy results from preserved historical protocol. No claim of observed live runs.
-- [ ] Run tests with temporary reports and commit owned changes with citations/source provenance in report.
+- [x] Inspect installed Plugin Eval metric-pack contract; create failing tests for missing report, invalid schema, stale skill hash, correct extension output and demo warning behavior.
+- [x] Implement local-only metric adapter and manifest. Never initiate model work from analyze.
+- [x] Retrieve a few explicitly reusable primary-source writing examples; record exact provenance and no winner labels. Keep them development-only and document limited genre coverage. Use primary license evidence. If retrieval is blocked, deliver schema/import recipe and report concern; no invented corpus.
+- [x] Document exact runnable commands and no-human outcomes. Current status explicitly distinguishes automated proxy results from preserved historical protocol. No claim of observed live runs.
+- [x] Run tests with temporary reports and commit owned changes with citations/source provenance in report.
 
 ### Task 4: Integration, independent review and delivery (controller)
 
 **Files:** Update .gitignore, CI, root MANIFEST.sha256; add actual verification note and delivery instructions.
 
-- [ ] Integrate each reviewed worker commit, resolve interfaces, and run installed Plugin Eval against a real demo report.
+- [x] Integrate each reviewed worker commit, resolve interfaces, and run installed Plugin Eval against a real demo report.
 - [ ] Independently review whole branch; fix important findings with regression tests.
 - [ ] Run root tests, legacy tests, portfolio validator, offline demo and both manifests. Compare historical/skill bytes against baseline.
 - [ ] Package source and full branch history; verify fresh clone and archive contents; save and return updated repo ZIP.
