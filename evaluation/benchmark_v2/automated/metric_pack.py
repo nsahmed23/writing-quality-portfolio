@@ -40,9 +40,21 @@ def _digest(value, name):
         raise InvalidEvidence(f"missing or invalid {name}")
 
 
+def _finite_tree(value):
+    if isinstance(value, float) and not math.isfinite(value):
+        raise InvalidEvidence("nonfinite report number")
+    if isinstance(value, dict):
+        for member in value.values():
+            _finite_tree(member)
+    elif isinstance(value, list):
+        for member in value:
+            _finite_tree(member)
+
+
 def _validate(report):
     if not isinstance(report, dict):
         raise InvalidEvidence("report must be an object")
+    _finite_tree(report)
     if type(report.get("schema_version")) is not int or report["schema_version"] != 1:
         raise InvalidEvidence("unsupported report schema_version")
     if report.get("evaluation_type") != "automated_proxy":

@@ -68,6 +68,11 @@ class MetricPackTests(unittest.TestCase):
         payload = self.invoke()
         self.assertEqual(payload["metrics"], [])
         self.assertTrue(all(c["status"] == "warn" for c in payload["checks"]))
+        self.report.write_text(json.dumps(self.report_value(by_lane={"editing": {
+            "documents": 6, "ci_lower": float("inf"), "recommendation": "candidate"}})), encoding="utf-8")
+        nonfinite = self.invoke()
+        self.assertEqual(nonfinite["metrics"], [])
+        self.assertTrue(all(c["status"] == "warn" for c in nonfinite["checks"]))
 
     def test_stale_skill_and_missing_provenance_are_warnings(self):
         for change in ({"provenance": {"candidate_skill_sha256": "0" * 64}},
