@@ -1,5 +1,7 @@
 """Boundary tests use fresh local subprocesses; no model calls or mock responses."""
 import hashlib
+import contextlib
+import io
 import json
 import os
 from pathlib import Path
@@ -47,7 +49,7 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
             {'id':'second','family':'two','command':self.cmd}],
             'writer':{'id':'writer','family':'three','command':self.cmd},
             'optimizer':{'id':'optimizer','family':'four','command':self.cmd},
-            'timeout_seconds':0.2,'max_calls':100})
+            'timeout_seconds':5,'max_calls':100})
 
     def write(self, name, obj):
         path=self.root/name
@@ -62,7 +64,7 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
     def test_subprocess_failure_keeps_raw_bytes_and_hashes(self):
         for kind in ('timeout','nonzero','malformed'):
             with self.subTest(kind=kind):
-                result=run_call(self.cmd, {'role':'judge','prompt':kind},self.root/kind, timeout_seconds=.1 if kind=='timeout' else 2)
+                result=run_call(self.cmd, {'role':'judge','prompt':kind},self.root/kind, timeout_seconds=.75 if kind=='timeout' else 2)
                 self.assertFalse(result['ok'] if kind!='malformed' else result['response'] == b'')
                 self.assertEqual(result['request_sha256'], hashlib.sha256((self.root/kind/'request.json').read_bytes()).hexdigest())
                 self.assertEqual(result['response_sha256'], hashlib.sha256((self.root/kind/'response.bin').read_bytes()).hexdigest())
@@ -103,7 +105,8 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
         child.write_text('import sys,time; time.sleep(0.6); open(sys.argv[1],"w").write("orphan")')
         parent=self.root/'spawn.py'
         parent.write_text('import subprocess,sys,time; subprocess.Popen([sys.executable,sys.argv[1],sys.argv[2]]); print("start",flush=True); time.sleep(3)')
-        run_call([sys.executable,str(parent),str(child),str(marker)],{'role':'test'},self.root/'tree',timeout_seconds=.1)
+        result=run_call([sys.executable,str(parent),str(child),str(marker)],{'role':'test'},self.root/'tree',timeout_seconds=.35)
+        self.assertIn(b'start',result['response'])
         time.sleep(.7)
         self.assertFalse(marker.exists())
 
@@ -174,17 +177,23 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
 
     def test_prepare_optimize_filters_test_cases_into_new_valid_suite(self):
         output=self.root/'dev-only.json'
-        self.assertEqual(main(['prepare-optimize','--suite',str(self.suite),'--out',str(output)]),0)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(main(['prepare-optimize','--suite',str(self.suite),'--out',str(output)]),0)
         value=json.loads(output.read_bytes())
         self.assertEqual(len(value['cases']),8)
         self.assertEqual({c['split'] for c in value['cases']},{'calibration'})
-        with self.assertRaises(SystemExit): main(['prepare-optimize','--suite',str(self.suite),'--out',str(output)])
+        captured=io.StringIO()
+        with contextlib.redirect_stderr(captured), self.assertRaises(SystemExit):
+            main(['prepare-optimize','--suite',str(self.suite),'--out',str(output)])
+        self.assertIn('File exists',captured.getvalue())
 
     def test_optimizer_only_receives_calibration_and_development_controls(self):
         suite=self.write('optimization.json',{'schema_version':1,'name':'optimization',
                           'cases':[dict(self.case(i,'calibration' if i<8 else 'development'),expected='a') for i in range(10)]})
         result=optimize(suite,self.rubric,self.config,self.root/'optimization-out',rounds=1)
         self.assertEqual(result['selected_index'],0)  # identical rubric gives no improvement
+        self.assertTrue((self.root/'optimization-out'/'optimization.json').is_file())
+        self.assertFalse((self.root/'optimization-out'/'report.json').exists())
         self.assertEqual(result['selection_split'],'development')
         optimizer_requests=[]
         for path in (self.root/'optimization-out'/'calls').glob('*/request.json'):

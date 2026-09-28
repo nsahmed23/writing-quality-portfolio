@@ -60,13 +60,13 @@ def optimize(suite_path,rubric_path,config_path,out,*,rounds=1):
     metric='development' if any(c['split']=='development' for c in controls) else 'calibration'
     selected=max(candidates,key=lambda c:(c['scores'][metric]['accuracy'] or 0, -c['index']))
     (out/'selected-rubric.json').write_bytes((out/selected['rubric_file']).read_bytes())
-    report={'schema_version':1,'evaluation_type':'automated_proxy','execution':'live','mode':'optimize',
-            'complete':state=='completed','eligible':False,'recommendation':'not_applicable',
+    report={'schema_version':1,'artifact_type':'rubric_optimization',
+            'complete':state=='completed',
             'state':state,'selected_index':selected['index'],'selection_split':metric,
             'candidates':[{'index':c['index'],'rubric_file':c['rubric_file'],'scores':c['scores']} for c in candidates],
             'provenance':_provenance(suite_path,rubric_path,config_path,config),
             'calls_used':budget.used,'max_calls':budget.limit,
             'message':'Selected rubric requires fresh live calibration before comparison.'}
     (out/'candidate-records.json').write_bytes(canonical_bytes(candidates)+b'\n')
-    (out/'report.json').write_bytes(canonical_bytes(report)+b'\n')
+    (out/'optimization.json').write_bytes(canonical_bytes(report)+b'\n')
     return report
