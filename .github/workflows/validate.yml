@@ -29,4 +29,7 @@ jobs:
       - run: python -m unittest discover -s evaluation/pilot/tests -t evaluation/pilot -p 'test_*.py'
         env:
           PYTHONPATH: evaluation/pilot/src
+          # Windows runners default TEMP to an 8.3 short path (RUNNER~1), which the pilot's input-alias check rejects.
+          TEMP: ${{ runner.temp }}
+          TMP: ${{ runner.temp }}
       - run: python scripts/verify_manifests.py
