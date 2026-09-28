@@ -67,4 +67,4 @@
 - [x] Integrate each reviewed worker commit, resolve interfaces, and run installed Plugin Eval against a real demo report.
 - [x] Independently review whole branch; fix important findings with regression tests.
 - [x] Run root tests, legacy tests, portfolio validator, offline demo and both manifests. Compare historical/skill bytes against baseline.
-- [ ] Package source and full branch history; verify fresh clone and archive contents; save and return updated repo ZIP.
+- [x] Package source and full branch history; verify fresh clone and archive contents; save and return updated repo ZIP.

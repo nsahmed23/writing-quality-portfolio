@@ -7,7 +7,7 @@ c8b36a4cd0284b62683861bffb464ea5471f27c19a5f1082ff2a327ea7eb27e1  ./.github/work
 172d97d38194a4c122ced1bdad643b8e6a841bb10e6c244c28f3b72aed9358f2  ./claim-to-source-ledger.csv
 4856127fb7c9f679950ca4a2eedcad8c1c1d9d44309eb3578172e8c1958dc816  ./conflict-ledger.md
 04f3111162509ddda165b8da7322ac549bea01fcb051f4c99cd6cd1ea805dfc9  ./defect-and-change-report.md
-53310be78cdc8b96040dd34c0e7fcc58ec05506c63797c35c940e225e2fcdf88  ./docs/superpowers/plans/2026-09-28-automated-writing-evals.md
+dc198e63ef15643786342098fff469bb72c8e0be7e580bc5a3d815ae126cd51b  ./docs/superpowers/plans/2026-09-28-automated-writing-evals.md
 fd1cfeb88f96eda041171153260d87554259d4a51a23bdecaad7e4444fa6b2db  ./docs/superpowers/plans/2026-09-28-writing-evaluation-forward.md
 43d3c2436d71eac18a01bbf059f75d4d456f151d3ff416882bd3be4dfeb3c716  ./docs/superpowers/specs/2026-09-28-automated-writing-evals-design.md
 390b3932fd462ef8f38ddb9f84afc5a0f06ad5a4b506329b9280ba0e155a007c  ./docs/superpowers/specs/2026-09-28-writing-evaluation-forward-design.md
@@ -2107,7 +2107,7 @@ b155651b708966c61a4f8ffdf2213b42d7830d9b2effcd8e52ea3a243972c9ad  ./evaluation/s
 11332fa0e2502484133604110d99ed7bf983ed52fddff5747319ab59e2cb3e35  ./evaluation/source-review/research_run/workstreams.csv
 7b90f935a908736eb9b35399fc4814d6784d3b45c7ef72885fe2a034b8fc3fff  ./evaluation/source-review/resume.md
 f4a29075a097e031e5d40f86808edcdc71dfac282c957ca16c6482f193e16b3d  ./evaluation/status/2026-09-28-automated-final-review.md
-4d0759cc4a430d8b8411e2163425602cb5226b1e7f3fa5a95b6ac51ffe4ba5f0  ./evaluation/status/2026-09-28-automated-verification.md
+b89f1596b2b64cc3f66266b9ab3b6ccd361ef8b0f92ca701d24a1b3b725c129c  ./evaluation/status/2026-09-28-automated-verification.md
 7626958dae14c5f56c79f00cb958241d52d75651ebc7c14fbb53b8f740d64846  ./evaluation/status/2026-09-28-delivery.md
 9238ac54303ef33d59df58691075ae16bcf2128a4debe6b5b286f5352150b633  ./evaluation/status/2026-09-28-final-review.md
 5af2650c532ccb91e34ae3dc945167c92c4a8da39f550cc070b2d18e7be303de  ./evaluation/status/2026-09-28-integration-verification.md
