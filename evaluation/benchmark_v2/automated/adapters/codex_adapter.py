@@ -56,7 +56,8 @@ def main(argv=None):
                 'Do not use tools, commands, files, or outside context. '
                 +role_instructions[role]+'\n'+raw.decode('utf-8'))
         with tempfile.TemporaryDirectory(prefix='wq-codex-') as work:
-            schema=Path(work)/'schema.json'; output=Path(work)/'last-message.json'
+            schema=Path(work)/'schema.json'
+            output=Path(os.environ.get('WQ_EVAL_FINAL_RESPONSE_FILE') or Path(work)/'last-message.json')
             schema.write_text(json.dumps(SCHEMAS[role]),encoding='utf-8')
             command=[args.codex,'--ask-for-approval','never','exec','--sandbox','read-only',
                      '--skip-git-repo-check','--ephemeral','--output-schema',str(schema),
@@ -65,9 +66,11 @@ def main(argv=None):
             command.append('-')
             result=subprocess.run(command,input=prompt.encode('utf-8'),stdout=sys.stderr.buffer,
                                   stderr=sys.stderr.buffer,cwd=work,check=False)
-            if result.returncode:
-                return result.returncode
-            sys.stdout.buffer.write(output.read_bytes())
+            if output.is_file():
+                sys.stdout.buffer.write(output.read_bytes())
+            elif result.returncode == 0:
+                raise OSError('Codex produced no final response file')
+            return result.returncode
     except (OSError,ValueError,KeyError,UnicodeError) as exc:
         print(f'codex adapter error: {exc}',file=sys.stderr)
         return 2

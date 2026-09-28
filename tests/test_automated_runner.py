@@ -88,6 +88,53 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
         self.assertEqual(json.loads(result['response'])['winner'],'A')
         self.assertNotIn(b'progress',result['response'])
 
+    def test_codex_adapter_retains_final_file_after_provider_nonzero_exit(self):
+        fake=self.root/'failed-codex.py'
+        fake.write_text('''#!/usr/bin/env python3
+import sys
+from pathlib import Path
+argv=sys.argv[1:]
+Path(argv[argv.index('--output-last-message')+1]).write_bytes(b'first-response-before-failure\\x00')
+print('provider progress',flush=True)
+sys.exit(7)
+''',encoding='utf-8')
+        fake.chmod(0o755)
+        wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
+        destination=self.root/'codex-nonzero'
+        result=run_call([sys.executable,str(wrapper),'--codex',str(fake)],
+                        {'role':'judge','prompt':'inspect'},destination,timeout_seconds=3)
+        self.assertFalse(result['ok'])
+        self.assertEqual(result['returncode'],7)
+        self.assertEqual(result['response'],b'first-response-before-failure\x00')
+        self.assertEqual((destination/'response.bin').read_bytes(),result['response'])
+        self.assertEqual(result['response_sha256'],hashlib.sha256(result['response']).hexdigest())
+        self.assertIn(b'provider progress',(destination/'stderr.bin').read_bytes())
+        self.assertEqual((destination/'adapter-stdout.bin').read_bytes(),result['response'])
+        self.assertEqual(result['adapter_stdout_sha256'],hashlib.sha256((destination/'adapter-stdout.bin').read_bytes()).hexdigest())
+
+    def test_codex_adapter_retains_final_file_after_process_tree_timeout(self):
+        fake=self.root/'sleeping-codex.py'
+        fake.write_text('''#!/usr/bin/env python3
+import sys,time
+from pathlib import Path
+argv=sys.argv[1:]
+Path(argv[argv.index('--output-last-message')+1]).write_bytes(b'partial-first-response\\xff')
+print('provider started',flush=True)
+time.sleep(3)
+''',encoding='utf-8')
+        fake.chmod(0o755)
+        wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
+        destination=self.root/'codex-timeout'
+        result=run_call([sys.executable,str(wrapper),'--codex',str(fake)],
+                        {'role':'judge','prompt':'inspect'},destination,timeout_seconds=.8)
+        self.assertFalse(result['ok'])
+        self.assertEqual(result['error'],'timeout')
+        self.assertEqual(result['response'],b'partial-first-response\xff')
+        self.assertEqual((destination/'response.bin').read_bytes(),result['response'])
+        self.assertEqual(result['response_sha256'],hashlib.sha256(result['response']).hexdigest())
+        self.assertIn(b'provider started',(destination/'stderr.bin').read_bytes())
+        self.assertEqual(result['adapter_stdout_sha256'],hashlib.sha256((destination/'adapter-stdout.bin').read_bytes()).hexdigest())
+
 
 
     def test_codex_judge_schema_requires_every_evidence_field(self):

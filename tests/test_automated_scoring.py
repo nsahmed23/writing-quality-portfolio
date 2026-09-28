@@ -107,6 +107,28 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_suite(value)
 
+    def test_same_split_copies_cannot_inflate_independent_documents(self):
+        for split, copies in (("calibration", 4), ("test", 5)):
+            with self.subTest(split=split):
+                original = case("first", "source-document", split,
+                                expected="b" if split == "calibration" else None)
+                aliases = []
+                for index in range(1, copies):
+                    alias = copy.deepcopy(original)
+                    alias.update(id=f"copy-{index}", document_id=f"false-document-{index}",
+                                 prompt="  Revise   document source-document  ",
+                                 a=original["b"], b=original["a"])
+                    aliases.append(alias)
+                with self.assertRaisesRegex(ValueError, "copied pair"):
+                    validate_suite({"schema_version": 1, "name": "copies",
+                                    "cases": [original, *aliases]})
+
+                # Repetitions of the same input remain one statistical document.
+                for alias in aliases:
+                    alias["document_id"] = original["document_id"]
+                validate_suite({"schema_version": 1, "name": "repetitions",
+                                "cases": [original, *aliases]})
+
     def test_suite_split_alias_cannot_hide_behind_intermediate_same_split_copy(self):
         value = suite()
         original = value["cases"][0]

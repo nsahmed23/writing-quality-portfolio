@@ -79,12 +79,14 @@ def run_call(command, request, directory, *, timeout_seconds=120):
     directory.mkdir(parents=True,exist_ok=False)
     raw=canonical_bytes(request)
     (directory/'request.json').write_bytes(raw)
+    response_file=(directory/'provider-response.bin').resolve()
     start=time.monotonic()
     response=b''; stderr=b''; returncode=None; error=None
     try:
         with tempfile.TemporaryDirectory(prefix='wq-call-') as work:
             try:
                 proc=subprocess.Popen(command,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=work,shell=False,
+                                      env={**os.environ,'WQ_EVAL_FINAL_RESPONSE_FILE':str(response_file)},
                                       start_new_session=(os.name=='posix'),
                                       creationflags=(subprocess.CREATE_NEW_PROCESS_GROUP if os.name=='nt' else 0))
                 try:
@@ -107,10 +109,23 @@ def run_call(command, request, directory, *, timeout_seconds=120):
             except OSError as exc:
                 error=f'launch_error: {exc}'
     finally:
+        # A file emitted by an adapter survives termination of its process group.
+        # When present it is the provider response; stdout remains the fallback
+        # for generic adapters and for failures before the provider wrote a file.
+        if response_file.is_file():
+            # Keep the original stdout distinct when the sidecar takes priority.
+            (directory/'adapter-stdout.bin').write_bytes(response)
+            adapter_stdout_sha256=digest(response)
+            response=response_file.read_bytes()
+            response_file.unlink()
+        else:
+            adapter_stdout_sha256=None
         elapsed=time.monotonic()-start
         (directory/'response.bin').write_bytes(response)
         (directory/'stderr.bin').write_bytes(stderr)
         meta={'request_sha256':digest(raw),'response_sha256':digest(response),'stderr_sha256':digest(stderr),
               'returncode':returncode,'elapsed_seconds':elapsed,'error':error}
+        if adapter_stdout_sha256 is not None:
+            meta['adapter_stdout_sha256']=adapter_stdout_sha256
         (directory/'metadata.json').write_bytes(canonical_bytes(meta)+b'\n')
     return {'ok':error is None and returncode==0,'response':response,'stderr':stderr,**meta}

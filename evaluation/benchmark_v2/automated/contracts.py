@@ -99,9 +99,9 @@ def validate_suite(value) -> dict:
             raise ValueError("document reused across splits")
         document_splits[doc] = case["split"]
         fingerprint = _fingerprint(case)
-        if fingerprint in fingerprints and fingerprints[fingerprint][0] != case["split"] and fingerprints[fingerprint][1] != doc:
-            raise ValueError("copied pair assigned across splits under another document id")
-        fingerprints[fingerprint] = case["split"], doc
+        if fingerprint in fingerprints and fingerprints[fingerprint] != doc:
+            raise ValueError("copied pair assigned to another document id")
+        fingerprints[fingerprint] = doc
         checks = case["checks"]
         _object(checks, (), ("required", "forbidden", "max_words", "exact"), label="checks")
         for key in ("required", "forbidden"):
