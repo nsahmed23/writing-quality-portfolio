@@ -1,6 +1,6 @@
 # Evaluation integration verification — 2026-09-28
 
-**Status:** independent arithmetic recount complete; final integration integrity and CI status reserved for the integration controller's update. This entry records a computational audit by a delegated agent, not human adjudication and not a new model trial.
+**Status:** local integration verification complete; remote CI has not yet been observed. This entry records a computational audit by a delegated agent, not human adjudication and not a new model trial.
 
 ## Source and preservation boundary
 
@@ -59,6 +59,32 @@ The 84 unreachable-code predictions break down as `causal_overclaim` 46, `synony
 
 These results agree with the numerical claims checked in `evaluation/docs/benchmark-validity-erratum.md`. The 33 normalized files are accepted as the preserved valid-run set for recount; the script does not independently revalidate the three omitted raw runs. The count does not establish which disputed labels are correct, whether a model exploited the ID leak, whether overlap is a valid replacement score, or general comparative system performance. No human adjudication was performed here.
 
-## Final integration status
+## Integrated verification observed by the controller
 
-Pending the integration controller's separately recorded verification and CI result. This entry does not close that gate.
+Environment: Linux, CPython 3.12.14. Commands ran on the integrated source with the quote-ingestion locality fix included. No new model calls were made.
+
+| Check | Command / method | Observed result |
+|---|---|---|
+| Portfolio contract | `python scripts/validate_portfolio.py` | Pass: 7 skills, 252 principles, 84 skill fixtures, 44 portfolio fixtures, communication companion 8 evals |
+| New integrity and benchmark tests | `python -m unittest discover -s tests -p 'test_*.py'` from root | 28 ran; 28 passed; zero failures or skips |
+| Historical evaluator | `PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests` from `evaluation/pilot` | 198 ran; 187 passed, 11 Windows-only skips; zero failures (11.549 seconds) |
+| Root regeneration | `python scripts/verify_manifests.py --write-root` | Root regenerated from tracked file bytes; historical nested manifest unchanged |
+| Integrity and exact coverage | `python scripts/verify_manifests.py` | Both manifest scopes pass |
+| Independent arithmetic | `python evaluation/status/recount_pilot.py` | All counts in the table above reproduced |
+| README example | Executed the offline example block from `evaluation/benchmark_v2/README.md` at repository root | All assertions pass; one valid finding accepted and one missing anchor rejected |
+| Existing main bytes | Compared every original main file except intentionally edited README/root manifest against pinned Git blob IDs | 1,690 checked; zero differences |
+| Historical evaluation bytes | Compared every evaluation path from review tip `ac6d52e` against pinned Git blob IDs | 476 checked; zero differences |
+| New local links and whitespace | Checked documentation link file targets; `git diff --check` | Pass |
+
+The preservation comparison recomputed Git blob object IDs from working-tree bytes (`sha1(b"blob " + byte_length + b"\0" + contents)`) and compared them to `git ls-tree -r` at the pinned source commits. This proves byte equality to those Git objects; it does not independently authenticate authorship.
+
+Task review found and closed two issues: missing command provenance for the initial Linux run, and a whole-response depth check that discarded valid findings beside a malformed finding. The latter has a failing-then-passing regression test. The task reviewers approved the resulting scoped changes. Final whole-branch review and remote results are recorded in the pull request.
+
+## Remote execution and remaining limits
+
+The committed CI workflow defines four environments: Linux and Windows, each with Python 3.11 and 3.14. These local results do not claim any of those remote matrix runs passed. Read the pull request checks for their observed status.
+
+The recount script is a descriptive audit utility: it displays discovered input counts rather than serving as a missing-input acceptance gate. Run manifest verification first when assessing a new checkout. The committed verifier checks frozen input coverage and hashes. Hashes detect drift; they do not authenticate source authors or validate gold labels.
+
+This milestone supplies deterministic quote anchoring and finding ingestion only. Human gold, calibration, opportunity floors, numeric quality thresholds, fresh holdout and actual model execution provenance remain pending. Stage 2 stays locked.
+

@@ -1,10 +1,14 @@
 d23c19e886635f6590152c90701419e76c75c1128ba9752d73c9717af5274acb  ./.codex-plugin/plugin.json
+64520a88a09d2351a02cae0ee9996a4bf8706d6267f531073bcf5919d5efce4c  ./.gitattributes
+aa3a1b3eb29e7421413de97e5e6d71260aeaeff8f97c668d69540e1ca378a0f9  ./.github/workflows/validate.yml
 c81ad9cbf06e1013230b4be1fa239bd44bcfcd46e6958d9d5efd2eda46d4f00d  ./.gitignore
-e134e2deca1ec3ee8783a1e6f98623e79a85d0c15d17b8e3873fc85e14c97984  ./README.md
+ecf6c2eb4e50f29f023d9f252b8e8c486f95b5d9e015acab0176dfe998d378e1  ./README.md
 9105de76348f96ba25f9f8067f86c9f31e0828797f76c31a7a12da94672690b8  ./RESEARCH_REPORT.md
 172d97d38194a4c122ced1bdad643b8e6a841bb10e6c244c28f3b72aed9358f2  ./claim-to-source-ledger.csv
 4856127fb7c9f679950ca4a2eedcad8c1c1d9d44309eb3578172e8c1958dc816  ./conflict-ledger.md
 04f3111162509ddda165b8da7322ac549bea01fcb051f4c99cd6cd1ea805dfc9  ./defect-and-change-report.md
+3cb0a0dcbc722deac53626fe9ac0cbd0242c6e4f5ee381b3092b88da24fe84b5  ./docs/superpowers/plans/2026-09-28-writing-evaluation-forward.md
+390b3932fd462ef8f38ddb9f84afc5a0f06ad5a4b506329b9280ba0e155a007c  ./docs/superpowers/specs/2026-09-28-writing-evaluation-forward-design.md
 069fb1a0730b91b9d01880c8d7ddd98829c0cc652f6b7aa781269ae7e1dc47ec  ./evals/communication/apply_vault_update.py
 c5ed7c8572ee9effe72945bb42ae080e3c9590b990a63e39b039ec8078c56049  ./evals/communication/build_iter2.py
 b29c848713749550bf5b6cf8e6b87cf74415afbb209225c1f8bcc6cbe333dc87  ./evals/communication/build_iter3.py
@@ -1611,6 +1615,10 @@ e98e34af70d1c9c2b7350daf84f4fba5465722a697e6443386d5b1db48d0250d  ./evaluation/C
 dc0d893330e04a1a0053b3b51cff6b262fe49f34f767b2be1e602c7fb5a5152b  ./evaluation/MANIFEST.sha256
 8f0c2c64a15914edf76db5455d9637092395335417a7879766f9adbd6170a84f  ./evaluation/README.md
 21007f4f264b2d70d3841a4024fcf033b61aa27dbcb6a286aad2adb75d6ada9a  ./evaluation/THIRD_PARTY_BOUNDARY.md
+f084e3e0c5286a968cd5220f63436d5abe26c3e6b880f772109efd798ce2b5a5  ./evaluation/benchmark_v2/README.md
+45676c4fb28851288c882cd61132f52d3225d8b98210d1368a678d006d407738  ./evaluation/benchmark_v2/__init__.py
+9a5be6edfa425a16983e6b42d4273e7df77d3b8b9a5fee94e9f8ccdf41450a5a  ./evaluation/benchmark_v2/anchors.py
+26bad626d096549c4cc4a0af0773d3eda4382529e81d95de13b028d7e4ae6c99  ./evaluation/benchmark_v2/ingest.py
 f4a099f74aa97d36cc34f835626f5c73e262ffbcca43caac7b84c41b7a61e817  ./evaluation/docs/benchmark-validity-erratum.md
 14c6106f5077b10837376d92565e68cae1ef9b1942f19dd51638568f7d5bf3fa  ./evaluation/docs/evaluation-plan.md
 34cf5776c3b9ee2c41b9ebb102f56d0a9155d82e6693e950d73211cd0ceaccf2  ./evaluation/docs/human-review-gate-hardening-record.md
@@ -2080,6 +2088,10 @@ b155651b708966c61a4f8ffdf2213b42d7830d9b2effcd8e52ea3a243972c9ad  ./evaluation/s
 4983aac2ea9123f6a48d075a2a36dd5ae12abc891daf9d17dc5c70003d6477e0  ./evaluation/source-review/research_run/worker_returns/WS-006.yaml
 11332fa0e2502484133604110d99ed7bf983ed52fddff5747319ab59e2cb3e35  ./evaluation/source-review/research_run/workstreams.csv
 7b90f935a908736eb9b35399fc4814d6784d3b45c7ef72885fe2a034b8fc3fff  ./evaluation/source-review/resume.md
+ee7763314ddb58983761a4dfd284228951423f06c85b579c43d295e8d7a1a87e  ./evaluation/status/2026-09-28-integration-verification.md
+286b588872bbc43e837f41c71b31e0ee1206e32cb7cd734bd62ab7061a4a20f4  ./evaluation/status/README.md
+6a90756adf522e01cbd9129cf35709a3550117a3badaa52d2d785b4bfbca150f  ./evaluation/status/benchmark-v2-readiness.md
+8c2a34c8defca8230a234e338f1021bc1e7e95998feec9b5fb61028f2bca2a7e  ./evaluation/status/recount_pilot.py
 dfec570a4744df8d61db438de56523bc3615013c63b0f3f33b2ff908dc1a8203  ./examples/before-and-after.md
 8b10244dcdedfb05673fe2b97e457909343b034b1ab683e27a21cf1a91a6fb75  ./glossary.md
 e4b35080f394931aaf8f424b6ac7f158751d85dc1c0d16805096900edaefcb71  ./negative-control/strunk-white-exclusion-dossier.md
@@ -2087,8 +2099,10 @@ e4b35080f394931aaf8f424b6ac7f158751d85dc1c0d16805096900edaefcb71  ./negative-con
 6333c0dcb901d72df4c4b450d8295b4cb2453f3b4892b663d7db3a656d3fc04d  ./portfolio-routing.md
 f8ac192de89fde7dd48f48c55a900f5e19b18467e85036203ac701449616c533  ./principle-registry.csv
 1c9bda2bfd568232134b3c18af8eede9e41f5caef7144c6745d70618a286a165  ./principle-registry.json
+424bfc94aadcc86666b29263977f2a9b2c6fec022c6ef0bfe2f55f30ab66d01a  ./requirements-validation.txt
 be0b6f510f4b555fd39002a5855e0794b756d84a79e11c5715e201d521ec2b30  ./scripts/generate_ledgers.py
 2cea67c70b9eafae00fa68202a09f4a05f62d87bb657231d60010fdf5675b1c2  ./scripts/validate_portfolio.py
+85e7a3bf46404ec253e2adcf2ddc27d23cfb34025d2ae323339461aeb28fffee  ./scripts/verify_manifests.py
 c421bc34c499d05a931ce0d40b97120b6c829eed575bfbd7a9c2b6e8dc6c26a2  ./skills/cohesion-emphasis/SKILL.md
 a613260a5543e7342f990c8b537f6cb62abb20c7e5879a870078cf488a0cce5b  ./skills/cohesion-emphasis/agents/openai.yaml
 49315dda7125ec5fc77ef5f2b96126d8b2121c6e72944b4702972e90f321d3ee  ./skills/cohesion-emphasis/assets/icon.svg
@@ -2163,5 +2177,7 @@ fb8546fd663a9a60e603a5b791450d27e362380c6df930c61f7d5fa152070cbe  ./source-manif
 b9720c0d185275252cbfafd5286031d631fd84b3dd24c0a802ba4c0a73668a46  ./source-map.md
 5dab22ed3a18b4a249e48e600ed7f9bd9108b9b70f1d869120cc941b30d0206e  ./tests/end-to-end-fixtures.md
 821639d94b06770b955e9e4bba177d39e4d5ed2f82ecc25820eb7c719af0b95f  ./tests/portfolio-fixtures.yaml
+8451620639d81b8e1822fe4c4d384f07dfe31af4bd8273ef2911e948fd6f78f2  ./tests/test_benchmark_v2.py
+94cbcd8f373341496f193d7ef0d37d4a75645f9180662c3085439f6b9256cd4d  ./tests/test_verify_manifests.py
 58485af2c6ac12125fb21349493b338830c78e61551686ccae037b120a8ee730  ./trigger-matrix.csv
 9b2dd30051eae50e1680db24a63f65fc345ee40b944f27512de8ffb8139bc84e  ./validation-results.md
