@@ -38,11 +38,11 @@ There is no `elements-of-style` or generic `writing-editor` skill.
 - `negative-control/strunk-white-exclusion-dossier.md` — rule-level exclusion.
 - `defect-and-change-report.md` — baseline audit, semantic diff, change IDs, consequences, tests, and residual uncertainty.
 - `MANIFEST.sha256` — integrity hashes for every other packaged file.
-- [Current evaluation status](evaluation/status/README.md): start here for the integrated audit, verification record, offline benchmark-v2 foundation, and pending human review. The editing pilot in `evaluation/` and reply-shape experiments in `evals/communication/` are separate evidence streams.
+- [Current evaluation status](evaluation/status/README.md): start here for the integrated audit, verification record, offline benchmark-v2 foundation, and the separate [automated writing comparison](evaluation/benchmark_v2/automated/README.md). The editing pilot in `evaluation/` and reply-shape experiments in `evals/communication/` are separate evidence streams.
 
 ## Completeness label
 
-The skills package is artifact-complete and build-ready. This describes the packaged artifacts; benchmark v2 is development-only, has no quality-readiness verdict, and does not unlock Stage 2. It is **not full-corpus-exhaustive** for copyrighted books that were not lawfully accessible. The completion statement does not convert TOCs, reviews, snippets, or previews into full-text inspection. See Part XIV and the access ledger for the exact acceptance results.
+The skills package is artifact-complete and build-ready. This describes the packaged artifacts; benchmark v2's diagnostic foundation is development-only, has no quality-readiness verdict, and does not unlock Stage 2. The new automated writing protocol can produce only a bounded model-judge proxy comparison after live calibration; no live quality result is claimed here and it does not fulfill the historical human-review protocol. No human evaluation is needed to run or resolve the new protocol: missing evidence is inconclusive. The package is **not full-corpus-exhaustive** for copyrighted books that were not lawfully accessible. The completion statement does not convert TOCs, reviews, snippets, or previews into full-text inspection. See Part XIV and the access ledger for the exact acceptance results.
 
 ## Package form
 

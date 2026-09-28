@@ -2,6 +2,8 @@
 
 **Status: development-only. Not ready for a sealed benchmark or a quality verdict. Stage 2 remains locked.**
 
+This page records the earlier **diagnostic** benchmark proposal and its still-unmet historical human-review prerequisites. The separate [automated writing comparison](../benchmark_v2/automated/README.md) follows a new `automated_proxy` protocol: it needs no human grading, returns inconclusive automatically when gates fail, and does not claim to complete this diagnostic proposal or unlock Stage 2. Public starter material and demos are development/software evidence only.
+
 The [foundation](../benchmark_v2/README.md) implements exact quote resolution, strict JSON ingestion, per-finding rejection, exact-duplicate rejection, and deterministic case-text and raw-response hashes. It has no provider integration, model runner, scorer, taxonomy mapper, router, arbitration layer, or benchmark-readiness gate. Ingestion acceptance means a finding is structurally valid and its quote resolves; it does not mean a human accepts the diagnosis.
 
 ## Pending prerequisites

@@ -1,6 +1,6 @@
 # Current evaluation status
 
-The reviewed editing-pilot audit is integrated alongside the later communication work. The audit withdraws comparative ranking claims from the editing pilot. The new benchmark-v2 foundation resolves literal quote anchors and ingests diagnostic JSON offline; it does not evaluate diagnostic quality or establish readiness for a sealed benchmark. Stage 2 remains locked.
+The reviewed editing-pilot audit is integrated alongside the later communication work. The audit withdraws comparative ranking claims from the editing pilot. The benchmark-v2 diagnostic foundation resolves literal quote anchors and ingests diagnostic JSON offline; it does not evaluate diagnostic quality or establish readiness for a sealed benchmark. The new [automated writing comparison](../benchmark_v2/automated/README.md) is a separate `automated_proxy` protocol that can run without human grading; no live judge/model quality run is claimed here. Stage 2 under the archived pilot remains locked.
 
 ## Two evidence streams
 
@@ -9,14 +9,15 @@ The reviewed editing-pilot audit is integrated alongside the later communication
 | [`evaluation/pilot/`](../pilot/) and the audit documents | How the seven editing skills and comparison surfaces detected writing defects under the original wrapper. The corpus is now development-only; leaked identifiers, provisional gold and compound scoring prevent reliable ranking. |
 | [`evals/communication/`](../../evals/communication/) | How a separate communication skill affected reply shape, preservation and model-judge preferences. Iteration 4 compared three arms; iteration 5 checked targeted v5 repairs. These small experiments do not supply human gold or validation for the editing pilot. |
 | [`evaluation/benchmark_v2/`](../benchmark_v2/README.md) | New deterministic development code for anchors and response ingestion. Its accepted findings satisfy the input contract; acceptance is not a judgment that a diagnosis is correct. |
+| [`evaluation/benchmark_v2/automated/`](../benchmark_v2/automated/README.md) | Separate unattended writer/judge comparison with synthetic calibration controls, public unlabeled references, and a Plugin Eval extension. Demo output is a software smoke check; quality recommendations require matching live calibrated evidence. It neither completes nor depends on the historical human-review protocol. |
 
 ## Read order and document authority
 
 1. Read the [benchmark-validity erratum](../docs/benchmark-validity-erratum.md) before interpreting the [original provisional report](../docs/stage1-provisional-report.md). The erratum supersedes the report's interpretation; the original report remains historical evidence.
 2. Read the [first Claude review](../CLAUDE_REVIEW.md), [Codex response](../CODEX_RESPONSE_TO_CLAUDE.md), and [second Claude review](../CLAUDE_REVIEW_2.md). These preserve the review sequence, including the corrected count of 84 unreachable-code predictions and the distinction between reported and observed test results.
-3. Read the [reoptimization proposal](../docs/reoptimization-proposal.md) for the broader design, then [v2 readiness and next steps](benchmark-v2-readiness.md) for its current implementation boundary. The historical proposal's implementation status is not updated in place.
+3. Read the [reoptimization proposal](../docs/reoptimization-proposal.md) for the broader historical diagnostic design, then [v2 readiness and next steps](benchmark-v2-readiness.md) for that protocol's boundary. Read [automated comparison usage](../benchmark_v2/automated/README.md) separately; it does not inherit the earlier protocol's human prerequisites. The historical proposal's implementation status is not updated in place.
 4. Read the [integration verification record](2026-09-28-integration-verification.md) for current commands, environment, independent recount and preservation checks. Historical test counts describe their recorded environments; they are not new test results or remote CI results.
-5. Run the [offline foundation example](../benchmark_v2/README.md#offline-example). For the separate communication evidence, begin with its [eval summary](../../skills/communication/references/eval-summary.md), [iteration-4 report](../../evals/communication/iteration-4/report.md), and [iteration-5 report](../../evals/communication/iteration-5/report.md).
+5. Run the [offline foundation example](../benchmark_v2/README.md#offline-example) and, if useful, the [no-key automated demo](../benchmark_v2/automated/README.md). For the separate communication evidence, begin with its [eval summary](../../skills/communication/references/eval-summary.md), [iteration-4 report](../../evals/communication/iteration-4/report.md), and [iteration-5 report](../../evals/communication/iteration-5/report.md).
 
 The existing [evaluation README](../README.md) remains the historical audit-bundle entry point. Existing files under `evaluation/`, including the pilot, review records, source investigation and checkpoints, retain their reviewed bytes. Current navigation and development status live here.
 
