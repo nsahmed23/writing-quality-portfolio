@@ -1,0 +1,18 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "job_sha256": "46219a3150e0c6f1959a3657d13e68bfa43a03331f53032149f71fca7d33abc5",
+  "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+  "normalized_receipt": {
+    "byte_count": 36777,
+    "relative_path": "stage1-kami-anti-patterns-run-01.jsonl",
+    "sha256": "06f94761b464d4436611f641013a499322cefaf66f8d662bbeb9e9469bb70205"
+  },
+  "raw_receipt": {
+    "byte_count": 38279,
+    "relative_path": "stage1-kami-anti-patterns-run-01.jsonl",
+    "sha256": "e33dbfdf809b189d3bc45ea82db85c6cd681d4b8fc4c3226c3425a9d4e3039ec"
+  },
+  "record_count": 72,
+  "status": "valid"
+}

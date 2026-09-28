@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "00_scope",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "recorded_at": "2026-08-26T02:19:51Z",
+  "status": "complete",
+  "user_approval": "explicit plan-and-execute request",
+  "profile": "Audit",
+  "portfolio_baseline": "74a282108da2a620542556fa001ebcdde0c9be85",
+  "source_count": 9,
+  "network_policy": "offline",
+  "portfolio_mutation": false,
+  "github_push": false,
+  "human_review_status": "PENDING_REAL_HUMANS"
+}

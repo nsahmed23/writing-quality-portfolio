@@ -1,0 +1,62 @@
+{
+  "checkpoint": "04-feedback-publication-readiness",
+  "date": "2026-08-26",
+  "branch": "codex/claude-review-feedback",
+  "base_commit": "5d1f2b4cf83c54b5b70e5d10f16a85cbc07b9ba4",
+  "status": "ready_for_independent_review_and_publication",
+  "tests": {
+    "portfolio_validator": {
+      "result": "pass",
+      "skills": 7,
+      "skill_fixtures": 84,
+      "portfolio_fixtures": 44
+    },
+    "python_3_11": {
+      "result": "pass",
+      "tests": 198,
+      "skipped": 2
+    },
+    "python_3_14": {
+      "result": "pass",
+      "tests": 198,
+      "skipped": 2
+    }
+  },
+  "integrity": {
+    "root_manifest_entries": 560,
+    "evaluation_manifest_entries": 473,
+    "format_errors": 0,
+    "path_errors": 0,
+    "duplicate_entries": 0,
+    "missing_entries": 0,
+    "extra_entries": 0,
+    "hash_mismatches": 0,
+    "sort_order": "StringComparer.Ordinal"
+  },
+  "preservation": {
+    "pilot_files_byte_identical": "419/419",
+    "source_review_files_byte_identical": "35/35",
+    "preserved_tree_git_differences": 0
+  },
+  "publication_hygiene": {
+    "json_files_parsed": 176,
+    "jsonl_files_parsed": 178,
+    "jsonl_records_parsed": 9861,
+    "json_parse_errors": 0,
+    "markdown_files_checked": 88,
+    "local_markdown_links_checked": 24,
+    "unresolved_local_links": 0,
+    "nested_git_directories": 0,
+    "reparse_points": 0,
+    "cache_bytecode_or_coverage_artifacts": 0,
+    "credential_or_private_key_findings": 0,
+    "changed_file_trailing_whitespace_lines": 0,
+    "new_unintentional_em_dashes": 0
+  },
+  "review_artifact_exception": "evaluation/CLAUDE_REVIEW.md preserves the supplied Claude review verbatim, including its superseded 80-count wording and original punctuation.",
+  "next": [
+    "Obtain the independent final code-review verdict",
+    "Commit and push the feedback branch",
+    "Open and verify a draft pull request into codex/evaluation-audit-bundle"
+  ]
+}

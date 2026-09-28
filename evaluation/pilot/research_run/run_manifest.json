@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "skill_name": "auditable-deep-research",
+  "skill_version": "1.0.1",
+  "created_at": "2026-08-26T02:19:51Z",
+  "updated_at": "2026-08-26T02:19:51Z",
+  "profile": "Audit",
+  "planning_policy": "user-approved",
+  "status": "active",
+  "artifact_root": "research_run/final_artifacts"
+}

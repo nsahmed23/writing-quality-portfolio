@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "05_adapters_frozen",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "recorded_at": "2026-08-26T04:30:11Z",
+  "status": "sealed_jobs_frozen_generation_pending",
+  "candidate_count": 12,
+  "hashes": {
+    "prompt_manifest_sha256": "ce6edc80b761ed4deef52bcc388e68216187ab7cb04991ea72309c4754407f27",
+    "systems_manifest_sha256": "232331cd080ecbfc57b80b97d1880ccec562bc318725bfb73fe43f1ad6c63dbc",
+    "common_envelope_sha256": "228765ea46b0639134ff4abad92fd817ca8b96905b20d096b4fe7572eed2e251",
+    "public_problem_vocabulary_sha256": "c7cbfb2006d0cc01d3b47e22416cdd3da52fd9d87748ba2b97420b3c18464c9a",
+    "run_config_sha256": "b23f1e835de9aec4df7d1a2769d07aacb7dcedaaccca005864571d2b9fb0efab",
+    "thresholds_sha256": "999af2af659efe9be367210b8e7c76d4f31c08032e282b75cff493339bda0ceb",
+    "corpus_freeze_manifest_sha256": "a583433921a732140b53de300506775fef29a729024909c910d0fe3dde9a2197",
+    "development_jobs_manifest_sha256": "62127cba0f50c329d5fee8b04f6675b61c80b32e8a69ff67ea4acaf506f28e67",
+    "sealed_jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+    "sealed_execution_order_sha256": "525f1f8dccc6e7f4ad9610d8cdc5e452b355d5119db900ce618c4eb45be52a94"
+  },
+  "development_jobs": 12,
+  "development_case_assignments": 216,
+  "development_valid_runs": 12,
+  "development_invalid_runs": 0,
+  "sealed_jobs": 36,
+  "sealed_case_assignments": 2592,
+  "sealed_runs_per_system": 3,
+  "gold_leaks": 0,
+  "evaluator_private_native_map_sent_to_generators": false,
+  "all_source_artifacts_verified": true,
+  "retired_batches": [
+    "runs/stage1-dev-v1",
+    "runs/stage1-dev-v2"
+  ]
+}

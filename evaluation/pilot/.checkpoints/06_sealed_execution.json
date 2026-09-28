@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "sealed_execution_and_integrity_hardening",
+  "recorded_at_utc": "2026-08-26T05:51:56.5853596Z",
+  "sealed_jobs": {
+    "expected": 36,
+    "ingested": 22,
+    "valid": 20,
+    "invalid": 2,
+    "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+    "execution_order_sha256": "525f1f8dccc6e7f4ad9610d8cdc5e452b355d5119db900ce618c4eb45be52a94"
+  },
+  "human_gate": {
+    "meaning_consistency_enforced": true,
+    "system_self_review_rejected": true,
+    "gold_case_completeness_enforced": true,
+    "required_reviewers": 2,
+    "required_adjudicators": 1,
+    "stage2_locked": true
+  },
+  "tests": {
+    "command": "py -3.11 -X utf8 -m unittest discover -s tests -v",
+    "passed": 159,
+    "skipped": 2,
+    "failed": 1,
+    "errors": 2,
+    "note": "Two unrelated test-fixture expectations were corrected and pass focused reruns. One publication error remains in the active filesystem-hardening workstream; a fresh full-suite run is pending that fix."
+  },
+  "blocking_findings": [
+    "Windows path-based publication race",
+    "job-tree parent-junction containment",
+    "output exact-set race and execution-order binding",
+    "caller-selected gold and unbound gate metrics",
+    "reordered repeated-run panel comparison",
+    "evidence-overwrite output path",
+    "case-complete blinded human-review packet publication"
+  ],
+  "status": "PILOT_UNADJUDICATED"
+}

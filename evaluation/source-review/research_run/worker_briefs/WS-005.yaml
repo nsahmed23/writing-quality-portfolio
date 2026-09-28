@@ -1,0 +1,28 @@
+agent_id: AG-005
+workstream_id: WS-005
+role: portfolio-gap-mapper
+assignment_mode: distinct
+overlap_with_workstream_ids: [WS-001, WS-002, WS-003, WS-004]
+replication_rationale: "Independent comparison is useful because source workers describe repositories while this worker tests novelty against the seven local contracts."
+do_not_repeat_query_ids: [Q-001, Q-002, Q-003, Q-004, Q-005]
+do_not_repeat_source_ids: []
+recovery_of_agent_id: ""
+objective: "Determine which source mechanisms are already covered, partially covered, genuinely missing, or incompatible with the seven published portfolio skills."
+scope_in:
+  - "S-010 at work/writing-quality-portfolio/skills and portfolio-pass-order.md"
+  - "Key SKILL, evaluation, preservation, and anti-pattern files in S-001 through S-009"
+scope_out:
+  - "Network access"
+  - "Executing repository code or installing dependencies"
+  - "Editing any file except worker_returns/WS-005.yaml"
+  - "Final prioritization or portfolio implementation"
+known_claim_ids: [C-501, C-502, C-503, C-504, C-505]
+required_source_classes: [P2]
+allowed_capabilities: [local-read-only-shell, apply-patch-for-assigned-return]
+required_outputs: [sources, evidence, claims, contradictions, unknowns, calculations, targeted_followups]
+completion_criteria:
+  - "Produce a compact mapping across all seven local skills."
+  - "Separate existing coverage, extension opportunities, genuinely new bounded skills, and rejected conflicts."
+  - "Use exact repo-relative path and line ranges for each material comparison."
+  - "Treat repeated rules from derivative repositories as one idea family, not independent votes."
+  - "Save valid worker-return-template YAML to worker_returns/WS-005.yaml using evidence IDs E-501 through E-549 and claim IDs C-501 through C-549."

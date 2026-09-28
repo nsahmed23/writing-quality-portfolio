@@ -1,0 +1,18 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "job_sha256": "581980dbba4a841ec1a445941d73b88edaa8020edc1a22c355bc7ef8915c9e44",
+  "jobs_manifest_sha256": "62127cba0f50c329d5fee8b04f6675b61c80b32e8a69ff67ea4acaf506f28e67",
+  "normalized_receipt": {
+    "byte_count": 13490,
+    "relative_path": "stage1-no-ai-slop-run-01.jsonl",
+    "sha256": "1a9453cec5287bb5fa17420f3f7419757fbd965a454e3c95bb4e6c5811a08c22"
+  },
+  "raw_receipt": {
+    "byte_count": 13388,
+    "relative_path": "stage1-no-ai-slop-run-01.jsonl",
+    "sha256": "e7c9635ae38e6b1a52f5b99b052132becce92b99ca4fe0126d02694d73dc1ed7"
+  },
+  "record_count": 18,
+  "status": "valid"
+}

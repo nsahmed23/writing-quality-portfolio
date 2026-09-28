@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0",
+  "frozen": true,
+  "common_envelope": {
+    "path": "systems/common-envelope.md",
+    "sha256": "228765ea46b0639134ff4abad92fd817ca8b96905b20d096b4fe7572eed2e251"
+  },
+  "systems": [
+    {
+      "system_id": "portfolio-current",
+      "family": "current_portfolio",
+      "display_name": "Current seven-skill portfolio",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_specialist_editing_contracts",
+      "commit": "74a282108da2a620542556fa001ebcdde0c9be85",
+      "source_files": [
+        {"path": "work/writing-quality-portfolio/portfolio-routing.md", "sha256": "44f546940d544452ae666fd6e5f2dd0f359312d7071cef3a7a3bd0bef042eb87"},
+        {"path": "work/writing-quality-portfolio/portfolio-pass-order.md", "sha256": "3033d363129293ce628edbd2f2c769a53eaccf7a50a1ba32aa98c30c5bcc59ef"},
+        {"path": "work/writing-quality-portfolio/skills/cohesion-emphasis/SKILL.md", "sha256": "c421bc34c499d05a931ce0d40b97120b6c829eed575bfbd7a9c2b6e8dc6c26a2"},
+        {"path": "work/writing-quality-portfolio/skills/concision/SKILL.md", "sha256": "a4eb676f7da339b92aa3b0e07aca51ec11e023e10d1f2535dba4b20bb09c2b74"},
+        {"path": "work/writing-quality-portfolio/skills/doc-typing/SKILL.md", "sha256": "8fea398593e6aff914a9c7ac1f6a3aadbda7f83cec0972f2b9266df5edde0883"},
+        {"path": "work/writing-quality-portfolio/skills/memo-structure/SKILL.md", "sha256": "1e4b4965487e262856208b265228bdf3b4ec1d67947a6298c8961e500dda6437"},
+        {"path": "work/writing-quality-portfolio/skills/sentence-clarity/SKILL.md", "sha256": "2e3456249f7157b8223b1939091b2ba5d4de04b4b1e63ad2a222ba3b8a5c6469"},
+        {"path": "work/writing-quality-portfolio/skills/sentence-variety/SKILL.md", "sha256": "6290a0b68a166bb1ae077890867e668e13c40958ec69fd84ca8ebacf6c952be9"},
+        {"path": "work/writing-quality-portfolio/skills/usage-adjudicator/SKILL.md", "sha256": "0dc3ff4396ace1d942ba3e3fde944df7d017cc15eae6816babbc821efd1e9dfd"}
+      ]
+    },
+    {
+      "system_id": "soundshuman",
+      "family": "external_authored",
+      "display_name": "soundshuman",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_rewrite_skill",
+      "commit": "a45cfbba9fde843d670e553a0aa98f6a23d7fb28",
+      "source_files": [{"path": "work/research-writing-repos/sources/soundshuman/SKILL.md", "sha256": "a234d5f625fba1d522ddb74071b151c035a0b3ed362511cd70f2171446a926d6"}]
+    },
+    {
+      "system_id": "stop-slop",
+      "family": "external_authored",
+      "display_name": "stop-slop",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_rewrite_skill",
+      "commit": "8da1f030185bdfe8471220585162991eaeb970e9",
+      "source_files": [{"path": "work/research-writing-repos/sources/stop-slop/SKILL.md", "sha256": "c19e33a1b83aab5078e1d5895cdfd232e87199414212db952dceeaa276b91470"}]
+    },
+    {
+      "system_id": "no-ai-slop",
+      "family": "external_authored",
+      "display_name": "no-ai-slop detect-only",
+      "fidelity_class": "F1",
+      "diagnostic_status": "native_detect_only_mode",
+      "commit": "d30eddb9e04562234f2070b5ee63ca4649d9a05e",
+      "source_files": [{"path": "work/research-writing-repos/sources/no-ai-slop/skills/no-ai-slop/SKILL.md", "sha256": "6a7183964fbf2960430f59c30f22f416b7e7e494bd1ad15768e67b256d3f34a1"}]
+    },
+    {
+      "system_id": "humanizer",
+      "family": "external_authored",
+      "display_name": "humanizer",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_rewrite_skill",
+      "commit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "source_files": [{"path": "work/research-writing-repos/sources/humanizer/SKILL.md", "sha256": "5fd504ab8c910a4e59418fae143f6f7c6928822ffedf45fb525a9b3bb8d7a83b"}]
+    },
+    {
+      "system_id": "slopbeth",
+      "family": "external_authored",
+      "display_name": "Slopkit Slopbeth",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_authored_skill",
+      "commit": "b33718bb9283c11b09567dc714f92d90ffb7bd16",
+      "source_files": [{"path": "work/research-writing-repos/sources/slopkit/skills/slopbeth/SKILL.md", "sha256": "7c574a147efd6f6e7f00d0d9b2eb4b34e17cf250560033d3d4d74f4d21cf1fa0"}]
+    },
+    {
+      "system_id": "slopgent",
+      "family": "external_authored",
+      "display_name": "Slopkit Slopgent",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_authored_generation_skill",
+      "commit": "b33718bb9283c11b09567dc714f92d90ffb7bd16",
+      "source_files": [{"path": "work/research-writing-repos/sources/slopkit/skills/slopgent/SKILL.md", "sha256": "ae4c1f9f33a165c89c83f3909f8163b260d96f7767d9553c15d12974b94fb476"}]
+    },
+    {
+      "system_id": "anti-ai-slop-writing",
+      "family": "external_authored",
+      "display_name": "anti-ai-slop-writing",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_rewrite_skill",
+      "commit": "63255f9bbb75a265dc5786a04535cd033f487756",
+      "source_files": [{"path": "work/research-writing-repos/sources/anti-ai-slop-writing/skills/anti-ai-slop-writing/SKILL.md", "sha256": "94f6224ad76c87da96884c46cc086a35add8e86851a7aaddab732929d0c05321"}]
+    },
+    {
+      "system_id": "avoid-ai-writing",
+      "family": "external_authored",
+      "display_name": "avoid-ai-writing diagnostic skill",
+      "fidelity_class": "F1",
+      "diagnostic_status": "native_diagnostic_mode_authorship_labels_excluded",
+      "commit": "40328bd292bc682d46010a6f9ac2cdbf4fb4ceca",
+      "source_files": [{"path": "work/research-writing-repos/sources/avoid-ai-writing/SKILL.md", "sha256": "06bfeeec1891a2eb24cd1dd39c885e0304a72bbbdab86666469e2f65c81cdc47"}]
+    },
+    {
+      "system_id": "kami-anti-patterns",
+      "family": "external_authored",
+      "display_name": "Kami anti-patterns",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_reference_material",
+      "commit": "68c1dfad6e757047357efdcf13269ec6e820f899",
+      "source_files": [{"path": "work/research-writing-repos/sources/Kami/references/anti-patterns.md", "sha256": "88806a55dfcf6f743365986d7bccf45303133996fb177033cfeab51b966db5c3"}]
+    },
+    {
+      "system_id": "kami-writing",
+      "family": "external_authored",
+      "display_name": "Kami writing guidance",
+      "fidelity_class": "F2",
+      "diagnostic_status": "projection_from_reference_material",
+      "commit": "68c1dfad6e757047357efdcf13269ec6e820f899",
+      "source_files": [{"path": "work/research-writing-repos/sources/Kami/references/writing.md", "sha256": "0161156b43b35b467bd9755c1c1f92785d32b359451d0f7df61d991ac2030b1f"}]
+    },
+    {
+      "system_id": "normalized-union",
+      "family": "normalized_union",
+      "display_name": "Normalized detect-only union",
+      "fidelity_class": "NATIVE_EVAL",
+      "diagnostic_status": "original_contextual_detect_only_candidate",
+      "commit": null,
+      "source_files": [{"path": "systems/normalized-union.md", "sha256": "5c1eeffff36fee14cb3137c352e4d4ac543f9a5e84fbe8204e5c0834720f8f7a"}]
+    }
+  ]
+}

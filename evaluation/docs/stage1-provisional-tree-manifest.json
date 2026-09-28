@@ -1,0 +1,14 @@
+{
+  "files": [
+    {
+      "bytes": 1632076,
+      "path": "reports/stage1-provisional-report.json",
+      "sha256": "2959e43b1c2a4f6fd640b549fdd1ec15def5c8dd78548dd554f00e93b02eb49e"
+    }
+  ],
+  "manifest_scope": "all files except this tree-manifest.json",
+  "materialization_phase": "provisional_report_only",
+  "schema_version": "1.0",
+  "scoring_protocol_amendment_sha256": "2091c6bf01a0570bbb6fe6c497242d95cbffa67140e936f2b8d2b4d2220974ff",
+  "status": "PILOT_UNADJUDICATED"
+}
