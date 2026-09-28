@@ -2088,7 +2088,7 @@ b155651b708966c61a4f8ffdf2213b42d7830d9b2effcd8e52ea3a243972c9ad  ./evaluation/s
 4983aac2ea9123f6a48d075a2a36dd5ae12abc891daf9d17dc5c70003d6477e0  ./evaluation/source-review/research_run/worker_returns/WS-006.yaml
 11332fa0e2502484133604110d99ed7bf983ed52fddff5747319ab59e2cb3e35  ./evaluation/source-review/research_run/workstreams.csv
 7b90f935a908736eb9b35399fc4814d6784d3b45c7ef72885fe2a034b8fc3fff  ./evaluation/source-review/resume.md
-ee7763314ddb58983761a4dfd284228951423f06c85b579c43d295e8d7a1a87e  ./evaluation/status/2026-09-28-integration-verification.md
+5af2650c532ccb91e34ae3dc945167c92c4a8da39f550cc070b2d18e7be303de  ./evaluation/status/2026-09-28-integration-verification.md
 286b588872bbc43e837f41c71b31e0ee1206e32cb7cd734bd62ab7061a4a20f4  ./evaluation/status/README.md
 6a90756adf522e01cbd9129cf35709a3550117a3badaa52d2d785b4bfbca150f  ./evaluation/status/benchmark-v2-readiness.md
 8c2a34c8defca8230a234e338f1021bc1e7e95998feec9b5fb61028f2bca2a7e  ./evaluation/status/recount_pilot.py

@@ -87,4 +87,3 @@ The committed CI workflow defines four environments: Linux and Windows, each wit
 The recount script is a descriptive audit utility: it displays discovered input counts rather than serving as a missing-input acceptance gate. Run manifest verification first when assessing a new checkout. The committed verifier checks frozen input coverage and hashes. Hashes detect drift; they do not authenticate source authors or validate gold labels.
 
 This milestone supplies deterministic quote anchoring and finding ingestion only. Human gold, calibration, opportunity floors, numeric quality thresholds, fresh holdout and actual model execution provenance remain pending. Stage 2 stays locked.
-
