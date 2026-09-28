@@ -47,7 +47,7 @@ class MetricPackTests(unittest.TestCase):
         env.pop("WQ_EVAL_REPORT", None)
         if report:
             env["WQ_EVAL_REPORT"] = str(self.report)
-        command = [sys.executable if part == "python3" else part for part in manifest["command"]]
+        command = [sys.executable if part == "python" else part for part in manifest["command"]]
         result = subprocess.run(command + [str(self.skill), "skill"], cwd=MANIFEST.parent,
                                 env=env, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -103,12 +103,30 @@ class MetricPackTests(unittest.TestCase):
         self.assertEqual(payload["metrics"], [])
 
     def test_failed_gate_cannot_pass_even_if_recommendation_claims_candidate(self):
+        for failed_id in ("coverage", "candidate_checks", "calibration_certificate"):
+            with self.subTest(failed_id=failed_id):
+                self.report.write_text(json.dumps(self.report_value(
+                    by_lane={"editing": {"documents": 6, "ci_lower": 0.2,
+                                         "recommendation": "candidate"}},
+                    checks=[{"id": failed_id, "passed": False, "message": "gate failed"}])),
+                    encoding="utf-8")
+                payload = self.invoke()
+                self.assertTrue(all(c["status"] == "warn" for c in payload["checks"]))
+
+    def test_baseline_failure_does_not_veto_eligible_candidate(self):
         self.report.write_text(json.dumps(self.report_value(
-            by_lane={"editing": {"documents": 6, "ci_lower": 0.2,
+            by_lane={"editing": {"cases": 7, "documents": 6, "mean": 0.6,
+                                 "ci_lower": 0.2, "ci_upper": 0.8,
                                  "recommendation": "candidate"}},
-            checks=[{"id": "coverage", "passed": False, "message": "incomplete"}])), encoding="utf-8")
+            checks=[{"id": "coverage", "passed": True, "message": "complete"},
+                    {"id": "candidate_checks", "passed": True, "message": "candidate preserved facts"},
+                    {"id": "baseline_checks", "passed": False, "message": "baseline omitted a fact"}])),
+            encoding="utf-8")
         payload = self.invoke()
-        self.assertTrue(all(c["status"] == "warn" for c in payload["checks"]))
+        status = {c["id"]: c["status"] for c in payload["checks"]}
+        self.assertEqual(status["wq-automated-evidence"], "pass")
+        self.assertEqual(status["wq-automated-baseline_checks"], "warn")
+        self.assertEqual(status["wq-automated-candidate_checks"], "pass")
 
     def test_reference_text_hashes_and_unlabeled_split(self):
         path = ROOT / "evaluation/benchmark_v2/automated/data/references.json"
