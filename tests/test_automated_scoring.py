@@ -55,6 +55,45 @@ class ContractTests(unittest.TestCase):
         self.assertTrue(all(c["provenance"]["kind"] == "synthetic_control" for c in value["cases"]))
         self.assertEqual(load_rubric(DATA / "rubric.json")["schema_version"], 1)
 
+    def test_calibration_pairs_have_visible_source_truth_and_shared_documents(self):
+        controls = [c for c in load_suite(DATA / "controls.json")["cases"]
+                    if c["split"] == "calibration"]
+        by_id = {c["id"]: c for c in controls}
+        source_requirements = {
+            "edit-deadline-control": ("Tuesday", "Tuesday", "Thursday", "b"),
+            "edit-fact-control": ("80 people", "80 people", "18 people", "a"),
+            "edit-scope-control": ("Chicago office", "Chicago office", "all locations", "b"),
+            "edit-economy-control": ("considering a delay", "considering a delay", "At this point in time", "b"),
+            "comm-qualification-control": ("may help some people", "may help some people", "proves", "b"),
+            "comm-action-control": ("Friday at noon", "Friday at noon", "at some point", "b"),
+            "comm-padding-control": ("meeting is at noon", "meeting is at noon", "broad importance", "b"),
+            "comm-unchanged-control": ("draft by 3 p.m.", "draft by 3 p.m.", "", "tie"),
+        }
+        self.assertEqual(set(by_id), set(source_requirements))
+        for case_id, (source_fact, correct_text, faulty_text, expected) in source_requirements.items():
+            c = by_id[case_id]
+            with self.subTest(case_id=case_id):
+                self.assertIn(source_fact, c["context"])
+                self.assertEqual(c["expected"], expected)
+                if expected == "tie":
+                    self.assertEqual(c["a"], c["b"])
+                    self.assertIn(correct_text, c["a"])
+                else:
+                    preferred = c[expected]
+                    rejected = c["a" if expected == "b" else "b"]
+                    self.assertIn(correct_text, preferred)
+                    self.assertIn(faulty_text, rejected)
+                    self.assertIn("preserve", c["prompt"].lower())
+        groups = {}
+        for c in controls:
+            groups.setdefault(c["document_id"], []).append(c)
+        self.assertEqual(len(groups), 4)
+        for members in groups.values():
+            self.assertEqual(len(members), 2)
+            self.assertEqual(len({c["context"] for c in members}), 1)
+            self.assertTrue(all(c["provenance"]["note"] == members[0]["provenance"]["note"]
+                                for c in members))
+
     def test_strict_json_rejects_duplicate_keys_nonfinite_and_invalid_unicode(self):
         for raw in (b'{"a":1,"a":2}', b'{"a":NaN}', b'"\\ud800"', b'\xff'):
             with self.subTest(raw=raw), self.assertRaises(ValueError):
@@ -130,6 +169,18 @@ class JudgmentTests(unittest.TestCase):
         self.assertFalse(parse_judgment(("prefix " + json.dumps(raw)).encode(),
                                         "repeat repeat", "other")["valid"])
 
+    def test_explicit_occurrence_must_be_positive_integer(self):
+        raw = {"winner": "tie", "reason": "same", "evidence": [
+            {"candidate": "A", "quote": "unique", "occurrence": 1}]}
+        for invalid in (None, True, False, 0, -1, 1.5):
+            with self.subTest(occurrence=invalid):
+                raw["evidence"][0]["occurrence"] = invalid
+                self.assertFalse(parse_judgment(json.dumps(raw).encode(),
+                                                "unique", "other")["valid"])
+        raw["evidence"][0]["occurrence"] = 1
+        self.assertTrue(parse_judgment(json.dumps(raw).encode(),
+                                       "unique", "other")["valid"])
+
     def test_literal_candidate_checks_fail_independently(self):
         checks = {"required": ["Friday"], "forbidden": ["Tuesday"], "max_words": 4,
                   "exact": "Send Friday."}
@@ -161,6 +212,18 @@ class ReportTests(unittest.TestCase):
         unexpected = build_report(value, records, JUDGES, mode="calibrate")
         self.assertFalse(unexpected["complete"])
         self.assertEqual(unexpected["counts"]["unexpected_records"], 1)
+
+    def test_unhashable_record_keys_are_invalid_incomplete_not_exceptions(self):
+        value = suite()
+        records = records_for(value)
+        for malformed in ([], {}, {"nested": "id"}):
+            with self.subTest(malformed=malformed):
+                broken = [dict(r) for r in records]
+                broken[0]["case_id"] = malformed
+                report = build_report(value, broken, JUDGES, mode="calibrate")
+                self.assertFalse(report["complete"])
+                self.assertFalse(report["eligible"])
+                self.assertGreater(report["counts"]["invalid_records"], 0)
 
     def test_order_disagreement_and_bad_judge_are_visible_and_disqualifying(self):
         value = suite()

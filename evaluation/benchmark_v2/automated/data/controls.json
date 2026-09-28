@@ -7,8 +7,8 @@
       "document_id": "cal-doc-1",
       "split": "calibration",
       "lane": "editing",
-      "prompt": "Revise this deadline preservation example without changing the intended factual target.",
-      "context": "Synthetic control topic: Deadline preservation.",
+      "prompt": "Revise the project update sentence; preserve the source document deadline exactly.",
+      "context": "SOURCE DOCUMENT — research project update: The study involved 80 people. We will send the report on Tuesday. These are confirmed details in the same project update.",
       "a": "We will send the report on Thursday.",
       "b": "We will send the report on Tuesday.",
       "expected": "b",
@@ -17,7 +17,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic research project update; paired edits draw on the same source document."
       }
     },
     {
@@ -25,8 +25,8 @@
       "document_id": "cal-doc-1",
       "split": "calibration",
       "lane": "editing",
-      "prompt": "Revise this fact preservation example without changing the intended factual target.",
-      "context": "Synthetic control topic: Fact preservation.",
+      "prompt": "Revise the project update sentence; preserve the source document participant count exactly.",
+      "context": "SOURCE DOCUMENT — research project update: The study involved 80 people. We will send the report on Tuesday. These are confirmed details in the same project update.",
       "a": "The study involved 80 people.",
       "b": "The study involved 18 people.",
       "expected": "a",
@@ -35,7 +35,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic research project update; paired edits draw on the same source document."
       }
     },
     {
@@ -43,8 +43,8 @@
       "document_id": "cal-doc-2",
       "split": "calibration",
       "lane": "editing",
-      "prompt": "Revise this scope preservation example without changing the intended factual target.",
-      "context": "Synthetic control topic: Scope preservation.",
+      "prompt": "Revise the policy notice sentence; preserve its actual office scope from the source document.",
+      "context": "SOURCE DOCUMENT — Chicago policy status: This policy applies to the Chicago office. We are considering a delay. The scope and tentative schedule belong to the same status notice.",
       "a": "This policy applies to all locations.",
       "b": "This policy applies to the Chicago office.",
       "expected": "b",
@@ -53,7 +53,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic Chicago policy notice; paired edits draw on the same source document."
       }
     },
     {
@@ -61,8 +61,8 @@
       "document_id": "cal-doc-2",
       "split": "calibration",
       "lane": "editing",
-      "prompt": "Revise this economy example without changing the intended factual target.",
-      "context": "Synthetic control topic: Economy.",
+      "prompt": "Revise the policy notice sentence; preserve its tentative schedule while removing redundant phrases.",
+      "context": "SOURCE DOCUMENT — Chicago policy status: This policy applies to the Chicago office. We are considering a delay. The scope and tentative schedule belong to the same status notice.",
       "a": "At this point in time, we are currently considering the option of delaying.",
       "b": "We are considering a delay.",
       "expected": "b",
@@ -71,7 +71,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic Chicago policy notice; paired edits draw on the same source document."
       }
     },
     {
@@ -79,8 +79,8 @@
       "document_id": "cal-doc-3",
       "split": "calibration",
       "lane": "communication",
-      "prompt": "Revise this qualification preservation example without changing the intended factual target.",
-      "context": "Synthetic control topic: Qualification preservation.",
+      "prompt": "Revise the collaborator note sentence; preserve the source document uncertainty and limited population.",
+      "context": "SOURCE DOCUMENT — trial collaborator note: The early result suggests the treatment may help some people. Please reply by Friday at noon. This is one cautious collaborator update.",
       "a": "The result proves the treatment works for everyone.",
       "b": "The early result suggests the treatment may help some people.",
       "expected": "b",
@@ -89,7 +89,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic trial collaborator note; paired edits draw on the same source document."
       }
     },
     {
@@ -97,8 +97,8 @@
       "document_id": "cal-doc-3",
       "split": "calibration",
       "lane": "communication",
-      "prompt": "Revise this action clarity example without changing the intended factual target.",
-      "context": "Synthetic control topic: Action clarity.",
+      "prompt": "Revise the collaborator request sentence; preserve the source document reply deadline and make the action clear.",
+      "context": "SOURCE DOCUMENT — trial collaborator note: The early result suggests the treatment may help some people. Please reply by Friday at noon. This is one cautious collaborator update.",
       "a": "Please make arrangements to provide your response at some point.",
       "b": "Please reply by Friday at noon.",
       "expected": "b",
@@ -107,7 +107,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic trial collaborator note; paired edits draw on the same source document."
       }
     },
     {
@@ -115,8 +115,8 @@
       "document_id": "cal-doc-4",
       "split": "calibration",
       "lane": "communication",
-      "prompt": "Revise this irrelevant padding example without changing the intended factual target.",
-      "context": "Synthetic control topic: Irrelevant padding.",
+      "prompt": "Revise the team update sentence; preserve the meeting time and remove unrelated introductory padding.",
+      "context": "SOURCE DOCUMENT — team meeting and draft update: The meeting is at noon. I can send the draft by 3 p.m. The recipient only needs these two clear logistics.",
       "a": "Thank you for your note. Before responding, I would like to take a moment to discuss the broad importance of thoughtful communication in professional contexts. The meeting is at noon.",
       "b": "The meeting is at noon.",
       "expected": "b",
@@ -125,7 +125,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic team logistics update; paired edits draw on the same source document."
       }
     },
     {
@@ -133,8 +133,8 @@
       "document_id": "cal-doc-4",
       "split": "calibration",
       "lane": "communication",
-      "prompt": "Revise this already effective example without changing the intended factual target.",
-      "context": "Synthetic control topic: Already effective.",
+      "prompt": "Preserve the already clear draft-availability sentence from the source document; do not add content.",
+      "context": "SOURCE DOCUMENT — team meeting and draft update: The meeting is at noon. I can send the draft by 3 p.m. The recipient only needs these two clear logistics.",
       "a": "I can send the draft by 3 p.m.",
       "b": "I can send the draft by 3 p.m.",
       "expected": "tie",
@@ -143,7 +143,7 @@
         "kind": "synthetic_control",
         "source": "authored synthetic calibration/test fixture",
         "license": "CC0-1.0",
-        "note": "Synthetic engineering control; not an expert quality label."
+        "note": "Synthetic team logistics update; paired edits draw on the same source document."
       }
     },
     {

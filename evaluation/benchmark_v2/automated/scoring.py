@@ -56,6 +56,8 @@ def parse_judgment(raw: bytes, a: str, b: str) -> dict:
             quote = item["quote"]
             if not isinstance(quote, str) or not quote:
                 raise ValueError("empty evidence quote")
+            if "occurrence" in item and (type(item["occurrence"]) is not int or item["occurrence"] < 1):
+                raise ValueError("evidence occurrence must be a positive integer")
             resolve_anchor(a if candidate == "A" else b, quote,
                            occurrence=item.get("occurrence"))
             candidates.add(candidate)
@@ -108,6 +110,10 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
             invalid += 1
             continue
         key = (record.get("case_id"), record.get("judge_id"), record.get("order"))
+        if (not isinstance(key[0], str) or not isinstance(key[1], str) or
+                type(key[2]) is not int or key[2] not in (1, 2)):
+            invalid += 1
+            continue
         if key not in keys:
             unexpected += 1
             continue
