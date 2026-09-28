@@ -84,7 +84,7 @@
 - [x] Review each implementation task for spec compliance and quality; fix important findings with scoped re-review.
 - [x] Stage final tracked files, regenerate only the root manifest, and verify both scopes.
 - [x] Run portfolio validation, all new tests, and the frozen evaluator suite; report exact pass/skip counts.
-- [ ] Independently review the whole change including preservation and readiness language.
+- [x] Independently review the whole change including preservation and readiness language.
 - [ ] Push the new branch and create a draft PR; record remote CI outcomes only when observed.
 
 ## Self-review
