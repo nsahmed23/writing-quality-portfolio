@@ -8,7 +8,7 @@ Environment: Linux, Python 3.12.14, Node 24.19.0. Commands below ran from the re
 
 | Check | Observed result |
 |---|---|
-| `python -m unittest discover -s tests -p 'test_*.py' -q` | 80 tests passed in 42.857 seconds, including the existing 28 tests and 52 automated-evaluator tests. |
+| `python -m unittest discover -s tests -p 'test_*.py' -q` | 83 tests passed in 43.976 seconds at code commit `2a4948c`, including the existing 28 tests and 55 automated-evaluator tests. |
 | Legacy suite, from `evaluation/pilot`: `PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests` | 198 tests ran: 187 passed and 11 Windows-specific tests skipped. Historical code was unchanged throughout this update. |
 | `python scripts/validate_portfolio.py` | Passed: 252 principles, seven editing skills, 84 skill fixtures, 44 portfolio fixtures, and the separate communication skill with eight evals. |
 | `python -m evaluation.benchmark_v2.automated validate --suite evaluation/benchmark_v2/automated/data/controls.json --rubric evaluation/benchmark_v2/automated/data/rubric.json` | 18 cases and six criteria validated. |
@@ -20,7 +20,7 @@ Environment: Linux, Python 3.12.14, Node 24.19.0. Commands below ran from the re
 
 The runner tests use real local subprocess fixtures to check exit failures, malformed JSON, partial output, process-tree timeout cleanup, raw-byte hashes, budget preflight and refusal to overwrite evidence. Fake Codex and generic-CLI executables verify wrapper arguments, prompts and response-file extraction. They do not test a live model service.
 
-Each of the three implementation tasks received an independent code/spec review and scoped review of fixes. Review records are included in the delivery archive. Final integration review and archive checks are recorded below after completion.
+Each of the three implementation tasks received an independent code/spec review and scoped review of fixes. Review records are included in the delivery archive. The [final integration review record](2026-09-28-automated-final-review.md) records two evidence-integrity fixes and their approved scoped rereview.
 
 ## Limits and first live run
 
@@ -29,3 +29,9 @@ No authenticated `codex`, `claude`, `gemini` or `agy` executable was available h
 To run unattended evaluation, configure trusted, authenticated adapters as described in [the automated README](../benchmark_v2/automated/README.md). The example has one judge family; comparison eligibility requires at least two genuinely distinct families. Pin model identifiers and recalibrate when settings change. Model and CLI defaults are not immutable provenance.
 
 Starter controls are public synthetic engineering checks. The three licensed reference examples are unlabeled development material covering a narrow genre. Rubric refinement is bounded and excludes test cases; it does not edit or deploy skill instructions. Close, unstable, incomplete or uncalibrated comparisons resolve automatically without creating a human-review queue.
+
+## Final integration
+
+The final whole-branch review identified exact copied cases under different document IDs and loss of Codex final-message files on failed/timed-out calls. Both were reproduced, fixed, and independently rereviewed. Exact normalized pair aliases now retain one document identity; the runner recovers provider response files after termination while preserving stdout separately. The final root suite above ran after these fixes. No Critical, Important or Minor finding remains open in the final review scope.
+
+`python scripts/verify_manifests.py --write-root` refreshes only the root manifest after documentation changes. `python scripts/verify_manifests.py` verifies both manifests against the tracked file set; the historical evaluation manifest remains unchanged. The delivered bundle and ZIP are checked separately by restoring the branch into a fresh clone, verifying both manifests, running the no-key demo, and comparing every archived source file with the restored Git tree.
