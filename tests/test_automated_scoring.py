@@ -177,6 +177,14 @@ class ReportTests(unittest.TestCase):
         self.assertFalse(report["eligible"])
         self.assertEqual(report["recommendation"], "not_applicable")
 
+    def test_single_family_can_calibrate_even_though_compare_needs_two(self):
+        value = suite()
+        one_judge = [JUDGES[0]]
+        one_records = [r for r in records_for(value) if r["judge_id"] == "j1"]
+        report = build_report(value, one_records, one_judge, mode="calibrate")
+        self.assertTrue(report["eligible"])
+        self.assertTrue(all(c["passed"] for c in report["checks"]))
+
     def test_demo_cannot_recommend_even_with_positive_controls(self):
         value = suite("test", per_lane=5)
         report = build_report(value, records_for(value), JUDGES, mode="compare",

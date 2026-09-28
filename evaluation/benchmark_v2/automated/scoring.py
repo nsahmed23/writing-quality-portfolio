@@ -181,8 +181,9 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
               "candidate_check_failures": candidate_fail,
               "baseline_check_failures": baseline_fail}
     _check(checks, "coverage", complete, "all expected case/judge/order records must be unique and valid")
-    _check(checks, "judge_families", len({j["family"] for j in judges}) >= 2,
-           "live comparison requires at least two independent judge families")
+    if mode == "compare":
+        _check(checks, "judge_families", len({j["family"] for j in judges}) >= 2,
+               "live comparison requires at least two independent judge families")
     if mode == "compare":
         certificate_ok = isinstance(calibration, dict) and calibration.get("eligible") is True and calibration.get("execution") == "live"
         _check(checks, "calibration_certificate", certificate_ok, "eligible live calibration required")
