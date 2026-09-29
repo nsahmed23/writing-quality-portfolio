@@ -366,4 +366,31 @@ Path(argv[argv.index('--output-last-message')+1]).write_text('{"winner":"tie","r
         self.assertEqual(report['recommendation'],'not_applicable')
         self.assertTrue(any(not r['valid'] for r in json.loads((self.root/'demo'/'records.json').read_text())))
 
+class LocalConfigIgnoreTests(unittest.TestCase):
+    """The README tells users to copy the example to `adapters/local-config.json`; that copy must never be committed."""
+
+    ADAPTERS='evaluation/benchmark_v2/automated/adapters/'
+
+    def ignored(self,path):
+        repo=Path(__file__).resolve().parents[1]
+        try:
+            # --no-index judges the ignore rules alone, so an accidentally tracked file cannot hide a missing rule.
+            result=subprocess.run(['git','check-ignore','--no-index','-q',path],cwd=repo,check=False,
+                                  stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        except FileNotFoundError:
+            self.skipTest('git is not installed')
+        if result.returncode==128:
+            self.skipTest('not a Git checkout: '+result.stderr.decode('utf-8','replace').strip())
+        return result.returncode==0
+
+    def test_live_adapter_config_is_ignored(self):
+        self.assertTrue(self.ignored(self.ADAPTERS+'local-config.json'),
+                        'add adapters/local-config.json to .gitignore: it carries local executable paths')
+
+    def test_tracked_adapter_files_stay_trackable(self):
+        for name in ('example-config.json','codex_adapter.py','generic_json_adapter.py','prompt_arg_adapter.py'):
+            with self.subTest(name=name):
+                self.assertFalse(self.ignored(self.ADAPTERS+name),name+' must not be ignored')
+
+
 if __name__=='__main__': unittest.main()
