@@ -105,6 +105,49 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
         self.assertEqual(json.loads(result['response'])['winner'],'A')
         self.assertNotIn(b'progress',result['response'])
 
+    def codex_adapter_argv(self):
+        """Run the codex adapter against a stand-in `codex` that records the arguments it receives."""
+        fake=self.root/'argv-codex.py'
+        fake.write_text('''#!/usr/bin/env python3
+import json,sys
+from pathlib import Path
+argv=sys.argv[1:]
+Path(__file__).with_name('argv.json').write_text(json.dumps(argv),encoding='utf-8')
+sys.stdin.read()
+Path(argv[argv.index('--output-last-message')+1]).write_text('{"winner":"tie","reason":"same","evidence":[{"candidate":"A","quote":"alpha","occurrence":1}]}')
+''',encoding='utf-8')
+        fake=self.provider_executable(fake)
+        wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
+        result=run_call([sys.executable,str(wrapper),'--codex',str(fake),'--model','pinned-model'],
+                        {'role':'judge','request_id':'opaque','prompt':'inspect','context':'','rubric':[],
+                         'A':'alpha','B':'beta'},self.root/'codex-isolation',timeout_seconds=3)
+        self.assertTrue(result['ok'],result['stderr'])
+        return json.loads((self.root/'argv.json').read_text(encoding='utf-8'))
+
+    def test_codex_adapter_isolates_judge_from_user_config_and_rules(self):
+        """A pinned model must not be reconfigured by `$CODEX_HOME/config.toml` or user `.rules` files."""
+        argv=self.codex_adapter_argv()
+        for flag in ('--ignore-user-config','--ignore-rules'):
+            with self.subTest(flag=flag):
+                self.assertIn(flag,argv)
+                self.assertGreater(argv.index(flag),argv.index('exec'),flag+' is an option of `codex exec`')
+        # Isolation must not drop the read-only, ephemeral, pinned-model invocation.
+        self.assertEqual(argv[argv.index('--model')+1],'pinned-model')
+        self.assertEqual(argv[argv.index('--sandbox')+1],'read-only')
+        self.assertIn('--ephemeral',argv)
+
+    def test_codex_adapter_drops_ambient_context_and_fails_closed(self):
+        """Plugins, ChatGPT apps, project docs and the skills listing must stay out of the request."""
+        options=self.codex_adapter_argv()
+        options=options[options.index('exec')+1:]
+        pairs=list(zip(options,options[1:]))
+        for pair in (('--disable','plugins'),('--disable','apps'),
+                     ('-c','project_doc_max_bytes=0'),('-c','skills.include_instructions=false')):
+            with self.subTest(option=' '.join(pair)):
+                self.assertIn(pair,pairs)
+        # A renamed key must stop the call: otherwise Codex only warns and runs without the isolation.
+        self.assertIn('--strict-config',options)
+
     def test_codex_adapter_retains_final_file_after_provider_nonzero_exit(self):
         fake=self.root/'failed-codex.py'
         fake.write_text('''#!/usr/bin/env python3
