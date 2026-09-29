@@ -1,0 +1,608 @@
+{
+  "cases": [
+    {
+      "artifact_type": "encyclopedic_paragraph",
+      "author_profile": "reference_editor",
+      "author_type": "reference_editor",
+      "case_id": "WQ-S001-001",
+      "features": [
+        "genuine_defect",
+        "significance_inflation",
+        "date_trap",
+        "functional_bait"
+      ],
+      "genre": "reference",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-001",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "a45cfbba9fde843d670e553a0aa98f6a23d7fb28",
+          "derivation": "Original fixture for significance inflation, with a date and recurring process retained as factual controls.",
+          "lines": "54-59",
+          "path": "SKILL.md",
+          "source_id": "S-001"
+        },
+        {
+          "commit": "a45cfbba9fde843d670e553a0aa98f6a23d7fb28",
+          "derivation": "Preservation contract motivates protected facts and dates.",
+          "lines": "27-30",
+          "path": "SKILL.md",
+          "source_id": "S-001"
+        }
+      ],
+      "split": "dev",
+      "text": "The lab opened on 14 March 2019, marking a pivotal moment in municipal water testing. It runs nitrate tests every Tuesday."
+    },
+    {
+      "artifact_type": "profile_copy",
+      "author_profile": "brand_marketer",
+      "author_type": "community_organizer",
+      "case_id": "S004-001",
+      "features": [
+        "humanizer:inflated_significance",
+        "keep:quoted_author_voice",
+        "keep:em_dash",
+        "fact_trap:date"
+      ],
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-004",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+          "derivation": "Inflated-significance diagnosis combined with the supplied-voice and dash exceptions.",
+          "lines": null,
+          "path": "SKILL.md",
+          "source_id": "S-004"
+        }
+      ],
+      "split": "dev",
+      "text": "Opened in 2018, North Loop Repair Café stands as a pivotal beacon in the evolving landscape of circular living. Its founder still describes Saturdays as “the useful mess—screws everywhere.”"
+    },
+    {
+      "artifact_type": "impact_update",
+      "author_profile": "brand_marketer",
+      "author_type": "communications_writer",
+      "case_id": "WQ-S003-001",
+      "features": [
+        "genuine_defect",
+        "portable_filler",
+        "date_trap",
+        "actor_trap",
+        "number_trap",
+        "functional_bait"
+      ],
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-003",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "d30eddb9e04562234f2070b5ee63ca4649d9a05e",
+          "derivation": "Original service-results fixture for minimum editing, specificity, and the portability test.",
+          "lines": "24-42",
+          "path": "skills/no-ai-slop/SKILL.md",
+          "source_id": "S-003"
+        },
+        {
+          "commit": "d30eddb9e04562234f2070b5ee63ca4649d9a05e",
+          "derivation": "Evaluation contract motivates preservation of the concrete second sentence.",
+          "lines": "9-19",
+          "path": "skills/no-ai-slop/eval.md",
+          "source_id": "S-003"
+        }
+      ],
+      "split": "dev",
+      "text": "We are committed to delivering exceptional solutions that create meaningful outcomes. On 6 August, the support team reduced median wait time from 19 minutes to 11 minutes."
+    },
+    {
+      "artifact_type": "board_update",
+      "author_profile": "institutional_executive",
+      "author_type": "executive",
+      "case_id": "WQ-S002-001",
+      "features": [
+        "genuine_defect",
+        "throat_clearing",
+        "date_trap",
+        "actor_trap",
+        "negation_trap",
+        "functional_bait"
+      ],
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-002",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "8da1f030185bdfe8471220585162991eaeb970e9",
+          "derivation": "Original executive memo fixture for filler and throat clearing.",
+          "lines": "13-17",
+          "path": "SKILL.md",
+          "source_id": "S-002"
+        },
+        {
+          "commit": "8da1f030185bdfe8471220585162991eaeb970e9",
+          "derivation": "Native phrase catalog supplies the named problem.",
+          "lines": "3-23",
+          "path": "references/phrases.md",
+          "source_id": "S-002"
+        }
+      ],
+      "split": "dev",
+      "text": "Let me be clear: the board deferred the vote from 3 May to 17 May because counsel had not filed the exhibits."
+    },
+    {
+      "artifact_type": "one_pager",
+      "author_profile": "institutional_executive",
+      "author_type": "operations_director",
+      "case_id": "S009-001",
+      "features": [
+        "reference_only_projection_candidate",
+        "genuine_defect",
+        "functional_bait_control",
+        "opening_filler",
+        "structured_markdown",
+        "decision_context"
+      ],
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-009",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "68c1dfad6e757047357efdcf13269ec6e820f899",
+          "derivation": "Original diagnostic projection candidate derived from the pinned reference-only content-strategy mechanism; no source example wording copied.",
+          "lines": null,
+          "path": "references/writing.md",
+          "source_id": "S-009"
+        }
+      ],
+      "split": "dev",
+      "text": "## Operations brief\nIn a rapidly changing environment, teams must continuously adapt to new realities. The queue now delays approvals by 11 days, and the director must choose whether to add a reviewer by October 1."
+    },
+    {
+      "artifact_type": "product_copy",
+      "author_profile": "brand_marketer",
+      "author_type": "product_marketer",
+      "case_id": "S005-001",
+      "features": [
+        "slopbeth:promotional_inflation",
+        "slopbeth:evidence_boundary",
+        "keep:concrete_capability",
+        "fact_trap:scope"
+      ],
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-005",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "b33718bb9283c11b09567dc714f92d90ffb7bd16",
+          "derivation": "Slopbeth promotional-inflation and evidence-bound product-copy mechanisms.",
+          "lines": null,
+          "path": "plugins/slopbeth/skills/slopbeth/SKILL.md",
+          "source_id": "S-005"
+        }
+      ],
+      "split": "dev",
+      "text": "Pulseboard unlocks seamless alignment and empowers every team to move faster with confidence. It imports a CSV file supplied by the user."
+    },
+    {
+      "artifact_type": "incident_form_help",
+      "author_profile": "institutional_executive",
+      "author_type": "incident_commander",
+      "case_id": "S007-006",
+      "features": [
+        "functional_bait_control",
+        "legitimate_triad",
+        "factual_enumeration"
+      ],
+      "genre": "reference",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-007",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "40328bd292bc682d46010a6f9ac2cdbf4fb4ceca",
+          "derivation": "Original case derived from pinned context-sensitive audit and rewrite mechanisms; no source example wording copied.",
+          "lines": null,
+          "path": "SKILL.md",
+          "source_id": "S-007"
+        }
+      ],
+      "split": "dev",
+      "text": "The incident form asks for service name, start time, and customer impact because those are the three fields the on-call lead reviews first."
+    },
+    {
+      "artifact_type": "landing_page_copy",
+      "author_profile": "brand_marketer",
+      "author_type": "startup_marketer",
+      "case_id": "S006-001",
+      "features": [
+        "anti_ai_slop:corporate_pep_talk",
+        "anti_ai_slop:generic_benefit",
+        "keep:concrete_limit",
+        "fact_trap:number"
+      ],
+      "genre": "marketing",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-006",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "63255f9bbb75a265dc5786a04535cd033f487756",
+          "derivation": "Corporate-pep-talk and concrete-specificity mechanisms, expressed through independently authored test text.",
+          "lines": null,
+          "path": "skills/anti-ai-slop-writing/SKILL.md",
+          "source_id": "S-006"
+        }
+      ],
+      "split": "dev",
+      "text": "Our revolutionary workspace unlocks limitless productivity for ambitious teams. The free plan includes one project and 2 GB of storage."
+    },
+    {
+      "artifact_type": "personal_essay",
+      "author_profile": "personal_author",
+      "author_type": "individual_author",
+      "case_id": "WQ-S003-006",
+      "features": [
+        "clean_control",
+        "functional_fragment",
+        "self_answered_question",
+        "blunt_voice",
+        "author_quirk"
+      ],
+      "genre": "personal",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-003",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "d30eddb9e04562234f2070b5ee63ca4649d9a05e",
+          "derivation": "Original personal-voice control for bluntness, fragments, and honest changes of mind.",
+          "lines": "24-42",
+          "path": "skills/no-ai-slop/SKILL.md",
+          "source_id": "S-003"
+        },
+        {
+          "commit": "d30eddb9e04562234f2070b5ee63ca4649d9a05e",
+          "derivation": "Eval explicitly preserves clear fragments and author cadence.",
+          "lines": "9-19",
+          "path": "skills/no-ai-slop/eval.md",
+          "source_id": "S-003"
+        }
+      ],
+      "split": "dev",
+      "text": "My first reaction? Nope. Then I read the footnotes and changed my mind."
+    },
+    {
+      "artifact_type": "personal_essay",
+      "author_profile": "personal_author",
+      "author_type": "individual_author",
+      "case_id": "WQ-S001-006",
+      "features": [
+        "clean_control",
+        "legitimate_em_dash",
+        "author_quirk",
+        "specific_detail"
+      ],
+      "genre": "personal",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-001",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "a45cfbba9fde843d670e553a0aa98f6a23d7fb28",
+          "derivation": "Original author-voice control in which a writing sample establishes dash frequency.",
+          "lines": "34-42",
+          "path": "SKILL.md",
+          "source_id": "S-001"
+        },
+        {
+          "commit": "a45cfbba9fde843d670e553a0aa98f6a23d7fb28",
+          "derivation": "Detection guidance says an em dash alone is not reliable evidence.",
+          "lines": "341-356",
+          "path": "SKILL.md",
+          "source_id": "S-001"
+        }
+      ],
+      "split": "dev",
+      "text": "I still call the spare room the studio — though it contains one chair and a broken lamp — because that is what Nana called it."
+    },
+    {
+      "artifact_type": "metric_note",
+      "author_profile": "institutional_executive",
+      "author_type": "research_analyst",
+      "case_id": "S008-006",
+      "features": [
+        "reference_only_projection_candidate",
+        "functional_bait_control",
+        "source_matched_precision",
+        "quotation",
+        "factual_trap"
+      ],
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-008",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "68c1dfad6e757047357efdcf13269ec6e820f899",
+          "derivation": "Original diagnostic projection candidate derived from the pinned reference-only anti-pattern mechanism; no source example wording copied.",
+          "lines": null,
+          "path": "references/anti-patterns.md",
+          "source_id": "S-008"
+        }
+      ],
+      "split": "dev",
+      "text": "The estimate is approximately 10,000 active accounts as of 2026-06; the source reports “around 10K.”"
+    },
+    {
+      "artifact_type": "resume_bullet",
+      "author_profile": "personal_author",
+      "author_type": "finance_engineer",
+      "case_id": "S009-006",
+      "features": [
+        "reference_only_projection_candidate",
+        "functional_bait_control",
+        "impact_evidence",
+        "resume_genre",
+        "factual_trap"
+      ],
+      "genre": "personal",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-009",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "68c1dfad6e757047357efdcf13269ec6e820f899",
+          "derivation": "Original diagnostic projection candidate derived from the pinned reference-only content-strategy mechanism; no source example wording copied.",
+          "lines": null,
+          "path": "references/writing.md",
+          "source_id": "S-009"
+        }
+      ],
+      "split": "dev",
+      "text": "Reduced invoice reconciliation from 9 hours to 2 by redesigning the matching queue for a six-person finance team, allowing month-end close to finish one day earlier."
+    },
+    {
+      "artifact_type": "incident_note",
+      "author_profile": "reference_editor",
+      "author_type": "incident_reporter",
+      "case_id": "S004-006",
+      "features": [
+        "keep:legitimate_passive",
+        "keep:unknown_actor",
+        "fact_trap:time",
+        "fact_trap:negation"
+      ],
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-004",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+          "derivation": "Passive-voice guidance applied contextually when the actor is unknown and the report says so.",
+          "lines": null,
+          "path": "SKILL.md",
+          "source_id": "S-004"
+        }
+      ],
+      "split": "dev",
+      "text": "At 03:12 UTC, the west stairwell was closed after smoke was reported. The report does not identify who closed it or who first saw the smoke."
+    },
+    {
+      "artifact_type": "methods_section",
+      "author_profile": "domain_expert",
+      "author_type": "clinical_researcher",
+      "case_id": "WQ-S002-006",
+      "features": [
+        "clean_control",
+        "legitimate_passive",
+        "blinding",
+        "technical_writing",
+        "false_positive_probe"
+      ],
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-002",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "8da1f030185bdfe8471220585162991eaeb970e9",
+          "derivation": "Adversarial KEEP control against the authored categorical ban on passive constructions.",
+          "lines": "17-21",
+          "path": "SKILL.md",
+          "source_id": "S-002"
+        },
+        {
+          "commit": "8da1f030185bdfe8471220585162991eaeb970e9",
+          "derivation": "The native rule requires actor-fronted rewrites, which this scientific method deliberately resists.",
+          "lines": "95-106",
+          "path": "references/structures.md",
+          "source_id": "S-002"
+        }
+      ],
+      "split": "dev",
+      "text": "The samples were randomized before the analysts saw the group labels; allocation remained concealed until the database was locked."
+    },
+    {
+      "artifact_type": "procedure",
+      "author_profile": "reference_editor",
+      "author_type": "laboratory_writer",
+      "case_id": "S006-006",
+      "features": [
+        "keep:functional_triad",
+        "keep:technical_terms",
+        "fact_trap:count",
+        "fact_trap:condition"
+      ],
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-006",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "63255f9bbb75a265dc5786a04535cd033f487756",
+          "derivation": "The source's three-item caution includes a genuine-three exception, applied to a protocol requirement.",
+          "lines": null,
+          "path": "skills/anti-ai-slop-writing/SKILL.md",
+          "source_id": "S-006"
+        }
+      ],
+      "split": "dev",
+      "text": "The specimen is accepted only when the label, consent code, and collection time all match the manifest. Missing any one field requires quarantine."
+    },
+    {
+      "artifact_type": "security_documentation",
+      "author_profile": "second_language_professional",
+      "author_type": "second_language_security_engineer",
+      "case_id": "S005-006",
+      "features": [
+        "slopbeth:control_sample",
+        "keep:legitimate_passive",
+        "keep:threshold",
+        "keep:qualifier",
+        "keep:technical_density",
+        "keep:second_language_voice",
+        "keep:deliberate_repetition",
+        "fact_trap:number",
+        "fact_trap:negation"
+      ],
+      "genre": "second_language",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-005",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "b33718bb9283c11b09567dc714f92d90ffb7bd16",
+          "derivation": "Preservation contract for thresholds, units, uncertainty, precise technical density, and clear intentional non-native English choices.",
+          "lines": null,
+          "path": "plugins/slopbeth/skills/slopbeth/references/voice-and-preservation.md",
+          "source_id": "S-005"
+        }
+      ],
+      "split": "dev",
+      "text": "In our team, requests are rejected when the nonce is older than 90 seconds, although clocks may differ by up to 4 seconds. We log the key ID, never the token. I say “never the token” exactly because new operators remember this line."
+    },
+    {
+      "artifact_type": "migration_guide",
+      "author_profile": "domain_expert",
+      "author_type": "platform_engineer",
+      "case_id": "S007-001",
+      "features": [
+        "genuine_defect",
+        "functional_bait_control",
+        "factual_trap",
+        "structured_markdown",
+        "protected_code"
+      ],
+      "genre": "technical",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-007",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "40328bd292bc682d46010a6f9ac2cdbf4fb4ceca",
+          "derivation": "Original case derived from pinned context-sensitive audit and rewrite mechanisms; no source example wording copied.",
+          "lines": null,
+          "path": "SKILL.md",
+          "source_id": "S-007"
+        }
+      ],
+      "split": "dev",
+      "text": "### Migration note\nThe move to v4.1 is not merely an upgrade; it is a transformative leap for every team. Run `atlas migrate --dry-run` first. The command may report two legacy indexes on clusters created before v4.1."
+    },
+    {
+      "artifact_type": "market_brief",
+      "author_profile": "institutional_executive",
+      "author_type": "market_analyst",
+      "case_id": "S008-001",
+      "features": [
+        "reference_only_projection_candidate",
+        "genuine_defect",
+        "functional_bait_control",
+        "factual_trap",
+        "structured_markdown",
+        "metric_precision"
+      ],
+      "genre": "executive",
+      "offset_unit": "unicode_codepoint",
+      "primary_source_id": "S-008",
+      "protected_regions": [],
+      "schema_version": "1.0",
+      "source_refs": [
+        {
+          "commit": "68c1dfad6e757047357efdcf13269ec6e820f899",
+          "derivation": "Original diagnostic projection candidate derived from the pinned reference-only anti-pattern mechanism; no source example wording copied.",
+          "lines": null,
+          "path": "references/anti-patterns.md",
+          "source_id": "S-008"
+        }
+      ],
+      "split": "dev",
+      "text": "## Market note\nOur source gives an approximate share near 24% for Q2 2026. The summary calls it exactly 23.7%, although no measurement supports a decimal."
+    }
+  ],
+  "common_envelope": {
+    "path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\systems\\common-envelope.md",
+    "sha256": "92afa0504b934f905abcbe22a7b251e284a665fa5a9ed4a9377e48c30c42af53"
+  },
+  "diagnostic_status": "projection_from_rewrite_skill",
+  "expected_case_count": 18,
+  "family": "external_authored",
+  "fidelity_class": "F2",
+  "job_id": "stage1-humanizer-run-01",
+  "model": {
+    "exact_model_exposed_to_harness": false,
+    "max_output_tokens": "not_exposed",
+    "override": false,
+    "reasoning_setting": "inherited_no_override",
+    "seed_support": "not_exposed",
+    "selection": "session_inherited",
+    "temperature": "not_exposed",
+    "top_p": "not_exposed"
+  },
+  "output_contract": {
+    "format": "utf8_jsonl",
+    "one_record_per_case": true,
+    "output_path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\runs\\stage1-dev-v1\\inbox\\stage1-humanizer-run-01.jsonl",
+    "records": 18,
+    "surrounding_prose": false
+  },
+  "problem_families": {
+    "path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\writing-quality-eval\\taxonomy\\problem-families.json",
+    "sha256": "c7cbfb2006d0cc01d3b47e22416cdd3da52fd9d87748ba2b97420b3c18464c9a"
+  },
+  "run_number": 1,
+  "schema_version": "1.0",
+  "source_files": [
+    {
+      "path": "C:\\Users\\nsahm\\Documents\\Codex\\2026-08-25\\yes-make-it-a-local-dispatch\\work\\research-writing-repos\\sources\\humanizer\\SKILL.md",
+      "sha256": "5fd504ab8c910a4e59418fae143f6f7c6928822ffedf45fb525a9b3bb8d7a83b"
+    }
+  ],
+  "stage": 1,
+  "system_display_name": "humanizer",
+  "system_id": "humanizer"
+}

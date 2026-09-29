@@ -1,0 +1,71 @@
+{
+  "checkpoint": "03-claude-review-integration",
+  "date": "2026-08-26",
+  "reviewed_commit": "5d1f2b4cf83c54b5b70e5d10f16a85cbc07b9ba4",
+  "review_source": {
+    "reviewer": "Claude (Anthropic)",
+    "method": "Sandboxed fresh shallow clone with independently written recount code",
+    "artifact": "evaluation/CLAUDE_REVIEW.md"
+  },
+  "codex_validation": {
+    "artifact": "evaluation/CODEX_RESPONSE_TO_CLAUDE.md",
+    "f1_dual_overlap": {
+      "keep_decision_regions": 110,
+      "protected_regions": 116,
+      "union": 170,
+      "both": 56,
+      "status": "confirmed and disambiguated"
+    },
+    "f2_malformed": {
+      "findings": 5,
+      "invalidated_runs": 3,
+      "excluded_case_records": 216,
+      "status": "confirmed and pinned to finding IDs"
+    },
+    "f3_portfolio_localization": {
+      "any_change_finding_by_run": [31, 33, 34],
+      "gold_change_overlap_by_run": [31, 32, 33],
+      "clean_case_errors": 1,
+      "status": "confirmed and definition stated"
+    },
+    "f4_taxonomy": {
+      "public_codes": 47,
+      "private_map_outputs": 37,
+      "structurally_unmatchable_public_codes": 10,
+      "review_claimed_predictions": 80,
+      "reproduced_predictions": 84,
+      "overlap_any_gold_change": 64,
+      "exact_gold_boundaries": 19,
+      "status": "review total corrected; universal paired-FN claim narrowed"
+    },
+    "raw_inbox_byte_comparison": {
+      "pairs": 36,
+      "byte_identical": 36,
+      "mismatches": 0
+    }
+  },
+  "proposal_changes": [
+    "Add preregistered reviewer calibration and reliability floor",
+    "Score routing correctness separately",
+    "Require minimum opportunities for rate gates",
+    "Separate conservative silence, explicit KEEP localization, and abstention",
+    "Define a lean native-vocabulary Stage 1 benchmark core"
+  ],
+  "changed_documents": [
+    "evaluation/README.md",
+    "evaluation/docs/benchmark-validity-erratum.md",
+    "evaluation/docs/portfolio-root-cause-analysis.md",
+    "evaluation/docs/reoptimization-proposal.md",
+    "evaluation/publication/resume.md"
+  ],
+  "preservation_boundaries": {
+    "evaluation/pilot": "must remain byte-identical",
+    "evaluation/source-review": "must remain byte-identical"
+  },
+  "next": [
+    "Regenerate and verify both manifests",
+    "Run final tests, integrity checks, secret scan, and independent review",
+    "Commit and push the feedback branch",
+    "Open a draft pull request targeting codex/evaluation-audit-bundle"
+  ]
+}

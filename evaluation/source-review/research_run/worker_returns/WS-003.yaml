@@ -1,0 +1,403 @@
+agent_id: AG-003
+workstream_id: WS-003
+status: complete
+findings:
+  - claim_id: C-301
+    claim_text: "Slopbeth separates editing instructions from artifact text, locks facts and uncertainty, and uses evidence-bound mode rather than inventing concrete details when source support is missing."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-301
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/SKILL.md:13-20"
+      - evidence_id: E-302
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/references/voice-and-preservation.md:15-58"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-302
+    claim_text: "Slopbeth ships preservation, semantic-marker, span, false-positive, cadence, density, and competitor-output gates, but describes them as review signals rather than proof that prose is good."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-303
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/SKILL.md:32-48"
+      - evidence_id: E-304
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/benchmarks/README.md:3-15,29-42"
+      - evidence_id: E-305
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/BENCHMARKS.md:7-32"
+    calculation_ids: [K-301]
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-303
+    claim_text: "Slopbeth's mechanical checks cannot independently establish semantic or voice preservation: the preservation checker compares literal token classes, and the semantic-drift report explicitly says passing is not proof of semantic equivalence."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-306
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/scripts/preservation_check.py:12-22,45-78"
+      - evidence_id: E-307
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/scripts/semantic_drift.py:279-317,395-409"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "Human review and other gates can catch risks these two checks cannot."
+  - claim_id: C-304
+    claim_text: "Slopbeth's deterministic slop score creates false-positive risk because it penalizes isolated word, substring, punctuation, triad, heading, and regex matches even though its prose policy says a lone marker can be ordinary."
+    evidence_status: I
+    evidence:
+      - evidence_id: E-308
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/references/slop-taxonomy.md:1-14"
+      - evidence_id: E-309
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopbeth/scripts/deslop_lint.py:91-164,167-184"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The package calls the score a signal and adds control fixtures, which reduces but does not remove the risk when callers use fail-under as a gate."
+  - claim_id: C-305
+    claim_text: "Slopgent's case-specific completion, caveat, and precision checks depend on a facts payload; without it, the relevant arrays default empty and those factual checks are inactive."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-310
+        source_id: S-005
+        support_scope: direct
+        location: "skills/slopgent/scripts/comms_lint.py:11-26,169-199"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "Always-on phrase checks still run, but they cannot determine whether a completion claim or omitted caveat is true."
+  - claim_id: C-306
+    claim_text: "Slopkit uses the MIT license, which permits reuse and modification when the copyright and permission notice are retained and disclaims warranties and liability."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-311
+        source_id: S-005
+        support_scope: direct
+        location: "LICENSE:1-20"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-307
+    claim_text: "Anti-ai-slop-writing is a prompt-only rule set that categorically bans vocabulary and constrains triads, sentence length, parataxis, passive voice, punctuation frequency, formatting, and endings."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-312
+        source_id: S-006
+        support_scope: direct
+        location: "skills/anti-ai-slop-writing/SKILL.md:10-48,84-96"
+      - evidence_id: E-313
+        source_id: S-006
+        support_scope: direct
+        location: "skills/anti-ai-slop-writing/references/banned-words.md:1-7,48-73"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-308
+    claim_text: "Anti-ai-slop-writing includes useful factuality and voice safeguards by forbidding invented anecdotes, statistics, studies, and quotes and by asking the model to match the author's voice and medium."
+    evidence_status: D
+    evidence:
+      - evidence_id: E-314
+        source_id: S-006
+        support_scope: direct
+        location: "skills/anti-ai-slop-writing/SKILL.md:52-82,98-106"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-309
+    claim_text: "Anti-ai-slop-writing's categorical rules can create false positives and flatten voice when legitimate author or domain style uses passive voice, repeated rhythm, triads, banned terms, or punctuation beyond fixed quotas."
+    evidence_status: I
+    evidence:
+      - evidence_id: E-312
+        source_id: S-006
+        support_scope: direct
+        location: "skills/anti-ai-slop-writing/SKILL.md:10-48,84-96"
+      - evidence_id: E-315
+        source_id: S-006
+        support_scope: direct
+        location: "skills/anti-ai-slop-writing/SKILL.md:98-122"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "Voice calibration may be intended to override generic rules, but no conflict-priority rule is documented."
+  - claim_id: C-310
+    claim_text: "The anti-ai-slop-writing snapshot contains no implementation, tests, fixtures, evaluation artifacts, or license text; its README only labels the project MIT and names unlinked evidence families."
+    evidence_status: I
+    evidence:
+      - evidence_id: E-316
+        source_id: S-006
+        support_scope: direct
+        location: "README.md:3-19,55-70"
+      - evidence_id: E-317
+        source_id: S-006
+        support_scope: direct
+        location: ".gitignore:1-1; README.md:1-70; skills/anti-ai-slop-writing/SKILL.md:1-122; skills/anti-ai-slop-writing/references/banned-words.md:1-81"
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "Artifacts may exist outside the pinned repository, but none is available or traceable in the inspected snapshot."
+contradictions:
+  - contradiction_id: CTR-301
+    claim_ids: [C-304]
+    source_ids: [S-005]
+    nature: "The prose policy requires contextual cluster diagnosis, while deslop_lint assigns penalties for isolated markers."
+    possible_explanation: "The linter is documented as a triage signal, not a verdict."
+    resolution_attempts: "Compared the taxonomy, linter implementation, false-positive gate, and benchmark limitations."
+    current_verdict: "Qualified implementation tension; automated scores require contextual review."
+    confidence: high
+    remaining_uncertainty: "False-positive frequency on an external corpus was not measured."
+    effect_on_conclusion: "Do not treat slop_score as an independent quality gate."
+    status: open
+    notes: ""
+  - contradiction_id: CTR-302
+    claim_ids: [C-307, C-308, C-309]
+    source_ids: [S-006]
+    nature: "Every output must obey categorical style bans, yet the same skill requires matching the specific author's voice."
+    possible_explanation: "Voice calibration may be intended to operate only within the hard constraints."
+    resolution_attempts: "Inspected the complete SKILL.md and banned-word reference for an override rule; none was found."
+    current_verdict: "Unresolved precedence conflict."
+    confidence: high
+    remaining_uncertainty: "Observed model behavior could reveal an undocumented precedence."
+    effect_on_conclusion: "Test author-specific control samples before adoption."
+    status: open
+    notes: ""
+unknowns:
+  - unknown_id: U-301
+    description: "Whether the named research supports S-006's specific word bans, fixed punctuation quotas, triad prohibition, and uniform-sentence-length claim."
+    why_it_matters: "These empirical claims justify the strictest rules and affect detector credibility and false-positive risk."
+    research_attempted: "Read the complete S-006 snapshot; it names source families but provides no titles, URLs, authors, DOI values, or local evidence artifacts."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Use a separately authorized network lane to inspect the exact primary studies and map each rule to direct evidence."
+    effect_on_conclusion: "Treat the statistical rationale as unverified."
+    status: open
+  - unknown_id: U-302
+    description: "The operative license terms for anti-ai-slop-writing."
+    why_it_matters: "A README label does not supply the MIT permission grant, notice condition, or warranty disclaimer."
+    research_attempted: "Exhaustively enumerated non-Git files in S-006 and found no LICENSE, COPYING, or equivalent text."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Obtain an authoritative license artifact before reuse or redistribution."
+    effect_on_conclusion: "Do not assume full MIT reuse rights from this snapshot alone."
+    status: open
+  - unknown_id: U-303
+    description: "Anti-ai-slop-writing's actual false-positive, factual-preservation, and voice-preservation performance."
+    why_it_matters: "The prompt has conflicting hard-rule and voice goals but no executable tests."
+    research_attempted: "Inspected every non-Git file in S-006 for code, fixtures, outputs, and score reports; none were present."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Run a pinned evaluation with unchanged human controls, passive-heavy technical and legal prose, quoted language, and paired author samples."
+    effect_on_conclusion: "No quality or safety benefit is established by repository evidence."
+    status: open
+calculations:
+  - calculation_id: K-301
+    purpose: "Verify Slopbeth benchmark inventory counts without executing repository code."
+    input_source_ids: [S-005]
+    input_evidence_ids: [E-305]
+    input_values: "benchmark-v2=88 lines; independent-judge-rows-v2=264; span-annotations-v1=8; false-positive-tracker-v1=12; competitor-agent-runs-v1=125"
+    formula_or_code: "Count nonblank physical JSONL lines with PowerShell Get-Content."
+    assumptions: "Each inspected file has one JSON object per nonblank line."
+    output: "88 cases, 264 judge rows, 8 span rows, 12 false-positive rows, and 125 competitor-output rows"
+    unit: "JSONL records"
+    verification_status: passed
+    verified_by: AG-003
+    report_use: "Inventory corroboration only, not quality validation."
+    notes: "No repository code was executed."
+sources_added: []
+evidence_added:
+  - evidence_id: E-301
+    source_id: S-005
+    location: "skills/slopbeth/SKILL.md:13-20"
+    modality: text
+    extracted_fact: "Workflow separates brief from artifact, locks facts and stance, sets the evidence boundary, and validates when inputs exist."
+    support_scope: direct
+    limitations: "Intended behavior, not observed compliance."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-302
+    source_id: S-005
+    location: "skills/slopbeth/references/voice-and-preservation.md:15-58"
+    modality: text
+    extracted_fact: "The reference protects claims, facts, qualifiers, uncertainty, and voice and blocks unsupported concrete details in evidence-bound mode."
+    support_scope: direct
+    limitations: "Normative reference."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-303
+    source_id: S-005
+    location: "skills/slopbeth/SKILL.md:32-48"
+    modality: text
+    extracted_fact: "The skill routes deterministic and corpus scripts and calls their results signals rather than prose-quality decisions."
+    support_scope: direct
+    limitations: "No scripts were executed."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-304
+    source_id: S-005
+    location: "skills/slopbeth/benchmarks/README.md:3-15,29-42"
+    modality: text
+    extracted_fact: "The documented pack includes layered preservation, semantic, cadence, density, span, false-positive, and competitor gates."
+    support_scope: direct
+    limitations: "Package documentation only."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-305
+    source_id: S-005
+    location: "skills/slopbeth/BENCHMARKS.md:7-32"
+    modality: text
+    extracted_fact: "The benchmark documents its corpus counts and admits circular scoring, near-total ties, no outright Slopbeth wins, and withdrawal of an earlier tie-as-win metric."
+    support_scope: direct
+    limitations: "Self-reported evaluation; counts only were independently checked."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-306
+    source_id: S-005
+    location: "skills/slopbeth/scripts/preservation_check.py:12-22,45-78"
+    modality: code
+    extracted_fact: "The preservation checker compares sets of URLs, emails, numbers, dates, quoted strings, and capitalized terms."
+    support_scope: direct
+    limitations: "Static inspection; no proposition or voice analysis."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-307
+    source_id: S-005
+    location: "skills/slopbeth/scripts/semantic_drift.py:279-317,395-409"
+    modality: code
+    extracted_fact: "The gate classifies configured marker and exact-fact changes and states that a pass is not semantic-equivalence proof."
+    support_scope: direct
+    limitations: "Static inspection; configured markers are incomplete semantics."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-308
+    source_id: S-005
+    location: "skills/slopbeth/references/slop-taxonomy.md:1-14"
+    modality: text
+    extracted_fact: "The taxonomy requires cluster diagnosis because a lone marker can be ordinary."
+    support_scope: direct
+    limitations: "Normative rule."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-309
+    source_id: S-005
+    location: "skills/slopbeth/scripts/deslop_lint.py:91-164,167-184"
+    modality: code
+    extracted_fact: "The linter counts isolated lexical and structural matches, computes fixed penalties, and supports a failing score threshold."
+    support_scope: direct
+    limitations: "Static inspection; external false-positive rate unmeasured."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-310
+    source_id: S-005
+    location: "skills/slopgent/scripts/comms_lint.py:11-26,169-199"
+    modality: code
+    extracted_fact: "Case-specific anchors, caveats, and false-completion claims come from facts; absent facts produce empty lists."
+    support_scope: direct
+    limitations: "Standalone behavior; benchmark runner may always provide facts."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-311
+    source_id: S-005
+    location: "LICENSE:1-20"
+    modality: text
+    extracted_fact: "MIT grants broad reuse rights with notice retention and warranty/liability disclaimers."
+    support_scope: direct
+    limitations: "Informational license summary, not legal advice."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-312
+    source_id: S-006
+    location: "skills/anti-ai-slop-writing/SKILL.md:10-48,84-96"
+    modality: text
+    extracted_fact: "The prompt imposes categorical vocabulary, structure, passive, punctuation, and formatting constraints."
+    support_scope: direct
+    limitations: "Prompt instruction, not tested behavior."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-313
+    source_id: S-006
+    location: "skills/anti-ai-slop-writing/references/banned-words.md:1-7,48-73"
+    modality: text
+    extracted_fact: "The reference bans a broad vocabulary and model-specific first-word openers."
+    support_scope: direct
+    limitations: "No item-level evidence mapping or exception protocol."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-314
+    source_id: S-006
+    location: "skills/anti-ai-slop-writing/SKILL.md:52-82,98-106"
+    modality: text
+    extracted_fact: "The prompt requests specifics but forbids invented anecdotes, data, studies, statistics, and quotes and asks for voice matching."
+    support_scope: direct
+    limitations: "No operational conflict test."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-315
+    source_id: S-006
+    location: "skills/anti-ai-slop-writing/SKILL.md:98-122"
+    modality: text
+    extracted_fact: "Voice calibration and categorical self-check rules coexist without an explicit conflict-priority rule."
+    support_scope: direct
+    limitations: "Observed model behavior was not tested."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-316
+    source_id: S-006
+    location: "README.md:3-19,55-70"
+    modality: text
+    extracted_fact: "The README names evidence families, documents a SKILL plus one reference, and labels the project MIT."
+    support_scope: direct
+    limitations: "No traceable citations or license grant text in the passage."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+  - evidence_id: E-317
+    source_id: S-006
+    location: ".gitignore:1-1; README.md:1-70; skills/anti-ai-slop-writing/SKILL.md:1-122; skills/anti-ai-slop-writing/references/banned-words.md:1-81"
+    modality: filesystem_inventory
+    extracted_fact: "These are all non-Git files in the pinned snapshot; no implementation, test, fixture, evaluation, or license text file is present."
+    support_scope: direct
+    limitations: "Applies only to commit 63255f9bbb75a265dc5786a04535cd033f487756."
+    extracted_by: AG-003
+    extracted_at: "2026-08-25T18:42:38Z"
+    verification_status: passed
+targeted_followups:
+  - question: "What is deslop_lint's false-positive rate on technical, legal, and author-specific control prose?"
+    reason: "Its fixed score counts isolated markers despite a cluster-based policy."
+    next_step: "Run an authorized adjudicated external control corpus."
+  - question: "Which primary studies support each S-006 hard rule and numeric quota?"
+    reason: "The snapshot names source families without traceable citations."
+    next_step: "Map each rule to a primary-source passage in a separate network-approved lane."
+  - question: "Does S-006 preserve voice when author style conflicts with its universal bans?"
+    reason: "No precedence rule or control fixtures resolve the conflict."
+    next_step: "Evaluate paired author samples and domain-specific controls under a pinned model."
+limitations:
+  - "Only the two assigned commit-pinned snapshots were inspected."
+  - "No network, dependency installation, Git command, or repository/third-party code execution occurred."
+  - "Implementation findings are static; runtime behavior was not observed."
+  - "Benchmark counts were line-counted, but qualitative scores and judge independence were not re-evaluated."

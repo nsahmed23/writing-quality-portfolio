@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "name": "GSA audience guidance (public development examples; no gold labels)",
+  "cases": [
+    {
+      "id": "gsa-audience-expertise",
+      "document_id": "gsa-audience-expertise",
+      "split": "development",
+      "lane": "editing",
+      "prompt": "Compare these two short guidance sentences for clarity and faithful meaning. Abstain if the task does not distinguish them.",
+      "context": "Keep the reader’s expertise and interests in view.",
+      "a": "Know the expertise and interest of your average reader, and write to that person.",
+      "b": "Find out what your average reader knows and cares about. Write for that person.",
+      "expected": null,
+      "checks": {},
+      "provenance": {
+        "kind": "published_reference",
+        "source": "https://github.com/GSA/plainlanguage.gov/blob/main/_pages/guidelines/audience/index.md",
+        "license": "CC0-1.0",
+        "note": "A is a verbatim excerpt from GSA; B is a new adaptation for this development example. Source license: https://github.com/GSA/plainlanguage.gov/blob/main/LICENSE.md. a_utf8_sha256=441f853950b3bd50e7cce7762eb7ec2fc929ba3a06cdee7856ff43b4ea095f85; b_utf8_sha256=172acc15ab2bdd95250f4daf872943992c31999278ef41b0c2d483450550e356. Neither authorship nor order is a preferred label."
+      }
+    },
+    {
+      "id": "gsa-audience-relevance",
+      "document_id": "gsa-audience-relevance",
+      "split": "development",
+      "lane": "editing",
+      "prompt": "Compare these two short guidance sentences for clarity and faithful meaning. Abstain if the task does not distinguish them.",
+      "context": "Do not add unsupported reasons or benefits.",
+      "a": "Tell your audience why the material is important to them.",
+      "b": "Explain why this material matters to your audience.",
+      "expected": null,
+      "checks": {},
+      "provenance": {
+        "kind": "published_reference",
+        "source": "https://github.com/GSA/plainlanguage.gov/blob/main/_pages/guidelines/audience/index.md",
+        "license": "CC0-1.0",
+        "note": "A is a verbatim excerpt from GSA; B is a new adaptation for this development example. Source license: https://github.com/GSA/plainlanguage.gov/blob/main/LICENSE.md. a_utf8_sha256=638bca14aae6f25f25a62477a5597ad1bb9deb9e11e41410716c802c80346177; b_utf8_sha256=a6c80aef043d1451147165d72e91037ba4f8c742c8a0b2b35d3dd717e57ae10b. Neither authorship nor order is a preferred label."
+      }
+    },
+    {
+      "id": "gsa-audience-prior-knowledge",
+      "document_id": "gsa-audience-prior-knowledge",
+      "split": "development",
+      "lane": "editing",
+      "prompt": "Compare these two short guidance sentences for clarity and faithful meaning. Abstain if the task does not distinguish them.",
+      "context": "Preserve the distinction between actual knowledge and assumptions.",
+      "a": "Think about what your audience knows about the situation or topic you're writing about.",
+      "b": "Start with what your audience already knows about the topic.",
+      "expected": null,
+      "checks": {},
+      "provenance": {
+        "kind": "published_reference",
+        "source": "https://github.com/GSA/plainlanguage.gov/blob/main/_pages/guidelines/audience/index.md",
+        "license": "CC0-1.0",
+        "note": "A is a verbatim excerpt from GSA; B is a new adaptation for this development example. Source license: https://github.com/GSA/plainlanguage.gov/blob/main/LICENSE.md. a_utf8_sha256=a0a3403dd7db34a8a6d309439b641553dd6b836e3a9ab1043be266fd7f4e0b2b; b_utf8_sha256=8243edbc934f19755391d1ff51a97bdf440eee390d28aef588ba2aabc0129c6f. Neither authorship nor order is a preferred label."
+      }
+    }
+  ]
+}

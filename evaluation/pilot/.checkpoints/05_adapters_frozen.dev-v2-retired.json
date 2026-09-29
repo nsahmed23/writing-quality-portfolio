@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "05_adapters_frozen",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "recorded_at": "2026-08-26T03:39:24Z",
+  "status": "development_v2_frozen",
+  "candidate_count": 12,
+  "hashes": {
+    "prompt_manifest_sha256": "2e89d082ca417e11f36473157bf494c959ae78369b5d4f26ffe5ab4f09bca6d2",
+    "systems_manifest_sha256": "ae569bfbc3446943f6349f03db394b047003f44c1fa0b64652379aa65dbf80d6",
+    "common_envelope_sha256": "c3aeb67795a9f54c60da216d6258a3d78020ebecdce871c360a935520503a9ea",
+    "public_problem_vocabulary_sha256": "c7cbfb2006d0cc01d3b47e22416cdd3da52fd9d87748ba2b97420b3c18464c9a",
+    "run_config_sha256": "b23f1e835de9aec4df7d1a2769d07aacb7dcedaaccca005864571d2b9fb0efab",
+    "thresholds_sha256": "999af2af659efe9be367210b8e7c76d4f31c08032e282b75cff493339bda0ceb",
+    "development_jobs_manifest_sha256": "3dd560c02b44604d44218d1e73e00ebcba5e651f68ab155e36e93aedbcc5afe2"
+  },
+  "development_jobs": 12,
+  "development_case_assignments": 216,
+  "gold_leaks": 0,
+  "evaluator_private_native_map_sent_to_generators": false,
+  "all_source_artifacts_verified": true
+}

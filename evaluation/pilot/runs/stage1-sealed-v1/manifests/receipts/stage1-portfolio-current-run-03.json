@@ -1,0 +1,18 @@
+{
+  "error_message": null,
+  "error_type": null,
+  "job_sha256": "59d0ce24479d06494540cd7044bec1b1e70786f7fb6a5e573fdf3636a54430f2",
+  "jobs_manifest_sha256": "9d0423ea80217581bd516be9e5dcf7367bddefea99828ab8f5b88d13983b245a",
+  "normalized_receipt": {
+    "byte_count": 53383,
+    "relative_path": "stage1-portfolio-current-run-03.jsonl",
+    "sha256": "cf315bf006251d398759f1b266684e03c4463c84e0b3b74ff734f88a6c58cf99"
+  },
+  "raw_receipt": {
+    "byte_count": 52708,
+    "relative_path": "stage1-portfolio-current-run-03.jsonl",
+    "sha256": "0fa544642b2743ef9fd54fa50956ac0dfacde38b77e18c460d0bf7c21e4281ce"
+  },
+  "record_count": 72,
+  "status": "valid"
+}

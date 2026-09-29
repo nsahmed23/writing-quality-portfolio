@@ -1,0 +1,35 @@
+{
+  "checkpoint": "11_delivery",
+  "status": "DELIVERED_PROVISIONAL_STAGE1",
+  "delivered_at": "2026-08-26",
+  "stage2_executed": false,
+  "portfolio_modified": false,
+  "portfolio_pushed": false,
+  "outputs": [
+    {
+      "path": "outputs/writing-quality-stage1-provisional-report.md",
+      "bytes": 12206,
+      "sha256": "e01f770d51d7fd49f2d4d9e83e16771508ddd7182b728161121ac63679ef9c9f"
+    },
+    {
+      "path": "outputs/writing-quality-evaluation-plan.md",
+      "bytes": 18425,
+      "sha256": "14c6106f5077b10837376d92565e68cae1ef9b1942f19dd51638568f7d5bf3fa"
+    },
+    {
+      "path": "outputs/stage1-provisional-report.json",
+      "bytes": 1632076,
+      "sha256": "2959e43b1c2a4f6fd640b549fdd1ec15def5c8dd78548dd554f00e93b02eb49e"
+    },
+    {
+      "path": "outputs/stage1-provisional-tree-manifest.json",
+      "bytes": 483,
+      "sha256": "4989a41cb2f2ea7a315f0503c71216dea4fbf16963af8f13883be7e3df004097"
+    }
+  ],
+  "unresolved_human_gates": [
+    "No verified roster of two real reviewers and one separate adjudicator exists.",
+    "Human agreement and factual-meaning judgments remain unavailable.",
+    "Reader preference, clarity, and voice retention require Stage 2 and were not measured."
+  ]
+}

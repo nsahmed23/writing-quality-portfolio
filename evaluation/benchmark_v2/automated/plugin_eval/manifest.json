@@ -1,0 +1,6 @@
+{
+  "name": "writing-quality-automated-proxy",
+  "version": "1.0.0",
+  "supportedTargetKinds": ["skill", "plugin"],
+  "command": ["python", "../metric_pack.py"]
+}

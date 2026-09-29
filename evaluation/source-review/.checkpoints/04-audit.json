@@ -1,0 +1,9 @@
+{
+  "stage": "audit",
+  "status": "complete",
+  "completed_at": "2026-08-25T19:27:23Z",
+  "claim_count": 14,
+  "pinned_link_count": 82,
+  "findings_remaining": 0,
+  "output": "research_run/worker_returns/WS-006.yaml"
+}

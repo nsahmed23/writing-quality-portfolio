@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "compact-writing-rubric-v1",
+  "criteria": [
+    {
+      "id": "purpose",
+      "description": "Does the text serve the task and intended reader?"
+    },
+    {
+      "id": "meaning",
+      "description": "Does it preserve specified facts, scope, and uncertainty without inventing claims?"
+    },
+    {
+      "id": "specificity",
+      "description": "Are useful details and requested next actions concrete enough for this task?"
+    },
+    {
+      "id": "economy",
+      "description": "Does each part earn its place without deleting necessary context?"
+    },
+    {
+      "id": "cohesion",
+      "description": "Do sentences connect in a clear, logical progression?"
+    },
+    {
+      "id": "voice",
+      "description": "Is the tone suitable for the reader and situation without a forced style?"
+    }
+  ]
+}

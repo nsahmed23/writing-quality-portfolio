@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "04_corpus_frozen",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "recorded_at": "2026-08-26T03:39:24Z",
+  "status": "complete_provisional_gold_pending_human_adjudication",
+  "cases": 90,
+  "dev_cases": 18,
+  "sealed_cases": 72,
+  "structured_cases": 51,
+  "factual_trap_cases": 47,
+  "generator_visible_gold_proxy_fields": 0,
+  "files": {
+    "freeze_manifest_sha256": "a583433921a732140b53de300506775fef29a729024909c910d0fe3dde9a2197",
+    "dev_cases_sha256": "11323ede63bc6b48b54028e7525cfccb101fc0b4b669144aba1163feca404bde",
+    "sealed_cases_sha256": "e0b2071dae4e383efdeb8ce8e26e657a5978d98ffc324fe196332a98a2e7916f"
+  },
+  "retired_batch": "runs/stage1-dev-v1",
+  "retired_reason": "generator cases exposed feature and source-provenance cues"
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "status": "active",
+  "current_state": "RESEARCH_WAVE",
+  "profile": "Audit",
+  "planning_policy": "user-approved",
+  "started_at": "2026-08-26T02:19:51Z",
+  "updated_at": "2026-08-26T02:19:51Z",
+  "last_checkpoint": "2026-08-26T02:19:51Z",
+  "completed_states": [
+    "INTAKE",
+    "CAPABILITY_DISCOVERY",
+    "SCOPE_AND_POLICY",
+    "PLAN_DRAFT",
+    "PLAN_GATE",
+    "WORKSTREAM_DESIGN"
+  ],
+  "workstreams": {
+    "completed": ["WS-001"],
+    "active": ["WS-002", "WS-003", "WS-004"],
+    "failed": [],
+    "blocked": []
+  },
+  "unresolved_claim_ids": ["C-001", "C-002", "C-003"],
+  "unresolved_contradiction_ids": [],
+  "blocking_issues": [],
+  "next_action": "Capture the RED test checkpoint before implementing the offline evaluator.",
+  "artifact_paths": {
+    "brief": "research_run/research_brief.md",
+    "plan": "research_run/research_plan.md",
+    "source_register": "research_run/source_register.csv",
+    "evidence_register": "research_run/evidence_register.csv",
+    "claim_matrix": "research_run/claim_evidence_matrix.csv",
+    "resume": "resume.md"
+  }
+}

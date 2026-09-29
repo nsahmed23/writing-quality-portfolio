@@ -1,0 +1,233 @@
+agent_id: AG-001
+workstream_id: WS-001
+status: complete
+findings:
+  - claim_id: C-101
+    claim_text: "soundshuman separates judgment-heavy rewriting into a Markdown skill while placing machine-checkable detection in a JSON rule pack consumed by a dependency-free CLI."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-101, source_id: S-001, support_scope: direct, location: "sources/soundshuman/README.md:22-26"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-102
+    claim_text: "soundshuman's analyzer blanks frontmatter, fenced and inline code, bare URLs, and Markdown link targets while preserving line positions; blockquotes are excluded only when explicitly requested."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-102, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:25-41"}
+      - {evidence_id: E-103, source_id: S-001, support_scope: direct, location: "sources/soundshuman/tests/sloplint.test.js:47-50"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-103
+    claim_text: "soundshuman computes its score as 70 percent pattern score and 30 percent hardcoded uniformity, scales uniformity below 120 words, and labels confidence solely from word-count bands."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-104, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:96-108"}
+      - {evidence_id: E-105, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:200-226"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-104
+    claim_text: "soundshuman's tests cover one synthetic AI-versus-human score pair plus selected rule, exclusion, fixing, rhythm, frontmatter, line-count, and score-bound cases."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-106, source_id: S-001, support_scope: direct, location: "sources/soundshuman/tests/sloplint.test.js:14-90"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-105
+    claim_text: "soundshuman documents three safeguards for model rewrites: preserve every claim, invent no facts, and let a supplied author sample override default style rules."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-107, source_id: S-001, support_scope: direct, location: "sources/soundshuman/SKILL.md:27-42"}
+      - {evidence_id: E-108, source_id: S-001, support_scope: direct, location: "sources/soundshuman/SKILL.md:370-388"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-106
+    claim_text: "stop-slop is a prompt-and-reference skill with a manual five-dimension score, and its core rules categorically remove adverbs, passive voice, Wh-word openings, em dashes, and other forms without a preservation or no-fabrication contract."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-109, source_id: S-002, support_scope: direct, location: "sources/stop-slop/README.md:24-54"}
+      - {evidence_id: E-110, source_id: S-002, support_scope: direct, location: "sources/stop-slop/SKILL.md:13-60"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-107
+    claim_text: "stop-slop's categorical rules create substantial semantic and voice-preservation risk; one approved example removes 'most' and changes wanting to admit confusion into admitting confusion."
+    evidence_status: I
+    evidence:
+      - {evidence_id: E-110, source_id: S-002, support_scope: direct, location: "sources/stop-slop/SKILL.md:13-60"}
+      - {evidence_id: E-111, source_id: S-002, support_scope: direct, location: "sources/stop-slop/references/examples.md:15-23"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The rules may be intended as a narrow house voice applied under close human supervision rather than as general-purpose editing constraints."
+  - claim_id: C-108
+    claim_text: "soundshuman's no-fabrication instruction conflicts with examples that insert an unsupported actor, timing, percentages, attribution, and empirical claims absent from the displayed before text."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-107, source_id: S-001, support_scope: direct, location: "sources/soundshuman/SKILL.md:27-42"}
+      - {evidence_id: E-112, source_id: S-001, support_scope: direct, location: "sources/soundshuman/SKILL.md:147-152"}
+      - {evidence_id: E-113, source_id: S-001, support_scope: direct, location: "sources/soundshuman/references/examples.md:37-45"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The examples may assume source context that is not shown, although one explicitly warns that the inserted numbers must come from a source or author."
+  - claim_id: C-109
+    claim_text: "soundshuman's claim that every score point maps to a rule-pack finding is inaccurate because hardcoded uniformity can contribute 30 percent of the score without emitting a finding."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-114, source_id: S-001, support_scope: direct, location: "sources/soundshuman/README.md:110-112"}
+      - {evidence_id: E-115, source_id: S-001, support_scope: direct, location: "sources/soundshuman/docs/WORKFLOW.md:41-45"}
+      - {evidence_id: E-104, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:96-108"}
+      - {evidence_id: E-105, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:200-226"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-110
+    claim_text: "soundshuman's applyFixes bypasses analyzer exclusions and globally rewrites raw phrases and punctuation, so its 'safe mechanical fixes' claim is not established for code, frontmatter, links, quotations, or punctuation semantics."
+    evidence_status: I
+    evidence:
+      - {evidence_id: E-102, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:25-41"}
+      - {evidence_id: E-116, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:238-265"}
+      - {evidence_id: E-117, source_id: S-001, support_scope: direct, location: "sources/soundshuman/README.md:69-73"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: "The authors may expect fix to run only on ordinary prose and rely on the recommended Git diff review to catch damage."
+  - claim_id: C-111
+    claim_text: "soundshuman says the CLI measures paragraph uniformity, but computeStats exposes no paragraph metric."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-118, source_id: S-001, support_scope: direct, location: "sources/soundshuman/SKILL.md:326-337"}
+      - {evidence_id: E-119, source_id: S-001, support_scope: direct, location: "sources/soundshuman/bin/sloplint.js:65-93"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-112
+    claim_text: "stop-slop uses MIT, whose text requires preservation of the copyright and permission notice in copies or substantial portions."
+    evidence_status: D
+    evidence:
+      - {evidence_id: E-120, source_id: S-002, support_scope: direct, location: "sources/stop-slop/LICENSE:1-13"}
+    calculation_ids: []
+    confidence: high
+    alternative_explanation: ""
+  - claim_id: C-113
+    claim_text: "soundshuman's blanket MIT declaration carries a license-compatibility risk because its LICENSE also acknowledges Wikipedia-derived CC BY-SA pattern research without mapping which adapted expression, if any, remains share-alike."
+    evidence_status: I
+    evidence:
+      - {evidence_id: E-121, source_id: S-001, support_scope: direct, location: "sources/soundshuman/LICENSE:1-23"}
+    calculation_ids: []
+    confidence: medium
+    alternative_explanation: "The repository may reuse uncopyrightable ideas rather than adapted expression, or its attribution and licensing may be sufficient under facts unavailable in the snapshot."
+contradictions:
+  - contradiction_id: CTR-101
+    claim_ids: [C-105, C-108]
+    source_ids: [S-001]
+    nature: "The prompt bans invented facts, while displayed transformations introduce details absent from their shown source text."
+    possible_explanation: "The examples may rely on omitted context."
+    resolution_attempts: "Inspected the complete skill, examples, checklist, and style guide."
+    current_verdict: "Treat no-fabrication as an instruction, not a demonstrated invariant."
+    confidence: high
+    remaining_uncertainty: "Whether omitted context supports each inserted detail."
+    effect_on_conclusion: "Semantic-diff or source-entailment tests are required for factual material."
+    status: open
+    notes: ""
+  - contradiction_id: CTR-102
+    claim_ids: [C-103, C-109]
+    source_ids: [S-001]
+    nature: "Documentation says every score point is a rule-pack finding, while hardcoded uniformity contributes without findings."
+    possible_explanation: "The authors may call displayed statistics separately explainable rather than findings."
+    resolution_attempts: "Compared README and workflow claims with uniformityScore and analyzeText."
+    current_verdict: "Rule-pack control and per-finding traceability are overstated."
+    confidence: high
+    remaining_uncertainty: "Whether maintainers intended a narrower definition of finding."
+    effect_on_conclusion: "A rule-pack edit cannot fully control the score."
+    status: open
+    notes: ""
+  - contradiction_id: CTR-103
+    claim_ids: [C-111]
+    source_ids: [S-001]
+    nature: "The skill lists paragraph uniformity as CLI-measured, but the implementation exposes no paragraph metric."
+    possible_explanation: "The documentation may describe planned or upstream behavior."
+    resolution_attempts: "Inspected the complete computeStats return object."
+    current_verdict: "The documented metric is absent from this pinned implementation."
+    confidence: high
+    remaining_uncertainty: "None within the snapshot."
+    effect_on_conclusion: "Do not claim four implemented shape metrics."
+    status: open
+    notes: ""
+unknowns:
+  - unknown_id: U-101
+    description: "False-positive and false-negative rates for soundshuman's score bands and 25/50/60 thresholds are unknown."
+    why_it_matters: "The thresholds are used for rewrite targets and repository gates."
+    research_attempted: "Inspected the complete scorer, rule pack, documentation, CI configuration, and tests; only one synthetic AI-versus-human pair is tested."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Run a labeled, register-stratified held-out benchmark and report confusion matrices by length and genre."
+    effect_on_conclusion: "Treat the score as an unvalidated house-style heuristic, not an authorship detector."
+    status: open
+  - unknown_id: U-102
+    description: "The factual-preservation and voice-matching reliability of soundshuman's prompt loop are unknown."
+    why_it_matters: "The repository presents both as trust safeguards."
+    research_attempted: "Inspected all prompt and reference guidance and scanner tests; no controlled rewrite fixtures or semantic-entailment tests are present."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Add repeated evals covering quantities, modality, negation, actors, citations, quotations, technical terms, and author-sample features."
+    effect_on_conclusion: "These safeguards are documented intentions rather than demonstrated behavior."
+    status: open
+  - unknown_id: U-103
+    description: "stop-slop's transformation reliability, scoring consistency, and voice preservation are unknown."
+    why_it_matters: "Its rules are categorical and its 35/50 score is subjective."
+    research_attempted: "Inspected every file in the pinned snapshot; it includes no implementation or tests."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: true
+    recommended_next_step: "Add rubric anchors, independent-rater tests, and semantic-preservation fixtures across registers."
+    effect_on_conclusion: "Use it as a review checklist with human judgment, not an automatic rewrite contract."
+    status: open
+  - unknown_id: U-104
+    description: "Whether soundshuman satisfies all applicable CC BY-SA obligations is unknown."
+    why_it_matters: "The repository labels the package MIT while acknowledging CC BY-SA-derived research."
+    research_attempted: "Inspected the complete local license and attribution statements; outside license texts and upstream history were out of scope."
+    queries_used: []
+    source_classes_checked: [P2]
+    absence_meaningful: false
+    recommended_next_step: "Perform a file-level provenance comparison and qualified license review, then document any dual-license or share-alike boundary."
+    effect_on_conclusion: "Do not repeat the blanket MIT claim without resolving provenance."
+    status: open
+calculations: []
+sources_added: []
+evidence_added:
+  - {evidence_id: E-101, source_id: S-001, location: "sources/soundshuman/README.md:22-26", modality: text, extracted_fact: "README separates the rewrite skill, JSON rules, CLI, and references.", support_scope: direct, limitations: "Self-description does not establish effectiveness.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-102, source_id: S-001, location: "sources/soundshuman/bin/sloplint.js:25-41", modality: code, extracted_fact: "prepareText blanks protected regions and preserves line positions; blockquotes require ignoreQuotes.", support_scope: direct, limitations: "Static inspection only.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-103, source_id: S-001, location: "sources/soundshuman/tests/sloplint.test.js:47-50", modality: test, extracted_fact: "A unit test expects no vocabulary findings inside fenced or inline code.", support_scope: direct, limitations: "Test inspected but not executed.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-104, source_id: S-001, location: "sources/soundshuman/bin/sloplint.js:96-108", modality: code, extracted_fact: "Uniformity uses hardcoded thresholds and a short-text scale-down.", support_scope: direct, limitations: "No calibration data appears here.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-105, source_id: S-001, location: "sources/soundshuman/bin/sloplint.js:200-226", modality: code, extracted_fact: "Score is 70 percent pattern and 30 percent uniformity; confidence is word-count based.", support_scope: direct, limitations: "Static inspection only.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-106, source_id: S-001, location: "sources/soundshuman/tests/sloplint.test.js:14-90", modality: test, extracted_fact: "The complete test file contains one classification pair and selected unit cases.", support_scope: direct, limitations: "Tests were not executed and do not establish population error rates.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-107, source_id: S-001, location: "sources/soundshuman/SKILL.md:27-42", modality: prompt, extracted_fact: "Skill mandates claim preservation, no invented facts, and author-sample voice calibration.", support_scope: direct, limitations: "Instruction is not behavioral proof.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-108, source_id: S-001, location: "sources/soundshuman/SKILL.md:370-388", modality: prompt, extracted_fact: "File and repo modes prescribe reviewable diffs and per-file user selection.", support_scope: direct, limitations: "Depends on host compliance.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-109, source_id: S-002, location: "sources/stop-slop/README.md:24-54", modality: text, extracted_fact: "README documents prompt installation and manual five-dimension scoring.", support_scope: direct, limitations: "No implementation evidence.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-110, source_id: S-002, location: "sources/stop-slop/SKILL.md:13-60", modality: prompt, extracted_fact: "Core rules and quick checks use categorical form bans and a subjective threshold without a preservation contract.", support_scope: direct, limitations: "Prompt-only behavior.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-111, source_id: S-002, location: "sources/stop-slop/references/examples.md:15-23", modality: text, extracted_fact: "Approved rewrite removes 'most' and changes desire to admit into actual admission.", support_scope: direct, limitations: "Synthetic example without wider context.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-112, source_id: S-001, location: "sources/soundshuman/SKILL.md:147-152", modality: prompt, extracted_fact: "False-agency example inserts a team and 'that week' absent from its before text.", support_scope: direct, limitations: "Omitted context could exist.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-113, source_id: S-001, location: "sources/soundshuman/references/examples.md:37-45", modality: text, extracted_fact: "Rewrite inserts numbers, dates, attribution, and causal assessments, then warns real insertions must be sourced.", support_scope: direct, limitations: "Omitted context could exist.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-114, source_id: S-001, location: "sources/soundshuman/README.md:110-112", modality: text, extracted_fact: "README says every score point maps to a deletable finding.", support_scope: direct, limitations: "Repository claim only.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-115, source_id: S-001, location: "sources/soundshuman/docs/WORKFLOW.md:41-45", modality: text, extracted_fact: "Workflow says all detection lives in JSON rules.", support_scope: direct, limitations: "Repository claim only.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-116, source_id: S-001, location: "sources/soundshuman/bin/sloplint.js:238-265", modality: code, extracted_fact: "applyFixes rewrites raw text with literal phrase and global punctuation replacements.", support_scope: direct, limitations: "Static inspection only.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-117, source_id: S-001, location: "sources/soundshuman/README.md:69-73", modality: text, extracted_fact: "README labels the automatic replacements safe mechanical fixes.", support_scope: direct, limitations: "Self-description is not validation.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-118, source_id: S-001, location: "sources/soundshuman/SKILL.md:326-337", modality: prompt, extracted_fact: "Skill says the CLI measures four signals including paragraph uniformity.", support_scope: direct, limitations: "Documentation claim only.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-119, source_id: S-001, location: "sources/soundshuman/bin/sloplint.js:65-93", modality: code, extracted_fact: "computeStats returns no paragraph metric.", support_scope: direct, limitations: "Static inspection only.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-120, source_id: S-002, location: "sources/stop-slop/LICENSE:1-13", modality: license, extracted_fact: "MIT grant requires notice preservation in copies or substantial portions.", support_scope: direct, limitations: "Not legal advice for a particular use.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+  - {evidence_id: E-121, source_id: S-001, location: "sources/soundshuman/LICENSE:1-23", modality: license, extracted_fact: "License declares MIT, preserves three upstream MIT notices, and acknowledges Wikipedia-derived CC BY-SA research.", support_scope: direct, limitations: "No file-level provenance map.", extracted_by: AG-001, extracted_at: "2026-08-25T14:42:41-04:00", verification_status: passed}
+targeted_followups:
+  - {question: "How do soundshuman score bands perform on a register-stratified held-out corpus?", rationale: "Gate thresholds lack calibration.", suggested_method: "Report confusion matrices by genre and length.", priority: high}
+  - {question: "Does soundshuman fix preserve protected regions and meaning?", rationale: "The fixer bypasses analyzer exclusions.", suggested_method: "Add protected-region and semantic-entailment tests.", priority: high}
+  - {question: "Do both prompts preserve facts, modality, actors, and author voice?", rationale: "Safeguards conflict with examples or are absent.", suggested_method: "Run repeated invariant-focused evals and retain raw outputs.", priority: high}
+  - {question: "Which soundshuman passages adapt CC BY-SA expression?", rationale: "The MIT and CC BY-SA boundary is unclear.", suggested_method: "Perform file-level provenance and qualified license review.", priority: high}
+limitations:
+  - "Inspection was limited to local commit-pinned snapshots S-001 and S-002 plus the assigned schema; no network was used."
+  - "No repository code, tests, hooks, or workflows were executed; code findings are static documented behavior, not observed behavior."
+  - "No dependencies were installed and no empirical benchmark was performed."
+  - "License findings are not legal advice."

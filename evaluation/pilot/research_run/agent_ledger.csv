@@ -1,0 +1,6 @@
+agent_id,role,workstream_id,mode,started_at,ended_at,capabilities,inputs,result_location,failures,completion_status,parent_evaluation,notes
+eval_planner,planner,WS-001,read-only,2026-08-26T01:55:00Z,2026-08-26T02:18:00Z,plan and inventory,user request; local sources,agent return,,completed,accepted,Proposed smaller pilot; root selected confirmatory 90-case design
+eval_tdd,tdd-guide,WS-002,read-only,2026-08-26T01:55:00Z,2026-08-26T02:05:00Z,test contract and gates,user request; local fixtures,agent return,,completed,accepted,Established offline evaluator and real-human boundary
+eval_architect,architect,WS-001,read-only,2026-08-26T02:08:00Z,2026-08-26T02:20:00Z,architecture and threat boundaries,approved plan; TDD return,agent return,,completed,accepted,Added fidelity classes and locked Stage 2 behind adjudicated Stage 1
+harness_tests,worker,WS-002,tests-only,2026-08-26T02:20:00Z,,unittest contract,approved protocol,tests,,active,pending,Owns tests only
+consolidated_code_review,code-reviewer,WS-002,read-only,2026-08-26T04:54:00Z,,code and gate audit,public code; tests; configs; metadata,agent return,Accidental broad rg path included private directory and returned truncated matched lines,active,pending,Reviewer stopped immediately; private-content observations excluded from evidence and review scope narrowed

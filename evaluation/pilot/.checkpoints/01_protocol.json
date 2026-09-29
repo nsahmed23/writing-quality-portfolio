@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "01_protocol",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "recorded_at": "2026-08-26T02:19:51Z",
+  "status": "complete",
+  "corpus_cases": 90,
+  "dev_cases": 18,
+  "sealed_cases": 72,
+  "runs_per_stage1_case": 3,
+  "runs_per_stage2_case": 3,
+  "primary_systems": 12,
+  "stage1_gate": {
+    "schema_compliance": 1.0,
+    "precision_min": 0.8,
+    "recall_min": 0.6,
+    "keep_accuracy_min": 0.9,
+    "critical_meaning_risk_max": 0,
+    "critical_miss_rate_max": 0.05,
+    "sized_slice_positive_opportunities_min": 5,
+    "sized_slice_precision_min": 0.65
+  },
+  "human_validation_required": true,
+  "result_label_until_human_adjudication": "PILOT_UNADJUDICATED"
+}

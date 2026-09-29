@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "checkpoint": "03_harness_green",
+  "run_id": "RUN-20260825-writing-quality-eval",
+  "recorded_at": "2026-08-26T03:39:24Z",
+  "status": "in_progress_pending_final_reviews_and_coverage",
+  "tests_passed": 72,
+  "test_framework": "unittest",
+  "performance_case_count": 10000,
+  "performance_limit_seconds": 10,
+  "raw_storage": "write_once_atomic_link_with_receipt_verification",
+  "strict_json": "duplicate_keys_nonfinite_surrogates_and_non_lf_jsonl_separators_rejected",
+  "reviews": {
+    "code_review": "findings_in_remediation",
+    "security_review": "findings_in_remediation"
+  }
+}

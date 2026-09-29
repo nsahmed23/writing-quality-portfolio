@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "stage": "local_verification",
+  "status": "complete_with_final_security_and_publication_gates_pending",
+  "baseline_commit": "74a282108da2a620542556fa001ebcdde0c9be85",
+  "branch": "codex/evaluation-audit-bundle",
+  "copy_integrity": {
+    "pilot_expected_files": 419,
+    "pilot_actual_files": 419,
+    "pilot_hash_mismatches": 0,
+    "pilot_unexpected_files": 0,
+    "source_review_hash_mismatches": 0
+  },
+  "tests": [
+    {
+      "runtime": "Python 3.11",
+      "tests_run": 198,
+      "failures": 0,
+      "skipped": 2
+    },
+    {
+      "runtime": "Python 3.14",
+      "tests_run": 198,
+      "failures": 0,
+      "skipped": 2
+    }
+  ],
+  "portfolio_validator": "passed",
+  "secret_and_private_data_scan": {
+    "recognized_credentials_or_private_keys": 0,
+    "email_phone_or_ssn_matches": 0,
+    "structured_file_parse_failures": 0,
+    "active_content_or_prompt_injection_matches": 0
+  },
+  "third_party_boundary": {
+    "source_clones_included": false,
+    "third_party_code_executed": false,
+    "exact_twelve_word_overlaps_in_reviewed_reference_set": 0
+  },
+  "integrity_manifests": {
+    "evaluation_rows": 469,
+    "repository_rows": 556,
+    "syntax_errors": 0,
+    "duplicate_paths": 0,
+    "missing_rows": 0,
+    "extra_rows": 0,
+    "hash_mismatches": 0,
+    "backslash_paths": 0
+  },
+  "security_scan": {
+    "scan_id": "07579b42-0973-421e-b68e-36890e0ae3af",
+    "status": "complete",
+    "findings": 0,
+    "snapshot_warning": "The working tree changed during review, so a fresh exact-diff scan is required after the final manifests are frozen."
+  },
+  "next": "run the exact final security scan, obtain the final code-review verdict, then commit, push, and open the draft pull request"
+}
