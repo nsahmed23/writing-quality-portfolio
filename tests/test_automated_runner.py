@@ -107,7 +107,7 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
         self.assertEqual(json.loads(result['response'])['winner'],'A')
         self.assertNotIn(b'progress',result['response'])
 
-    def codex_adapter_argv(self):
+    def run_codex_adapter(self,*adapter_options,name):
         """Run the codex adapter against a stand-in `codex` that records the arguments it receives."""
         fake=self.root/'argv-codex.py'
         fake.write_text('''#!/usr/bin/env python3
@@ -120,11 +120,23 @@ Path(argv[argv.index('--output-last-message')+1]).write_text('{"winner":"tie","r
 ''',encoding='utf-8')
         fake=self.provider_executable(fake)
         wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
-        result=run_call([sys.executable,str(wrapper),'--codex',str(fake),'--model','pinned-model'],
+        return run_call([sys.executable,str(wrapper),'--codex',str(fake),'--model','pinned-model',*adapter_options],
                         {'role':'judge','request_id':'opaque','prompt':'inspect','context':'','rubric':[],
-                         'A':'alpha','B':'beta'},self.root/'codex-isolation',timeout_seconds=3)
+                         'A':'alpha','B':'beta'},self.root/name,timeout_seconds=3)
+
+    def codex_adapter_argv(self,*adapter_options,name='codex-isolation'):
+        """The arguments the stand-in `codex` received; each call to the adapter needs its own `name`."""
+        result=self.run_codex_adapter(*adapter_options,name=name)
         self.assertTrue(result['ok'],result['stderr'])
         return json.loads((self.root/'argv.json').read_text(encoding='utf-8'))
+
+    @staticmethod
+    def without_call_paths(argv):
+        """Blank the per-call temp paths so two invocations of the adapter can be compared."""
+        masked=list(argv)
+        for flag in ('--output-schema','--output-last-message'):
+            masked[masked.index(flag)+1]='<path>'
+        return masked
 
     def test_codex_adapter_isolates_judge_from_user_config_and_rules(self):
         """A pinned model must not be reconfigured by `$CODEX_HOME/config.toml` or user `.rules` files."""
@@ -149,6 +161,39 @@ Path(argv[argv.index('--output-last-message')+1]).write_text('{"winner":"tie","r
                 self.assertIn(pair,pairs)
         # A renamed key must stop the call: otherwise Codex only warns and runs without the isolation.
         self.assertIn('--strict-config',options)
+
+    def test_codex_adapter_pins_reasoning_effort_when_asked(self):
+        """--reasoning-effort LEVEL reaches `codex exec` as `-c model_reasoning_effort=LEVEL` and changes nothing else."""
+        # Measured on Codex CLI 0.156.0: the API lists exactly these values (see the adapter for how).
+        levels=('none','minimal','low','medium','high','xhigh','max')
+        default=self.without_call_paths(self.codex_adapter_argv(name='codex-effort-default'))
+        self.assertEqual([arg for arg in default if 'reasoning' in arg],[],'no option, no effort setting')
+        for level in levels:
+            with self.subTest(level=level):
+                pinned=self.without_call_paths(self.codex_adapter_argv('--reasoning-effort',level,name='codex-effort-'+level))
+                setting='model_reasoning_effort='+level
+                self.assertEqual(pinned.count(setting),1)
+                position=pinned.index(setting)
+                self.assertEqual(pinned[position-1],'-c')
+                self.assertGreater(position,pinned.index('exec'),'the setting belongs to `codex exec`')
+                # Taking the pair out must give back exactly the call made without the option.
+                self.assertEqual(pinned[:position-1]+pinned[position+1:],default)
+
+    def test_codex_adapter_rejects_a_reasoning_effort_the_api_would_refuse(self):
+        """Codex sends any string and the API refuses it after the call is made, so the adapter checks first."""
+        started=self.root/'argv.json'
+        control=self.run_codex_adapter('--reasoning-effort','high',name='codex-effort-control')
+        self.assertTrue(control['ok'],control['stderr'])
+        self.assertTrue(started.is_file(),'the stand-in codex must start for a value in the set')
+        started.unlink()
+        for number,level in enumerate(('bogus','HIGH','High','ultra','extra high','high ','')):
+            with self.subTest(level=level):
+                name=f'codex-effort-bad-{number}'
+                result=self.run_codex_adapter('--reasoning-effort',level,name=name)
+                self.assertFalse(result['ok'])
+                self.assertEqual(result['returncode'],2)
+                self.assertIn(b'invalid choice',(self.root/name/'stderr.bin').read_bytes())
+                self.assertFalse(started.exists(),'codex must not start for '+repr(level))
 
     def test_codex_adapter_retains_final_file_after_provider_nonzero_exit(self):
         fake=self.root/'failed-codex.py'

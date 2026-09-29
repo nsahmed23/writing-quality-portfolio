@@ -5,6 +5,7 @@ The caller runs this in an empty temporary directory. This wrapper never evaluat
 model-generated commands. Its Codex CLI invocation uses a read-only sandbox and
 approval=never, and it keeps the user's Codex setup out of the call (see ISOLATION)
 so the pinned model and sandbox cannot be reconfigured; auth still uses `CODEX_HOME`.
+`--reasoning-effort LEVEL` pins the reasoning effort the same way, so a calibration can be repeated.
 A configured Codex family is one provider family regardless of model.
 """
 import argparse
@@ -28,6 +29,14 @@ ISOLATION=[
     '-c','skills.include_instructions=false',     # the list of installed skills
 ]
 
+# Values of the `model_reasoning_effort` key, which `--reasoning-effort` sets. The Codex npm package ships no
+# configuration docs, so these were measured on Codex CLI 0.156.0: Codex does not check the value (its banner
+# echoed an invented one back) and the API refuses an unknown one, for gpt-6-astra, with "Supported values are:
+# 'none', 'minimal', 'low', 'medium', 'high', 'xhigh', and 'max'". A model may accept fewer, so a value in this
+# set is necessary but not proof that a given model takes it. Without the option no key is passed and Codex
+# keeps its own default effort.
+REASONING_EFFORTS=('none','minimal','low','medium','high','xhigh','max')
+
 SCHEMAS={
     'judge': {'type':'object','additionalProperties':False,'properties':{
         'winner':{'type':'string','enum':['A','B','tie','both_bad']},
@@ -49,6 +58,9 @@ def main(argv=None):
     parser=argparse.ArgumentParser(description='Codex JSON adapter')
     parser.add_argument('--codex',default='codex',help='Codex CLI executable')
     parser.add_argument('--model',help='Optional Codex model name')
+    parser.add_argument('--reasoning-effort',choices=REASONING_EFFORTS,metavar='LEVEL',
+                        help='Optional reasoning effort, sent as `-c model_reasoning_effort=LEVEL`; one of: '
+                             +', '.join(REASONING_EFFORTS))
     args=parser.parse_args(argv)
     try:
         raw=sys.stdin.buffer.read()
@@ -78,6 +90,7 @@ def main(argv=None):
                      '--skip-git-repo-check','--ephemeral',*ISOLATION,
                      '--output-schema',str(schema),'--output-last-message',str(output)]
             if args.model: command.extend(['--model',args.model])
+            if args.reasoning_effort is not None: command.extend(['-c','model_reasoning_effort='+args.reasoning_effort])
             command.append('-')
             result=subprocess.run(command,input=prompt.encode('utf-8'),stdout=sys.stderr.buffer,
                                   stderr=sys.stderr.buffer,cwd=work,check=False)
