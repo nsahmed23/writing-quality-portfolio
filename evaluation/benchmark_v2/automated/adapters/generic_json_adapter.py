@@ -3,6 +3,7 @@
 
 Usage: python generic_json_adapter.py -- MODEL_CLI ARG ...
 MODEL_CLI accepts a UTF-8 prompt on stdin and emits only a JSON object on stdout.
+A CLI that takes the prompt as an argument and ignores stdin is served by prompt_arg_adapter.py.
 """
 import argparse
 import json
@@ -24,6 +25,20 @@ ROLE_INSTRUCTIONS={
 }
 
 
+def load_request():
+    """The request object the runner wrote on stdin, as UTF-8 bytes; a text stdin would decode them with the locale's code page."""
+    return json.loads(sys.stdin.buffer.read().decode('utf-8'))
+
+
+def build_prompt(request):
+    """The prompt both bridges give a model CLI: the role's instructions, then the request as one line of JSON."""
+    if not isinstance(request,dict) or request.get('role') not in ROLE_INSTRUCTIONS:
+        raise ValueError('invalid request role')
+    return ('Return exactly one JSON object on stdout and no prose. Do not use tools or execute commands. '
+            +ROLE_INSTRUCTIONS[request['role']]+'\n'
+            +json.dumps(request,ensure_ascii=False,sort_keys=True,separators=(',',':'))+'\n')
+
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description='generic model CLI JSON bridge')
     parser.add_argument('command',nargs=argparse.REMAINDER)
@@ -31,12 +46,7 @@ def main(argv=None):
     command=args.command[1:] if args.command and args.command[0]=='--' else args.command
     if not command: parser.error('model CLI argv is required after --')
     try:
-        request=json.load(sys.stdin)
-        if not isinstance(request,dict) or request.get('role') not in ROLE_INSTRUCTIONS:
-            raise ValueError('invalid request role')
-        prompt=('Return exactly one JSON object on stdout and no prose. Do not use tools or execute commands. '
-                +ROLE_INSTRUCTIONS[request['role']]+'\n'
-                +json.dumps(request,ensure_ascii=False,sort_keys=True,separators=(',',':'))+'\n')
+        prompt=build_prompt(load_request())
         result=subprocess.run(command,input=prompt.encode('utf-8'),stdout=sys.stdout.buffer,
                               stderr=sys.stderr.buffer,check=False)
         return result.returncode
