@@ -591,13 +591,17 @@ sys.exit(prompt_arg_adapter.main(['--',*spec['command']]))
 
     def test_request_is_decoded_as_utf8_whatever_the_locale(self):
         # UTF-8 mode off: Windows then decodes a piped stdin with the ANSI code page, which mangles UTF-8 request text.
-        env={k:v for k,v in os.environ.items() if k not in ('PYTHONIOENCODING','PYTHONUTF8','LC_ALL','LC_CTYPE','LANG')}
+        env={k:v for k,v in os.environ.items() if k not in ('PYTHONIOENCODING','PYTHONUTF8','PYTHONCOERCECLOCALE','LC_ALL','LC_CTYPE','LANG')}
         env['PYTHONUTF8']='0'
+        # Locale coercion off as well for the generic bridge, whose load_request both bridges use to decode stdin: with it on,
+        # Python turns a POSIX C locale into C.UTF-8 (PEP 538) and the ASCII decode is never tried. The wrapper run keeps it
+        # on, because with an ASCII filesystem encoding POSIX Python cannot put a non-ASCII prompt on the CLI's command line.
+        ascii_env=dict(env,PYTHONCOERCECLOCALE='0')
         request=dict(self.REQUEST,context=self.AWKWARD)
         done=self.wrapper_run(request,[*self.cli,'answer'],env=env)
         self.assertEqual(done.returncode,0,done.stderr)
         self.assertEqual(self.request_in(self.seen()['argv'][-1]),request)
-        self.assertEqual(self.request_in(self.bridge_prompt(request,env=env)),request)
+        self.assertEqual(self.request_in(self.bridge_prompt(request,env=ascii_env)),request)
 
     def test_cli_starts_in_its_own_git_repository_and_the_directory_is_removed(self):
         done=self.wrapper_run(self.REQUEST,[*self.cli,'answer'])
