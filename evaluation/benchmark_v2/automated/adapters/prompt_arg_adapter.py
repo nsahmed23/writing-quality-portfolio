@@ -7,15 +7,19 @@ include a prompt option. MODEL_CLI must write only the JSON object on stdout.
 
 MODEL_CLI runs in a new empty directory that is a Git repository of its own. A CLI that loads AGENTS.md or GEMINI.md by
 walking up from its working directory would otherwise find the ones above the temp folder, and a Git root ends that walk.
-The repository must be a real one: an empty .git folder did not stop agy 1.2.12. The directory is removed afterwards;
-a call that the runner kills on a timeout can leave a small wq-prompt-arg-* folder in the temp directory.
+The repository must be a real one: an empty .git folder did not stop agy 1.2.12. Neither git nor MODEL_CLI inherits a
+GIT_* variable, because GIT_DIR or GIT_WORK_TREE would send both to some other repository. The directory is removed
+afterwards; a call that the runner kills on a timeout can leave a small wq-prompt-arg-* folder in the temp directory.
 
-The call exits 2 before MODEL_CLI starts when git is missing, MODEL_CLI is a .cmd or .bat file (cmd.exe would re-parse the
-prompt), an argument starts with --dangerously, the request has no valid role, the prompt is not valid UTF-8, or the
-command line would pass 32,000 UTF-16 units. MODEL_CLI exiting 0 with blank stdout also becomes exit 2, because agy does
-that when it is denied a tool call. Any other exit code is passed through unchanged.
+The call exits 2 before MODEL_CLI starts when git is missing, git init runs past 30 seconds, git leaves no repository
+(no .git/HEAD after git init), MODEL_CLI is a .cmd or .bat file or is cmd, powershell or pwsh (a shell would re-parse
+the prompt), an argument starts with --dangerously, the request has no valid role, the prompt is not valid UTF-8, or
+the command line would pass 32,000 UTF-16 units. MODEL_CLI exiting 0 with blank stdout also becomes exit 2, because agy
+does that when it is denied a tool call. Any other exit code is passed through, except that on POSIX a MODEL_CLI that a
+signal killed exits 128 plus the signal number (137 for SIGKILL), as a shell reports it; a raw -9 would wrap to 247.
 """
 import argparse
+import os
 import subprocess
 import sys
 import tempfile
@@ -27,6 +31,8 @@ from generic_json_adapter import build_prompt,load_request
 
 MAX_COMMAND_LINE_UNITS=32000  # CreateProcess accepts 32,767 UTF-16 units; the difference is headroom
 SHIM_SUFFIXES=('.cmd','.bat')
+SHELL_NAMES=('cmd','powershell','pwsh')  # a shell that names a .cmd shim as its argument would slip past the suffix check
+GIT_INIT_TIMEOUT_SECONDS=30  # git init takes milliseconds; a hung one would otherwise hold the call until the runner's own timeout
 
 
 def command_line_units(command):
@@ -36,9 +42,12 @@ def command_line_units(command):
 
 def refuse_unsafe(command,full):
     """Raise ValueError for a call that must not start; `full` is `command` plus the prompt argument."""
-    suffix=Path(command[0]).suffix.lower()
+    program=Path(command[0])
+    suffix=program.suffix.lower()
     if suffix in SHIM_SUFFIXES:
         raise ValueError(f'{command[0]} is a {suffix} script, and cmd.exe would re-parse the prompt; name the native executable')
+    if program.stem.lower() in SHELL_NAMES:
+        raise ValueError(f'{command[0]} is a command shell, and it would re-parse the prompt; name the native executable')
     for arg in command:
         if arg.startswith('--dangerously'):
             raise ValueError(f'{arg} bypasses the CLI permission checks, and this adapter never passes it')
@@ -47,14 +56,23 @@ def refuse_unsafe(command,full):
         raise ValueError(f'the prompt makes a command line of {units} UTF-16 units, over the limit of {MAX_COMMAND_LINE_UNITS}')
 
 
-def init_repository(directory):
+def git_free_environment():
+    """This process's environment without any GIT_* variable; GIT_DIR and GIT_WORK_TREE make git ignore the directory it is in."""
+    return {name:value for name,value in os.environ.items() if not name.upper().startswith('GIT_')}
+
+
+def init_repository(directory,env):
     try:
         done=subprocess.run(['git','init','-q',directory],stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE,check=False)
+                            stderr=subprocess.PIPE,env=env,timeout=GIT_INIT_TIMEOUT_SECONDS,check=False)
     except FileNotFoundError as exc:
         raise OSError('git was not found, and the model CLI needs a repository of its own to keep it from loading parent instructions') from exc
+    except subprocess.TimeoutExpired as exc:
+        raise OSError(f'git init timed out after {GIT_INIT_TIMEOUT_SECONDS} seconds') from exc
     if done.returncode!=0:
         raise OSError('git init failed: '+done.stderr.decode('utf-8','replace').strip())
+    if not (Path(directory)/'.git'/'HEAD').is_file():
+        raise OSError(f'git init succeeded but made no repository in {directory}, and the model CLI needs one of its own')
 
 
 def copy_stdout(proc):
@@ -70,9 +88,10 @@ def copy_stdout(proc):
 
 def run_in_fresh_repository(command):
     """Run `command` in a new Git repository and return (exit code, whether stdout held any text)."""
+    env=git_free_environment()
     with tempfile.TemporaryDirectory(prefix='wq-prompt-arg-',ignore_cleanup_errors=True) as work:
-        init_repository(work)
-        with subprocess.Popen(command,cwd=work,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=sys.stderr.buffer) as proc:
+        init_repository(work,env)
+        with subprocess.Popen(command,cwd=work,env=env,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=sys.stderr.buffer) as proc:
             try:
                 answered=copy_stdout(proc)
             except BaseException:
@@ -99,6 +118,6 @@ def main(argv=None):
     if code==0 and not answered:
         print('prompt argument adapter error: the model CLI exited 0 with no output',file=sys.stderr)
         return 2
-    return code
+    return 128-code if code<0 else code  # POSIX reports death by signal N as -N; sys.exit(-N) would wrap to 256-N
 
 if __name__=='__main__': sys.exit(main())
