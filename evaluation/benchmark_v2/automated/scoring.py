@@ -5,7 +5,7 @@ from collections import Counter, defaultdict
 
 from evaluation.benchmark_v2.anchors import AnchorError, resolve_anchor
 
-from .contracts import strict_json, validate_suite
+from .contracts import SPLITS, strict_json, validate_suite
 
 
 def check_text(text: str, checks: dict) -> list[dict]:
@@ -82,7 +82,7 @@ def _interval(values, seed):
 
 def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: str,
                  calibration: dict | None = None, execution: str = "live",
-                 seed: int = 0) -> dict:
+                 seed: int = 0, split: str | None = None) -> dict:
     """Aggregate canonical lowercase records, with one vote per document."""
     validate_suite(suite)
     if mode not in ("calibrate", "compare", "score") or execution not in ("live", "demo"):
@@ -96,7 +96,12 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
                 not judge["family"].strip() or judge["id"] in judge_by_id):
             raise ValueError("judges require unique nonblank id and family")
         judge_by_id[judge["id"]] = judge
-    split = "calibration" if mode == "calibrate" else "test"
+    if split is None:
+        split = "calibration" if mode == "calibrate" else "test"
+    if split not in SPLITS:
+        raise ValueError("invalid split")
+    if mode == "calibrate" and split != "calibration":
+        raise ValueError("calibrate scores the calibration split")
     cases = [c for c in suite["cases"] if c["split"] == split and
              (mode != "calibrate" or c["expected"] is not None)]
     if mode == "score" and not cases:

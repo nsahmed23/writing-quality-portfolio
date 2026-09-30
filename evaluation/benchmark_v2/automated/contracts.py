@@ -5,6 +5,8 @@ import math
 import unicodedata
 from pathlib import Path
 
+SPLITS = ("calibration", "development", "test")
+
 
 def _unique_pairs(pairs):
     result = {}
@@ -62,7 +64,7 @@ def _strings(value, label):
         raise ValueError(f"{label} must be a string array")
 
 
-def _fingerprint(case):
+def case_fingerprint(case):
     # Reversed presentation is the same underlying pair. Normalize cosmetic
     # whitespace and Unicode to catch copies disguised as distinct documents.
     def canonical(s):
@@ -80,17 +82,20 @@ def validate_suite(value) -> dict:
     if not isinstance(value["cases"], list) or not value["cases"]:
         raise ValueError("suite needs cases")
     seen_ids, document_splits, fingerprints = set(), {}, {}
+    document_clusters, cluster_splits = {}, {}
     for case in value["cases"]:
         _object(case, ("id", "document_id", "split", "lane", "prompt", "context",
-                       "a", "b", "expected", "checks", "provenance"), label="case")
+                       "a", "b", "expected", "checks", "provenance"), ("cluster_id",), label="case")
         for key in ("id", "document_id", "prompt", "a", "b"):
             _nonblank(case[key], key)
+        if "cluster_id" in case:
+            _nonblank(case["cluster_id"], "cluster_id")
         if not isinstance(case["context"], str):
             raise ValueError("context must be a string")
         if case["id"] in seen_ids:
             raise ValueError("duplicate case id")
         seen_ids.add(case["id"])
-        if case["split"] not in ("calibration", "development", "test") or case["lane"] not in ("editing", "communication"):
+        if case["split"] not in SPLITS or case["lane"] not in ("editing", "communication"):
             raise ValueError("invalid split or lane")
         if case["expected"] not in ("a", "b", "tie", "both_bad", None):
             raise ValueError("invalid expected winner")
@@ -98,7 +103,16 @@ def validate_suite(value) -> dict:
         if doc in document_splits and document_splits[doc] != case["split"]:
             raise ValueError("document reused across splits")
         document_splits[doc] = case["split"]
-        fingerprint = _fingerprint(case)
+        # A cluster groups documents that must stay on one side of a split (for
+        # example every reply in one thread). Present versus absent counts as
+        # different, so a document is clustered in every case or in none.
+        cluster = case.get("cluster_id")
+        if doc in document_clusters and document_clusters[doc] != cluster:
+            raise ValueError("document assigned to more than one cluster")
+        document_clusters[doc] = cluster
+        if cluster is not None and cluster_splits.setdefault(cluster, case["split"]) != case["split"]:
+            raise ValueError("cluster spans splits")
+        fingerprint = case_fingerprint(case)
         if fingerprint in fingerprints and fingerprints[fingerprint] != doc:
             raise ValueError("copied pair assigned to another document id")
         fingerprints[fingerprint] = doc
