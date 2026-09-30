@@ -7,15 +7,18 @@ include a prompt option. MODEL_CLI must write only the JSON object on stdout.
 
 MODEL_CLI runs in a new empty directory that is a Git repository of its own. A CLI that loads AGENTS.md or GEMINI.md by
 walking up from its working directory would otherwise find the ones above the temp folder, and a Git root ends that walk.
-The repository must be a real one: an empty .git folder did not stop agy 1.2.12. The directory is removed afterwards;
-a call that the runner kills on a timeout can leave a small wq-prompt-arg-* folder in the temp directory.
+The repository must be a real one: an empty .git folder did not stop agy 1.2.12. Neither git nor MODEL_CLI inherits a
+GIT_* variable, because GIT_DIR or GIT_WORK_TREE would send both to some other repository. The directory is removed
+afterwards; a call that the runner kills on a timeout can leave a small wq-prompt-arg-* folder in the temp directory.
 
-The call exits 2 before MODEL_CLI starts when git is missing, MODEL_CLI is a .cmd or .bat file (cmd.exe would re-parse the
-prompt), an argument starts with --dangerously, the request has no valid role, the prompt is not valid UTF-8, or the
-command line would pass 32,000 UTF-16 units. MODEL_CLI exiting 0 with blank stdout also becomes exit 2, because agy does
-that when it is denied a tool call. Any other exit code is passed through unchanged.
+The call exits 2 before MODEL_CLI starts when git is missing or leaves no repository (no .git/HEAD after git init),
+MODEL_CLI is a .cmd or .bat file (cmd.exe would re-parse the prompt), an argument starts with --dangerously, the request
+has no valid role, the prompt is not valid UTF-8, or the command line would pass 32,000 UTF-16 units. MODEL_CLI exiting 0
+with blank stdout also becomes exit 2, because agy does that when it is denied a tool call. Any other exit code is passed
+through unchanged.
 """
 import argparse
+import os
 import subprocess
 import sys
 import tempfile
@@ -47,14 +50,21 @@ def refuse_unsafe(command,full):
         raise ValueError(f'the prompt makes a command line of {units} UTF-16 units, over the limit of {MAX_COMMAND_LINE_UNITS}')
 
 
-def init_repository(directory):
+def git_free_environment():
+    """This process's environment without any GIT_* variable; GIT_DIR and GIT_WORK_TREE make git ignore the directory it is in."""
+    return {name:value for name,value in os.environ.items() if not name.upper().startswith('GIT_')}
+
+
+def init_repository(directory,env):
     try:
         done=subprocess.run(['git','init','-q',directory],stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE,check=False)
+                            stderr=subprocess.PIPE,env=env,check=False)
     except FileNotFoundError as exc:
         raise OSError('git was not found, and the model CLI needs a repository of its own to keep it from loading parent instructions') from exc
     if done.returncode!=0:
         raise OSError('git init failed: '+done.stderr.decode('utf-8','replace').strip())
+    if not (Path(directory)/'.git'/'HEAD').is_file():
+        raise OSError(f'git init succeeded but made no repository in {directory}, and the model CLI needs one of its own')
 
 
 def copy_stdout(proc):
@@ -70,9 +80,10 @@ def copy_stdout(proc):
 
 def run_in_fresh_repository(command):
     """Run `command` in a new Git repository and return (exit code, whether stdout held any text)."""
+    env=git_free_environment()
     with tempfile.TemporaryDirectory(prefix='wq-prompt-arg-',ignore_cleanup_errors=True) as work:
-        init_repository(work)
-        with subprocess.Popen(command,cwd=work,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=sys.stderr.buffer) as proc:
+        init_repository(work,env)
+        with subprocess.Popen(command,cwd=work,env=env,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=sys.stderr.buffer) as proc:
             try:
                 answered=copy_stdout(proc)
             except BaseException:

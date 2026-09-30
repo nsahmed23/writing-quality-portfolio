@@ -496,10 +496,15 @@ class PromptArgumentAdapterTests(unittest.TestCase):
     FAKE_CLI=r'''import json,os,subprocess,sys,time
 from pathlib import Path
 argv=sys.argv[1:]
-top=subprocess.run(['git','rev-parse','--show-toplevel'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=False).stdout.decode('utf-8').strip()
+def git(*args):
+    return subprocess.run(['git',*args],stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=False).stdout.decode('utf-8').strip()
+def same(a,b):
+    return bool(a) and os.path.exists(a) and os.path.exists(b) and os.path.samefile(a,b)
 Path(__file__).with_name('seen.json').write_text(json.dumps({'argv':argv,'cwd':os.getcwd(),'stdin':len(sys.stdin.buffer.read()),
     'has_head':os.path.isfile(os.path.join(os.getcwd(),'.git','HEAD')),
-    'git_top_is_cwd':bool(top) and os.path.samefile(top,os.getcwd())}),encoding='utf-8')
+    'git_top_is_cwd':same(git('rev-parse','--show-toplevel'),os.getcwd()),
+    'git_dir_is_own':same(git('rev-parse','--absolute-git-dir'),os.path.join(os.getcwd(),'.git')),
+    'git_env':{k:v for k,v in os.environ.items() if k.upper().startswith('GIT')}}),encoding='utf-8')
 mode=argv[0]
 if mode=='answer': sys.stdout.buffer.write(b'{"winner":"tie"}\n')
 elif mode=='blank': sys.stdout.buffer.write(b'\n'); sys.stderr.write('nothing to say')
@@ -508,6 +513,19 @@ elif mode=='slow':
     sys.stdout.buffer.write(b'partial-json'); sys.stdout.buffer.flush()
     sys.stderr.write('partial-log'); sys.stderr.flush()
     time.sleep(60)
+'''
+    # Starts the wrapper with `git` replaced by another script. A stand-in on PATH cannot do this on Windows, which starts only .exe files by bare name.
+    LAUNCHER=r'''import json,subprocess,sys
+spec=json.loads(sys.argv[1])
+sys.path.insert(0,spec['adapters'])
+import prompt_arg_adapter
+run=subprocess.run
+def run_with_stand_in_git(args,**kwargs):
+    if args[0]=='git': args=[sys.executable,spec['git'],*args[1:]]
+    return run(args,**kwargs)
+subprocess.run=run_with_stand_in_git
+if 'git_init_timeout' in spec: prompt_arg_adapter.GIT_INIT_TIMEOUT_SECONDS=spec['git_init_timeout']
+sys.exit(prompt_arg_adapter.main(['--',*spec['command']]))
 '''
 
     def setUp(self):
@@ -530,6 +548,16 @@ elif mode=='slow':
         return subprocess.run([sys.executable,str(self.wrapper),'--',*command],
                               input=canonical_bytes(request) if raw is None else raw,
                               stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,timeout=60,check=False)
+
+    def stand_in_git_run(self,git_source,*,git_init_timeout=None):
+        """Run the wrapper against the fake CLI with `git` replaced by a Python script holding `git_source`."""
+        (self.root/'seen.json').unlink(missing_ok=True)
+        git=self.root/'stand_in_git.py'; git.write_text(git_source,encoding='utf-8')
+        launcher=self.root/'launcher.py'; launcher.write_text(self.LAUNCHER,encoding='utf-8')
+        spec={'adapters':str(self.ADAPTERS),'git':str(git),'command':[*self.cli,'answer']}
+        if git_init_timeout is not None: spec['git_init_timeout']=git_init_timeout
+        return subprocess.run([sys.executable,str(launcher),json.dumps(spec)],input=canonical_bytes(self.REQUEST),
+                              stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=60,check=False)
 
     def seen(self):
         return json.loads((self.root/'seen.json').read_text(encoding='utf-8'))
@@ -585,6 +613,30 @@ elif mode=='slow':
         self.assertEqual(done.returncode,2)
         self.assertIn(b'git',done.stderr)
         self.assertFalse((self.root/'seen.json').exists(),'the CLI ran without the isolation it depends on')
+
+    def test_inherited_git_variables_cannot_redirect_the_repository(self):
+        # Git honors GIT_DIR over the working directory, so an inherited one sends `git init` and the CLI's own repository lookup elsewhere.
+        base={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT')}
+        decoy=self.root/'decoy'
+        subprocess.run(['git','init','-q',str(decoy)],env=base,stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=True)
+        # Running `git init` again in a repository recreates whatever is missing, so a deleted folder shows that it ran there.
+        (decoy/'.git'/'refs'/'tags').rmdir()
+        def paths(): return {p.relative_to(decoy).as_posix() for p in decoy.rglob('*')}
+        before=paths()
+        env=dict(base,GIT_DIR=(decoy/'.git').as_posix(),GIT_WORK_TREE=decoy.as_posix(),GITHUB_WQ_MARKER='kept')
+        done=self.wrapper_run(self.REQUEST,[*self.cli,'answer'],env=env)
+        self.assertEqual(done.returncode,0,done.stderr)
+        self.assertEqual(sorted(paths()-before),[],'the wrapper ran git init in the repository named by GIT_DIR')
+        seen=self.seen()
+        self.assertTrue(seen['has_head'],'no .git/HEAD in the CLI working directory')
+        self.assertTrue(seen['git_dir_is_own'],'git resolves the CLI working directory to some other repository')
+        self.assertEqual(seen['git_env'],{'GITHUB_WQ_MARKER':'kept'},'the CLI inherited a GIT_ variable, or lost an unrelated one')
+
+    def test_a_git_that_reports_success_without_a_repository_fails_closed(self):
+        done=self.stand_in_git_run('import sys\nsys.exit(0)\n')
+        self.assertEqual(done.returncode,2,done.stderr)
+        self.assertIn(b'no repository',done.stderr)
+        self.assertFalse((self.root/'seen.json').exists(),'the CLI started without a repository')
 
     def test_blank_output_is_an_error_and_a_failing_exit_code_passes_through(self):
         blank=self.wrapper_run(self.REQUEST,[*self.cli,'blank'])
