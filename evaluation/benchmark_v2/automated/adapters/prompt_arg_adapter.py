@@ -12,10 +12,10 @@ GIT_* variable, because GIT_DIR or GIT_WORK_TREE would send both to some other r
 afterwards; a call that the runner kills on a timeout can leave a small wq-prompt-arg-* folder in the temp directory.
 
 The call exits 2 before MODEL_CLI starts when git is missing or leaves no repository (no .git/HEAD after git init),
-MODEL_CLI is a .cmd or .bat file (cmd.exe would re-parse the prompt), an argument starts with --dangerously, the request
-has no valid role, the prompt is not valid UTF-8, or the command line would pass 32,000 UTF-16 units. MODEL_CLI exiting 0
-with blank stdout also becomes exit 2, because agy does that when it is denied a tool call. Any other exit code is passed
-through unchanged.
+MODEL_CLI is a .cmd or .bat file or is cmd, powershell or pwsh (a shell would re-parse the prompt), an argument starts
+with --dangerously, the request has no valid role, the prompt is not valid UTF-8, or the command line would pass 32,000
+UTF-16 units. MODEL_CLI exiting 0 with blank stdout also becomes exit 2, because agy does that when it is denied a tool
+call. Any other exit code is passed through unchanged.
 """
 import argparse
 import os
@@ -30,6 +30,7 @@ from generic_json_adapter import build_prompt,load_request
 
 MAX_COMMAND_LINE_UNITS=32000  # CreateProcess accepts 32,767 UTF-16 units; the difference is headroom
 SHIM_SUFFIXES=('.cmd','.bat')
+SHELL_NAMES=('cmd','powershell','pwsh')  # a shell that names a .cmd shim as its argument would slip past the suffix check
 
 
 def command_line_units(command):
@@ -39,9 +40,12 @@ def command_line_units(command):
 
 def refuse_unsafe(command,full):
     """Raise ValueError for a call that must not start; `full` is `command` plus the prompt argument."""
-    suffix=Path(command[0]).suffix.lower()
+    program=Path(command[0])
+    suffix=program.suffix.lower()
     if suffix in SHIM_SUFFIXES:
         raise ValueError(f'{command[0]} is a {suffix} script, and cmd.exe would re-parse the prompt; name the native executable')
+    if program.stem.lower() in SHELL_NAMES:
+        raise ValueError(f'{command[0]} is a command shell, and it would re-parse the prompt; name the native executable')
     for arg in command:
         if arg.startswith('--dangerously'):
             raise ValueError(f'{arg} bypasses the CLI permission checks, and this adapter never passes it')

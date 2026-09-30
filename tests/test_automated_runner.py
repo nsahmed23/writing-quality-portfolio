@@ -658,6 +658,9 @@ sys.exit(prompt_arg_adapter.main(['--',*spec['command']]))
         lone_surrogate=b'{"role":"judge","context":"\\ud800"}'  # a JSON escape, so the request bytes stay valid ASCII
         cases=(('a .cmd shim',dict(command=['agy.CMD','--model','x']),b'.cmd'),
                ('a .bat shim',dict(command=['run.bat']),b'.bat'),
+               ('cmd.exe running a .cmd shim',dict(command=['CMD.EXE','/c','agy.cmd','--model','x']),b'command shell'),
+               ('a PowerShell wrapper',dict(command=['powershell','-NoProfile','-File','agy.ps1']),b'command shell'),
+               ('pwsh named by its path',dict(command=['C:/Program Files/PowerShell/7/pwsh.exe','-File','agy.ps1']),b'command shell'),
                ('a permission-bypass flag',dict(command=[*self.cli,'answer','--dangerously-skip-permissions']),b'dangerously'),
                ('an unknown role',dict(command=[*self.cli,'answer'],request=dict(self.REQUEST,role='admin')),b'role'),
                ('a lone surrogate',dict(command=[*self.cli,'answer'],raw=lone_surrogate),b'surrogate'),
