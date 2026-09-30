@@ -1,6 +1,6 @@
 # Current evaluation status
 
-The reviewed editing-pilot audit is integrated alongside the later communication work. The audit withdraws comparative ranking claims from the editing pilot. The benchmark-v2 diagnostic foundation resolves literal quote anchors and ingests diagnostic JSON offline; it does not evaluate diagnostic quality or establish readiness for a sealed benchmark. The new [automated writing comparison](../benchmark_v2/automated/README.md) is a separate `automated_proxy` protocol that can run without human grading; no live judge/model quality run is claimed here. Stage 2 under the archived pilot remains locked.
+The reviewed editing-pilot audit is integrated alongside the later communication work. The audit withdraws comparative ranking claims from the editing pilot. The benchmark-v2 diagnostic foundation resolves literal quote anchors and ingests diagnostic JSON offline; it does not evaluate diagnostic quality or establish readiness for a sealed benchmark. The new [automated writing comparison](../benchmark_v2/automated/README.md) is a separate `automated_proxy` protocol that can run without human grading; no live judge/model quality run is claimed here. Stage 2 under the archived pilot remains locked. The [2026-09-30 live evaluation record](2026-09-30-live-evaluation.md) documents three live judge calibrations that did not qualify a judge pair; no skill comparison, metric pack or rubric optimization ran, so it claims no skill quality result.
 
 ## Evidence streams
 

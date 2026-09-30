@@ -2112,7 +2112,8 @@ b89f1596b2b64cc3f66266b9ab3b6ccd361ef8b0f92ca701d24a1b3b725c129c  ./evaluation/s
 7626958dae14c5f56c79f00cb958241d52d75651ebc7c14fbb53b8f740d64846  ./evaluation/status/2026-09-28-delivery.md
 9238ac54303ef33d59df58691075ae16bcf2128a4debe6b5b286f5352150b633  ./evaluation/status/2026-09-28-final-review.md
 5af2650c532ccb91e34ae3dc945167c92c4a8da39f550cc070b2d18e7be303de  ./evaluation/status/2026-09-28-integration-verification.md
-07adedecbfe61d1a437694f0c71d4afdc55920f4c09d02deef9918dbc8e49e98  ./evaluation/status/README.md
+8831a90ba1a4145b09c2e5c68c5654dbb07fe6ca1ff23d841a3565f412b7ac60  ./evaluation/status/2026-09-30-live-evaluation.md
+a4f00226bbfcb82cb82ca124750ed65d4c7dfce7882e4642dcea5b4c9efafc56  ./evaluation/status/README.md
 05c85e0daf5bd038d7ad820e80c3dc2c1469349af115b5871dbe66ed7b1e8414  ./evaluation/status/benchmark-v2-readiness.md
 8c2a34c8defca8230a234e338f1021bc1e7e95998feec9b5fb61028f2bca2a7e  ./evaluation/status/recount_pilot.py
 dfec570a4744df8d61db438de56523bc3615013c63b0f3f33b2ff908dc1a8203  ./examples/before-and-after.md
