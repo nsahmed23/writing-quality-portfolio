@@ -155,13 +155,14 @@ class ContractDocumentTests(unittest.TestCase):
         "## Certificates and the judge signature",
         "## Calibration-suite leakage guard",
         "## Run provenance",
+        "## Judge output",
         "## Claims",
     )
     REQUIRED_NAMES = (
         "suite_sha256", "rubric_sha256", "config_sha256", "judge_signature", "adapter_sha256",
         "candidate_skill_sha256", "provenance.split", "provenance.certificate_suite_sha256",
         "provenance.calibration_overlap", "provenance.tool_versions", "tool_versions_stable",
-        "version_commands", "cluster_id",
+        "version_commands", "cluster_id", "minItems",
     )
     REFUSAL_MESSAGES = (
         "document reused across splits",
@@ -174,6 +175,8 @@ class ContractDocumentTests(unittest.TestCase):
         "certificate was issued on another suite",
         "calibration suite does not match the certificate",
         "overlaps a calibration control",
+        "evidence must be nonempty",
+        "decisive or both_bad judgment requires both candidate quotes",
     )
 
     def contract(self):

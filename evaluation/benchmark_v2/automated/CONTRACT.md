@@ -51,6 +51,20 @@ Every report's `provenance` records `suite_sha256`, `rubric_sha256`, `config_sha
 
 When the config declares `version_commands` (a tool name mapped to an argv array that prints that tool's version), `calibrate` and `compare` run every command before the run and again after it, and record `provenance.tool_versions` as `before`, `after` and `changed` (a sorted list of the names whose version differs or could not be read the second time). A command that fails before the run stops the run before any output folder exists. A change adds a failed `tool_versions_stable` check and sets `eligible` to `false`; in a comparison it also turns every recommendation into `inconclusive`. Version commands are not charged to `max_calls`. `optimize` records no versions. Without `version_commands` nothing is recorded.
 
+## Judge output
+
+**Enforced** by `scoring.parse_judgment`, and stated to the judges by the output schema and prompt in `adapters/codex_adapter.py` and by the prompt in `adapters/generic_json_adapter.py`. The agy bridge `adapters/prompt_arg_adapter.py` sends the generic prompt.
+
+A judgment is one JSON object with exactly `winner`, `reason` and `evidence`. `winner` is `A`, `B`, `tie` or `both_bad`. `reason` is nonblank. `evidence` is a list of `{candidate, quote}` items, each with an optional positive integer `occurrence`; `candidate` is `A` or `B`, and `quote` is a literal excerpt of that candidate that resolves to one place in its text (or to the place `occurrence` picks).
+
+Three rules govern the list:
+
+1. It is never empty, whatever the winner ("evidence must be nonempty").
+2. A decisive judgment (`A` or `B`) and a `both_bad` judgment quote both candidates ("decisive or both_bad judgment requires both candidate quotes").
+3. A `tie` quotes at least one candidate. One quote is enough.
+
+A judgment that breaks a rule is an invalid record. It is counted in `invalid_records` and keeps the run from being complete. The Codex output schema sets `minItems` to 1 on `evidence`, and both judge prompts say "A tie must quote at least one candidate; evidence is never empty." The validator did not change with that wording. Two live calibrations lost a control because a judge answered `tie` with an empty list and nothing had told it that the list must not be empty (`evaluation/status/2026-09-30-live-evaluation.md`, "Open decision", option 2).
+
 ## Claims
 
 **Specified**, not yet enforced. Phase 3.1 implements this section and may refine the outcome vocabulary before it does; any change is written here first. Until then `validate_suite` rejects a `claims` field as an unknown case field.
