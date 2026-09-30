@@ -15,7 +15,8 @@ The call exits 2 before MODEL_CLI starts when git is missing, git init runs past
 (no .git/HEAD after git init), MODEL_CLI is a .cmd or .bat file or is cmd, powershell or pwsh (a shell would re-parse
 the prompt), an argument starts with --dangerously, the request has no valid role, the prompt is not valid UTF-8, or
 the command line would pass 32,000 UTF-16 units. MODEL_CLI exiting 0 with blank stdout also becomes exit 2, because agy
-does that when it is denied a tool call. Any other exit code is passed through unchanged.
+does that when it is denied a tool call. Any other exit code is passed through, except that on POSIX a MODEL_CLI that a
+signal killed exits 128 plus the signal number (137 for SIGKILL), as a shell reports it; a raw -9 would wrap to 247.
 """
 import argparse
 import os
@@ -117,6 +118,6 @@ def main(argv=None):
     if code==0 and not answered:
         print('prompt argument adapter error: the model CLI exited 0 with no output',file=sys.stderr)
         return 2
-    return code
+    return 128-code if code<0 else code  # POSIX reports death by signal N as -N; sys.exit(-N) would wrap to 256-N
 
 if __name__=='__main__': sys.exit(main())

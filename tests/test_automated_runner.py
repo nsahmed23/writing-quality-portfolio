@@ -509,6 +509,7 @@ mode=argv[0]
 if mode=='answer': sys.stdout.buffer.write(b'{"winner":"tie"}\n')
 elif mode=='blank': sys.stdout.buffer.write(b'\n'); sys.stderr.write('nothing to say')
 elif mode=='fail': sys.stdout.buffer.write(b'partial'); sys.stderr.write('refused'); sys.exit(7)
+elif mode=='killed': import signal; os.kill(os.getpid(),signal.SIGKILL)
 elif mode=='slow':
     sys.stdout.buffer.write(b'partial-json'); sys.stdout.buffer.flush()
     sys.stderr.write('partial-log'); sys.stderr.flush()
@@ -654,6 +655,12 @@ sys.exit(prompt_arg_adapter.main(['--',*spec['command']]))
         self.assertEqual(failed.returncode,7)
         self.assertEqual(failed.stdout,b'partial')
         self.assertIn(b'refused',failed.stderr)
+
+    @unittest.skipIf(os.name=='nt','only POSIX reports a death by signal, as a negative exit code')
+    def test_a_cli_killed_by_a_signal_exits_with_the_code_a_shell_reports(self):
+        # A raw -9 would leave the wrapper as 247 (256-9), which no shell or log reader connects to SIGKILL; 137 is 128+9.
+        done=self.wrapper_run(self.REQUEST,[*self.cli,'killed'])
+        self.assertEqual(done.returncode,137,done.stderr)
 
     def test_timeout_keeps_partial_output(self):
         result=run_call([sys.executable,str(self.wrapper),'--',*self.cli,'slow'],self.REQUEST,self.root/'slow',timeout_seconds=6)
