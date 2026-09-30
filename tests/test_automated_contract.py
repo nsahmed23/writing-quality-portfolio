@@ -1,6 +1,7 @@
 """Suite contract tests: splits, clusters and report split selection. No model calls."""
 
 import unittest
+from pathlib import Path
 
 from evaluation.benchmark_v2.automated import contracts
 from evaluation.benchmark_v2.automated.contracts import validate_suite
@@ -142,3 +143,63 @@ class SplitSelectionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ContractDocumentTests(unittest.TestCase):
+    """CONTRACT.md is part of the deliverable. These tests keep it in step with the code and the README."""
+
+    AUTOMATED = Path(__file__).resolve().parents[1] / "evaluation" / "benchmark_v2" / "automated"
+    REQUIRED_HEADINGS = (
+        "## Suites, splits and clusters",
+        "## Split selection",
+        "## Certificates and the judge signature",
+        "## Calibration-suite leakage guard",
+        "## Run provenance",
+        "## Claims",
+    )
+    REQUIRED_NAMES = (
+        "suite_sha256", "rubric_sha256", "config_sha256", "judge_signature", "adapter_sha256",
+        "candidate_skill_sha256", "provenance.split", "provenance.certificate_suite_sha256",
+        "provenance.calibration_overlap", "provenance.tool_versions", "tool_versions_stable",
+        "version_commands", "cluster_id",
+    )
+    REFUSAL_MESSAGES = (
+        "document reused across splits",
+        "document assigned to more than one cluster",
+        "cluster spans splits",
+        "copied pair assigned to another document id",
+        "invalid split",
+        "calibrate scores the calibration split",
+        "matching eligible live calibration required",
+        "certificate was issued on another suite",
+        "calibration suite does not match the certificate",
+        "overlaps a calibration control",
+    )
+
+    def contract(self):
+        return (self.AUTOMATED / "CONTRACT.md").read_text(encoding="utf-8")
+
+    def test_contract_has_every_required_section(self):
+        headings = [line for line in self.contract().splitlines() if line.startswith("## ")]
+        for required in self.REQUIRED_HEADINGS:
+            self.assertTrue(any(line.startswith(required) for line in headings), required)
+
+    def test_contract_names_every_split_and_provenance_key(self):
+        text = self.contract()
+        for name in contracts.SPLITS:
+            self.assertIn(f"`{name}`", text)
+        for name in self.REQUIRED_NAMES:
+            self.assertIn(name, text, name)
+
+    def test_contract_quotes_the_refusal_messages(self):
+        text = self.contract()
+        for message in self.REFUSAL_MESSAGES:
+            self.assertIn(message, text, message)
+
+    def test_contract_has_no_em_dash(self):
+        self.assertNotIn(chr(0x2014), self.contract())
+
+    def test_readme_points_to_the_contract(self):
+        readme = (self.AUTOMATED / "README.md").read_text(encoding="utf-8")
+        self.assertIn("CONTRACT.md", readme)
+        self.assertIn("--calibration-suite", readme)
