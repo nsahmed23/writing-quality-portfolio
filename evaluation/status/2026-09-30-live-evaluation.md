@@ -1,6 +1,6 @@
 # Live automated evaluation record, 2026-09-30
 
-This is the first live run of the automated proxy evaluator; the [2026-09-28 verification note](2026-09-28-automated-verification.md) recorded that none had been done. Three live judge calibrations ran on 2026-09-30 and none qualified a judge pair. The stages that need a qualified pair therefore did not run: no skill was compared, no metric pack was produced, and the rubric optimizer was never called. All times are UTC.
+This is the first live run of the automated proxy evaluator; the [2026-09-28 verification note](2026-09-28-automated-verification.md) recorded that none had been done. Three live judge calibrations ran on 2026-09-30 and none qualified a judge pair. The stages that need a qualified pair therefore did not run: no skill was compared, no metric pack was produced, and the rubric optimizer was never called. All times are UTC as read from the operator machine's clock, which ran about 4.5 minutes ahead of GitHub's clock when checked (see [the clock note](#commands-exit-codes-and-timing)).
 
 Read the three calibrations as an end-to-end pipeline smoke test on public synthetic controls. They are not a verdict on any skill, and this note makes no claim about the quality of `concision` or any other skill. The [Limits](#limits) section gives the reasons.
 
@@ -80,6 +80,8 @@ py -3.11 -m evaluation.benchmark_v2.automated calibrate --suite evaluation/bench
 | `calibration-3` | 0 | 16:48:36 to 16:54:34 | 358 s | 9.3 s (12.6 s) | 13.1 s (46.5 s) |
 
 Exit 0 means the command finished and wrote a report, not that the run was eligible; `calibrate` returns 0 whenever it completes, and eligibility is the `eligible` field of `report.json`. The wrapper script that launched calibration 2 hung after the run finished and never wrote its result file (cause unconfirmed; it was stopped by hand at about 16:44Z, with no child processes and no output). Calibration 2's exit code is therefore inferred to be 0 from the code path and from the complete report on disk, and its times come from file timestamps (first request, last call metadata).
+
+Every time in this note comes from the operator machine's clock, and that machine has no running time service (`w32tm /query /status` reports that the service has not started). At 17:40:15Z by that clock, the `Date` header of a GitHub API response read 17:35:44 GMT, so the machine clock was about 4.5 minutes ahead at that moment. The offset earlier in the day was not measured, so read absolute times as approximate. Wall times and other durations are differences between readings of one clock, so a constant offset does not affect them.
 
 Three single-call probes ran outside any calibration, through the runner's own call function and one calibration control (`edit-deadline-control`, order 1). Each exited 0 with a valid judgment and the labeled winner: an agy preflight at about 15:41Z (17.5 s), `codex-sol-judge` from 16:09:29Z to 16:09:40Z (10.2 s), and `agy-gemini38-judge` from 16:47:50Z to 16:48:03Z (12.7 s). The probe script is a throwaway kept outside the repository.
 
