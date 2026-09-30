@@ -638,6 +638,13 @@ sys.exit(prompt_arg_adapter.main(['--',*spec['command']]))
         self.assertIn(b'no repository',done.stderr)
         self.assertFalse((self.root/'seen.json').exists(),'the CLI started without a repository')
 
+    def test_a_git_init_that_hangs_is_stopped_at_the_timeout_and_fails_closed(self):
+        # The stand-in sleeps for 10 s; the limit is patched down to half a second so the test stays fast.
+        done=self.stand_in_git_run('import time\ntime.sleep(10)\n',git_init_timeout=0.5)
+        self.assertEqual(done.returncode,2,done.stderr)
+        self.assertIn(b'timed out',done.stderr)
+        self.assertFalse((self.root/'seen.json').exists(),'the CLI started after a git init that never finished')
+
     def test_blank_output_is_an_error_and_a_failing_exit_code_passes_through(self):
         blank=self.wrapper_run(self.REQUEST,[*self.cli,'blank'])
         self.assertEqual(blank.returncode,2,'exit 0 with nothing to parse must not pass as an answer')

@@ -11,11 +11,11 @@ The repository must be a real one: an empty .git folder did not stop agy 1.2.12.
 GIT_* variable, because GIT_DIR or GIT_WORK_TREE would send both to some other repository. The directory is removed
 afterwards; a call that the runner kills on a timeout can leave a small wq-prompt-arg-* folder in the temp directory.
 
-The call exits 2 before MODEL_CLI starts when git is missing or leaves no repository (no .git/HEAD after git init),
-MODEL_CLI is a .cmd or .bat file or is cmd, powershell or pwsh (a shell would re-parse the prompt), an argument starts
-with --dangerously, the request has no valid role, the prompt is not valid UTF-8, or the command line would pass 32,000
-UTF-16 units. MODEL_CLI exiting 0 with blank stdout also becomes exit 2, because agy does that when it is denied a tool
-call. Any other exit code is passed through unchanged.
+The call exits 2 before MODEL_CLI starts when git is missing, git init runs past 30 seconds, git leaves no repository
+(no .git/HEAD after git init), MODEL_CLI is a .cmd or .bat file or is cmd, powershell or pwsh (a shell would re-parse
+the prompt), an argument starts with --dangerously, the request has no valid role, the prompt is not valid UTF-8, or
+the command line would pass 32,000 UTF-16 units. MODEL_CLI exiting 0 with blank stdout also becomes exit 2, because agy
+does that when it is denied a tool call. Any other exit code is passed through unchanged.
 """
 import argparse
 import os
@@ -31,6 +31,7 @@ from generic_json_adapter import build_prompt,load_request
 MAX_COMMAND_LINE_UNITS=32000  # CreateProcess accepts 32,767 UTF-16 units; the difference is headroom
 SHIM_SUFFIXES=('.cmd','.bat')
 SHELL_NAMES=('cmd','powershell','pwsh')  # a shell that names a .cmd shim as its argument would slip past the suffix check
+GIT_INIT_TIMEOUT_SECONDS=30  # git init takes milliseconds; a hung one would otherwise hold the call until the runner's own timeout
 
 
 def command_line_units(command):
@@ -62,9 +63,11 @@ def git_free_environment():
 def init_repository(directory,env):
     try:
         done=subprocess.run(['git','init','-q',directory],stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE,env=env,check=False)
+                            stderr=subprocess.PIPE,env=env,timeout=GIT_INIT_TIMEOUT_SECONDS,check=False)
     except FileNotFoundError as exc:
         raise OSError('git was not found, and the model CLI needs a repository of its own to keep it from loading parent instructions') from exc
+    except subprocess.TimeoutExpired as exc:
+        raise OSError(f'git init timed out after {GIT_INIT_TIMEOUT_SECONDS} seconds') from exc
     if done.returncode!=0:
         raise OSError('git init failed: '+done.stderr.decode('utf-8','replace').strip())
     if not (Path(directory)/'.git'/'HEAD').is_file():
