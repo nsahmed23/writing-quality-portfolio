@@ -6,3 +6,5 @@ evals/**/inputs/repo/
 Thumbs.db
 .eval-runs/
 .plugin-eval/
+# Live adapter settings copied from adapters/example-config.json; they hold local executable paths.
+evaluation/benchmark_v2/automated/adapters/local-config.json
