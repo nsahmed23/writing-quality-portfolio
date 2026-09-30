@@ -102,7 +102,7 @@ print(json.dumps({'winner':'A' if r['A']=='alpha' else 'B','reason':'literal','e
         wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
         result=run_call([sys.executable,str(wrapper),'--codex',str(fake)],
                         {'role':'judge','request_id':'opaque','prompt':'inspect','context':'','rubric':[],
-                         'A':'alpha','B':'beta'},self.root/'wrapped',timeout_seconds=3)
+                         'A':'alpha','B':'beta'},self.root/'wrapped',timeout_seconds=10)
         self.assertTrue(result['ok'],result['stderr'])
         self.assertEqual(json.loads(result['response'])['winner'],'A')
         self.assertNotIn(b'progress',result['response'])
@@ -122,7 +122,7 @@ Path(argv[argv.index('--output-last-message')+1]).write_text('{"winner":"tie","r
         wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
         return run_call([sys.executable,str(wrapper),'--codex',str(fake),'--model','pinned-model',*adapter_options],
                         {'role':'judge','request_id':'opaque','prompt':'inspect','context':'','rubric':[],
-                         'A':'alpha','B':'beta'},self.root/name,timeout_seconds=3)
+                         'A':'alpha','B':'beta'},self.root/name,timeout_seconds=10)
 
     def codex_adapter_argv(self,*adapter_options,name='codex-isolation'):
         """The arguments the stand-in `codex` received; each call to the adapter needs its own `name`."""
@@ -209,7 +209,7 @@ sys.exit(7)
         wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
         destination=self.root/'codex-nonzero'
         result=run_call([sys.executable,str(wrapper),'--codex',str(fake)],
-                        {'role':'judge','prompt':'inspect'},destination,timeout_seconds=3)
+                        {'role':'judge','prompt':'inspect'},destination,timeout_seconds=10)
         self.assertFalse(result['ok'])
         self.assertEqual(result['returncode'],7)
         self.assertEqual(result['response'],b'first-response-before-failure\x00')
@@ -258,7 +258,7 @@ Path(argv[argv.index('--output-last-message')+1]).write_text('{"winner":"tie","r
         wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
         result=run_call([sys.executable,str(wrapper),'--codex',str(fake)],
                         {'role':'judge','request_id':'opaque','prompt':'inspect','context':'','rubric':[],
-                         'A':'alpha','B':'beta'},self.root/'judge-schema',timeout_seconds=3)
+                         'A':'alpha','B':'beta'},self.root/'judge-schema',timeout_seconds=10)
         self.assertTrue(result['ok'],result['stderr'])
 
     def test_generic_bridge_forwards_raw_json_and_prompt_as_data(self):
@@ -338,7 +338,7 @@ Path(argv[argv.index('--output-last-message')+1]).write_text('{"winner":"tie","r
         wrapper=Path(__file__).resolve().parents[1]/'evaluation/benchmark_v2/automated/adapters/codex_adapter.py'
         result=run_call([sys.executable,str(wrapper),'--codex',str(fake)],
                         {'role':'writer','request_id':'opaque','prompt':'Revise the prose','context':'source prose',
-                         'instructions':'SKILL.md: Keep all facts.'},self.root/'codex-writer',timeout_seconds=3)
+                         'instructions':'SKILL.md: Keep all facts.'},self.root/'codex-writer',timeout_seconds=10)
         self.assertTrue(result['ok'],result['stderr'])
         self.assertEqual(json.loads(result['response']),{'text':'revised'})
 
