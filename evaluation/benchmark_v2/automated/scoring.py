@@ -68,6 +68,30 @@ def parse_judgment(raw: bytes, a: str, b: str) -> dict:
         return {"valid": False, "winner": None, "error": str(exc)}
 
 
+def literal_tallies(cases):
+    """Count literal-check misses, split by what a miss means for each case's provenance kind.
+
+    Returns (candidate_fail, baseline_fail, diagnostics). A miss on a synthetic_control or
+    published_reference case is a veto: a miss in the candidate text (b) adds to candidate_fail and a
+    miss in the baseline text (a) adds to baseline_fail. A miss on an owner_session case never vetoes:
+    the misses are summed per (document, lane) into diagnostics, sorted by document id, then lane."""
+    candidate_fail = baseline_fail = 0
+    tally = {}
+    for case in cases:
+        candidate_misses = sum(not c["passed"] for c in check_text(case["b"], case["checks"]))
+        baseline_misses = sum(not c["passed"] for c in check_text(case["a"], case["checks"]))
+        if case["provenance"]["kind"] != "owner_session":
+            candidate_fail += candidate_misses
+            baseline_fail += baseline_misses
+        elif candidate_misses or baseline_misses:
+            entry = tally.setdefault((case["document_id"], case["lane"]), {
+                "document_id": case["document_id"], "lane": case["lane"],
+                "candidate_misses": 0, "baseline_misses": 0})
+            entry["candidate_misses"] += candidate_misses
+            entry["baseline_misses"] += baseline_misses
+    return candidate_fail, baseline_fail, [tally[key] for key in sorted(tally)]
+
+
 def _check(checks, identifier, passed, message):
     checks.append({"id": identifier, "passed": bool(passed), "message": message})
 
@@ -178,10 +202,7 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
     for case in cases:
         votes = [results[(case["id"], judge["id"])] for judge in judges]
         decisions[case["id"]] = votes[0] if votes[0] is not None and all(v == votes[0] for v in votes) else None
-    candidate_fail = baseline_fail = 0
-    for case in cases:
-        candidate_fail += sum(not c["passed"] for c in check_text(case["b"], case["checks"]))
-        baseline_fail += sum(not c["passed"] for c in check_text(case["a"], case["checks"]))
+    candidate_fail, baseline_fail, diagnostics = literal_tallies(cases)
     counts = {"expected_records": len(keys), "received_records": len(records),
               "missing_records": missing, "duplicate_records": duplicates,
               "invalid_records": invalid, "unexpected_records": unexpected,
@@ -190,7 +211,9 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
               "ties": sum(v == "tie" for v in decisions.values()),
               "both_bad": sum(v == "both_bad" for v in decisions.values()),
               "candidate_check_failures": candidate_fail,
-              "baseline_check_failures": baseline_fail}
+              "baseline_check_failures": baseline_fail,
+              "candidate_check_diagnostics": sum(d["candidate_misses"] for d in diagnostics),
+              "baseline_check_diagnostics": sum(d["baseline_misses"] for d in diagnostics)}
     _check(checks, "coverage", complete, "all expected case/judge/order records must be unique and valid")
     if mode == "compare":
         _check(checks, "judge_families", len({j["family"] for j in judges}) >= 2,
@@ -248,4 +271,4 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
             "execution": execution, "mode": mode, "complete": complete,
             "eligible": eligible, "recommendation": recommendation,
             "metrics": metrics, "checks": checks, "by_judge": by_judge,
-            "by_lane": by_lane, "counts": counts}
+            "by_lane": by_lane, "counts": counts, "diagnostics": diagnostics}

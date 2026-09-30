@@ -65,6 +65,20 @@ Three rules govern the list:
 
 A judgment that breaks a rule is an invalid record. It is counted in `invalid_records` and keeps the run from being complete. The Codex output schema sets `minItems` to 1 on `evidence`, and both judge prompts say "A tie must quote at least one candidate; evidence is never empty." The validator did not change with that wording. Two live calibrations lost a control because a judge answered `tie` with an empty list and nothing had told it that the list must not be empty (`evaluation/status/2026-09-30-live-evaluation.md`, "Open decision", option 2).
 
+## Literal checks
+
+**Enforced** by `contracts.validate_suite` (the kinds and the `expected` rule) and by `scoring.build_report` through `scoring.literal_tallies` (the counts).
+
+A case may carry `checks`: a map with any of `required` (strings that must appear), `forbidden` (strings that must not appear), `max_words` and `exact`. The harness tests the candidate text (`b`) and the baseline text (`a`) of every scored case against them. What a miss means depends on the case's `provenance.kind`, which is `synthetic_control`, `published_reference` or `owner_session`; any other kind is refused ("invalid provenance kind").
+
+A miss on a `synthetic_control` or `published_reference` case is a veto. It is counted in `counts.candidate_check_failures` (a miss in the candidate text) or `counts.baseline_check_failures` (a miss in the baseline text). A candidate miss fails the `candidate_checks` check and blocks a candidate recommendation in every lane; a baseline miss blocks a baseline recommendation. The veto stays because the author of such a case wrote the text and the literal strings a correct revision keeps or avoids.
+
+A miss on an `owner_session` case is a diagnostic only. That case has no labeled answer, and a literal string is a weak stand-in for a judgment about a person's own text, so one miss must not cancel the judges' verdict. The misses are counted in `counts.candidate_check_diagnostics` and `counts.baseline_check_diagnostics`, and listed in the top-level `diagnostics` list. It has one entry per document and lane, with the keys `document_id`, `lane`, `candidate_misses` and `baseline_misses` (the misses summed over that document's cases), sorted by document id and then lane. A diagnostic is never a failed entry in `checks`, and it never changes a recommendation: the lanes' judge results decide.
+
+A report for a suite with no `owner_session` case still carries both diagnostics counts, equal to 0, and an empty `diagnostics` list.
+
+An `owner_session` case may not carry an `expected` winner ("owner session case cannot have expected winner"). It may carry `checks`, although the harvest of owner sessions writes none by default. The metric-pack extension treats every failed check except `baseline_checks` as a veto, which is why a diagnostic must never appear as a failed check.
+
 ## Claims
 
 **Specified**, not yet enforced. Phase 3.1 implements this section and may refine the outcome vocabulary before it does; any change is written here first. Until then `validate_suite` rejects a `claims` field as an unknown case field.

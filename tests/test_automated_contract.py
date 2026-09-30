@@ -156,6 +156,7 @@ class ContractDocumentTests(unittest.TestCase):
         "## Calibration-suite leakage guard",
         "## Run provenance",
         "## Judge output",
+        "## Literal checks",
         "## Claims",
     )
     REQUIRED_NAMES = (
@@ -163,6 +164,8 @@ class ContractDocumentTests(unittest.TestCase):
         "candidate_skill_sha256", "provenance.split", "provenance.certificate_suite_sha256",
         "provenance.calibration_overlap", "provenance.tool_versions", "tool_versions_stable",
         "version_commands", "cluster_id", "minItems",
+        # The last name carries backticks because the bare word is a substring of the two counts.
+        "owner_session", "candidate_check_diagnostics", "baseline_check_diagnostics", "`diagnostics`",
     )
     REFUSAL_MESSAGES = (
         "document reused across splits",
@@ -177,6 +180,8 @@ class ContractDocumentTests(unittest.TestCase):
         "overlaps a calibration control",
         "evidence must be nonempty",
         "decisive or both_bad judgment requires both candidate quotes",
+        "invalid provenance kind",
+        "owner session case cannot have expected winner",
     )
 
     def contract(self):

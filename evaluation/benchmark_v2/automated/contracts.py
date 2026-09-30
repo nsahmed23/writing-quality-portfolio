@@ -129,7 +129,7 @@ def validate_suite(value) -> dict:
             raise ValueError("exact must be string")
         provenance = case["provenance"]
         _object(provenance, ("kind", "source", "license"), ("note",), label="provenance")
-        if provenance["kind"] not in ("synthetic_control", "published_reference"):
+        if provenance["kind"] not in ("synthetic_control", "published_reference", "owner_session"):
             raise ValueError("invalid provenance kind")
         for key in ("source", "license"):
             _nonblank(provenance[key], key)
@@ -137,6 +137,8 @@ def validate_suite(value) -> dict:
             raise ValueError("provenance note must be string")
         if provenance["kind"] == "published_reference" and case["expected"] is not None:
             raise ValueError("published reference cannot have expected winner")
+        if provenance["kind"] == "owner_session" and case["expected"] is not None:
+            raise ValueError("owner session case cannot have expected winner")
     return value
 
 
