@@ -11,8 +11,18 @@ from .contracts import SPLITS, case_fingerprint, load_rubric, load_suite
 from .scoring import build_report, parse_judgment
 
 
+ADAPTER_DIR=Path(__file__).resolve().parent/'adapters'
+ADAPTER_SCRIPTS=('codex_adapter.py','generic_json_adapter.py','prompt_arg_adapter.py')
+
+
+def _adapter_hashes():
+    """Byte hash of each shipped adapter script; a missing script raises OSError naming the file."""
+    return {name:digest((ADAPTER_DIR/name).read_bytes()) for name in ADAPTER_SCRIPTS}
+
+
 def _judge_signature(config):
-    return digest(canonical_bytes([{'id':j['id'],'family':j['family'],'command':j['command']} for j in config['judges']]))
+    judges=[{'id':j['id'],'family':j['family'],'command':j['command']} for j in config['judges']]
+    return digest(canonical_bytes({'judges':judges,'adapters':_adapter_hashes()}))
 
 
 def _provenance(suite_path,rubric_path,config_path,config,skill_bytes=None):
@@ -20,7 +30,8 @@ def _provenance(suite_path,rubric_path,config_path,config,skill_bytes=None):
             'suite_sha256':digest(Path(suite_path).read_bytes()),
             'rubric_sha256':digest(Path(rubric_path).read_bytes()),
             'config_sha256':digest(Path(config_path).read_bytes()),
-            'judge_signature':_judge_signature(config)}
+            'judge_signature':_judge_signature(config),
+            'adapter_sha256':_adapter_hashes()}
 
 
 def _prepare(out):

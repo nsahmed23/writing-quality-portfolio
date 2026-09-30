@@ -4,12 +4,16 @@ import contextlib
 import hashlib
 import io
 import json
+import shutil
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
+from evaluation.benchmark_v2.automated import runner
 from evaluation.benchmark_v2.automated.__main__ import main
+from evaluation.benchmark_v2.automated.adapters import canonical_bytes, digest, load_config
 from evaluation.benchmark_v2.automated.runner import calibrate, compare
 
 ADAPTER = '''import json, sys
@@ -187,3 +191,54 @@ class SplitAndGuardTests(CertificateCase):
                       self.cli_error(self.cmp_suite, "--calibration-suite", str(self.cmp_suite)))
         self.assertIn("invalid choice", self.cli_error(self.cal_suite, "--split", "holdout"))
         self.assertFalse((self.root / "out-cli").exists())
+
+
+class AdapterSignatureTests(CertificateCase):
+    def adapter_copy(self, name):
+        """A private copy of the three shipped adapter scripts, so a test can edit bytes without touching the repository."""
+        copy = self.root / name
+        copy.mkdir()
+        for script in runner.ADAPTER_SCRIPTS:
+            shutil.copyfile(runner.ADAPTER_DIR / script, copy / script)
+        return copy
+
+    def test_changing_an_adapter_script_changes_the_judge_signature(self):
+        config = load_config(self.config)
+        original = runner._judge_signature(config)
+        with mock.patch.object(runner, "ADAPTER_DIR", self.adapter_copy("adapters-identical")):
+            self.assertEqual(runner._judge_signature(config), original)
+        for script in runner.ADAPTER_SCRIPTS:
+            edited = self.adapter_copy(f"adapters-edited-{script}")
+            with (edited / script).open("ab") as handle:
+                handle.write(b"\n# one more byte\n")
+            with mock.patch.object(runner, "ADAPTER_DIR", edited):
+                self.assertNotEqual(runner._judge_signature(config), original, script)
+
+    def test_a_certificate_is_refused_after_an_adapter_script_changes(self):
+        edited = self.adapter_copy("adapters-refused")
+        with (edited / "codex_adapter.py").open("ab") as handle:
+            handle.write(b"\n# edited after calibration\n")
+        with mock.patch.object(runner, "ADAPTER_DIR", edited):
+            with self.assertRaisesRegex(ValueError, "matching eligible live calibration required"):
+                self.run_compare("out-edited-adapter")
+        self.assertFalse((self.root / "out-edited-adapter").exists())
+
+    def test_provenance_records_each_adapter_script_hash(self):
+        recorded = self.certificate["provenance"]["adapter_sha256"]
+        self.assertEqual(sorted(recorded), sorted(runner.ADAPTER_SCRIPTS))
+        for script in runner.ADAPTER_SCRIPTS:
+            self.assertEqual(recorded[script], sha256(runner.ADAPTER_DIR / script))
+
+    def test_a_certificate_signed_before_adapter_hashing_is_refused(self):
+        old = self.root / "certificate-old-signature"
+        shutil.copytree(self.certificate_dir, old)
+        path = old / "report.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        config = load_config(self.config)
+        report["provenance"]["judge_signature"] = digest(canonical_bytes(
+            [{"id": j["id"], "family": j["family"], "command": j["command"]} for j in config["judges"]]))
+        path.write_text(json.dumps(report), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "matching eligible live calibration required"):
+            compare(self.cmp_suite, self.rubric, self.config, old, self.skill, self.root / "out-old-signature",
+                    calibration_suite=self.cal_suite)
+        self.assertFalse((self.root / "out-old-signature").exists())
