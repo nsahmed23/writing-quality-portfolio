@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import signal
 from pathlib import Path
 import subprocess
@@ -23,7 +24,7 @@ def load_config(path):
     from .contracts import strict_json
     path = Path(path).resolve()
     value = strict_json(path.read_bytes())
-    if not isinstance(value, dict) or set(value) - {'schema_version','judges','writer','optimizer','timeout_seconds','max_calls'} or value.get('schema_version') != 1:
+    if not isinstance(value, dict) or set(value) - {'schema_version','judges','writer','optimizer','timeout_seconds','max_calls','version_commands'} or value.get('schema_version') != 1:
         raise ValueError('invalid config schema')
     judges = value.get('judges')
     if not isinstance(judges,list) or not judges:
@@ -56,7 +57,47 @@ def load_config(path):
         raise ValueError('max_calls must be positive')
     value['timeout_seconds']=timeout
     value['max_calls']=max_calls
+    value['version_commands']=_version_commands(value.get('version_commands',{}))
     return value
+
+
+def _version_commands(commands):
+    """Validate the optional version_commands object: a tool name, then the argv that prints its version."""
+    if not isinstance(commands,dict):
+        raise ValueError('version_commands must be an object')
+    for name,argv in commands.items():
+        if not re.fullmatch(r'[A-Za-z0-9_.-]+',name):
+            raise ValueError(f'invalid version command name: {name!r}')
+        if not isinstance(argv,list) or not argv or any(not isinstance(part,str) or not part.strip() for part in argv):
+            raise ValueError(f'version command {name} must be a nonempty list of nonblank strings')
+    return commands
+
+
+def _version_of(argv,timeout=30):
+    """First non-blank output line of one version command, or None when it cannot be read.
+
+    The command gets no stdin and runs in a temporary scratch folder, not the caller's working
+    directory. Its output goes to files rather than pipes: a child that leaves a grandchild holding
+    a pipe open would block the read after a timeout on Windows."""
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as scratch:
+        scratch=Path(scratch)
+        try:
+            with open(scratch/'out.txt','wb') as out, open(scratch/'err.txt','wb') as err:
+                done=subprocess.run(argv,stdin=subprocess.DEVNULL,stdout=out,stderr=err,cwd=scratch,timeout=timeout)
+            if done.returncode!=0:
+                return None
+            for name in ('out.txt','err.txt'):
+                for line in (scratch/name).read_text(encoding='utf-8',errors='replace').splitlines():
+                    if line.strip():
+                        return line.strip()
+        except (OSError,ValueError,subprocess.TimeoutExpired):
+            return None
+    return None
+
+
+def tool_versions(config,timeout=30):
+    """Map each configured version command name to its version text, or None when it cannot be read."""
+    return {name:_version_of(argv,timeout) for name,argv in sorted(config.get('version_commands',{}).items())}
 
 
 class Budget:

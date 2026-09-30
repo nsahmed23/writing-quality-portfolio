@@ -7,13 +7,14 @@ import json
 import shutil
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from unittest import mock
 
 from evaluation.benchmark_v2.automated import runner
 from evaluation.benchmark_v2.automated.__main__ import main
-from evaluation.benchmark_v2.automated.adapters import canonical_bytes, digest, load_config
+from evaluation.benchmark_v2.automated.adapters import canonical_bytes, digest, load_config, tool_versions
 from evaluation.benchmark_v2.automated.runner import calibrate, compare
 
 ADAPTER = '''import json, sys
@@ -242,3 +243,220 @@ class AdapterSignatureTests(CertificateCase):
             compare(self.cmp_suite, self.rubric, self.config, old, self.skill, self.root / "out-old-signature",
                     calibration_suite=self.cal_suite)
         self.assertFalse((self.root / "out-old-signature").exists())
+
+
+VERSION_PROBE = '''import os, sys, time
+mode = sys.argv[1]
+if mode == "noisy":
+    sys.stdout.write("\\n\\n   tool 1.0   \\nsecond line\\n")
+elif mode == "stderr-only":
+    sys.stderr.write("\\n  tool 3.2.1  \\n")
+elif mode == "fail":
+    sys.stdout.write("tool 9.9\\n")
+    sys.exit(3)
+elif mode == "hang":
+    time.sleep(60)
+elif mode == "cwd":
+    print(os.getcwd())
+elif mode == "stdin":
+    print("stdin=" + repr(sys.stdin.read()))
+'''
+
+# Prints "tool <contents of the file>"; fails (nonzero exit) when the file is missing.
+FILE_PROBE = '''import sys
+from pathlib import Path
+print("tool " + Path(sys.argv[1]).read_text(encoding="utf-8").strip())
+'''
+
+# Behaves like ADAPTER, except that on every call it first rewrites a version file once:
+# when the file holds BEFORE it is replaced by AFTER, or deleted when AFTER is DELETE.
+# As a writer it returns "alpha" for candidate instructions (the ones containing "Keep it short") and "beta" otherwise.
+MUTATING_ADAPTER = '''import json, sys
+from pathlib import Path
+path, before, after = Path(sys.argv[1]), sys.argv[2], sys.argv[3]
+if path.exists() and path.read_text(encoding="utf-8").strip() == before:
+    if after == "DELETE":
+        path.unlink()
+    else:
+        path.write_text(after + "\\n", encoding="utf-8")
+r = json.load(sys.stdin)
+if r.get("role") == "writer":
+    print(json.dumps({"text": "alpha" if "Keep it short" in r["instructions"] else "beta"}))
+    sys.exit()
+print(json.dumps({"winner": "A" if r["A"] == "alpha" else "B", "reason": "literal",
+                  "evidence": [{"candidate": "A", "quote": r["A"]}, {"candidate": "B", "quote": r["B"]}]}))
+'''
+
+
+class ToolVersionTests(unittest.TestCase):
+    def setUp(self):
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        self.root = Path(tmp.name).resolve()
+        self.probe_script = self.root / "probe.py"
+        self.probe_script.write_text(VERSION_PROBE, encoding="utf-8")
+
+    def version(self, mode, timeout=30):
+        config = {"version_commands": {"probe": [sys.executable, str(self.probe_script), mode]}}
+        return tool_versions(config, timeout=timeout)["probe"]
+
+    def write_config(self, **extra):
+        value = {"schema_version": 1, "judges": [{"id": "j", "family": "f", "command": [sys.executable]}], **extra}
+        path = self.root / "config.json"
+        path.write_text(json.dumps(value), encoding="utf-8")
+        return path
+
+    def test_first_nonblank_stdout_line_is_the_version(self):
+        self.assertEqual(self.version("noisy"), "tool 1.0")
+
+    def test_stderr_is_the_fallback_when_stdout_is_empty(self):
+        self.assertEqual(self.version("stderr-only"), "tool 3.2.1")
+
+    def test_nonzero_exit_silence_and_missing_executable_are_unreadable(self):
+        self.assertIsNone(self.version("fail"))
+        self.assertIsNone(self.version("silent"))
+        gone = {"version_commands": {"gone": [str(self.root / "no-such-tool")]}}
+        self.assertIsNone(tool_versions(gone)["gone"])
+
+    def test_a_hung_version_command_times_out_as_unreadable(self):
+        started = time.monotonic()
+        self.assertIsNone(self.version("hang", timeout=1))
+        self.assertLess(time.monotonic() - started, 30)
+
+    def test_probe_has_no_stdin_and_runs_outside_the_working_directory(self):
+        self.assertEqual(self.version("stdin"), "stdin=''")
+        probe_directory = Path(self.version("cwd")).resolve()
+        self.assertNotEqual(probe_directory, Path.cwd().resolve())
+
+    def test_tool_versions_maps_each_configured_name_in_sorted_order(self):
+        config = {"version_commands": {
+            "b-tool": [sys.executable, str(self.probe_script), "noisy"],
+            "a-tool": [sys.executable, str(self.probe_script), "fail"]}}
+        result = tool_versions(config)
+        self.assertEqual(list(result), ["a-tool", "b-tool"])
+        self.assertEqual(result, {"a-tool": None, "b-tool": "tool 1.0"})
+        self.assertEqual(tool_versions({}), {})
+        self.assertEqual(tool_versions({"version_commands": {}}), {})
+
+    def test_load_config_keeps_valid_version_commands_and_defaults_to_none(self):
+        self.assertEqual(load_config(self.write_config())["version_commands"], {})
+        (self.root / "local-tool").write_text("x", encoding="utf-8")
+        commands = {"agy": ["agy", "--version"], "codex.cli_2": ["local-tool", "--version"]}
+        value = load_config(self.write_config(version_commands=commands))
+        # The argv stays as written: unlike adapter commands it is not resolved against the config folder.
+        self.assertEqual(value["version_commands"], commands)
+
+    def test_load_config_rejects_invalid_version_commands(self):
+        bad = [
+            ("not an object", ["agy", "--version"]),
+            ("name with a space", {"has space": ["agy", "--version"]}),
+            ("empty name", {"": ["agy", "--version"]}),
+            ("argv not a list", {"agy": "agy --version"}),
+            ("empty argv", {"agy": []}),
+            ("blank part", {"agy": ["agy", "  "]}),
+            ("non-string part", {"agy": ["agy", 1]}),
+        ]
+        for label, commands in bad:
+            with self.subTest(label):
+                with self.assertRaisesRegex(ValueError, "version[ _]command"):
+                    load_config(self.write_config(version_commands=commands))
+
+
+class RunVersionTests(CertificateCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.mutator = cls.root / "mutator.py"
+        cls.mutator.write_text(MUTATING_ADAPTER, encoding="utf-8")
+        cls.reader = cls.root / "reader.py"
+        cls.reader.write_text(FILE_PROBE, encoding="utf-8")
+
+    def version_file(self, name, content=None):
+        path = self.root / f"{name}.version"
+        if content is not None:
+            path.write_text(content, encoding="utf-8")
+        return path
+
+    def mutator_command(self, version_file, before, after):
+        return [sys.executable, str(self.mutator), str(version_file), before, after]
+
+    def probe_config(self, name, version_file, *, judges=None, writer=None):
+        """A config with one version command, named probe, that reads the version file."""
+        extra = {"version_commands": {"probe": [sys.executable, str(self.reader), str(version_file)]}}
+        if writer is not None:
+            extra["writer"] = {"id": "writer", "family": "three", "command": writer}
+        return self.write_json(f"{name}-config.json", config_of(judges or self.command, **extra))
+
+    def versioned_compare(self, name, config):
+        # The judges keep the certificate's commands, so the class-level certificate still matches.
+        return compare(self.cmp_suite, self.rubric, config, self.certificate_dir, self.skill, self.root / name,
+                       calibration_suite=self.cal_suite)
+
+    def check_of(self, report):
+        return next(c for c in report["checks"] if c["id"] == "tool_versions_stable")
+
+    def test_calibrate_records_versions_before_and_after(self):
+        version = self.version_file("cal-stable", "2.0.0")
+        config = self.probe_config("cal-stable", version, judges=self.mutator_command(version, "1.0.0", "2.0.0"))
+        report = calibrate(self.cal_suite, self.rubric, config, self.root / "out-cal-stable")
+        self.assertEqual(report["provenance"]["tool_versions"],
+                         {"before": {"probe": "tool 2.0.0"}, "after": {"probe": "tool 2.0.0"}, "changed": []})
+        self.assertTrue(self.check_of(report)["passed"])
+        self.assertTrue(report["eligible"])
+
+    def test_calibrate_with_a_version_that_changes_is_not_eligible(self):
+        version = self.version_file("cal-changing", "1.0.0")
+        config = self.probe_config("cal-changing", version, judges=self.mutator_command(version, "1.0.0", "2.0.0"))
+        report = calibrate(self.cal_suite, self.rubric, config, self.root / "out-cal-changing")
+        self.assertEqual(report["provenance"]["tool_versions"],
+                         {"before": {"probe": "tool 1.0.0"}, "after": {"probe": "tool 2.0.0"}, "changed": ["probe"]})
+        self.assertFalse(self.check_of(report)["passed"])
+        self.assertIn("probe", self.check_of(report)["message"])
+        self.assertFalse(report["eligible"])
+        self.assertTrue(report["complete"])
+
+    def test_compare_records_stable_versions_and_keeps_the_recommendation(self):
+        version = self.version_file("cmp-stable", "2.0.0")
+        config = self.probe_config("cmp-stable", version, writer=self.mutator_command(version, "1.0.0", "2.0.0"))
+        report = self.versioned_compare("out-cmp-stable", config)
+        self.assertEqual(report["provenance"]["tool_versions"]["changed"], [])
+        self.assertTrue(self.check_of(report)["passed"])
+        self.assertTrue(report["eligible"])
+        self.assertEqual(report["recommendation"], "candidate")
+
+    def test_compare_with_a_version_change_voids_the_run(self):
+        version = self.version_file("cmp-changing", "1.0.0")
+        config = self.probe_config("cmp-changing", version, writer=self.mutator_command(version, "1.0.0", "2.0.0"))
+        report = self.versioned_compare("out-cmp-changing", config)
+        self.assertEqual(report["provenance"]["tool_versions"],
+                         {"before": {"probe": "tool 1.0.0"}, "after": {"probe": "tool 2.0.0"}, "changed": ["probe"]})
+        self.assertFalse(self.check_of(report)["passed"])
+        self.assertFalse(report["eligible"])
+        self.assertEqual(report["recommendation"], "inconclusive")
+        self.assertEqual({lane["recommendation"] for lane in report["by_lane"].values()}, {"inconclusive"})
+        self.assertTrue(report["complete"])
+
+    def test_an_unreadable_version_after_the_run_voids_the_run(self):
+        version = self.version_file("cmp-deleted", "1.0.0")
+        config = self.probe_config("cmp-deleted", version, writer=self.mutator_command(version, "1.0.0", "DELETE"))
+        report = self.versioned_compare("out-cmp-deleted", config)
+        tools = report["provenance"]["tool_versions"]
+        self.assertEqual((tools["before"], tools["after"], tools["changed"]),
+                         ({"probe": "tool 1.0.0"}, {"probe": None}, ["probe"]))
+        self.assertFalse(report["eligible"])
+        self.assertEqual(report["recommendation"], "inconclusive")
+
+    def test_a_version_command_that_fails_before_the_run_aborts_with_no_output(self):
+        config = self.probe_config("abort", self.root / "never-created.version")
+        with self.assertRaisesRegex(ValueError, "version command failed before the run: probe"):
+            self.versioned_compare("out-abort-compare", config)
+        with self.assertRaisesRegex(ValueError, "version command failed before the run: probe"):
+            calibrate(self.cal_suite, self.rubric, config, self.root / "out-abort-calibrate")
+        self.assertFalse((self.root / "out-abort-compare").exists())
+        self.assertFalse((self.root / "out-abort-calibrate").exists())
+
+    def test_without_version_commands_nothing_is_recorded(self):
+        report = self.run_compare("out-no-versions")
+        for value in (report, self.certificate):
+            self.assertNotIn("tool_versions", value["provenance"])
+            self.assertNotIn("tool_versions_stable", [c["id"] for c in value["checks"]])

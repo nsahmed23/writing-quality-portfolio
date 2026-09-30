@@ -6,7 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from .adapters import Budget, canonical_bytes, digest, load_config, run_call
+from .adapters import Budget, canonical_bytes, digest, load_config, run_call, tool_versions
 from .contracts import SPLITS, case_fingerprint, load_rubric, load_suite
 from .scoring import build_report, parse_judgment
 
@@ -32,6 +32,29 @@ def _provenance(suite_path,rubric_path,config_path,config,skill_bytes=None):
             'config_sha256':digest(Path(config_path).read_bytes()),
             'judge_signature':_judge_signature(config),
             'adapter_sha256':_adapter_hashes()}
+
+
+def _versions_before(config):
+    """Read the configured tool versions before a run; a command that fails stops the run before any output exists."""
+    before=tool_versions(config)
+    broken=sorted(name for name,value in before.items() if value is None)
+    if broken: raise ValueError('version command failed before the run: '+', '.join(broken))
+    return before
+
+
+def _record_versions(report,config,before,mode):
+    """Read the versions again; record before, after and changed, and void a run whose tools changed or became unreadable."""
+    if not before: return
+    after=tool_versions(config)
+    changed=sorted(name for name in before if after.get(name)!=before[name])
+    report['provenance']['tool_versions']={'before':before,'after':after,'changed':changed}
+    report['checks'].append({'id':'tool_versions_stable','passed':not changed,
+                             'message':'tool versions unchanged during the run' if not changed else 'tool versions changed or unreadable after the run: '+', '.join(changed)})
+    if changed:
+        report['eligible']=False
+        if mode=='compare':
+            report['recommendation']='inconclusive'
+            for lane in report['by_lane'].values(): lane['recommendation']='inconclusive'
 
 
 def _prepare(out):
@@ -84,11 +107,13 @@ def calibrate(suite_path,rubric_path,config_path,out):
     cases=[case for case in suite['cases'] if case['split']=='calibration' and case['expected'] is not None]
     if not cases: raise ValueError('calibration requires labeled calibration controls')
     budget=Budget(config['max_calls']); budget.preflight(len(cases)*len(config['judges'])*2)
+    before=_versions_before(config)
     out=_prepare(out)
     selected={**suite,'cases':cases}
     records=_judge_cases(cases,rubric,config,out,budget)
     report=build_report(selected,records,config['judges'],mode='calibrate',execution='live')
     report['provenance']=_provenance(suite_path,rubric_path,config_path,config)
+    _record_versions(report,config,before,'calibrate')
     report['artifacts']={'records':'records.json','calls':'calls'}
     return _save(out,report,records)
 
@@ -172,6 +197,7 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
     provenance['calibration_overlap']=_check_calibration_suite(suite,cases,split,provenance['suite_sha256'],provenance['certificate_suite_sha256'],calibration_suite)
     budget=Budget(config['max_calls'])
     budget.preflight(len(cases)*repetitions*(2+len(config['judges'])*2))
+    before=_versions_before(config)
     out=_prepare(out)
     (out/'candidate-SKILL.md').write_bytes(candidate_raw)
     if baseline_raw is not None: (out/'baseline-SKILL.md').write_bytes(baseline_raw)
@@ -202,6 +228,7 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
         report['complete']=False; report['eligible']=False; report['recommendation']='inconclusive'
         report['checks'].append({'id':'writer_outputs','passed':False,'message':f'{len(failures)} writer output failures'})
     report['provenance']=provenance
+    _record_versions(report,config,before,'compare')
     report['artifacts']={'records':'records.json','calls':'calls','generated':'generated.json','candidate_skill':'candidate-SKILL.md'}
     return _save(out,report,records)
 
