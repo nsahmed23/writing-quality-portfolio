@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 from .adapters import Budget, canonical_bytes, digest, load_config, run_call
-from .contracts import load_rubric, load_suite
+from .contracts import SPLITS, case_fingerprint, load_rubric, load_suite
 from .scoring import build_report, parse_judgment
 
 
@@ -106,13 +106,48 @@ def _write_text(adapter,case,instructions,out,budget,tag,timeout):
         return None,f'invalid_writer_response: {exc}'
 
 
-def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*,baseline_skill=None,repetitions=1):
+def _check_calibration_suite(suite,cases,split,suite_sha,certificate_sha,calibration_suite):
+    """Count the selected cases that share an identity with the certificate's labeled controls.
+
+    A test-split comparison that shares a document id, a cluster id or a copied pair with those
+    controls is refused. The development and calibration splits may share identities (real-anchored
+    controls are derived from development documents), so they only record the counts. Messages
+    name the comparison case id and the kind, never a document id, a cluster id or text, so owner
+    text cannot reach an error line, a log or a terminal."""
+    if calibration_suite is not None:
+        if digest(Path(calibration_suite).read_bytes())!=certificate_sha:
+            raise ValueError('calibration suite does not match the certificate')
+        source=load_suite(calibration_suite)
+    elif certificate_sha==suite_sha:
+        source=suite
+    else:
+        raise ValueError('certificate was issued on another suite; pass --calibration-suite so leakage can be checked')
+    controls=[c for c in source['cases'] if c['split']=='calibration' and c['expected'] is not None]
+    documents={c['document_id'] for c in controls}
+    clusters={c['cluster_id'] for c in controls if 'cluster_id' in c}
+    fingerprints={case_fingerprint(c) for c in controls}
+    found={'documents':[],'clusters':[],'pairs':[]}
+    for case in cases:
+        if case['document_id'] in documents: found['documents'].append(case['id'])
+        if case.get('cluster_id') in clusters: found['clusters'].append(case['id'])
+        if case_fingerprint(case) in fingerprints: found['pairs'].append(case['id'])
+    if split=='test':
+        for key,label in (('documents','document'),('clusters','cluster'),('pairs','copied pair')):
+            if found[key]:
+                raise ValueError(f"comparison case {found[key][0]} overlaps a calibration control ({label})")
+    return {key:len(ids) for key,ids in found.items()}
+
+
+def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*,baseline_skill=None,repetitions=1,split='test',calibration_suite=None):
+    if split not in SPLITS: raise ValueError('invalid split')
     suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
     candidate_raw,candidate_instructions=_skill_bytes(candidate_skill)
     baseline_raw,baseline_instructions=_skill_bytes(baseline_skill) if baseline_skill is not None else (None,'')
     provenance=_provenance(suite_path,rubric_path,config_path,config,candidate_raw)
+    provenance['split']=split
     certificate=json.loads((Path(calibration)/'report.json').read_bytes())
     cert_provenance=certificate.get('provenance',{})
+    provenance['certificate_suite_sha256']=cert_provenance.get('suite_sha256')
     if (certificate.get('schema_version')!=1 or certificate.get('evaluation_type')!='automated_proxy' or
         certificate.get('execution')!='live' or certificate.get('mode')!='calibrate' or
         not certificate.get('complete') or not certificate.get('eligible') or cert_provenance.get('rubric_sha256')!=provenance['rubric_sha256'] or
@@ -120,9 +155,10 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
         raise ValueError('matching eligible live calibration required')
     if isinstance(repetitions,bool) or not isinstance(repetitions,int) or repetitions<1 or repetitions>20:
         raise ValueError('repetitions must be 1..20')
-    cases=[case for case in suite['cases'] if case['split']=='test']
-    if not cases: raise ValueError('compare requires test cases')
+    cases=[case for case in suite['cases'] if case['split']==split]
+    if not cases: raise ValueError(f'compare requires {split} cases')
     if 'writer' not in config: raise ValueError('writer adapter required for compare')
+    provenance['calibration_overlap']=_check_calibration_suite(suite,cases,split,provenance['suite_sha256'],provenance['certificate_suite_sha256'],calibration_suite)
     budget=Budget(config['max_calls'])
     budget.preflight(len(cases)*repetitions*(2+len(config['judges'])*2))
     out=_prepare(out)
@@ -150,7 +186,7 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
     valid_cases=[c for c in generated if c['a'] and c['b']]
     records=_judge_cases(valid_cases,rubric,config,out,budget)
     # Missing writer outputs have no judge calls; the engine sees absent records, hence incomplete coverage.
-    report=build_report({**suite,'cases':scoring_cases},records,config['judges'],mode='compare',calibration=certificate,execution='live')
+    report=build_report({**suite,'cases':scoring_cases},records,config['judges'],mode='compare',calibration=certificate,execution='live',split=split)
     if failures:
         report['complete']=False; report['eligible']=False; report['recommendation']='inconclusive'
         report['checks'].append({'id':'writer_outputs','passed':False,'message':f'{len(failures)} writer output failures'})
