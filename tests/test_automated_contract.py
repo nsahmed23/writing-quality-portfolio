@@ -1,5 +1,6 @@
 """Suite contract tests: splits, clusters and report split selection. No model calls."""
 
+import ast
 import unittest
 from pathlib import Path
 
@@ -160,8 +161,23 @@ class SplitSelectionTests(unittest.TestCase):
         self.assertEqual(report["counts"]["expected_records"], 4)
 
 
-if __name__ == "__main__":
-    unittest.main()
+def is_main_guard(node):
+    """True for a top-level `if __name__ == ...:` statement."""
+    return (isinstance(node, ast.If) and isinstance(node.test, ast.Compare)
+            and isinstance(node.test.left, ast.Name) and node.test.left.id == "__name__")
+
+
+class TestFileLayoutTests(unittest.TestCase):
+    def test_a_main_guard_is_the_last_statement_of_its_test_file(self):
+        # A guard above a test class runs unittest.main() before that class exists, so its tests are never run.
+        checked = 0
+        for path in sorted(Path(__file__).resolve().parent.glob("test_*.py")):
+            body = ast.parse(path.read_text(encoding="utf-8")).body
+            guards = [index for index, node in enumerate(body) if is_main_guard(node)]
+            if guards:
+                checked += 1
+                self.assertEqual(guards, [len(body) - 1], f"{path.name}: the __main__ guard must be the last statement")
+        self.assertGreater(checked, 0)
 
 
 class ContractDocumentTests(unittest.TestCase):
@@ -230,3 +246,7 @@ class ContractDocumentTests(unittest.TestCase):
         readme = (self.AUTOMATED / "README.md").read_text(encoding="utf-8")
         self.assertIn("CONTRACT.md", readme)
         self.assertIn("--calibration-suite", readme)
+
+
+if __name__ == "__main__":
+    unittest.main()
