@@ -1,12 +1,12 @@
 """Deterministic checks and document-level evidence aggregation."""
 
-import random
 import re
 from collections import Counter, defaultdict
 
 from evaluation.benchmark_v2.anchors import AnchorError, resolve_anchor
 
 from .contracts import SPLITS, strict_json, validate_suite
+from .lane_stats import lane_decision, lane_statistics
 
 
 def check_text(text: str, checks: dict) -> list[dict]:
@@ -124,17 +124,9 @@ def _check(checks, identifier, passed, message):
     checks.append({"id": identifier, "passed": bool(passed), "message": message})
 
 
-def _interval(values, seed):
-    rng = random.Random(seed)
-    n = len(values)
-    samples = sorted(sum(rng.choice(values) for _ in range(n)) / n
-                     for _ in range(2000))
-    return samples[49], samples[1949]  # nearest empirical 2.5th / 97.5th
-
-
 def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: str,
                  calibration: dict | None = None, execution: str = "live",
-                 seed: int = 0, split: str | None = None) -> dict:
+                 split: str | None = None) -> dict:
     """Aggregate canonical lowercase records, with one vote per document."""
     validate_suite(suite)
     if mode not in ("calibrate", "compare", "score") or execution not in ("live", "demo"):
@@ -281,7 +273,8 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
         if not lane_cases:
             if any(c["lane"] == lane for c in selected):
                 # Every case of this lane was skipped. Keep the lane visible so its document gate fails.
-                by_lane[lane] = {"cases": 0, "documents": 0, "mean": None, "recommendation": "inconclusive"}
+                by_lane[lane] = {"cases": 0, "documents": 0, **lane_statistics([]),
+                                 "recommendation": "inconclusive"}
                 if mode == "compare":
                     _check(checks, f"lane_documents_{lane}", False,
                            "at least five independent documents required")
@@ -289,19 +282,17 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
         docs = defaultdict(list)
         for case in lane_cases:
             docs[case["document_id"]].append({"a": -1, "b": 1}.get(decisions[case["id"]], 0))
-        values = [sum(v) / len(v) for v in docs.values()]
-        mean = sum(values) / len(values)
-        lower, upper = _interval(values, seed) if mode == "compare" else (None, None)
+        # d: one document's net preference in [-1, 1]. Ties, both_bad, abstentions and judge disagreement count as 0.
+        summary = lane_statistics([sum(v) / len(v) for v in docs.values()])
         lane_recommendation = "inconclusive"
         if mode == "compare" and len(docs) >= 5 and complete and certificate_ok and execution == "live" and len({j["family"] for j in judges}) >= 2:
-            if lower > 0 and not candidate_fail:
+            verdict = lane_decision(summary["wilson_lower"], summary["wilson_upper"], summary["mean"])
+            if verdict == "candidate" and not candidate_fail:
                 lane_recommendation = "candidate"
-            elif upper < 0 and not baseline_fail:
+            elif verdict == "baseline" and not baseline_fail:
                 lane_recommendation = "baseline"
-        by_lane[lane] = {"cases": len(lane_cases), "documents": len(docs),
-                         "mean": mean, "recommendation": lane_recommendation}
-        if lower is not None:
-            by_lane[lane].update(ci_lower=lower, ci_upper=upper)
+        by_lane[lane] = {"cases": len(lane_cases), "documents": len(docs), **summary,
+                         "recommendation": lane_recommendation}
         if mode == "compare":
             _check(checks, f"lane_documents_{lane}", len(docs) >= 5,
                    "at least five independent documents required")

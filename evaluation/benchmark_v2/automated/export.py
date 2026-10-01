@@ -1,8 +1,9 @@
 """Export: an allowlisted aggregate of a finished report, safe to publish.
 
 The export is built by copying named fields into a new object, never by deleting fields from a copy of the report,
-so a field the report grows later stays out until it is named here. It carries counts, per-lane document counts,
-means and intervals, the recommendation, each check's name and passed flag, provenance SHA-256 values and tool
+so a field the report grows later stays out until it is named here. It carries counts, per-lane document and
+decisive counts, proportions, means, Wilson bounds and sign-test p-values, the recommendation, each check's name and
+passed flag, provenance SHA-256 values and tool
 versions. It never carries a case, document or cluster id, a prompt, context, candidate text, a quote, a reason or
 a file path. A value that is not the shape the export names is refused, naming the field path and never the value,
 so a refusal cannot echo owner text. The export is public by design, so it is not held to the private root."""
@@ -26,8 +27,8 @@ COUNT_KEYS=('expected_records','received_records','missing_records','duplicate_r
             'unexpected_records','plumbing_failures','judgment_failures','skipped_records','skipped_cases',
             'order_disagreements','abstentions','ties','both_bad','candidate_check_failures',
             'baseline_check_failures','candidate_check_diagnostics','baseline_check_diagnostics')
-LANE_COUNT_KEYS=('cases','documents')
-LANE_NUMBER_KEYS=('mean','ci_lower','ci_upper')
+LANE_COUNT_KEYS=('cases','documents','decisive','wins','losses')
+LANE_NUMBER_KEYS=('proportion','wilson_lower','wilson_upper','mean','sign_test_p')
 HASH_KEYS=('candidate_skill_sha256','suite_sha256','rubric_sha256','config_sha256','judge_signature',
            'baseline_skill_sha256','certificate_suite_sha256','candidate_snapshot_sha256','baseline_snapshot_sha256')
 CHUNK_HASH_KEYS=('report_sha256','records_sha256')

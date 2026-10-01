@@ -212,6 +212,7 @@ class ContractDocumentTests(unittest.TestCase):
         "## Judge output",
         "## Literal checks",
         "## Plumbing and failure kinds",
+        "## Statistics",
         "## Private outputs and the export allowlist",
         "## Claims",
     )
@@ -230,6 +231,9 @@ class ContractDocumentTests(unittest.TestCase):
         "--candidate-skill", "--baseline-skill", "60,000 characters",
         "WQ_EVAL_PRIVATE_ROOT", "private.require_private_output", "export.build_export", "export_version",
         "os.path.realpath", "os.path.commonpath", "export --report",
+        # The statistics names. Bare "decisive" is a substring of an older sentence, so it carries backticks.
+        "`decisive`", "`wins`", "`losses`", "`proportion`", "`wilson_lower`", "`wilson_upper`", "`sign_test_p`",
+        "`holm(p_values, alpha)`", "lane_stats.py", "Z_90", "NULL_PROPORTION", "MIN_EFFECT",
     )
     REFUSAL_MESSAGES = (
         "document reused across splits",
@@ -342,6 +346,21 @@ class ContractDocumentTests(unittest.TestCase):
 
     def test_contract_lists_only_documents_with_a_miss_under_diagnostics(self):
         self.assertIn("only the documents and lanes that have at least one miss", self.contract())
+
+    def test_contract_pins_the_statistics_formulas_and_constants(self):
+        section = self.contract().split("## Statistics", 1)[1].split("\n## ", 1)[0]
+        for phrase in ("two-sided 90% Wilson score interval", "1.6448536269514722", "0.15", "0.5",
+                       "(p + z^2 / (2n)) / (1 + z^2 / n)", "z * sqrt(p (1 - p) / n + z^2 / (4 n^2)) / (1 + z^2 / n)",
+                       "0.6489", "[0, 1]", "inconclusive", "one-sided exact binomial", "Holm-Bonferroni",
+                       "net preference", "`decisive`", "`wilson_lower`", "`sign_test_p`", "no bootstrap",
+                       "lane_stats.py"):
+            self.assertIn(phrase, section, phrase)
+
+    def test_readme_describes_the_wilson_rule_and_not_the_bootstrap(self):
+        readme = self.readme()
+        self.assertIn("Wilson", readme)
+        self.assertNotIn("confidence bound", readme)
+        self.assertNotIn("resampl", readme)
 
     def test_contract_pins_the_treatment_snapshot_rules(self):
         section = self.contract().split("## Treatment snapshot", 1)[1].split("\n## ", 1)[0]

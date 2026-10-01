@@ -63,6 +63,14 @@ def sha(character):
     return character * 64
 
 
+LANE_STATISTICS = {"cases": 6, "documents": 5, "decisive": 4, "wins": 3, "losses": 1, "proportion": 0.75,
+                   "wilson_lower": 0.3562, "wilson_upper": 0.9421, "mean": 0.5, "sign_test_p": 0.3125,
+                   "recommendation": "candidate"}
+EMPTY_LANE = {"cases": 0, "documents": 0, "decisive": 0, "wins": 0, "losses": 0, "proportion": None,
+              "wilson_lower": 0.0, "wilson_upper": 1.0, "mean": None, "sign_test_p": 1.0,
+              "recommendation": "inconclusive"}
+
+
 def sample_report():
     """A report with every field the export names and, around them, private strings in places it does not name."""
     return {
@@ -74,9 +82,8 @@ def sample_report():
                    {"id": "calibration_judge_6a31", "passed": True, "message": MARK}],
         "by_judge": {f"judge-{MARK}": {"family": f"family-{MARK}", "controls": 8, "documents": 4,
                                       "complete": True, "eligible": True, "accuracy": 1.0}},
-        "by_lane": {"editing": {"cases": 6, "documents": 5, "mean": 0.5, "recommendation": "candidate",
-                                "ci_lower": 0.125, "ci_upper": 0.875, "quote": MARK, "case_ids": ["case-1"]},
-                    "communication": {"cases": 0, "documents": 0, "mean": None, "recommendation": "inconclusive"},
+        "by_lane": {"editing": {**LANE_STATISTICS, "quote": MARK, "case_ids": ["case-1"]},
+                    "communication": {**EMPTY_LANE},
                     "doc-1": {"cases": 1, "documents": 1, "mean": 1, "recommendation": "candidate"}},
         "counts": {"expected_records": 48, "received_records": 48, "missing_records": 0, "duplicate_records": 0,
                    "invalid_records": 0, "unexpected_records": 0, "plumbing_failures": 1, "judgment_failures": 0,
@@ -111,9 +118,7 @@ EXPECTED = {
                "skipped_records": 0, "skipped_cases": 0, "order_disagreements": 2, "abstentions": 1,
                "ties": 3, "both_bad": 0, "candidate_check_failures": 0, "baseline_check_failures": 0,
                "candidate_check_diagnostics": 1, "baseline_check_diagnostics": 0},
-    "by_lane": {"editing": {"cases": 6, "documents": 5, "mean": 0.5, "recommendation": "candidate",
-                            "ci_lower": 0.125, "ci_upper": 0.875},
-                "communication": {"cases": 0, "documents": 0, "mean": None, "recommendation": "inconclusive"}},
+    "by_lane": {"editing": dict(LANE_STATISTICS), "communication": dict(EMPTY_LANE)},
     "checks": [{"name": "coverage", "passed": True}, {"name": "lane_documents_editing", "passed": False},
                {"name": "calibration_judge_6a31", "passed": True}],
     "provenance": {
@@ -213,8 +218,9 @@ class AllowlistTests(unittest.TestCase):
         self.assertRefused("counts", report)
 
     def test_a_lane_entry_must_be_well_formed(self):
-        for name, value in (("documents", MARK), ("cases", -2), ("mean", MARK), ("mean", True), ("ci_lower", "x"),
-                            ("ci_upper", float("nan")), ("recommendation", MARK)):
+        for name, value in (("documents", MARK), ("cases", -2), ("decisive", 1.5), ("wins", -1), ("losses", True),
+                            ("mean", MARK), ("mean", True), ("proportion", "x"), ("wilson_lower", "x"),
+                            ("wilson_upper", float("nan")), ("sign_test_p", MARK), ("recommendation", MARK)):
             with self.subTest(name=name, value=repr(value)):
                 report = sample_report()
                 report["by_lane"]["editing"][name] = value
