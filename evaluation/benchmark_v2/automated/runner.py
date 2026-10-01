@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import importlib.util
 import json
+import subprocess
 from pathlib import Path
 
 from .adapters import Budget, canonical_bytes, digest, load_config, run_call, tool_versions
@@ -79,31 +81,109 @@ def _request_id(*parts):
     return digest(canonical_bytes(list(parts)))
 
 
+MAX_COMMAND_LINE_UNITS=32000  # adapters/prompt_arg_adapter.py refuses above this; a test keeps the two numbers equal
+ARGUMENT_ADAPTER='prompt_arg_adapter.py'
+BUILDER_SCRIPT='generic_json_adapter.py'
+
+
+def _units(command):
+    """The length of the command line Windows would be given, in UTF-16 code units (as the argument adapter counts it).
+
+    surrogatepass counts a lone surrogate as one unit. The adapter refuses such a prompt itself (exit 2), so the
+    pre-check must not crash the run before that call is made."""
+    return len(subprocess.list2cmdline(command).encode('utf-16-le','surrogatepass'))//2
+
+
+def _prompt_builder(folder):
+    """build_prompt from the generic bridge that sits next to the argument adapter, or None when it cannot be loaded."""
+    try:
+        spec=importlib.util.spec_from_file_location('wq_generic_json_adapter',Path(folder)/BUILDER_SCRIPT)
+        module=importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module.build_prompt
+    except (OSError,ImportError,AttributeError,SyntaxError):
+        return None
+
+
+def _command_units(command,request):
+    """Units of the command line the argument adapter would measure for this request, or None.
+
+    None means the judge does not pass its prompt as an argument, or the measurement cannot be made (fail open:
+    the call then runs and the adapter decides). The adapter measures [*model_command,'-p',prompt]."""
+    for index,part in enumerate(command):
+        if Path(part).name==ARGUMENT_ADAPTER: break
+    else:
+        return None
+    tail=list(command[index+1:])
+    if tail[:1]==['--']: tail=tail[1:]
+    if not tail: return None
+    build=_prompt_builder(Path(part).resolve().parent)
+    if build is None: return None
+    return _units([*tail,'-p',build(request)])
+
+
+def _judge_request(case,judge,order,rubric):
+    a,b=(case['a'],case['b']) if order==1 else (case['b'],case['a'])
+    return {'role':'judge','request_id':_request_id(case['id'],judge['id'],order),
+            'prompt':case['prompt'],'context':case['context'],'rubric':rubric['criteria'],'A':a,'B':b}
+
+
+def _skipped_record(case,judge,order,units):
+    return {'case_id':case['id'],'document_id':case['document_id'],'lane':case['lane'],'split':case['split'],
+            'judge_id':judge['id'],'family':judge['family'],'order':order,'valid':False,'winner':None,
+            'failure_kind':'skipped',
+            'error':f'oversized_prompt: a judge command line of {units} UTF-16 units is over the limit of {MAX_COMMAND_LINE_UNITS}'}
+
+
+def _oversized_units(case,rubric,config):
+    """The largest command line above the limit that any judge would be given for this case, else None."""
+    worst=None
+    for judge in config['judges']:
+        for order in (1,2):
+            units=_command_units(judge['command'],_judge_request(case,judge,order,rubric))
+            if units is not None and units>MAX_COMMAND_LINE_UNITS and (worst is None or units>worst):
+                worst=units
+    return worst
+
+
+def _judge_one(case,judge,order,rubric,out,budget,timeout):
+    """One judge call for one case in one presentation order; returns its record. Charges the budget once.
+    Part D (rerun-failed) calls this directly, so a re-run builds the same request and the same record."""
+    request=_judge_request(case,judge,order,rubric)
+    a,b=request['A'],request['B']
+    budget.charge()
+    artifact=out/'calls'/f'{budget.used:05d}'
+    result=run_call(judge['command'],request,artifact,timeout_seconds=timeout)
+    record={'case_id':case['id'],'document_id':case['document_id'],'lane':case['lane'],
+            'split':case['split'],'judge_id':judge['id'],'family':judge['family'],
+            'order':order,'valid':False,'winner':None}
+    if not result['ok']:
+        record['failure_kind']='plumbing'
+        record['error']=result['error'] or f"process_exit_{result['returncode']}"
+    else:
+        parsed=parse_judgment(result['response'],a,b)
+        record['valid']=parsed['valid']
+        if parsed['valid']:
+            winner=parsed['winner']
+            record['winner']=({'A':'a','B':'b'} if order==1 else {'A':'b','B':'a'}).get(winner,winner)
+        else:
+            record['failure_kind']='judgment'
+            record['error']=parsed['error']
+    return record
+
+
 def _judge_cases(cases,rubric,config,out,budget):
+    """Judge every case with every judge in both orders. A case that one judge's command line cannot carry is
+    skipped for all judges (no call, no charge), so every judge scores the same documents."""
     records=[]
     for case in cases:
+        units=_oversized_units(case,rubric,config)
         for judge in config['judges']:
             for order in (1,2):
-                a,b=(case['a'],case['b']) if order==1 else (case['b'],case['a'])
-                request={'role':'judge','request_id':_request_id(case['id'],judge['id'],order),
-                         'prompt':case['prompt'],'context':case['context'],'rubric':rubric['criteria'],'A':a,'B':b}
-                budget.charge()
-                artifact=out/'calls'/f'{budget.used:05d}'
-                result=run_call(judge['command'],request,artifact,timeout_seconds=config['timeout_seconds'])
-                record={'case_id':case['id'],'document_id':case['document_id'],'lane':case['lane'],
-                        'split':case['split'],'judge_id':judge['id'],'family':judge['family'],
-                        'order':order,'valid':False,'winner':None}
-                if not result['ok']:
-                    record['error']=result['error'] or f"process_exit_{result['returncode']}"
+                if units is not None:
+                    records.append(_skipped_record(case,judge,order,units))
                 else:
-                    parsed=parse_judgment(result['response'],a,b)
-                    record['valid']=parsed['valid']
-                    if parsed['valid']:
-                        winner=parsed['winner']
-                        record['winner']=({'A':'a','B':'b'} if order==1 else {'A':'b','B':'a'}).get(winner,winner)
-                    else:
-                        record['error']=parsed['error']
-                records.append(record)
+                    records.append(_judge_one(case,judge,order,rubric,out,budget,config['timeout_seconds']))
     return records
 
 
