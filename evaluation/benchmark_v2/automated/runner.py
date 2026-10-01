@@ -32,9 +32,9 @@ def _judge_signature(config):
 
 def _provenance(suite_path,rubric_path,config_path,config,skill_bytes=None):
     return {'candidate_skill_sha256': digest(skill_bytes) if skill_bytes is not None else None,
-            'suite_sha256':digest(Path(suite_path).read_bytes()),
-            'rubric_sha256':digest(Path(rubric_path).read_bytes()),
-            'config_sha256':digest(Path(config_path).read_bytes()),
+            'suite_sha256':_text_digest(suite_path),
+            'rubric_sha256':_text_digest(rubric_path),
+            'config_sha256':_text_digest(config_path),
             'judge_signature':_judge_signature(config),
             'adapter_sha256':_adapter_hashes()}
 
@@ -156,7 +156,7 @@ def _check_calibration_suite(suite,cases,split,suite_sha,certificate_sha,calibra
     name the comparison case id and the kind, never a document id, a cluster id or text, so owner
     text cannot reach an error line, a log or a terminal."""
     if calibration_suite is not None:
-        if digest(Path(calibration_suite).read_bytes())!=certificate_sha:
+        if _text_digest(calibration_suite)!=certificate_sha:
             raise ValueError('calibration suite does not match the certificate')
         source=load_suite(calibration_suite)
     elif certificate_sha==suite_sha:
@@ -192,7 +192,9 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
     if (certificate.get('schema_version')!=1 or certificate.get('evaluation_type')!='automated_proxy' or
         certificate.get('execution')!='live' or certificate.get('mode')!='calibrate' or
         not certificate.get('complete') or not certificate.get('eligible') or cert_provenance.get('rubric_sha256')!=provenance['rubric_sha256'] or
-        cert_provenance.get('judge_signature')!=provenance['judge_signature']):
+        cert_provenance.get('judge_signature')!=provenance['judge_signature'] or
+        # Leakage cannot be checked without the suite the certificate was issued on.
+        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256']):
         raise ValueError('matching eligible live calibration required')
     if isinstance(repetitions,bool) or not isinstance(repetitions,int) or repetitions<1 or repetitions>20:
         raise ValueError('repetitions must be 1..20')

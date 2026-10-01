@@ -107,6 +107,30 @@ class CertificateCase(unittest.TestCase):
     def overlap_suite(self, name, *extra_cases):
         return self.write_json(f"overlap-{name}.json", suite_of(comparison_cases() + list(extra_cases)))
 
+    def line_ending_pair(self, name, value):
+        """Write the same pretty-printed JSON twice, with LF and with CRLF line endings; return both paths."""
+        lf = json.dumps(value, indent=2).encode("utf-8")
+        paths = []
+        for suffix, data in (("lf", lf), ("crlf", lf.replace(b"\n", b"\r\n"))):
+            path = self.root / f"{name}-{suffix}.json"
+            path.write_bytes(data)
+            paths.append(path)
+        return paths
+
+    def certificate_copy(self, name, **provenance):
+        """A copy of the shared certificate with provenance fields replaced; a value of None removes the field."""
+        copy = self.root / name
+        shutil.copytree(self.certificate_dir, copy)
+        path = copy / "report.json"
+        report = json.loads(path.read_text(encoding="utf-8"))
+        for key, value in provenance.items():
+            if value is None:
+                report["provenance"].pop(key, None)
+            else:
+                report["provenance"][key] = value
+        path.write_text(json.dumps(report), encoding="utf-8")
+        return copy
+
 
 class SplitAndGuardTests(CertificateCase):
     def test_compare_refuses_a_split_with_no_cases(self):
@@ -140,6 +164,40 @@ class SplitAndGuardTests(CertificateCase):
         with self.assertRaisesRegex(ValueError, "does not match the certificate"):
             self.run_compare("out-wrong-suite", calibration_suite=self.cmp_suite)
         self.assertFalse((self.root / "out-wrong-suite").exists())
+
+    def test_provenance_file_digests_ignore_line_endings(self):
+        config = load_config(self.config)
+        rubric = json.loads(self.rubric.read_text(encoding="utf-8"))
+        files = {"suite": suite_of(certificate_cases()), "rubric": rubric, "config": config_of(self.command)}
+        lf = {name: self.line_ending_pair(f"endings-{name}", value)[0] for name, value in files.items()}
+        crlf = {name: self.line_ending_pair(f"endings-{name}", value)[1] for name, value in files.items()}
+        from_lf = runner._provenance(lf["suite"], lf["rubric"], lf["config"], config)
+        from_crlf = runner._provenance(crlf["suite"], crlf["rubric"], crlf["config"], config)
+        for key in ("suite_sha256", "rubric_sha256", "config_sha256"):
+            self.assertEqual(from_lf[key], from_crlf[key], key)
+        # Only the line ending is ignored: a changed value still changes the digest.
+        edited = self.line_ending_pair("endings-edited", suite_of(comparison_cases()))[1]
+        self.assertNotEqual(runner._provenance(edited, lf["rubric"], lf["config"], config)["suite_sha256"],
+                            from_crlf["suite_sha256"])
+
+    def test_a_calibration_suite_with_other_line_endings_still_matches_the_certificate(self):
+        lf, crlf = self.line_ending_pair("cal-suite-endings", suite_of(certificate_cases()))
+        recorded = hashlib.sha256(lf.read_bytes()).hexdigest()
+        certificate = self.certificate_copy("certificate-endings", suite_sha256=recorded)
+        for path in (lf, crlf):
+            with self.subTest(path.name):
+                report = compare(self.cmp_suite, self.rubric, self.config, certificate, self.skill,
+                                 self.root / f"out-{path.stem}", split="development", calibration_suite=path)
+                self.assertEqual(report["provenance"]["certificate_suite_sha256"], recorded)
+
+    def test_a_certificate_without_a_suite_hash_is_refused_up_front(self):
+        certificate = self.certificate_copy("certificate-no-suite-hash", suite_sha256=None)
+        for option in (self.cal_suite, None):
+            with self.subTest(calibration_suite=option):
+                with self.assertRaisesRegex(ValueError, "matching eligible live calibration required"):
+                    compare(self.cmp_suite, self.rubric, self.config, certificate, self.skill,
+                            self.root / "out-no-suite-hash", calibration_suite=option)
+        self.assertFalse((self.root / "out-no-suite-hash").exists())
 
     def assert_overlap_refused(self, extra_case, kind, forbidden):
         suite = self.overlap_suite(extra_case["id"], extra_case)
