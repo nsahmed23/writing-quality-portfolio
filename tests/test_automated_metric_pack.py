@@ -29,7 +29,8 @@ class MetricPackTests(unittest.TestCase):
             "evaluation_type": "automated_proxy",
             "execution": "live", "mode": "compare", "complete": True,
             "eligible": True, "recommendation": "candidate",
-            "metrics": {"candidate_preference": 0.6, "lower_bound": 0.2},
+            "metrics": {"candidate_preference": 0.6, "wilson_lower": 0.6892, "sign_test_p_candidate": 0.015625,
+                        "sign_test_p_baseline": 1.0},
             "checks": [{"id": "coverage", "passed": True, "message": "complete"}],
             "by_judge": {}, "by_lane": {}, "counts": {},
             "provenance": {
@@ -45,8 +46,8 @@ class MetricPackTests(unittest.TestCase):
     def lane(**changes):
         """Six documents that all favour the candidate: 6 of 6 decisive, Wilson interval from 0.6892 to 1."""
         value = {"cases": 7, "documents": 6, "decisive": 6, "wins": 6, "losses": 0, "proportion": 1.0,
-                 "wilson_lower": 0.6892, "wilson_upper": 1.0, "mean": 0.6, "sign_test_p": 0.015625,
-                 "recommendation": "candidate"}
+                 "wilson_lower": 0.6892, "wilson_upper": 1.0, "mean": 0.6, "sign_test_p_candidate": 0.015625,
+                 "sign_test_p_baseline": 1.0, "recommendation": "candidate"}
         value.update(changes)
         return value
 
@@ -97,27 +98,35 @@ class MetricPackTests(unittest.TestCase):
         self.report.write_text(json.dumps(self.report_value(by_lane={"editing": self.lane()})), encoding="utf-8")
         payload = self.invoke()
         self.assertEqual({m["id"] for m in payload["metrics"]},
-                         {"wq-automated-candidate-preference", "wq-automated-lower-bound",
+                         {"wq-automated-candidate-preference", "wq-automated-wilson-lower",
+                          "wq-automated-sign-test-p-candidate", "wq-automated-sign-test-p-baseline",
                           "wq-automated-editing-cases", "wq-automated-editing-documents",
                           "wq-automated-editing-decisive", "wq-automated-editing-wins",
                           "wq-automated-editing-losses", "wq-automated-editing-proportion",
                           "wq-automated-editing-wilson-lower", "wq-automated-editing-wilson-upper",
-                          "wq-automated-editing-mean", "wq-automated-editing-sign-test-p"})
+                          "wq-automated-editing-mean", "wq-automated-editing-sign-test-p-candidate",
+                          "wq-automated-editing-sign-test-p-baseline"})
+        self.assertNotIn("wq-automated-lower-bound", {m["id"] for m in payload["metrics"]})
+        self.assertNotIn("wq-automated-editing-sign-test-p", {m["id"] for m in payload["metrics"]})
         self.assertTrue(any(c["status"] == "pass" for c in payload["checks"]))
 
-    def test_lane_gate_rechecks_the_wilson_bound_and_the_effect_floor(self):
+    def test_lane_gate_rechecks_the_wilson_bound_the_effect_floor_and_the_candidate_p_value(self):
+        # 0.0501 is just over the one-sided alpha; a missing or non-numeric p-value cannot pass either.
         cases = ({"wilson_lower": 0.5}, {"mean": 0.1499}, {"wilson_lower": None}, {"mean": None},
-                 {"wilson_lower": 0.4999}, {"documents": 4})
+                 {"wilson_lower": 0.4999}, {"documents": 4}, {"sign_test_p_candidate": 0.0501},
+                 {"sign_test_p_candidate": None}, {"sign_test_p_candidate": "0.01"})
         for change in cases:
             with self.subTest(change=change):
                 self.report.write_text(json.dumps(self.report_value(by_lane={"editing": self.lane(**change)})),
                                        encoding="utf-8")
                 status = {c["id"]: c["status"] for c in self.invoke()["checks"]}
                 self.assertEqual(status["wq-automated-evidence"], "warn")
-        self.report.write_text(json.dumps(self.report_value(by_lane={"editing": self.lane(mean=0.15)})),
-                               encoding="utf-8")
-        status = {c["id"]: c["status"] for c in self.invoke()["checks"]}
-        self.assertEqual(status["wq-automated-evidence"], "pass")
+        for boundary in ({"mean": 0.15}, {"sign_test_p_candidate": 0.05}):
+            with self.subTest(boundary=boundary):
+                self.report.write_text(json.dumps(self.report_value(by_lane={"editing": self.lane(**boundary)})),
+                                       encoding="utf-8")
+                status = {c["id"]: c["status"] for c in self.invoke()["checks"]}
+                self.assertEqual(status["wq-automated-evidence"], "pass")
 
     def test_demo_is_informative_only_even_with_claimed_eligibility(self):
         self.report.write_text(json.dumps(self.report_value(execution="demo")), encoding="utf-8")
