@@ -31,6 +31,7 @@ def main(argv=None):
             p.add_argument('--repetitions',type=int,default=1)
             p.add_argument('--split',choices=SPLITS,default='test')
             p.add_argument('--calibration-suite')
+            p.add_argument('--documents',nargs='+',help='run only these document ids of the chosen split')
         if name=='optimize': p.add_argument('--rounds',type=int,default=1)
     args=parser.parse_args(argv)
     try:
@@ -47,7 +48,7 @@ def main(argv=None):
         elif args.command=='compare':
             report=compare(args.suite,args.rubric,args.config,args.calibration,args.candidate_skill,args.out,
                            baseline_skill=args.baseline_skill,repetitions=args.repetitions,
-                           split=args.split,calibration_suite=args.calibration_suite)
+                           split=args.split,calibration_suite=args.calibration_suite,documents=args.documents)
         else: report=optimize(args.suite,args.rubric,args.config,args.out,rounds=args.rounds)
     except (ValueError,OSError,KeyError) as exc:
         parser.exit(2,f'error: {exc}\n')

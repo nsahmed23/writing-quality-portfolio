@@ -50,8 +50,8 @@ def load_config(path):
                 else:
                     resolved.append(arg)
             entry['command']=resolved
-    timeout=value.get('timeout_seconds',120)
-    max_calls=value.get('max_calls',200)
+    timeout=value.get('timeout_seconds',300)
+    max_calls=value.get('max_calls',2000)
     if isinstance(timeout,bool) or not isinstance(timeout,(int,float)) or not (0 < timeout <= 600):
         raise ValueError('timeout_seconds must be >0 and <=600')
     if isinstance(max_calls,bool) or not isinstance(max_calls,int) or max_calls<=0:

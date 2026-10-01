@@ -259,27 +259,76 @@ def _check_calibration_suite(suite,cases,split,suite_sha,certificate_sha,calibra
     return {key:len(ids) for key,ids in found.items()}
 
 
-def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*,baseline_skill=None,repetitions=1,split='test',calibration_suite=None):
+def _require_certificate(calibration,provenance):
+    """The calibration report compare needs: live, complete, eligible, and made for this rubric and judge signature."""
+    certificate=json.loads((Path(calibration)/'report.json').read_bytes())
+    cert_provenance=certificate.get('provenance',{})
+    if (certificate.get('schema_version')!=1 or certificate.get('evaluation_type')!='automated_proxy' or
+        certificate.get('execution')!='live' or certificate.get('mode')!='calibrate' or
+        not certificate.get('complete') or not certificate.get('eligible') or
+        cert_provenance.get('rubric_sha256')!=provenance['rubric_sha256'] or
+        cert_provenance.get('judge_signature')!=provenance['judge_signature'] or
+        # Leakage cannot be checked without the suite the certificate was issued on.
+        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256']):
+        raise ValueError('matching eligible live calibration required')
+    return certificate
+
+
+def _scoring_case(current,source,a_error,b_error):
+    """The case the report scores. A missing writer output keeps the suite's own text as a schema-valid
+    placeholder, so the case counts as missing judge records; no judge ever sees the placeholder."""
+    scoring=copy.deepcopy(current)
+    if a_error: scoring['a']=source['a']
+    if b_error: scoring['b']=source['b']
+    return scoring
+
+
+def _apply_writer_failures(report,failures):
+    """A run with a failed writer call is incomplete, ineligible and inconclusive, and says how many failed."""
+    if not failures: return
+    report['complete']=False; report['eligible']=False; report['recommendation']='inconclusive'
+    report['checks'].append({'id':'writer_outputs','passed':False,'message':f'{len(failures)} writer output failures'})
+
+
+def _select_documents(cases,documents):
+    """The cases whose document id is in documents, in suite order; None keeps every case.
+
+    An unknown id is refused by its position in the list, never by the id, so the message cannot carry a
+    private document name; the caller sees its own command line."""
+    if documents is None: return cases
+    if (not isinstance(documents,(list,tuple)) or not documents or
+            any(not isinstance(d,str) or not d for d in documents) or len(set(documents))!=len(documents)):
+        raise ValueError('documents must be a nonempty list of distinct document ids')
+    known={c['document_id'] for c in cases}
+    for position,document in enumerate(documents,1):
+        if document not in known: raise ValueError(f'unknown document in documents (position {position}) for this split')
+    wanted=set(documents)
+    return [c for c in cases if c['document_id'] in wanted]
+
+
+def _instructions_bytes(baseline,candidate):
+    """What the writer was given, once per run: each side's exact text and its hash."""
+    def entry(text): return {'sha256':digest(text.encode('utf-8')),'text':text}
+    return canonical_bytes({'baseline':entry(baseline),'candidate':entry(candidate)})+b'\n'
+
+
+def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*,baseline_skill=None,repetitions=1,split='test',calibration_suite=None,documents=None):
     if split not in SPLITS: raise ValueError('invalid split')
     suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
     candidate_raw,candidate_instructions=_skill_bytes(candidate_skill)
     baseline_raw,baseline_instructions=_skill_bytes(baseline_skill) if baseline_skill is not None else (None,'')
     provenance=_provenance(suite_path,rubric_path,config_path,config,candidate_raw)
     provenance['split']=split
-    certificate=json.loads((Path(calibration)/'report.json').read_bytes())
-    cert_provenance=certificate.get('provenance',{})
-    provenance['certificate_suite_sha256']=cert_provenance.get('suite_sha256')
-    if (certificate.get('schema_version')!=1 or certificate.get('evaluation_type')!='automated_proxy' or
-        certificate.get('execution')!='live' or certificate.get('mode')!='calibrate' or
-        not certificate.get('complete') or not certificate.get('eligible') or cert_provenance.get('rubric_sha256')!=provenance['rubric_sha256'] or
-        cert_provenance.get('judge_signature')!=provenance['judge_signature'] or
-        # Leakage cannot be checked without the suite the certificate was issued on.
-        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256']):
-        raise ValueError('matching eligible live calibration required')
+    provenance['baseline_skill_sha256']=digest(baseline_raw) if baseline_raw is not None else None
+    provenance['repetitions']=repetitions
+    certificate=_require_certificate(calibration,provenance)
+    provenance['certificate_suite_sha256']=certificate.get('provenance',{}).get('suite_sha256')
     if isinstance(repetitions,bool) or not isinstance(repetitions,int) or repetitions<1 or repetitions>20:
         raise ValueError('repetitions must be 1..20')
     cases=[case for case in suite['cases'] if case['split']==split]
     if not cases: raise ValueError(f'compare requires {split} cases')
+    cases=_select_documents(cases,documents)
+    provenance['documents']=sorted(documents) if documents is not None else None
     if 'writer' not in config: raise ValueError('writer adapter required for compare')
     provenance['calibration_overlap']=_check_calibration_suite(suite,cases,split,provenance['suite_sha256'],provenance['certificate_suite_sha256'],calibration_suite)
     budget=Budget(config['max_calls'])
@@ -288,6 +337,7 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
     out=_prepare(out)
     (out/'candidate-SKILL.md').write_bytes(candidate_raw)
     if baseline_raw is not None: (out/'baseline-SKILL.md').write_bytes(baseline_raw)
+    (out/'instructions.json').write_bytes(_instructions_bytes(baseline_instructions,candidate_instructions))
     generated=[]; scoring_cases=[]; failures=[]
     for case in cases:
         for repetition in range(repetitions):
@@ -299,24 +349,17 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
             current['a']=a if a is not None else ''
             current['b']=b if b is not None else ''
             generated.append(current)
-            scoring_case=copy.deepcopy(current)
-            # Schema-valid source placeholders make missing model outputs count as
-            # missing records. They are never submitted to judges or used as wins.
-            if a_error: scoring_case['a']=case['a']
-            if b_error: scoring_case['b']=case['b']
-            scoring_cases.append(scoring_case)
+            scoring_cases.append(_scoring_case(current,case,a_error,b_error))
             if a_error or b_error: failures.append({'case_id':current['id'],'baseline':a_error,'candidate':b_error})
     (out/'generated.json').write_bytes(canonical_bytes({'cases':generated,'failures':failures})+b'\n')
     valid_cases=[c for c in generated if c['a'] and c['b']]
     records=_judge_cases(valid_cases,rubric,config,out,budget)
     # Missing writer outputs have no judge calls; the engine sees absent records, hence incomplete coverage.
     report=build_report({**suite,'cases':scoring_cases},records,config['judges'],mode='compare',calibration=certificate,execution='live',split=split)
-    if failures:
-        report['complete']=False; report['eligible']=False; report['recommendation']='inconclusive'
-        report['checks'].append({'id':'writer_outputs','passed':False,'message':f'{len(failures)} writer output failures'})
+    _apply_writer_failures(report,failures)
     report['provenance']=provenance
     _record_versions(report,config,before,'compare')
-    report['artifacts']={'records':'records.json','calls':'calls','generated':'generated.json','candidate_skill':'candidate-SKILL.md'}
+    report['artifacts']={'records':'records.json','calls':'calls','generated':'generated.json','candidate_skill':'candidate-SKILL.md','instructions':'instructions.json'}
     return _save(out,report,records)
 
 
