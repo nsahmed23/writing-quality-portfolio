@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import signal
 from pathlib import Path
 import subprocess
@@ -73,8 +74,19 @@ def _version_commands(commands):
     return commands
 
 
+def _resolved(argv):
+    """argv with its first element replaced by the executable `shutil.which` finds, or argv itself when none is found.
+
+    On Windows an npm shim such as `codex` is `codex.cmd`, and CreateProcess does not search PATHEXT,
+    so the bare name would never start. Only version commands go through here: they carry no prompt,
+    so running a .cmd target through cmd.exe is safe, unlike for an adapter command."""
+    found=shutil.which(argv[0])
+    return [found,*argv[1:]] if found else list(argv)
+
+
 def _version_of(argv,timeout=30):
-    """First non-blank output line of one version command, or None when it cannot be read.
+    """First non-blank line of one version command's standard output, or of its standard error when
+    standard output has no non-blank line; None when the command fails, times out or prints nothing.
 
     The command gets no stdin and runs in a temporary scratch folder, not the caller's working
     directory. Its output goes to files rather than pipes: a child that leaves a grandchild holding
@@ -83,7 +95,7 @@ def _version_of(argv,timeout=30):
         scratch=Path(scratch)
         try:
             with open(scratch/'out.txt','wb') as out, open(scratch/'err.txt','wb') as err:
-                done=subprocess.run(argv,stdin=subprocess.DEVNULL,stdout=out,stderr=err,cwd=scratch,timeout=timeout)
+                done=subprocess.run(_resolved(argv),stdin=subprocess.DEVNULL,stdout=out,stderr=err,cwd=scratch,timeout=timeout)
             if done.returncode!=0:
                 return None
             for name in ('out.txt','err.txt'):

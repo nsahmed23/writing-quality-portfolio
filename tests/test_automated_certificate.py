@@ -4,6 +4,7 @@ import contextlib
 import hashlib
 import io
 import json
+import os
 import shutil
 import sys
 import tempfile
@@ -329,6 +330,9 @@ if mode == "noisy":
     sys.stdout.write("\\n\\n   tool 1.0   \\nsecond line\\n")
 elif mode == "stderr-only":
     sys.stderr.write("\\n  tool 3.2.1  \\n")
+elif mode == "both":
+    sys.stdout.write("tool out\\n")
+    sys.stderr.write("tool err\\n")
 elif mode == "fail":
     sys.stdout.write("tool 9.9\\n")
     sys.exit(3)
@@ -389,6 +393,39 @@ class ToolVersionTests(unittest.TestCase):
 
     def test_stderr_is_the_fallback_when_stdout_is_empty(self):
         self.assertEqual(self.version("stderr-only"), "tool 3.2.1")
+
+    def test_stdout_wins_when_both_streams_have_text(self):
+        self.assertEqual(self.version("both"), "tool out")
+
+    def fake_tool(self, name, version):
+        """Put an executable called name in a private folder and return the folder.
+
+        On Windows it is name.cmd, the shape of an npm shim such as codex.cmd. CreateProcess does not
+        search PATHEXT, so the bare name is not found by subprocess unless it is resolved first."""
+        folder = self.root / "bin"
+        folder.mkdir(exist_ok=True)
+        if os.name == "nt":
+            (folder / f"{name}.cmd").write_bytes(f"@echo off\r\necho {name} {version}\r\n".encode("utf-8"))
+        else:
+            tool = folder / name
+            tool.write_text(f"#!/bin/sh\necho '{name} {version}'\n", encoding="utf-8")
+            tool.chmod(0o755)
+        return folder
+
+    def test_a_bare_command_name_is_resolved_through_path_like_an_npm_shim(self):
+        folder = self.fake_tool("shimtool", "4.5.6")
+        config = {"version_commands": {"shim": ["shimtool", "--version"]}}
+        with mock.patch.dict(os.environ, {"PATH": os.pathsep.join([str(folder), os.environ.get("PATH", "")])}):
+            self.assertEqual(tool_versions(config)["shim"], "shimtool 4.5.6")
+        self.assertIsNone(tool_versions({"version_commands": {"gone": ["no-such-tool-anywhere", "--version"]}})["gone"])
+
+    def test_record_versions_tolerates_a_report_without_lanes(self):
+        config = {"version_commands": {"probe": [sys.executable, str(self.probe_script), "noisy"]}}
+        report = {"provenance": {}, "checks": [], "eligible": True, "recommendation": "candidate"}
+        runner._record_versions(report, config, {"probe": "tool 0.9"}, "compare")
+        self.assertEqual(report["provenance"]["tool_versions"]["changed"], ["probe"])
+        self.assertFalse(report["eligible"])
+        self.assertEqual(report["recommendation"], "inconclusive")
 
     def test_nonzero_exit_silence_and_missing_executable_are_unreadable(self):
         self.assertIsNone(self.version("fail"))
