@@ -28,7 +28,7 @@ COUNT_KEYS=('expected_records','received_records','missing_records','duplicate_r
             'order_disagreements','abstentions','ties','both_bad','candidate_check_failures',
             'baseline_check_failures','candidate_check_diagnostics','baseline_check_diagnostics')
 LANE_COUNT_KEYS=('cases','documents','decisive','wins','losses')
-LANE_NUMBER_KEYS=('proportion','wilson_lower','wilson_upper','mean','sign_test_p')
+LANE_NUMBER_KEYS=('proportion','wilson_lower','wilson_upper','mean','sign_test_p_candidate','sign_test_p_baseline')
 HASH_KEYS=('candidate_skill_sha256','suite_sha256','rubric_sha256','config_sha256','judge_signature',
            'baseline_skill_sha256','certificate_suite_sha256','candidate_snapshot_sha256','baseline_snapshot_sha256')
 CHUNK_HASH_KEYS=('report_sha256','records_sha256')

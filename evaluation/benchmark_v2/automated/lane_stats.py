@@ -1,4 +1,4 @@
-"""Per-lane statistics: a Wilson interval, an exact sign test, Holm's step-down and the decision rule.
+"""Per-lane statistics: a Wilson interval, two exact one-sided sign tests, Holm's step-down and the decision rule.
 
 Every constant of the decision rule is defined here and nowhere else. Standard library only. The name is not
 `statistics` because that would shadow the standard library module.
@@ -12,6 +12,9 @@ Z_90 = 1.6448536269514722
 NULL_PROPORTION = 0.5
 # Smallest mean net preference, on the scale -1 to 1, that a recommendation needs.
 MIN_EFFECT = 0.15
+# Largest one-sided sign-test p-value, in the direction being claimed, that a recommendation accepts. At 0.05 no lane
+# with fewer than five decisive documents can be decisive: the smallest p-value at n = 4 is 0.0625.
+ALPHA_ONE_SIDED = 0.05
 
 
 def _check_counts(wins, n):
@@ -38,17 +41,27 @@ def wilson_interval(wins, n):
     return lower, upper
 
 
-def sign_test_p(wins, n):
-    """One-sided exact binomial p-value: the chance of at least `wins` out of `n` when each trial is a fair coin."""
+def sign_test_p_candidate(wins, n):
+    """One-sided exact binomial p-value for the candidate: P(X >= wins) with X ~ Binomial(n, 0.5), the chance of at
+    least `wins` out of `n` decisive documents when each is a fair coin. It is 1 when n is 0."""
     _check_counts(wins, n)
     return sum(math.comb(n, k) for k in range(wins, n + 1)) / 2 ** n
+
+
+def sign_test_p_baseline(wins, n):
+    """One-sided exact binomial p-value for the baseline: P(X <= wins) with X ~ Binomial(n, 0.5), the chance of at
+    most `wins` out of `n` decisive documents when each is a fair coin. It is 1 when n is 0."""
+    _check_counts(wins, n)
+    return sum(math.comb(n, k) for k in range(0, wins + 1)) / 2 ** n
 
 
 def holm(p_values, alpha):
     """Holm-Bonferroni step-down. Returns, in input order, whether each hypothesis is rejected.
 
     Sort the p-values ascending; the i-th smallest (from 0) is rejected while it is at most alpha / (m - i), and the
-    walk stops at the first one that is not."""
+    walk stops at the first one that is not. A caller that compares lanes together passes, for each lane, the p-value
+    of the direction being claimed: `sign_test_p_candidate` for a claim that the candidate is better and
+    `sign_test_p_baseline` for a claim that the baseline is better, never the other direction's value."""
     if isinstance(alpha, bool) or not isinstance(alpha, (int, float)) or not 0 < alpha <= 1:
         raise ValueError("alpha must be a number above 0 and at most 1")
     values = list(p_values)
@@ -73,16 +86,19 @@ def lane_statistics(values):
             "proportion": wins / decisive if decisive else None,
             "wilson_lower": lower, "wilson_upper": upper,
             "mean": sum(values) / len(values) if values else None,
-            "sign_test_p": sign_test_p(wins, decisive)}
+            "sign_test_p_candidate": sign_test_p_candidate(wins, decisive),
+            "sign_test_p_baseline": sign_test_p_baseline(wins, decisive)}
 
 
-def lane_decision(lower, upper, mean):
-    """'candidate' when the interval lies above one half and the mean is at least MIN_EFFECT; 'baseline' when it
-    lies below one half and the mean is at most -MIN_EFFECT; otherwise 'inconclusive'."""
+def lane_decision(lower, upper, mean, p_candidate, p_baseline):
+    """'candidate' when the interval lies above one half, the mean is at least MIN_EFFECT and the candidate sign-test
+    p-value is at most ALPHA_ONE_SIDED; 'baseline' when the interval lies below one half, the mean is at most
+    -MIN_EFFECT and the baseline sign-test p-value is at most ALPHA_ONE_SIDED; otherwise 'inconclusive'. Each
+    direction reads only its own p-value."""
     if mean is None:
         return "inconclusive"
-    if lower > NULL_PROPORTION and mean >= MIN_EFFECT:
+    if lower > NULL_PROPORTION and mean >= MIN_EFFECT and p_candidate <= ALPHA_ONE_SIDED:
         return "candidate"
-    if upper < NULL_PROPORTION and mean <= -MIN_EFFECT:
+    if upper < NULL_PROPORTION and mean <= -MIN_EFFECT and p_baseline <= ALPHA_ONE_SIDED:
         return "baseline"
     return "inconclusive"
