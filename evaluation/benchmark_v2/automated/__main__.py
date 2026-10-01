@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .contracts import SPLITS, load_rubric, load_suite, validate_suite
 from .adapters import canonical_bytes
+from .export import export_report
 from .optimize import optimize
 from .private import require_private_output
 from .runner import calibrate, compare, demo
@@ -43,6 +44,8 @@ def main(argv=None):
     for option in ('--suite','--rubric','--config','--calibration','--out'): rerunner.add_argument(option,required=True)
     rerunner.add_argument('--calibration-suite')
     rerunner.add_argument('--from',dest='source',required=True,help='the finished comparison run folder')
+    exporter=sub.add_parser('export',help='write the allowlisted aggregate of a finished report; safe to publish')
+    for option in ('--report','--out'): exporter.add_argument(option,required=True)
     args=parser.parse_args(argv)
     try:
         if args.command=='demo': report=demo(args.out)
@@ -65,6 +68,7 @@ def main(argv=None):
         elif args.command=='rerun-failed':
             report=rerun_failed(args.suite,args.rubric,args.config,args.calibration,args.source,args.out,
                                 calibration_suite=args.calibration_suite)
+        elif args.command=='export': report=export_report(args.report,args.out)
         else: report=optimize(args.suite,args.rubric,args.config,args.out,rounds=args.rounds)
     except (ValueError,OSError,KeyError) as exc:
         parser.exit(2,f'error: {exc}\n')
