@@ -7,8 +7,10 @@ Run it from the repository root (it makes a few model calls, so a person runs it
 It records three things.
 1. agy's `--version` text.
 2. Whether agy reads its prompt from stdin: the same call with `-p` absent, and with `-p ""`, each given a prompt on
-   stdin that asks for a random token. The token in the reply proves stdin was read; the raw exit code, stdout and
-   stderr of both calls are kept either way.
+   stdin that asks for a random token. The token in the reply proves stdin was read. A control call gives the same
+   prompt as the `-p` argument: a stdin call that fails or stays silent counts as proof that stdin is ignored only
+   when the control answered with the token, because otherwise the model, the sandbox or the login may be what failed.
+   The raw exit code, stdout and stderr of every call are kept either way.
 3. Whether agy loads a parent folder's AGENTS.md: a scratch folder holds an AGENTS.md with a canary word, and agy is
    asked for that word once from a plain child folder and once from a fresh `git init` repository beside it. The README
    says a real repository stops agy's walk up to a Git root; this measures that claim.
@@ -65,11 +67,15 @@ def _finished(call):
     return call['launch_error'] is None and not call['timed_out'] and call['returncode']==0
 
 
-def stdin_verdict(variants,nonce):
-    """`reads_stdin` when any variant's reply holds the nonce; else `inconclusive` when a variant hung or could not
-    start (it may have read stdin too slowly to say); else `ignores_stdin`."""
+def stdin_verdict(variants,nonce,control=None):
+    """`reads_stdin` when any stdin variant finished with the nonce in its reply. `ignores_stdin` only when the `-p` control
+    finished with the nonce (so the same prompt does work as an argument), no variant did, and no variant hung or could not
+    start (it may have read stdin too slowly to say). Anything else, including a missing or failed control, is
+    `inconclusive`: variants that all exit nonzero prove nothing about stdin when the model could not answer at all."""
     if any(_finished(call) and nonce in call['stdout'] for call in variants):
         return 'reads_stdin'
+    if control is None or not (_finished(control) and nonce in control['stdout']):
+        return 'inconclusive'
     if any(call['timed_out'] or call['launch_error'] is not None for call in variants):
         return 'inconclusive'
     return 'ignores_stdin'
@@ -106,6 +112,8 @@ def measure(agy,model,*,timeout_seconds=DEFAULT_TIMEOUT_SECONDS,stdin_timeout_se
     prompt=STDIN_PROMPT.format(nonce=nonce)
     variants=[{'name':name,**_call(argv,stdin_text=prompt,timeout=stdin_timeout_seconds)}
               for name,argv in (('p_absent',base),('p_empty',[*base,'-p','']))]
+    # The control: the same prompt as the -p argument. It shows whether this model call can answer at all.
+    control={'name':'p_control',**_call([*base,'-p',prompt],timeout=stdin_timeout_seconds)}
     with tempfile.TemporaryDirectory(prefix='wq-measure-',ignore_cleanup_errors=True) as parent:
         parent=Path(parent)
         (parent/'AGENTS.md').write_text(f'The canary word is {canary}.\n',encoding='utf-8')
@@ -128,7 +136,7 @@ def measure(agy,model,*,timeout_seconds=DEFAULT_TIMEOUT_SECONDS,stdin_timeout_se
             'agy':Path(agy[0]).name,
             'model':model,
             'version':version,
-            'stdin':{'verdict':stdin_verdict(variants,nonce),'nonce':nonce,'variants':variants},
+            'stdin':{'verdict':stdin_verdict(variants,nonce,control),'nonce':nonce,'variants':variants,'control':control},
             'agents_md':{'verdict':agents_verdict(in_plain,in_repo),'canary':canary,
                          'plain_folder':{**plain_call,'canary_in_reply':in_plain},
                          'git_repo':{**repo_call,'canary_in_reply':in_repo}}}
