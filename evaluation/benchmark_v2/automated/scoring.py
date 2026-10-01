@@ -189,7 +189,9 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
                 judgment += 1
     missing = len(keys - set(grouped))
     duplicates = sum(max(0, len(items) - 1) for items in grouped.values())
-    complete = bool(cases) and not (missing or duplicates or invalid or unexpected)
+    # Completeness asks that the selected cases were handled, not that any were scored: a run whose every case was
+    # skipped by the size check is complete with nothing scored (it stays ineligible through the lane document gate).
+    complete = bool(selected) and not (missing or duplicates or invalid or unexpected)
     results = {}
     disagree = 0
     for case in cases:

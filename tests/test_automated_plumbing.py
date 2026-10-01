@@ -317,13 +317,33 @@ class ReportFailureKindTests(unittest.TestCase):
         self.assertEqual((report["counts"]["skipped_records"], report["counts"]["unexpected_records"]), (0, 1))
         self.assertFalse(report["complete"])
 
-    def test_all_cases_skipped_is_never_complete(self):
+    def test_a_run_whose_cases_are_all_skipped_stays_complete_and_counts_the_skips(self):
         cases = [case(1), case(2)]
         special = {**skip_all("c1"), **skip_all("c2")}
         report = compare_report(cases, make_records(cases, special))
-        self.assertFalse(report["complete"])
+        counts = report["counts"]
+        self.assertTrue(report["complete"])
+        self.assertEqual((counts["skipped_cases"], counts["skipped_records"]), (2, 8))
+        self.assertEqual((counts["expected_records"], counts["received_records"]), (0, 8))
+        self.assertEqual((counts["invalid_records"], counts["unexpected_records"], counts["missing_records"]), (0, 0, 0))
+        coverage = [c for c in report["checks"] if c["id"] == "coverage"]
+        self.assertEqual([c["passed"] for c in coverage], [True])
+        # Nothing was scored, so the run can never be eligible or recommend either side.
         self.assertFalse(report["eligible"])
-        self.assertEqual(report["counts"]["skipped_cases"], 2)
+        self.assertEqual(report["recommendation"], "inconclusive")
+
+    def test_all_skipped_with_one_stray_judged_record_is_still_incomplete(self):
+        cases = [case(1), case(2)]
+        special = {**skip_all("c1"), **skip_all("c2")}
+        del special[("c2", "j2", 2)]
+        report = compare_report(cases, make_records(cases, special))
+        self.assertEqual(report["counts"]["unexpected_records"], 1)
+        self.assertFalse(report["complete"])
+
+    def test_an_empty_split_is_still_refused(self):
+        with self.assertRaises(ValueError) as caught:
+            compare_report([case(1, split="calibration")], [])
+        self.assertEqual(str(caught.exception), "compare requires test cases")
 
     def test_a_lane_with_only_skipped_cases_blocks_eligibility(self):
         cases = [case(i) for i in range(1, 6)] + [case(6, lane="communication")]
