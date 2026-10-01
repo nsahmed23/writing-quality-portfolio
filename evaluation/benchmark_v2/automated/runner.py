@@ -15,9 +15,14 @@ ADAPTER_DIR=Path(__file__).resolve().parent/'adapters'
 ADAPTER_SCRIPTS=('codex_adapter.py','generic_json_adapter.py','prompt_arg_adapter.py')
 
 
+def _text_digest(path):
+    """SHA-256 of a text file with CRLF read as LF, so a Windows and a POSIX checkout of the same file agree."""
+    return digest(Path(path).read_bytes().replace(b'\r\n',b'\n'))
+
+
 def _adapter_hashes():
-    """Byte hash of each shipped adapter script; a missing script raises OSError naming the file."""
-    return {name:digest((ADAPTER_DIR/name).read_bytes()) for name in ADAPTER_SCRIPTS}
+    """Line-ending-independent hash of each shipped adapter script; a missing script raises OSError naming the file."""
+    return {name:_text_digest(ADAPTER_DIR/name) for name in ADAPTER_SCRIPTS}
 
 
 def _judge_signature(config):

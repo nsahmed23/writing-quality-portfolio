@@ -228,7 +228,27 @@ class AdapterSignatureTests(CertificateCase):
         recorded = self.certificate["provenance"]["adapter_sha256"]
         self.assertEqual(sorted(recorded), sorted(runner.ADAPTER_SCRIPTS))
         for script in runner.ADAPTER_SCRIPTS:
-            self.assertEqual(recorded[script], sha256(runner.ADAPTER_DIR / script))
+            # CRLF is read as LF (see the next test), so a CRLF checkout of the script records the same digest.
+            raw = (runner.ADAPTER_DIR / script).read_bytes()
+            self.assertEqual(recorded[script], hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest())
+
+    def test_the_adapter_hashes_and_judge_signature_ignore_crlf_line_endings(self):
+        config = load_config(self.config)
+        original_hashes = runner._adapter_hashes()
+        original_signature = runner._judge_signature(config)
+        converted = self.adapter_copy("adapters-crlf")
+        for script in runner.ADAPTER_SCRIPTS:
+            lf_bytes = (converted / script).read_bytes().replace(b"\r\n", b"\n")
+            (converted / script).write_bytes(lf_bytes.replace(b"\n", b"\r\n"))
+            self.assertIn(b"\r\n", (converted / script).read_bytes(), script)
+        with mock.patch.object(runner, "ADAPTER_DIR", converted):
+            self.assertEqual(runner._adapter_hashes(), original_hashes)
+            self.assertEqual(runner._judge_signature(config), original_signature)
+        # A real edit still changes the digest: only the line ending is ignored.
+        with (converted / runner.ADAPTER_SCRIPTS[0]).open("ab") as handle:
+            handle.write(b"# edited\r\n")
+        with mock.patch.object(runner, "ADAPTER_DIR", converted):
+            self.assertNotEqual(runner._judge_signature(config), original_signature)
 
     def test_a_certificate_signed_before_adapter_hashing_is_refused(self):
         old = self.root / "certificate-old-signature"
