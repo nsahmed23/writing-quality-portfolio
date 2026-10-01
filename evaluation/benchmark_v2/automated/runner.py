@@ -203,11 +203,40 @@ def calibrate(suite_path,rubric_path,config_path,out):
     return _save(out,report,records)
 
 
-def _skill_bytes(path):
+MAX_SNAPSHOT_CHARACTERS=60000
+NO_BASELINE_INSTRUCTIONS='No additional instructions.'
+
+
+def _snapshot_text(raw,name,label):
+    """One skill file as text: UTF-8, with CRLF read as LF so a Windows and a POSIX checkout give the same snapshot."""
+    try: return raw.decode('utf-8').replace('\r\n','\n')
+    except UnicodeDecodeError as exc: raise ValueError(f'skill {name}: {label} is not valid UTF-8') from exc
+
+
+def _skill_snapshot(path):
+    """What a skill is evaluated as: its SKILL.md, then every file under the references/ folder beside it.
+
+    path is a skill folder or its SKILL.md file. Returns (raw SKILL.md bytes, snapshot text). The raw bytes alone
+    feed candidate_skill_sha256 and the saved SKILL.md copy; the text is what the writer is given as instructions.
+    References come in sorted forward-slash path order (text order, so it is the same on every platform), each after
+    a blank line and a '=== references/<path> ===' line. SKILL.md has no header, so a skill without references is
+    its own SKILL.md text. A snapshot over MAX_SNAPSHOT_CHARACTERS characters is refused, naming the skill."""
     path=Path(path)
-    if path.is_dir(): path=path/'SKILL.md'
-    value=path.read_bytes()
-    return value,value.decode('utf-8')
+    folder=path if path.is_dir() else path.parent
+    skill=path/'SKILL.md' if path.is_dir() else path
+    name=folder.resolve().name
+    raw=skill.read_bytes()
+    text=_snapshot_text(raw,name,'SKILL.md')
+    references=folder/'references'
+    if references.is_dir():
+        found=sorted(((file.relative_to(references).as_posix(),file) for file in references.rglob('*') if file.is_file()),
+                     key=lambda item:item[0])
+        for relative,file in found:
+            if not text.endswith('\n'): text+='\n'
+            text+=f'\n=== references/{relative} ===\n'+_snapshot_text(file.read_bytes(),name,f'references/{relative}')
+    if len(text)>MAX_SNAPSHOT_CHARACTERS:
+        raise ValueError(f'skill snapshot too large: {name} is {len(text)} characters, over the limit of {MAX_SNAPSHOT_CHARACTERS}')
+    return raw,text
 
 
 def _write_text(adapter,case,instructions,out,budget,tag,timeout):
@@ -315,11 +344,14 @@ def _instructions_bytes(baseline,candidate):
 def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*,baseline_skill=None,repetitions=1,split='test',calibration_suite=None,documents=None):
     if split not in SPLITS: raise ValueError('invalid split')
     suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
-    candidate_raw,candidate_instructions=_skill_bytes(candidate_skill)
-    baseline_raw,baseline_instructions=_skill_bytes(baseline_skill) if baseline_skill is not None else (None,'')
+    candidate_raw,candidate_instructions=_skill_snapshot(candidate_skill)
+    baseline_raw,baseline_instructions=_skill_snapshot(baseline_skill) if baseline_skill is not None else (None,NO_BASELINE_INSTRUCTIONS)
     provenance=_provenance(suite_path,rubric_path,config_path,config,candidate_raw)
     provenance['split']=split
     provenance['baseline_skill_sha256']=digest(baseline_raw) if baseline_raw is not None else None
+    # The skill hashes cover SKILL.md alone (the metric pack checks candidate_skill_sha256); these cover what the writer was given.
+    provenance['candidate_snapshot_sha256']=digest(candidate_instructions.encode('utf-8'))
+    provenance['baseline_snapshot_sha256']=digest(baseline_instructions.encode('utf-8')) if baseline_raw is not None else None
     provenance['repetitions']=repetitions
     certificate=_require_certificate(calibration,provenance)
     provenance['certificate_suite_sha256']=certificate.get('provenance',{}).get('suite_sha256')

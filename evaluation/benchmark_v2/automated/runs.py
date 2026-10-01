@@ -18,7 +18,8 @@ from .scoring import build_report
 
 # Provenance keys that must be equal in every chunk of one merged run.
 MERGE_IDENTITY_KEYS=('suite_sha256','rubric_sha256','config_sha256','judge_signature','candidate_skill_sha256',
-                     'baseline_skill_sha256','repetitions','split','certificate_suite_sha256','adapter_sha256')
+                     'baseline_skill_sha256','repetitions','split','certificate_suite_sha256','adapter_sha256',
+                     'candidate_snapshot_sha256','baseline_snapshot_sha256')
 # Provenance keys that must also equal what the files on disk hash to now.
 CURRENT_KEYS=('suite_sha256','rubric_sha256','config_sha256','judge_signature','adapter_sha256')
 RUN_FILES=('report.json','records.json','generated.json','instructions.json')
