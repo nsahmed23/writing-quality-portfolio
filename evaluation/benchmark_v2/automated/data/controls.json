@@ -61,7 +61,7 @@
       "document_id": "cal-doc-2",
       "split": "calibration",
       "lane": "editing",
-      "prompt": "Revise the policy notice sentence; preserve its tentative schedule while removing redundant phrases.",
+      "prompt": "Revise the policy notice sentence about the delay; preserve its tentative schedule while removing redundant phrases. The Chicago-office scope sentence is not part of this revision, so the revised sentence need not restate it.",
       "context": "SOURCE DOCUMENT — Chicago policy status: This policy applies to the Chicago office. We are considering a delay. The scope and tentative schedule belong to the same status notice.",
       "a": "At this point in time, we are currently considering the option of delaying.",
       "b": "We are considering a delay.",

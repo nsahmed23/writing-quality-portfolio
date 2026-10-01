@@ -4,7 +4,7 @@ import json
 import sys
 from pathlib import Path
 
-from .contracts import load_rubric, load_suite, validate_suite
+from .contracts import SPLITS, load_rubric, load_suite, validate_suite
 from .adapters import canonical_bytes
 from .optimize import optimize
 from .runner import calibrate, compare, demo
@@ -29,6 +29,8 @@ def main(argv=None):
             p.add_argument('--candidate-skill',required=True)
             p.add_argument('--baseline-skill')
             p.add_argument('--repetitions',type=int,default=1)
+            p.add_argument('--split',choices=SPLITS,default='test')
+            p.add_argument('--calibration-suite')
         if name=='optimize': p.add_argument('--rounds',type=int,default=1)
     args=parser.parse_args(argv)
     try:
@@ -44,7 +46,8 @@ def main(argv=None):
         elif args.command=='calibrate': report=calibrate(args.suite,args.rubric,args.config,args.out)
         elif args.command=='compare':
             report=compare(args.suite,args.rubric,args.config,args.calibration,args.candidate_skill,args.out,
-                           baseline_skill=args.baseline_skill,repetitions=args.repetitions)
+                           baseline_skill=args.baseline_skill,repetitions=args.repetitions,
+                           split=args.split,calibration_suite=args.calibration_suite)
         else: report=optimize(args.suite,args.rubric,args.config,args.out,rounds=args.rounds)
     except (ValueError,OSError,KeyError) as exc:
         parser.exit(2,f'error: {exc}\n')
