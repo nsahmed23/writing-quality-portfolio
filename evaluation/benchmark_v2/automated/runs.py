@@ -12,6 +12,7 @@ from pathlib import Path
 
 from .adapters import Budget,canonical_bytes,digest,load_config
 from .contracts import SPLITS,load_rubric,load_suite
+from .private import require_private_output
 from .runner import (_check_calibration_suite,_judge_one,_prepare,_provenance,_record_versions,_require_certificate,
                      _save,_select_documents,_versions_before)
 from .scoring import build_report
@@ -70,7 +71,8 @@ def merge(suite_path,rubric_path,config_path,calibration,run_dirs,out,*,calibrat
     merged report records the hash of each chunk's report and records files in provenance.merged_from."""
     run_dirs=list(run_dirs)
     if len(run_dirs)<2: raise ValueError('merge needs at least two runs')
-    suite=load_suite(suite_path); config=load_config(config_path)
+    suite=load_suite(suite_path); require_private_output(suite,out)
+    config=load_config(config_path)
     current=_provenance(suite_path,rubric_path,config_path,config)
     runs=[]
     for number,path in enumerate(run_dirs,1):
@@ -138,7 +140,8 @@ def rerun_failed(suite_path,rubric_path,config_path,calibration,source,out,*,cal
     is itself a re-run or a merge cannot be re-run, so a pair gets at most two attempts. The source folder is not
     changed. The new folder holds the full record list, each redone record marked attempt 2, and its report names
     the source by hash. Every refusal happens before the output folder exists."""
-    suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
+    suite=load_suite(suite_path); require_private_output(suite,out)
+    rubric=load_rubric(rubric_path); config=load_config(config_path)
     current=_provenance(suite_path,rubric_path,config_path,config)
     try: run=_read_run(source)
     except ValueError as exc: raise ValueError(f'source run: {exc}') from exc

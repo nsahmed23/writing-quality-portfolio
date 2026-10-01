@@ -7,6 +7,7 @@ from pathlib import Path
 from .contracts import SPLITS, load_rubric, load_suite, validate_suite
 from .adapters import canonical_bytes
 from .optimize import optimize
+from .private import require_private_output
 from .runner import calibrate, compare, demo
 from .runs import merge, rerun_failed
 
@@ -46,7 +47,7 @@ def main(argv=None):
     try:
         if args.command=='demo': report=demo(args.out)
         elif args.command=='prepare-optimize':
-            suite=load_suite(args.suite)
+            suite=load_suite(args.suite); require_private_output(suite,args.out)
             subset=validate_suite({**suite,'cases':[case for case in suite['cases'] if case['split'] in ('calibration','development')]})
             with Path(args.out).open('xb') as handle: handle.write(canonical_bytes(subset)+b'\n')
             report={'valid':True,'cases':len(subset['cases']),'out':str(args.out)}

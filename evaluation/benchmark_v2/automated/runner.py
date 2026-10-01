@@ -10,6 +10,7 @@ from pathlib import Path
 
 from .adapters import Budget, canonical_bytes, digest, load_config, run_call, tool_versions
 from .contracts import SPLITS, case_fingerprint, load_rubric, load_suite
+from .private import require_private_output
 from .scoring import build_report, parse_judgment
 
 
@@ -188,7 +189,8 @@ def _judge_cases(cases,rubric,config,out,budget):
 
 
 def calibrate(suite_path,rubric_path,config_path,out):
-    suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
+    suite=load_suite(suite_path); require_private_output(suite,out)
+    rubric=load_rubric(rubric_path); config=load_config(config_path)
     cases=[case for case in suite['cases'] if case['split']=='calibration' and case['expected'] is not None]
     if not cases: raise ValueError('calibration requires labeled calibration controls')
     budget=Budget(config['max_calls']); budget.preflight(len(cases)*len(config['judges'])*2)
@@ -343,7 +345,8 @@ def _instructions_bytes(baseline,candidate):
 
 def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*,baseline_skill=None,repetitions=1,split='test',calibration_suite=None,documents=None):
     if split not in SPLITS: raise ValueError('invalid split')
-    suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
+    suite=load_suite(suite_path); require_private_output(suite,out)
+    rubric=load_rubric(rubric_path); config=load_config(config_path)
     candidate_raw,candidate_instructions=_skill_snapshot(candidate_skill)
     baseline_raw,baseline_instructions=_skill_snapshot(baseline_skill) if baseline_skill is not None else (None,NO_BASELINE_INSTRUCTIONS)
     provenance=_provenance(suite_path,rubric_path,config_path,config,candidate_raw)
