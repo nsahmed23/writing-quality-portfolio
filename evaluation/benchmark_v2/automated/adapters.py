@@ -25,7 +25,7 @@ def load_config(path):
     from .contracts import strict_json
     path = Path(path).resolve()
     value = strict_json(path.read_bytes())
-    if not isinstance(value, dict) or set(value) - {'schema_version','judges','writer','optimizer','timeout_seconds','max_calls','version_commands'} or value.get('schema_version') != 1:
+    if not isinstance(value, dict) or set(value) - {'schema_version','judges','writer','optimizer','timeout_seconds','max_calls','version_commands','isolation_probe'} or value.get('schema_version') != 1:
         raise ValueError('invalid config schema')
     judges = value.get('judges')
     if not isinstance(judges,list) or not judges:
@@ -42,14 +42,7 @@ def load_config(path):
             command=entry['command']
             if not isinstance(command,list) or not command or any(not isinstance(arg,str) or not arg for arg in command):
                 raise ValueError(f'invalid {key} command')
-            resolved=[]
-            for idx,arg in enumerate(command):
-                candidate=path.parent/arg
-                if not Path(arg).is_absolute() and not arg.startswith('-') and candidate.exists() and (idx == 0 or '/' in arg or arg.endswith('.py')):
-                    resolved.append(str(candidate.resolve()))
-                else:
-                    resolved.append(arg)
-            entry['command']=resolved
+            entry['command']=_resolve_command(command,path.parent)
     timeout=value.get('timeout_seconds',300)
     max_calls=value.get('max_calls',2000)
     if isinstance(timeout,bool) or not isinstance(timeout,(int,float)) or not (0 < timeout <= 600):
@@ -59,7 +52,34 @@ def load_config(path):
     value['timeout_seconds']=timeout
     value['max_calls']=max_calls
     value['version_commands']=_version_commands(value.get('version_commands',{}))
+    if 'isolation_probe' in value:
+        value['isolation_probe']=_isolation_probe(value['isolation_probe'],path.parent)
     return value
+
+
+def _resolve_command(command,base):
+    """Replace each argument that names a file beside the config (the executable, a script, or a path with a slash) by its absolute path."""
+    resolved=[]
+    for idx,arg in enumerate(command):
+        candidate=base/arg
+        if not Path(arg).is_absolute() and not arg.startswith('-') and candidate.exists() and (idx == 0 or '/' in arg or arg.endswith('.py')):
+            resolved.append(str(candidate.resolve()))
+        else:
+            resolved.append(arg)
+    return resolved
+
+
+def _isolation_probe(probe,base):
+    """Validate the optional isolation_probe object: the argv that asks the writer one question, and the prompt-token limit."""
+    if not isinstance(probe,dict) or set(probe)!={'command','max_prompt_tokens'}:
+        raise ValueError('isolation_probe must be an object with exactly command and max_prompt_tokens')
+    command=probe['command']
+    if not isinstance(command,list) or not command or any(not isinstance(arg,str) or not arg.strip() for arg in command):
+        raise ValueError('isolation_probe command must be a nonempty list of nonblank strings')
+    limit=probe['max_prompt_tokens']
+    if isinstance(limit,bool) or not isinstance(limit,int) or limit<=0:
+        raise ValueError('isolation_probe max_prompt_tokens must be a positive integer')
+    return {'command':_resolve_command(command,base),'max_prompt_tokens':limit}
 
 
 def _version_commands(commands):
@@ -106,6 +126,54 @@ def _version_of(argv,timeout=30):
         except (OSError,ValueError,subprocess.TimeoutExpired):
             return None
     return None
+
+
+def _kill_tree(proc):
+    """Stop a timed-out child and what it started: killpg on POSIX, taskkill /T on Windows (fixed argv, no shell)."""
+    if os.name=='posix':
+        try:
+            os.killpg(proc.pid,signal.SIGKILL)
+        except OSError:
+            proc.kill()
+    else:
+        subprocess.run(['taskkill','/PID',str(proc.pid),'/T','/F'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,check=False)
+        if proc.poll() is None: proc.kill()
+
+
+def run_captured(argv,*,stdin_text=None,cwd=None,env=None,timeout=120):
+    """Run argv once, without a shell, and report how it ended: returncode (None when it never finished), timed_out,
+    launch_error (None unless it could not start), and stdout and stderr decoded as UTF-8 with bad bytes replaced.
+
+    stdin_text None gives the child no stdin; a string (even empty) is its whole stdin. The child runs in cwd, or in a
+    scratch folder. Output goes to files rather than pipes, as in _version_of, so a grandchild that outlives a timeout
+    cannot hold the read open. The executable goes through _resolved, so keep prompts off argv when argv[0] may be a
+    .cmd shim; the callers here pass fixed words only."""
+    result={'returncode':None,'timed_out':False,'launch_error':None,'stdout':'','stderr':''}
+    with tempfile.TemporaryDirectory(prefix='wq-run-',ignore_cleanup_errors=True) as scratch:
+        scratch=Path(scratch)
+        (scratch/'in.txt').write_bytes((stdin_text or '').encode('utf-8'))
+        try:
+            with open(scratch/'in.txt','rb') as stdin, open(scratch/'out.txt','wb') as out, open(scratch/'err.txt','wb') as err:
+                proc=subprocess.Popen(_resolved(argv),stdin=stdin if stdin_text is not None else subprocess.DEVNULL,
+                                      stdout=out,stderr=err,cwd=cwd if cwd is not None else scratch,env=env,shell=False,
+                                      start_new_session=(os.name=='posix'),
+                                      creationflags=(subprocess.CREATE_NEW_PROCESS_GROUP if os.name=='nt' else 0))
+                try:
+                    proc.wait(timeout=timeout)
+                    result['returncode']=proc.returncode
+                except subprocess.TimeoutExpired:
+                    result['timed_out']=True
+                    _kill_tree(proc)
+                    try:
+                        proc.wait(timeout=30)
+                    except subprocess.TimeoutExpired:
+                        pass
+        except (OSError,ValueError) as exc:
+            result['launch_error']=str(exc)
+        for key,name in (('stdout','out.txt'),('stderr','err.txt')):
+            if (scratch/name).exists():
+                result[key]=(scratch/name).read_text(encoding='utf-8',errors='replace')
+    return result
 
 
 def tool_versions(config,timeout=30):

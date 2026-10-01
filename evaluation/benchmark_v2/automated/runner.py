@@ -9,6 +9,7 @@ import re
 import subprocess
 from pathlib import Path
 
+from . import isolation
 from .adapters import Budget, canonical_bytes, digest, load_config, run_call, tool_versions
 from .contracts import SPLITS, case_fingerprint, load_rubric, load_suite
 from .private import require_private_output
@@ -382,6 +383,9 @@ def compare(suite_path,rubric_path,config_path,calibration,candidate_skill,out,*
     provenance['calibration_overlap']=_check_calibration_suite(suite,cases,split,provenance['suite_sha256'],provenance['certificate_suite_sha256'],calibration_suite)
     budget=Budget(config['max_calls'])
     budget.preflight(len(cases)*repetitions*(2+len(config['judges'])*2))
+    # The probe is the first model call: it runs once, after every refusal that needs no model and before the output folder exists.
+    probe=isolation.run_probe(config.get('isolation_probe'),timeout_seconds=config['timeout_seconds'])
+    if probe is not None: provenance['isolation_probe']=probe
     before=_versions_before(config)
     out=_prepare(out)
     (out/'candidate-SKILL.md').write_bytes(candidate_raw)
