@@ -156,6 +156,15 @@ class SplitAndGuardTests(CertificateCase):
         self.assertEqual(report["by_lane"]["editing"]["documents"], 2)
         self.assertFalse(report["eligible"])
 
+    def test_compare_on_the_default_test_split_is_eligible(self):
+        report = self.run_compare("out-default-split")
+        self.assertEqual(report["provenance"]["split"], "test")
+        # Five test cases, two judges, two presentation orders; the two development cases were not judged.
+        self.assertEqual(report["counts"]["expected_records"], 20)
+        self.assertEqual(report["counts"]["received_records"], 20)
+        self.assertEqual(report["by_lane"]["editing"]["documents"], 5)
+        self.assertTrue(report["eligible"], report["checks"])
+
     def test_a_certificate_from_another_suite_needs_the_calibration_suite_option(self):
         with self.assertRaisesRegex(ValueError, "issued on another suite"):
             self.run_compare("out-no-option", calibration_suite=None)
@@ -251,6 +260,20 @@ class SplitAndGuardTests(CertificateCase):
                       self.cli_error(self.cmp_suite, "--calibration-suite", str(self.cmp_suite)))
         self.assertIn("invalid choice", self.cli_error(self.cal_suite, "--split", "holdout"))
         self.assertFalse((self.root / "out-cli").exists())
+
+    def test_cli_compare_succeeds_with_exit_zero_and_prints_the_report(self):
+        out = self.root / "out-cli-ok"
+        argv = ["compare", "--suite", str(self.cmp_suite), "--rubric", str(self.rubric), "--config", str(self.config),
+                "--out", str(out), "--calibration", str(self.certificate_dir),
+                "--candidate-skill", str(self.skill), "--calibration-suite", str(self.cal_suite)]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            code = main(argv)
+        self.assertEqual(code, 0)
+        printed = json.loads(stdout.getvalue())
+        self.assertEqual(printed["provenance"]["split"], "test")
+        self.assertEqual(printed["counts"]["received_records"], 20)
+        self.assertTrue((out / "report.json").is_file())
 
 
 class AdapterSignatureTests(CertificateCase):
