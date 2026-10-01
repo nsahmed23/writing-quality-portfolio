@@ -41,6 +41,15 @@ class MetricPackTests(unittest.TestCase):
         value.update(changes)
         return value
 
+    @staticmethod
+    def lane(**changes):
+        """Six documents that all favour the candidate: 6 of 6 decisive, Wilson interval from 0.6892 to 1."""
+        value = {"cases": 7, "documents": 6, "decisive": 6, "wins": 6, "losses": 0, "proportion": 1.0,
+                 "wilson_lower": 0.6892, "wilson_upper": 1.0, "mean": 0.6, "sign_test_p": 0.015625,
+                 "recommendation": "candidate"}
+        value.update(changes)
+        return value
+
     def invoke(self, report=True):
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
         env = os.environ.copy()
@@ -69,7 +78,7 @@ class MetricPackTests(unittest.TestCase):
         self.assertEqual(payload["metrics"], [])
         self.assertTrue(all(c["status"] == "warn" for c in payload["checks"]))
         self.report.write_text(json.dumps(self.report_value(by_lane={"editing": {
-            "documents": 6, "ci_lower": float("inf"), "recommendation": "candidate"}})), encoding="utf-8")
+            "documents": 6, "wilson_lower": float("inf"), "recommendation": "candidate"}})), encoding="utf-8")
         nonfinite = self.invoke()
         self.assertEqual(nonfinite["metrics"], [])
         self.assertTrue(all(c["status"] == "warn" for c in nonfinite["checks"]))
@@ -85,16 +94,30 @@ class MetricPackTests(unittest.TestCase):
                 self.assertTrue(all(c["status"] == "warn" for c in payload["checks"]))
 
     def test_verified_live_comparison_emits_extension_metrics(self):
-        self.report.write_text(json.dumps(self.report_value(by_lane={"editing": {
-            "cases": 7, "documents": 6, "mean": 0.6, "ci_lower": 0.2,
-            "ci_upper": 0.8, "recommendation": "candidate"}})), encoding="utf-8")
+        self.report.write_text(json.dumps(self.report_value(by_lane={"editing": self.lane()})), encoding="utf-8")
         payload = self.invoke()
         self.assertEqual({m["id"] for m in payload["metrics"]},
                          {"wq-automated-candidate-preference", "wq-automated-lower-bound",
                           "wq-automated-editing-cases", "wq-automated-editing-documents",
-                          "wq-automated-editing-mean", "wq-automated-editing-ci-lower",
-                          "wq-automated-editing-ci-upper"})
+                          "wq-automated-editing-decisive", "wq-automated-editing-wins",
+                          "wq-automated-editing-losses", "wq-automated-editing-proportion",
+                          "wq-automated-editing-wilson-lower", "wq-automated-editing-wilson-upper",
+                          "wq-automated-editing-mean", "wq-automated-editing-sign-test-p"})
         self.assertTrue(any(c["status"] == "pass" for c in payload["checks"]))
+
+    def test_lane_gate_rechecks_the_wilson_bound_and_the_effect_floor(self):
+        cases = ({"wilson_lower": 0.5}, {"mean": 0.1499}, {"wilson_lower": None}, {"mean": None},
+                 {"wilson_lower": 0.4999}, {"documents": 4})
+        for change in cases:
+            with self.subTest(change=change):
+                self.report.write_text(json.dumps(self.report_value(by_lane={"editing": self.lane(**change)})),
+                                       encoding="utf-8")
+                status = {c["id"]: c["status"] for c in self.invoke()["checks"]}
+                self.assertEqual(status["wq-automated-evidence"], "warn")
+        self.report.write_text(json.dumps(self.report_value(by_lane={"editing": self.lane(mean=0.15)})),
+                               encoding="utf-8")
+        status = {c["id"]: c["status"] for c in self.invoke()["checks"]}
+        self.assertEqual(status["wq-automated-evidence"], "pass")
 
     def test_demo_is_informative_only_even_with_claimed_eligibility(self):
         self.report.write_text(json.dumps(self.report_value(execution="demo")), encoding="utf-8")
@@ -106,8 +129,7 @@ class MetricPackTests(unittest.TestCase):
         for failed_id in ("coverage", "candidate_checks", "calibration_certificate"):
             with self.subTest(failed_id=failed_id):
                 self.report.write_text(json.dumps(self.report_value(
-                    by_lane={"editing": {"documents": 6, "ci_lower": 0.2,
-                                         "recommendation": "candidate"}},
+                    by_lane={"editing": self.lane()},
                     checks=[{"id": failed_id, "passed": False, "message": "gate failed"}])),
                     encoding="utf-8")
                 payload = self.invoke()
@@ -115,9 +137,7 @@ class MetricPackTests(unittest.TestCase):
 
     def test_baseline_failure_does_not_veto_eligible_candidate(self):
         self.report.write_text(json.dumps(self.report_value(
-            by_lane={"editing": {"cases": 7, "documents": 6, "mean": 0.6,
-                                 "ci_lower": 0.2, "ci_upper": 0.8,
-                                 "recommendation": "candidate"}},
+            by_lane={"editing": self.lane()},
             checks=[{"id": "coverage", "passed": True, "message": "complete"},
                     {"id": "candidate_checks", "passed": True, "message": "candidate preserved facts"},
                     {"id": "baseline_checks", "passed": False, "message": "baseline omitted a fact"}])),

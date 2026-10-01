@@ -277,13 +277,13 @@ class ReportTests(unittest.TestCase):
         self.assertFalse(report["eligible"])
         self.assertNotEqual(report["recommendation"], "candidate")
 
-    def test_comparison_resamples_documents_and_keeps_lanes_separate(self):
+    def test_comparison_counts_decisive_documents_and_keeps_lanes_separate(self):
         value = suite("test", per_lane=5)
         report = build_report(value, records_for(value), JUDGES, mode="compare",
-                              calibration={"eligible": True, "execution": "live"}, seed=7)
+                              calibration={"eligible": True, "execution": "live"})
         self.assertEqual(report["recommendation"], "candidate")
         self.assertEqual(report["by_lane"]["editing"]["documents"], 5)
-        self.assertGreater(report["by_lane"]["communication"]["ci_lower"], 0)
+        self.assertEqual(round(report["by_lane"]["communication"]["wilson_lower"], 4), 0.6489)
         self.assertEqual(report["by_lane"]["editing"]["mean"], 1)
 
     def test_repetitions_share_document_weight_and_candidate_check_blocks_win(self):
@@ -295,12 +295,12 @@ class ReportTests(unittest.TestCase):
             if record["case_id"] == "rep":
                 record["winner"] = "a"
         report = build_report(value, records, JUDGES, mode="compare",
-                              calibration={"eligible": True, "execution": "live"}, seed=7)
+                              calibration={"eligible": True, "execution": "live"})
         self.assertEqual(report["by_lane"]["editing"]["documents"], 5)
         self.assertAlmostEqual(report["by_lane"]["editing"]["mean"], .8)
         value["cases"][0]["checks"] = {"required": ["Tuesday"]}
         blocked = build_report(value, records, JUDGES, mode="compare",
-                               calibration={"eligible": True, "execution": "live"}, seed=7)
+                               calibration={"eligible": True, "execution": "live"})
         self.assertNotEqual(blocked["recommendation"], "candidate")
         self.assertGreater(blocked["counts"]["candidate_check_failures"], 0)
 

@@ -95,7 +95,7 @@ def skip_all(case_id):
 
 
 def compare_report(cases, records):
-    return build_report(suite_of(cases), records, JUDGES, mode="compare", calibration=CERT, seed=7)
+    return build_report(suite_of(cases), records, JUDGES, mode="compare", calibration=CERT)
 
 
 class UnitCountTests(unittest.TestCase):
@@ -243,7 +243,7 @@ class JudgeCasesTests(unittest.TestCase):
         self.assertEqual(sorted(p.name for p in (self.out / "calls").iterdir()),
                          [f"{n:05d}" for n in range(1, 9)])
         report = build_report(suite_of(cases), records, [{"id": "gem", "family": "f1"}, {"id": "sol", "family": "f2"}],
-                              mode="compare", calibration=CERT, seed=7)
+                              mode="compare", calibration=CERT)
         self.assertTrue(report["complete"])
         self.assertEqual(report["counts"]["skipped_cases"], 1)
         self.assertEqual(report["counts"]["skipped_records"], 4)

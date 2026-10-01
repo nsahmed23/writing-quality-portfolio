@@ -14,6 +14,11 @@ from pathlib import Path
 import re
 import sys
 
+try:
+    from .lane_stats import MIN_EFFECT, NULL_PROPORTION
+except ImportError:  # Plugin Eval runs this file as a script, so there is no package to import from.
+    from lane_stats import MIN_EFFECT, NULL_PROPORTION
+
 
 HEX = re.compile(r"[0-9a-f]{64}\Z")
 
@@ -145,7 +150,8 @@ def analyze(target, kind, report_path=None):
     lane_gate = bool(lanes) and all(
         isinstance(value, dict) and value.get("recommendation") == "candidate"
         and type(value.get("documents")) is int and value["documents"] >= 5
-        and type(value.get("ci_lower")) in (int, float) and value["ci_lower"] > 0
+        and type(value.get("wilson_lower")) in (int, float) and value["wilson_lower"] > NULL_PROPORTION
+        and type(value.get("mean")) in (int, float) and value["mean"] >= MIN_EFFECT
         for value in lanes.values())
     allowed = (report["complete"] and report["eligible"] and lane_gate
                and report["recommendation"] == "candidate"
@@ -170,12 +176,14 @@ def analyze(target, kind, report_path=None):
         lane_data = report["by_lane"].get(lane)
         if not isinstance(lane_data, dict):
             continue
-        for key in ("cases", "documents", "mean", "ci_lower", "ci_upper"):
+        for key in ("cases", "documents", "decisive", "wins", "losses", "proportion", "wilson_lower",
+                    "wilson_upper", "mean", "sign_test_p"):
             value = lane_data.get(key)
             if type(value) in (int, float) and math.isfinite(value):
                 metrics.append({"id": f"wq-automated-{lane}-{key.replace('_', '-')}",
                                 "category": "custom", "value": value,
-                                "unit": "count" if key in ("cases", "documents") else "proxy",
+                                "unit": "count" if key in ("cases", "documents", "decisive", "wins", "losses")
+                                else "proxy",
                                 "band": "informational"})
     return {"checks": checks, "metrics": metrics,
             "artifacts": [{"id": "wq-automated-report", "type": "custom",

@@ -41,7 +41,7 @@ def records_for(value, winner):
 
 def compare_report(value, winner):
     return scoring.build_report(value, records_for(value, winner), JUDGES, mode="compare",
-                                calibration=CERTIFICATE, seed=7)
+                                calibration=CERTIFICATE)
 
 
 class OwnerSessionSchemaTests(unittest.TestCase):
