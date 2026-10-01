@@ -234,6 +234,10 @@ class ContractDocumentTests(unittest.TestCase):
         # The statistics names. Bare "decisive" is a substring of an older sentence, so it carries backticks.
         "`decisive`", "`wins`", "`losses`", "`proportion`", "`wilson_lower`", "`wilson_upper`", "`sign_test_p`",
         "`holm(p_values, alpha)`", "lane_stats.py", "Z_90", "NULL_PROPORTION", "MIN_EFFECT",
+        # The writer-isolation probe and the agy measurement script. The config key carries backticks because
+        # the bare word is a substring of the provenance name.
+        "`isolation_probe`", "max_prompt_tokens", "command_sha256", "prompt_tokens", "provenance.isolation_probe",
+        "input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens", "measure_agy.py",
     )
     REFUSAL_MESSAGES = (
         "document reused across splits",
@@ -275,6 +279,10 @@ class ContractDocumentTests(unittest.TestCase):
         "report is not an automated proxy report",
         "report is not valid JSON",
         "report field counts.ties has an unexpected value",
+        # The writer-isolation probe. The templates are quoted from the code, so a reworded message fails here.
+        "isolation probe: writer prompt is {tokens} tokens, over the limit of {limit}",
+        "isolation probe failed: {reason}",
+        "isolation probe output cannot be parsed: {reason}",
     )
 
     def contract(self):
@@ -307,6 +315,18 @@ class ContractDocumentTests(unittest.TestCase):
         readme = self.readme()
         self.assertIn("CONTRACT.md", readme)
         self.assertIn("--calibration-suite", readme)
+
+    def test_readme_describes_the_isolation_probe_and_the_agy_measurement(self):
+        readme = self.readme()
+        for name in ("isolation_probe", "max_prompt_tokens", "measure_agy.py", "AGENTS.md"):
+            self.assertIn(name, readme, name)
+        # One dated line records the live measurement in the residual-exposure text.
+        self.assertRegex(readme, r"Measured 20\d\d-\d\d-\d\d with agy \d+\.\d+\.\d+")
+
+    def test_contract_says_which_commands_run_the_probe(self):
+        text = self.contract()
+        self.assertIn("only `compare` runs the probe", text)
+        self.assertIn("before the output folder exists", text)
 
     def test_readme_says_where_a_private_run_must_go_and_how_to_publish_its_aggregate(self):
         readme = self.readme()
