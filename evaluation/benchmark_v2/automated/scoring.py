@@ -128,7 +128,10 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
         raise ValueError("calibrate scores the calibration split")
     cases = [c for c in suite["cases"] if c["split"] == split and
              (mode != "calibrate" or c["expected"] is not None)]
-    if mode == "score" and not cases:
+    if not cases:
+        # Only score mode may fall back to every case; compare and calibrate would otherwise report on nothing.
+        if mode != "score":
+            raise ValueError(f"{mode} requires {'labeled calibration' if mode == 'calibrate' else split} cases")
         cases = list(suite["cases"])
     case_by_id = {c["id"]: c for c in cases}
     keys = {(c["id"], j, order) for c in cases for j in judge_by_id for order in (1, 2)}

@@ -140,6 +140,25 @@ class SplitSelectionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "calibrate scores the calibration split"):
             build_report(split_suite(), [], JUDGES, mode="calibrate", split="test")
 
+    def test_compare_refuses_a_split_with_no_cases_and_names_the_split(self):
+        suite = make_suite(make_case("tst1", "dt1", split="test"))
+        with self.assertRaisesRegex(ValueError, "compare requires development cases"):
+            build_report(suite, [], JUDGES, mode="compare", split="development")
+        with self.assertRaisesRegex(ValueError, "compare requires calibration cases"):
+            build_report(suite, [], JUDGES, mode="compare", split="calibration")
+
+    def test_calibrate_refuses_a_calibration_split_with_no_labeled_cases(self):
+        unlabeled = make_suite(make_case("cal1", "dc1", split="calibration"))
+        with self.assertRaisesRegex(ValueError, "calibrate requires labeled calibration cases"):
+            build_report(unlabeled, [], JUDGES, mode="calibrate")
+        with self.assertRaisesRegex(ValueError, "calibrate requires labeled calibration cases"):
+            build_report(make_suite(make_case("tst1", "dt1", split="test")), [], JUDGES, mode="calibrate")
+
+    def test_score_mode_still_falls_back_to_every_case(self):
+        suite = make_suite(make_case("dev1", "dd1", split="development"))
+        report = build_report(suite, [], JUDGES, mode="score")
+        self.assertEqual(report["counts"]["expected_records"], 4)
+
 
 if __name__ == "__main__":
     unittest.main()
