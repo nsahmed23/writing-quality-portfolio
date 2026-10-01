@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .adapters import Budget, canonical_bytes, load_config, run_call
 from .contracts import load_rubric, load_suite, strict_json, validate_rubric
+from .private import require_private_output
 from .runner import _judge_cases, _prepare, _provenance
 
 
@@ -23,7 +24,8 @@ def _accuracy(cases, records, judges):
 
 
 def optimize(suite_path,rubric_path,config_path,out,*,rounds=1):
-    suite=load_suite(suite_path); start=load_rubric(rubric_path); config=load_config(config_path)
+    suite=load_suite(suite_path); require_private_output(suite,out)
+    start=load_rubric(rubric_path); config=load_config(config_path)
     if any(c['split']=='test' for c in suite['cases']):
         raise ValueError('optimize refuses suites containing test cases')
     if isinstance(rounds,bool) or not isinstance(rounds,int) or not 1<=rounds<=3:
