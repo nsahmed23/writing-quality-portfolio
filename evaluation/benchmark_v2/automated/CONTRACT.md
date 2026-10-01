@@ -111,6 +111,24 @@ A judge call that does not give a valid judgment is written as an invalid record
 
 Limit: a document that one judge's command line cannot carry is left out of every judge's scoring, and that selects against long outputs. The `skipped` counts disclose it; they do not remove the bias.
 
+## Private outputs and the export allowlist
+
+**Enforced** by `private.require_private_output` (the guard) and `export.build_export` (the export).
+
+A suite with any `owner_session` case holds the owner's own writing, so every run made from it must be written under one private folder, which `WQ_EVAL_PRIVATE_ROOT` names. `calibrate`, `compare`, `merge`, `rerun-failed`, `optimize` and `prepare-optimize` read the variable when they run, right after the suite loads and before any output folder or file exists, and refuse in three cases. The variable is unset or blank ("suite has owner_session cases; set WQ_EVAL_PRIVATE_ROOT to a private folder and write the run inside it"). It names something that is not an existing folder, so a typo cannot start a new private folder ("WQ_EVAL_PRIVATE_ROOT must name an existing folder"). Or the output path is not inside it ("suite has owner_session cases; the output path must be inside WQ_EVAL_PRIVATE_ROOT"). Both paths go through `os.path.realpath` and are compared with `os.path.commonpath` after `os.path.normcase`, so `..`, a symlink or a junction cannot lead out of the root, and a path on another drive counts as outside. The messages name the variable and never a path. A suite with no `owner_session` case is not checked, so `synthetic_control` and `published_reference` suites run anywhere as before. `demo` uses a built-in synthetic suite, `validate` writes nothing and `export` is public by design, so none of the three is guarded.
+
+`export --report REPORT --out FILE` reads a finished `report.json` and writes a new JSON file that is safe to publish. It is built by copying named fields into a new object, never by deleting fields from a copy of the report, so a field the report grows later stays out until the export names it. The export holds:
+
+1. `export_version` (the integer 1), `mode` (`calibrate`, `compare` or `score`), `execution` (`live` or `demo`), `complete`, `eligible` and `recommendation` (`candidate`, `baseline`, `inconclusive` or `not_applicable`).
+2. `counts`, limited to `expected_records`, `received_records`, `missing_records`, `duplicate_records`, `invalid_records`, `unexpected_records`, `plumbing_failures`, `judgment_failures`, `skipped_records`, `skipped_cases`, `order_disagreements`, `abstentions`, `ties`, `both_bad`, `candidate_check_failures`, `baseline_check_failures`, `candidate_check_diagnostics` and `baseline_check_diagnostics`.
+3. `by_lane`, with for each of `editing` and `communication` its `cases`, `documents`, `mean`, `ci_lower`, `ci_upper` and `recommendation`.
+4. `checks`, each as its `name` (the report's check id) and `passed`.
+5. `provenance`, limited to `candidate_skill_sha256`, `suite_sha256`, `rubric_sha256`, `config_sha256`, `judge_signature`, `baseline_skill_sha256`, `certificate_suite_sha256`, `candidate_snapshot_sha256` and `baseline_snapshot_sha256`; `adapter_sha256` for the three adapter scripts; `tool_versions` (`before`, `after` and `changed`); `merged_from` (per chunk `report_sha256`, `records_sha256` and `rerun_calls`); and `rerun` (`source_report_sha256`, `source_records_sha256` and `rerun_calls`).
+
+No case id, document id, cluster id, prompt, context, candidate text, quote, reason or file path can reach the export. A value that is not the shape the export names is refused by field path and never by value ("report field counts.ties has an unexpected value" for a `ties` count that is negative or not an integer), so a refusal cannot echo owner text. A file that is not JSON is refused ("report is not valid JSON"), and so is JSON that is not an object ("report is not a JSON object") or an object that is not an automated proxy report of schema version 1 ("report is not an automated proxy report"). The export is built before the output file is opened, and the file is then created exclusively, so a refused report leaves no file and an existing file is never overwritten. The command also prints the export on standard output.
+
+Limit: the guard decides by `provenance.kind` and by where this harness writes. Owner text labeled `synthetic_control` is not detected, and a judge or writer command can still write wherever its own program does. The report's `by_lane` entries carry no decisive counts or proportions, so the export has none; adding them means changing `scoring.build_report` and the export together.
+
 ## Claims
 
 **Specified**, not yet enforced. Phase 3.1 implements this section and may refine the outcome vocabulary before it does; any change is written here first. Until then `validate_suite` rejects a `claims` field as an unknown case field.

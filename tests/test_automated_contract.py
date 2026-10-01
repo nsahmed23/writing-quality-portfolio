@@ -206,6 +206,7 @@ class ContractDocumentTests(unittest.TestCase):
         "## Judge output",
         "## Literal checks",
         "## Plumbing and failure kinds",
+        "## Private outputs and the export allowlist",
         "## Claims",
     )
     REQUIRED_NAMES = (
@@ -221,6 +222,8 @@ class ContractDocumentTests(unittest.TestCase):
         "max_calls", "timeout_seconds",
         "candidate_snapshot_sha256", "baseline_snapshot_sha256", "=== references/", "No additional instructions.",
         "--candidate-skill", "--baseline-skill", "60,000 characters",
+        "WQ_EVAL_PRIVATE_ROOT", "private.require_private_output", "export.build_export", "export_version",
+        "os.path.realpath", "os.path.commonpath", "export --report",
     )
     REFUSAL_MESSAGES = (
         "document reused across splits",
@@ -253,6 +256,13 @@ class ContractDocumentTests(unittest.TestCase):
         "the run changed tool versions while it ran",
         "skill snapshot too large",
         "is not valid UTF-8",
+        "suite has owner_session cases; set WQ_EVAL_PRIVATE_ROOT to a private folder and write the run inside it",
+        "suite has owner_session cases; the output path must be inside WQ_EVAL_PRIVATE_ROOT",
+        "WQ_EVAL_PRIVATE_ROOT must name an existing folder",
+        "report is not a JSON object",
+        "report is not an automated proxy report",
+        "report is not valid JSON",
+        "report field counts.ties has an unexpected value",
     )
 
     def contract(self):
@@ -285,6 +295,22 @@ class ContractDocumentTests(unittest.TestCase):
         readme = self.readme()
         self.assertIn("CONTRACT.md", readme)
         self.assertIn("--calibration-suite", readme)
+
+    def test_readme_says_where_a_private_run_must_go_and_how_to_publish_its_aggregate(self):
+        readme = self.readme()
+        self.assertIn("WQ_EVAL_PRIVATE_ROOT", readme)
+        self.assertIn("export --report", readme)
+        self.assertIn("owner_session", readme)
+
+    def test_contract_names_every_field_the_export_copies(self):
+        from evaluation.benchmark_v2.automated import export
+        text = self.contract()
+        for name in (*export.COUNT_KEYS, *export.LANE_COUNT_KEYS, *export.LANE_NUMBER_KEYS, *export.HASH_KEYS,
+                     *export.CHUNK_HASH_KEYS, *export.RERUN_HASH_KEYS, *export.ADAPTER_SCRIPTS, *export.LANES):
+            self.assertIn(f"`{name}`", text, name)
+        for kind in ("`owner_session`", "`prepare-optimize`", "`optimize`", "`calibrate`", "`compare`", "`merge`",
+                     "`rerun-failed`", "`export`"):
+            self.assertIn(kind, text, kind)
 
     def test_docs_say_every_case_field_but_cluster_id_is_required(self):
         self.assertIn("Every field except `cluster_id` is required", self.contract())
