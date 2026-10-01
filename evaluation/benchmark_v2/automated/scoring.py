@@ -293,7 +293,8 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
         summary = lane_statistics([sum(v) / len(v) for v in docs.values()])
         lane_recommendation = "inconclusive"
         if mode == "compare" and len(docs) >= 5 and complete and certificate_ok and execution == "live" and len({j["family"] for j in judges}) >= 2:
-            verdict = lane_decision(summary["wilson_lower"], summary["wilson_upper"], summary["mean"])
+            verdict = lane_decision(summary["wilson_lower"], summary["wilson_upper"], summary["mean"],
+                                    summary["sign_test_p_candidate"], summary["sign_test_p_baseline"])
             if verdict == "candidate" and not candidate_fail:
                 lane_recommendation = "candidate"
             elif verdict == "baseline" and not baseline_fail:

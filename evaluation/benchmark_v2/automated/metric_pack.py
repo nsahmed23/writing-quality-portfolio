@@ -15,9 +15,9 @@ import re
 import sys
 
 try:
-    from .lane_stats import MIN_EFFECT, NULL_PROPORTION
+    from .lane_stats import ALPHA_ONE_SIDED, MIN_EFFECT, NULL_PROPORTION
 except ImportError:  # Plugin Eval runs this file as a script, so there is no package to import from.
-    from lane_stats import MIN_EFFECT, NULL_PROPORTION
+    from lane_stats import ALPHA_ONE_SIDED, MIN_EFFECT, NULL_PROPORTION
 
 
 HEX = re.compile(r"[0-9a-f]{64}\Z")
@@ -152,6 +152,8 @@ def analyze(target, kind, report_path=None):
         and type(value.get("documents")) is int and value["documents"] >= 5
         and type(value.get("wilson_lower")) in (int, float) and value["wilson_lower"] > NULL_PROPORTION
         and type(value.get("mean")) in (int, float) and value["mean"] >= MIN_EFFECT
+        and type(value.get("sign_test_p_candidate")) in (int, float)
+        and value["sign_test_p_candidate"] <= ALPHA_ONE_SIDED
         for value in lanes.values())
     allowed = (report["complete"] and report["eligible"] and lane_gate
                and report["recommendation"] == "candidate"
@@ -177,7 +179,7 @@ def analyze(target, kind, report_path=None):
         if not isinstance(lane_data, dict):
             continue
         for key in ("cases", "documents", "decisive", "wins", "losses", "proportion", "wilson_lower",
-                    "wilson_upper", "mean", "sign_test_p"):
+                    "wilson_upper", "mean", "sign_test_p_candidate", "sign_test_p_baseline"):
             value = lane_data.get(key)
             if type(value) in (int, float) and math.isfinite(value):
                 metrics.append({"id": f"wq-automated-{lane}-{key.replace('_', '-')}",

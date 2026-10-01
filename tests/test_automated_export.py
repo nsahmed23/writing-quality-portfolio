@@ -64,11 +64,11 @@ def sha(character):
 
 
 LANE_STATISTICS = {"cases": 6, "documents": 5, "decisive": 4, "wins": 3, "losses": 1, "proportion": 0.75,
-                   "wilson_lower": 0.3562, "wilson_upper": 0.9421, "mean": 0.5, "sign_test_p": 0.3125,
-                   "recommendation": "candidate"}
+                   "wilson_lower": 0.3562, "wilson_upper": 0.9421, "mean": 0.5, "sign_test_p_candidate": 0.3125,
+                   "sign_test_p_baseline": 0.9375, "recommendation": "candidate"}
 EMPTY_LANE = {"cases": 0, "documents": 0, "decisive": 0, "wins": 0, "losses": 0, "proportion": None,
-              "wilson_lower": 0.0, "wilson_upper": 1.0, "mean": None, "sign_test_p": 1.0,
-              "recommendation": "inconclusive"}
+              "wilson_lower": 0.0, "wilson_upper": 1.0, "mean": None, "sign_test_p_candidate": 1.0,
+              "sign_test_p_baseline": 1.0, "recommendation": "inconclusive"}
 
 
 def sample_report():
@@ -173,6 +173,13 @@ class AllowlistTests(unittest.TestCase):
         report["provenance"]["extra"] = MARK
         self.assertEqual(self.build(report), EXPECTED)
 
+    def test_the_retired_one_directional_p_value_is_dropped_and_both_directional_ones_are_kept(self):
+        report = sample_report()
+        report["by_lane"]["editing"]["sign_test_p"] = 0.3125
+        lane = self.build(report)["by_lane"]["editing"]
+        self.assertNotIn("sign_test_p", lane)
+        self.assertEqual((lane["sign_test_p_candidate"], lane["sign_test_p_baseline"]), (0.3125, 0.9375))
+
     def test_a_calibrate_report_with_no_lanes_or_certificate_exports_what_it_has(self):
         report = {"schema_version": 1, "evaluation_type": "automated_proxy", "execution": "live", "mode": "calibrate",
                   "complete": True, "eligible": False, "recommendation": "not_applicable", "metrics": {}, "checks": [],
@@ -220,7 +227,8 @@ class AllowlistTests(unittest.TestCase):
     def test_a_lane_entry_must_be_well_formed(self):
         for name, value in (("documents", MARK), ("cases", -2), ("decisive", 1.5), ("wins", -1), ("losses", True),
                             ("mean", MARK), ("mean", True), ("proportion", "x"), ("wilson_lower", "x"),
-                            ("wilson_upper", float("nan")), ("sign_test_p", MARK), ("recommendation", MARK)):
+                            ("wilson_upper", float("nan")), ("sign_test_p_candidate", MARK),
+                            ("sign_test_p_baseline", MARK), ("recommendation", MARK)):
             with self.subTest(name=name, value=repr(value)):
                 report = sample_report()
                 report["by_lane"]["editing"][name] = value

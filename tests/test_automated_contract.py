@@ -232,8 +232,9 @@ class ContractDocumentTests(unittest.TestCase):
         "WQ_EVAL_PRIVATE_ROOT", "private.require_private_output", "export.build_export", "export_version",
         "os.path.realpath", "os.path.commonpath", "export --report",
         # The statistics names. Bare "decisive" is a substring of an older sentence, so it carries backticks.
-        "`decisive`", "`wins`", "`losses`", "`proportion`", "`wilson_lower`", "`wilson_upper`", "`sign_test_p`",
-        "`holm(p_values, alpha)`", "lane_stats.py", "Z_90", "NULL_PROPORTION", "MIN_EFFECT",
+        "`decisive`", "`wins`", "`losses`", "`proportion`", "`wilson_lower`", "`wilson_upper`",
+        "`sign_test_p_candidate`", "`sign_test_p_baseline`",
+        "`holm(p_values, alpha)`", "lane_stats.py", "Z_90", "NULL_PROPORTION", "MIN_EFFECT", "ALPHA_ONE_SIDED",
         # The writer-isolation probe and the agy measurement script. The config key carries backticks because
         # the bare word is a substring of the provenance name.
         "`isolation_probe`", "max_prompt_tokens", "command_sha256", "prompt_tokens", "provenance.isolation_probe",
@@ -372,15 +373,25 @@ class ContractDocumentTests(unittest.TestCase):
         for phrase in ("two-sided 90% Wilson score interval", "1.6448536269514722", "0.15", "0.5",
                        "(p + z^2 / (2n)) / (1 + z^2 / n)", "z * sqrt(p (1 - p) / n + z^2 / (4 n^2)) / (1 + z^2 / n)",
                        "0.6489", "[0, 1]", "inconclusive", "one-sided exact binomial", "Holm-Bonferroni",
-                       "net preference", "`decisive`", "`wilson_lower`", "`sign_test_p`", "no bootstrap",
-                       "lane_stats.py"):
+                       "net preference", "`decisive`", "`wilson_lower`", "no bootstrap",
+                       "lane_stats.py", "`sign_test_p_candidate`", "`sign_test_p_baseline`", "ALPHA_ONE_SIDED", "0.05",
+                       "P(X >= wins)", "P(X <= wins)", "Binomial(decisive, 0.5)", "0.125", "0.0625", "0.03515625",
+                       "the p-value of the direction being claimed"):
             self.assertIn(phrase, section, phrase)
+        self.assertNotIn("`sign_test_p`", section)
 
     def test_readme_describes_the_wilson_rule_and_not_the_bootstrap(self):
         readme = self.readme()
         self.assertIn("Wilson", readme)
         self.assertNotIn("confidence bound", readme)
         self.assertNotIn("resampl", readme)
+
+    def test_readme_describes_the_two_directional_sign_tests_and_the_alpha_rule(self):
+        readme = self.readme()
+        for phrase in ("two one-sided sign-test p-values", "at most 0.05", "wq-automated-wilson-lower"):
+            self.assertIn(phrase, readme, phrase)
+        self.assertNotIn("an exact one-sided sign-test p-value", readme)
+        self.assertNotIn("sign_test_p`", readme)
 
     def test_contract_pins_the_treatment_snapshot_rules(self):
         section = self.contract().split("## Treatment snapshot", 1)[1].split("\n## ", 1)[0]
