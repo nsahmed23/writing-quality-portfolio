@@ -332,6 +332,44 @@ class SourceKinds(Workspace):
         self.assertEqual((case['prompt'], case['context']), (ASK, SOURCE))
 
 
+class LongBriefs(Workspace):
+    """A long task brief that happens to contain a writing verb is not a writing request."""
+
+    def brief(self, size):
+        return ASK + ' ' + 'a' * (size - len(ASK) - 1)
+
+    def test_instruction_limit_is_600_characters_around_a_fenced_block(self):
+        for size, reason in ((600, None), (601, 'long_instruction')):
+            with self.subTest(size=size):
+                text = self.brief(size) + '\n```\n' + SOURCE + '\n```'
+                candidates, _, report = self.harvest_ok([user(text)], out=self.fresh_out())
+                if reason:
+                    self.assertEqual(candidates['cases'], [])
+                    self.assertEqual(report['exclusions'], {reason: 1})
+                else:
+                    self.assertEqual(len(candidates['cases']), 1)
+                    self.assertEqual(report['exclusions'], {})
+
+    def test_instruction_limit_applies_around_a_pasted_block(self):
+        text = self.brief(601) + '\n<pasted_content>' + SOURCE + '</pasted_content>'
+        candidates, _, report = self.harvest_ok([user(text)])
+        self.assertEqual(candidates['cases'], [])
+        self.assertEqual(report['exclusions'], {'long_instruction': 1})
+
+    def test_a_long_follow_up_is_a_long_instruction_not_a_missing_source(self):
+        events = [assistant(SOURCE), user('Tighten that. ' + 'a' * 700)]
+        candidates, _, report = self.harvest_ok(events)
+        self.assertEqual(candidates['cases'], [])
+        self.assertEqual(report['exclusions'], {'long_instruction': 1})
+
+    def test_a_long_brief_leaves_no_trace_in_any_output(self):
+        marker = 'PLANTED-BRIEF-MARKER'
+        text = marker + ' ' + self.brief(900) + '\n```\n' + SOURCE + '\n```'
+        self.harvest_ok([user(text)])
+        for name in harvest.OUT_NAMES:
+            self.assertNotIn(marker, (self.out / name).read_text(encoding='utf-8'), name)
+
+
 class NoLeak(Workspace):
     def test_later_turns_never_enter_prompt_or_context(self):
         later_assistant, later_owner = 'LATER-ASSISTANT-TEXT', 'LATER-OWNER-TEXT'

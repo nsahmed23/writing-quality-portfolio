@@ -34,6 +34,7 @@ CONTEXT_CAP=2500       # a source longer than this is excluded (over_cap)
 CORRECTION_CAP=2500    # the owner's next turn is kept up to this many characters
 INLINE_MIN=80          # text under the instruction line must run this long to count as a source
 INSTRUCTION_LINE_MAX=300
+INSTRUCTION_MAX=600    # a longer instruction is a task brief that happens to name a verb, not a writing request
 FOLLOW_UP_MAX=400      # a turn that points back at the assistant's last message stays short
 MAX_TURN=200_000       # beyond this an owner turn is not scanned at all
 LICENSE='owner_private'
@@ -170,6 +171,7 @@ def analyse_turn(text,previous):
     kind,instruction,source=split_turn(text)
     verb=instruction_verb(instruction)
     if verb is None: return 'excluded','no_instruction',0
+    if len(instruction)>INSTRUCTION_MAX: return 'excluded','long_instruction',0
     if kind=='code_source': return 'excluded','code_source',0
     if kind is None:
         # No source in the turn: only a short follow-up that points back may take the assistant's last message.
