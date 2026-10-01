@@ -150,6 +150,19 @@ class CommandUnitsTests(unittest.TestCase):
         command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
         self.assertIsNone(runner._command_units(command, REQUEST))
 
+    def test_a_builder_that_raises_fails_open(self):
+        folder = self.adapter_folder("raising", with_builder=False)
+        (folder / "generic_json_adapter.py").write_text(
+            "def build_prompt(request):\n    raise KeyError('rubric')\n", encoding="utf-8")
+        command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
+        self.assertIsNone(runner._command_units(command, REQUEST))
+
+    def test_a_builder_that_fails_while_loading_fails_open(self):
+        folder = self.adapter_folder("unloadable", with_builder=False)
+        (folder / "generic_json_adapter.py").write_text("raise RuntimeError('cannot load')\n", encoding="utf-8")
+        command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
+        self.assertIsNone(runner._command_units(command, REQUEST))
+
     def test_nothing_after_the_adapter_fails_open(self):
         folder = self.adapter_folder("bare")
         command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--"]
@@ -235,6 +248,15 @@ class JudgeCasesTests(unittest.TestCase):
         self.assertEqual(report["counts"]["skipped_cases"], 1)
         self.assertEqual(report["counts"]["skipped_records"], 4)
         self.assertEqual(report["counts"]["invalid_records"], 0)
+
+    def test_a_builder_that_raises_does_not_stop_the_run_and_the_calls_are_made(self):
+        (self.fake_adapter.parent / "generic_json_adapter.py").write_text(
+            "def build_prompt(request):\n    raise KeyError('rubric')\n", encoding="utf-8")
+        budget = Budget(10)
+        config = {"judges": [self.argument_judge()], "timeout_seconds": 60}
+        records = runner._judge_cases([case(1)], RUBRIC, config, self.out, budget)
+        self.assertEqual(budget.used, 2)
+        self.assertEqual([(r["valid"], r.get("failure_kind")) for r in records], [(True, None), (True, None)])
 
     def test_a_stdin_judge_never_skips_a_long_pair(self):
         cases = [case(1, a="alpha " + "x" * 40000)]

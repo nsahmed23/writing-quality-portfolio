@@ -102,7 +102,9 @@ def _prompt_builder(folder):
         module=importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         return module.build_prompt
-    except (OSError,ImportError,AttributeError,SyntaxError):
+    except Exception:
+        # The builder is a file next to the adapter, so anything it does while loading (not only an import or
+        # syntax error) means the size cannot be measured; the caller then fails open.
         return None
 
 
@@ -120,7 +122,12 @@ def _command_units(command,request):
     if not tail: return None
     build=_prompt_builder(Path(part).resolve().parent)
     if build is None: return None
-    return _units([*tail,'-p',build(request)])
+    try:
+        return _units([*tail,'-p',build(request)])
+    except Exception:
+        # A builder that raises must not stop the run before any call is made: size is unknown, so the call runs
+        # and the adapter decides (it measures and refuses an oversized command line itself).
+        return None
 
 
 def _judge_request(case,judge,order,rubric):
