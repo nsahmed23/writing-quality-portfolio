@@ -172,8 +172,13 @@ class ProvenanceTests(Fixture):
         data = self.read("one", "instructions.json")
         self.assertEqual(data["candidate"]["text"], self.candidate.read_bytes().decode("utf-8"))
         self.assertEqual(data["candidate"]["sha256"], digest(self.candidate.read_bytes()))
-        self.assertEqual(data["baseline"]["text"], "")
-        self.assertEqual(data["baseline"]["sha256"], digest(b""))
+        self.assertEqual(data["baseline"]["text"], "No additional instructions.")
+        self.assertEqual(data["baseline"]["sha256"], digest(b"No additional instructions."))
+
+    def test_with_no_baseline_skill_the_writer_is_told_there_are_no_additional_instructions(self):
+        self.compare("plain", documents=["doc-1"])
+        request = json.loads((self.root / "plain" / "calls" / "00001" / "request.json").read_bytes())
+        self.assertEqual((request["role"], request["instructions"]), ("writer", "No additional instructions."))
 
     def test_provenance_records_the_baseline_skill_and_the_repetitions(self):
         plain = self.compare("plain", documents=["doc-1"])
@@ -183,6 +188,30 @@ class ProvenanceTests(Fixture):
         self.assertEqual(based["provenance"]["baseline_skill_sha256"], digest(self.baseline.read_bytes()))
         self.assertEqual(based["provenance"]["repetitions"], 2)
         self.assertEqual(len(self.read("based", "generated.json")["cases"]), 2)
+
+    def test_provenance_records_the_snapshot_hashes_and_keeps_the_skill_md_hash(self):
+        plain = self.compare("plain", documents=["doc-1"])["provenance"]
+        self.assertEqual(plain["candidate_skill_sha256"], digest(self.candidate.read_bytes()))
+        self.assertEqual(plain["candidate_snapshot_sha256"], digest(self.candidate.read_bytes()))
+        self.assertIn("baseline_snapshot_sha256", plain)
+        self.assertIsNone(plain["baseline_snapshot_sha256"])
+        based = self.compare("based", documents=["doc-1"], baseline_skill=self.baseline)["provenance"]
+        self.assertEqual(based["baseline_skill_sha256"], digest(self.baseline.read_bytes()))
+        self.assertEqual(based["baseline_snapshot_sha256"], digest(self.baseline.read_bytes()))
+
+    def test_the_snapshot_hash_covers_references_while_the_skill_md_hash_does_not(self):
+        folder = self.root / "skill"
+        (folder / "references").mkdir(parents=True)
+        (folder / "SKILL.md").write_bytes(self.candidate.read_bytes())
+        (folder / "references" / "a.md").write_bytes(b"Reference A.\n")
+        self.candidate = folder
+        provenance = self.compare("folder", documents=["doc-1"])["provenance"]
+        snapshot = self.read("folder", "instructions.json")["candidate"]["text"]
+        self.assertEqual(snapshot, self.candidate.joinpath("SKILL.md").read_bytes().decode("utf-8")
+                         + "\n=== references/a.md ===\nReference A.\n")
+        self.assertEqual(provenance["candidate_skill_sha256"], digest((folder / "SKILL.md").read_bytes()))
+        self.assertEqual(provenance["candidate_snapshot_sha256"], digest(snapshot.encode("utf-8")))
+        self.assertNotEqual(provenance["candidate_snapshot_sha256"], provenance["candidate_skill_sha256"])
 
     def test_a_failed_writer_call_voids_the_run_and_is_named(self):
         (self.flags / "writer.flag").write_text("x")
@@ -267,6 +296,45 @@ class MergeTests(VersionedFixture):
             self.merge("merged", "first", "second")
         self.assertIn("candidate_skill_sha256", str(caught.exception))
         self.assertFalse((self.root / "merged").exists())
+
+    def skill_folder(self, name, source):
+        """A skill folder whose SKILL.md is the given file; returns the folder and its one reference file."""
+        folder = self.root / name
+        (folder / "references").mkdir(parents=True)
+        (folder / "SKILL.md").write_bytes(source.read_bytes())
+        reference = folder / "references" / "a.md"
+        reference.write_bytes(b"Reference one.\n")
+        return folder, reference
+
+    def test_chunks_made_from_different_candidate_references_are_refused(self):
+        self.candidate, reference = self.skill_folder("skill", self.candidate)
+        self.chunk("first", ["doc-1"])
+        reference.write_bytes(b"Reference two.\n")
+        self.chunk("second", ["doc-2"])
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertEqual(str(caught.exception), "chunk runs differ in candidate_snapshot_sha256")
+        self.assertFalse((self.root / "merged").exists())
+
+    def test_chunks_made_from_different_baseline_references_are_refused(self):
+        baseline, reference = self.skill_folder("base", self.baseline)
+        self.chunk("first", ["doc-1"], baseline_skill=baseline)
+        reference.write_bytes(b"Reference two.\n")
+        self.chunk("second", ["doc-2"], baseline_skill=baseline)
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertEqual(str(caught.exception), "chunk runs differ in baseline_snapshot_sha256")
+        self.assertFalse((self.root / "merged").exists())
+
+    def test_chunks_with_the_same_snapshot_merge_and_the_report_keeps_its_hashes(self):
+        self.candidate, _ = self.skill_folder("skill", self.candidate)
+        first = self.chunk("first", ["doc-1"])
+        self.chunk("second", ["doc-2"])
+        merged = self.merge("merged", "first", "second")
+        for key in ("candidate_snapshot_sha256", "baseline_snapshot_sha256", "candidate_skill_sha256"):
+            self.assertIn(key, merged["provenance"])
+            self.assertEqual(merged["provenance"][key], first["provenance"][key], key)
+        self.assertIsNotNone(merged["provenance"]["candidate_snapshot_sha256"])
 
     def test_chunks_with_different_repetitions_are_refused(self):
         self.chunk("first", ["doc-1"])

@@ -202,6 +202,7 @@ class ContractDocumentTests(unittest.TestCase):
         "## Certificates and the judge signature",
         "## Calibration-suite leakage guard",
         "## Run provenance",
+        "## Treatment snapshot",
         "## Judge output",
         "## Literal checks",
         "## Plumbing and failure kinds",
@@ -218,6 +219,8 @@ class ContractDocumentTests(unittest.TestCase):
         "instructions.json", "provenance.documents", "provenance.merged_from", "provenance.rerun",
         "baseline_skill_sha256", "repetitions", "--documents", "`merge`", "rerun-failed",
         "max_calls", "timeout_seconds",
+        "candidate_snapshot_sha256", "baseline_snapshot_sha256", "=== references/", "No additional instructions.",
+        "--candidate-skill", "--baseline-skill", "60,000 characters",
     )
     REFUSAL_MESSAGES = (
         "document reused across splits",
@@ -248,6 +251,8 @@ class ContractDocumentTests(unittest.TestCase):
         "a merged run or a re-run cannot be re-run",
         "tool versions changed since the run",
         "the run changed tool versions while it ran",
+        "skill snapshot too large",
+        "is not valid UTF-8",
     )
 
     def contract(self):
@@ -303,6 +308,21 @@ class ContractDocumentTests(unittest.TestCase):
 
     def test_contract_lists_only_documents_with_a_miss_under_diagnostics(self):
         self.assertIn("only the documents and lanes that have at least one miss", self.contract())
+
+    def test_contract_pins_the_treatment_snapshot_rules(self):
+        section = self.contract().split("## Treatment snapshot", 1)[1].split("\n## ", 1)[0]
+        for phrase in ("`references/`", "=== references/<path> ===", "CRLF", "UTF-8", "60,000 characters",
+                       "`candidate_skill_sha256`", "raw `SKILL.md` bytes", "`null`", "No additional instructions.",
+                       "skill snapshot too large: NAME is N characters, over the limit of 60000"):
+            self.assertIn(phrase, section, phrase)
+
+    def test_readme_says_the_writer_gets_the_snapshot_and_names_its_limit(self):
+        readme = self.readme()
+        for phrase in ("`references/`", "60,000 characters", "No additional instructions.", "candidate_snapshot_sha256"):
+            self.assertIn(phrase, readme, phrase)
+        # The old wording said the writer got SKILL.md alone and that a folder resolved to SKILL.md only.
+        self.assertNotIn("receives the selected `SKILL.md` text", readme)
+        self.assertNotIn("A skill directory resolves to its `SKILL.md`.", readme)
 
 
 if __name__ == "__main__":
