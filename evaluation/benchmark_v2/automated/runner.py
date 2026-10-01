@@ -62,7 +62,7 @@ def _record_versions(report,config,before,mode):
         report['eligible']=False
         if mode=='compare':
             report['recommendation']='inconclusive'
-            for lane in report.get('by_lane',{}).values(): lane['recommendation']='inconclusive'
+            for lane in (report.get('by_lane') or {}).values(): lane['recommendation']='inconclusive'
 
 
 def _prepare(out):

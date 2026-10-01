@@ -15,7 +15,7 @@ from unittest import mock
 
 from evaluation.benchmark_v2.automated import runner
 from evaluation.benchmark_v2.automated.__main__ import main
-from evaluation.benchmark_v2.automated.adapters import canonical_bytes, digest, load_config, tool_versions
+from evaluation.benchmark_v2.automated.adapters import _resolved, canonical_bytes, digest, load_config, tool_versions
 from evaluation.benchmark_v2.automated.runner import calibrate, compare
 
 ADAPTER = '''import json, sys
@@ -456,6 +456,32 @@ class ToolVersionTests(unittest.TestCase):
     def test_record_versions_tolerates_a_report_without_lanes(self):
         config = {"version_commands": {"probe": [sys.executable, str(self.probe_script), "noisy"]}}
         report = {"provenance": {}, "checks": [], "eligible": True, "recommendation": "candidate"}
+        runner._record_versions(report, config, {"probe": "tool 0.9"}, "compare")
+        self.assertEqual(report["provenance"]["tool_versions"]["changed"], ["probe"])
+        self.assertFalse(report["eligible"])
+        self.assertEqual(report["recommendation"], "inconclusive")
+
+    def test_a_command_found_through_a_relative_path_entry_runs_from_its_absolute_path(self):
+        # The version command runs in a scratch folder, so a relative result from shutil.which would point nowhere.
+        folder = self.fake_tool("relshim", "7.8.9")
+        original = Path.cwd()
+        os.chdir(self.root)
+        try:
+            with mock.patch.dict(os.environ, {"PATH": folder.name}):
+                argv = _resolved(["relshim", "--version"])
+                self.assertTrue(os.path.isabs(argv[0]), argv[0])
+                self.assertEqual(argv[1:], ["--version"])
+                config = {"version_commands": {"rel": ["relshim", "--version"]}}
+                self.assertEqual(tool_versions(config)["rel"], "relshim 7.8.9")
+        finally:
+            os.chdir(original)
+
+    def test_a_command_that_is_not_found_is_left_as_written(self):
+        self.assertEqual(_resolved(["no-such-tool-anywhere", "--version"]), ["no-such-tool-anywhere", "--version"])
+
+    def test_record_versions_tolerates_a_report_whose_lanes_are_explicitly_none(self):
+        config = {"version_commands": {"probe": [sys.executable, str(self.probe_script), "noisy"]}}
+        report = {"provenance": {}, "checks": [], "eligible": True, "recommendation": "candidate", "by_lane": None}
         runner._record_versions(report, config, {"probe": "tool 0.9"}, "compare")
         self.assertEqual(report["provenance"]["tool_versions"]["changed"], ["probe"])
         self.assertFalse(report["eligible"])

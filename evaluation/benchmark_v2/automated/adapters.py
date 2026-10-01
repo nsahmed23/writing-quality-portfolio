@@ -79,9 +79,10 @@ def _resolved(argv):
 
     On Windows an npm shim such as `codex` is `codex.cmd`, and CreateProcess does not search PATHEXT,
     so the bare name would never start. Only version commands go through here: they carry no prompt,
-    so running a .cmd target through cmd.exe is safe, unlike for an adapter command."""
+    so running a .cmd target through cmd.exe is safe, unlike for an adapter command. The found path is made
+    absolute because the command runs in a scratch folder, where a relative PATH entry would point nowhere."""
     found=shutil.which(argv[0])
-    return [found,*argv[1:]] if found else list(argv)
+    return [os.path.abspath(found),*argv[1:]] if found else list(argv)
 
 
 def _version_of(argv,timeout=30):
