@@ -205,3 +205,136 @@ class ProvenanceTests(Fixture):
             self.compare("refused", documents=["doc-1"])
         self.assertEqual(str(caught.exception), "matching eligible live calibration required")
         self.assertFalse((self.root / "refused").exists())
+
+class VersionedFixture(Fixture):
+    """The fixture with a configured tool version that a test can change between chunk runs."""
+
+    def setUp(self):
+        super().setUp()
+        self.version_file = self.root / "tool-version.txt"
+        self.set_version("tool 1.0")
+        config = json.loads(self.config_path.read_bytes())
+        config["version_commands"] = {
+            "tool": [PY, "-c", f"print(open({str(self.version_file)!r}).read().strip())"]}
+        self.config_path.write_bytes(canonical_bytes(config))
+
+    def set_version(self, text):
+        self.version_file.write_text(text, encoding="utf-8")
+
+
+class MergeTests(VersionedFixture):
+    def chunk(self, name, documents, **options):
+        return self.compare(name, documents=documents, **options)
+
+    def merge(self, out, *names, **options):
+        from evaluation.benchmark_v2.automated import runs
+        return runs.merge(self.suite_path, RUBRIC, self.config_path, self.certificate,
+                          [self.root / name for name in names], self.root / out, **options)
+
+    def test_merging_two_chunks_equals_one_whole_run(self):
+        whole = self.compare("whole")
+        self.chunk("first", ["doc-1", "doc-2", "doc-3"])
+        self.chunk("second", ["doc-4", "doc-5"])
+        merged = self.merge("merged", "first", "second")
+        for key in ("by_lane", "counts", "complete", "eligible", "recommendation"):
+            self.assertEqual(merged[key], whole[key], key)
+        self.assertTrue(merged["complete"])
+        self.assertEqual(merged["provenance"]["documents"], ["doc-1", "doc-2", "doc-3", "doc-4", "doc-5"])
+        self.assertEqual(len(merged["provenance"]["merged_from"]), 2)
+        for entry in merged["provenance"]["merged_from"]:
+            self.assertEqual(sorted(entry), ["records_sha256", "report_sha256", "rerun_calls"])
+        self.assertEqual((self.root / "merged" / "instructions.json").read_bytes(),
+                         (self.root / "first" / "instructions.json").read_bytes())
+        self.assertTrue((self.root / "merged" / "candidate-SKILL.md").exists())
+        self.assertFalse((self.root / "merged" / "calls").exists())
+        self.assertEqual(len(self.read("merged", "records.json")), 20)
+
+    def test_chunks_that_share_a_document_are_refused(self):
+        self.chunk("first", ["doc-1", "doc-2"])
+        self.chunk("second", ["doc-2", "doc-3"])
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertIn("overlap", str(caught.exception))
+        self.assertNotIn("doc-2", str(caught.exception))
+        self.assertFalse((self.root / "merged").exists())
+
+    def test_chunks_made_with_different_candidate_text_are_refused(self):
+        self.chunk("first", ["doc-1"])
+        self.candidate.write_bytes(self.candidate.read_bytes() + b"Keep headings.\n")
+        self.chunk("second", ["doc-2"])
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertIn("candidate_skill_sha256", str(caught.exception))
+        self.assertFalse((self.root / "merged").exists())
+
+    def test_chunks_with_different_repetitions_are_refused(self):
+        self.chunk("first", ["doc-1"])
+        self.chunk("second", ["doc-2"], repetitions=2)
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertIn("repetitions", str(caught.exception))
+
+    def test_a_chunk_with_a_writer_failure_is_refused(self):
+        self.chunk("first", ["doc-1"])
+        (self.flags / "writer.flag").write_text("x")
+        self.chunk("second", ["doc-2"])
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertIn("run 2", str(caught.exception))
+        self.assertIn("writer failures", str(caught.exception))
+
+    def test_chunks_made_under_different_tool_versions_are_refused(self):
+        self.chunk("first", ["doc-1"])
+        self.set_version("tool 2.0")
+        self.chunk("second", ["doc-2"])
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertIn("tool versions", str(caught.exception))
+
+    def test_a_chunk_that_recorded_a_tool_change_is_refused(self):
+        self.chunk("first", ["doc-1"])
+        self.chunk("second", ["doc-2"])
+        path = self.root / "second" / "report.json"
+        report = json.loads(path.read_bytes())
+        report["provenance"]["tool_versions"]["changed"] = ["tool"]
+        path.write_bytes(canonical_bytes(report) + b"\n")
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertIn("changed tool versions", str(caught.exception))
+
+    def test_merge_needs_two_runs_and_refuses_a_merged_run(self):
+        self.chunk("first", ["doc-1", "doc-2"])
+        self.chunk("second", ["doc-3"])
+        with self.assertRaises(ValueError) as caught:
+            self.merge("one", "first")
+        self.assertEqual(str(caught.exception), "merge needs at least two runs")
+        self.merge("merged", "first", "second")
+        self.chunk("third", ["doc-4", "doc-5"])
+        with self.assertRaises(ValueError) as caught:
+            self.merge("again", "merged", "third")
+        self.assertIn("is a merged run", str(caught.exception))
+        self.assertFalse((self.root / "again").exists())
+
+    def test_chunks_made_under_another_config_are_refused(self):
+        self.chunk("first", ["doc-1"])
+        self.chunk("second", ["doc-2"])
+        config = json.loads(self.config_path.read_bytes())
+        config["max_calls"] = 500
+        self.config_path.write_bytes(canonical_bytes(config))
+        with self.assertRaises(ValueError) as caught:
+            self.merge("merged", "first", "second")
+        self.assertIn("config_sha256", str(caught.exception))
+
+    def test_merge_command_prints_the_merged_report(self):
+        self.chunk("first", ["doc-1", "doc-2", "doc-3"])
+        self.chunk("second", ["doc-4", "doc-5"])
+        argv = ["merge", "--suite", str(self.suite_path), "--rubric", str(RUBRIC),
+                "--config", str(self.config_path), "--calibration", str(self.certificate),
+                "--out", str(self.root / "cli-merged"),
+                "--runs", str(self.root / "first"), str(self.root / "second")]
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            self.assertEqual(main(argv), 0)
+        report = json.loads(buffer.getvalue())
+        self.assertEqual(len(report["provenance"]["merged_from"]), 2)
+        self.assertTrue(report["complete"])
