@@ -159,11 +159,16 @@ class DocumentsTests(Fixture):
         out = self.root / "cli"
         argv = ["compare", "--suite", str(self.suite_path), "--rubric", str(RUBRIC),
                 "--config", str(self.config_path), "--calibration", str(self.certificate),
-                "--candidate-skill", str(self.candidate), "--out", str(out), "--documents", "doc-2", "doc-1"]
+                "--candidate-skill", str(self.candidate), "--out", str(out),
+                "--documents", "doc-3", "doc-1", "doc-5", "doc-2", "doc-4"]
         buffer = io.StringIO()
         with contextlib.redirect_stdout(buffer):
             self.assertEqual(main(argv), 0)
-        self.assertEqual(json.loads(buffer.getvalue())["provenance"]["documents"], ["doc-1", "doc-2"])
+        printed = json.loads(buffer.getvalue())
+        self.assertEqual(printed["provenance"]["documents"], ["doc-1", "doc-2", "doc-3", "doc-4", "doc-5"])
+        # Five documents, so the lane gate (five per lane) is met: the printed report is the eligible one on disk.
+        self.assertEqual(json.loads((out / "report.json").read_bytes()), printed)
+        self.assertTrue(printed["eligible"])
 
 
 class ProvenanceTests(Fixture):

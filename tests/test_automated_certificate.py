@@ -343,6 +343,38 @@ class AdapterSignatureTests(CertificateCase):
         with mock.patch.object(runner, "ADAPTER_DIR", converted):
             self.assertNotEqual(runner._judge_signature(config), original_signature)
 
+    def fixture_adapters(self, name, newline):
+        """Three adapter scripts whose bytes this test writes itself, so the result does not depend on how the checkout stores the real ones."""
+        folder = self.root / name
+        folder.mkdir()
+        for index, script in enumerate(runner.ADAPTER_SCRIPTS):
+            lines = [f"# fixture adapter {index}", "import sys", "print(sys.argv)", ""]
+            (folder / script).write_bytes(newline.join(lines).encode("utf-8"))
+        return folder
+
+    def test_adapter_hashes_agree_between_explicit_lf_and_crlf_fixture_folders(self):
+        config = load_config(self.config)
+        lf = self.fixture_adapters("fixture-lf", "\n")
+        crlf = self.fixture_adapters("fixture-crlf", "\r\n")
+        for script in runner.ADAPTER_SCRIPTS:
+            self.assertNotIn(b"\r", (lf / script).read_bytes(), script)
+            self.assertIn(b"\r\n", (crlf / script).read_bytes(), script)
+            self.assertNotEqual((lf / script).read_bytes(), (crlf / script).read_bytes(), script)
+        with mock.patch.object(runner, "ADAPTER_DIR", lf):
+            lf_hashes, lf_signature = runner._adapter_hashes(), runner._judge_signature(config)
+        with mock.patch.object(runner, "ADAPTER_DIR", crlf):
+            crlf_hashes, crlf_signature = runner._adapter_hashes(), runner._judge_signature(config)
+        self.assertEqual(crlf_hashes, lf_hashes)
+        self.assertEqual(crlf_signature, lf_signature)
+        for script in runner.ADAPTER_SCRIPTS:
+            self.assertEqual(lf_hashes[script], hashlib.sha256((lf / script).read_bytes()).hexdigest(), script)
+        # Different content still gives a different signature, so the equality above is not a constant.
+        different = self.fixture_adapters("fixture-different", "\n")
+        with (different / runner.ADAPTER_SCRIPTS[0]).open("ab") as handle:
+            handle.write(b"print('extra')\n")
+        with mock.patch.object(runner, "ADAPTER_DIR", different):
+            self.assertNotEqual(runner._judge_signature(config), lf_signature)
+
     def test_a_certificate_signed_before_adapter_hashing_is_refused(self):
         old = self.root / "certificate-old-signature"
         shutil.copytree(self.certificate_dir, old)
