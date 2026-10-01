@@ -209,6 +209,17 @@ class SplitAndGuardTests(CertificateCase):
                             self.root / "out-no-suite-hash", calibration_suite=option)
         self.assertFalse((self.root / "out-no-suite-hash").exists())
 
+    def test_a_certificate_with_a_malformed_suite_hash_is_refused_up_front(self):
+        # Empty, whitespace-only and non-string values; the whitespace ones used to get past the check.
+        for index, value in enumerate(("", "   ", "\t\n", 123, ["abc"], True, {"sha256": "abc"})):
+            certificate = self.certificate_copy(f"certificate-bad-hash-{index}", suite_sha256=value)
+            for option in (self.cal_suite, None):
+                with self.subTest(suite_sha256=value, calibration_suite=option):
+                    with self.assertRaisesRegex(ValueError, "matching eligible live calibration required"):
+                        compare(self.cmp_suite, self.rubric, self.config, certificate, self.skill,
+                                self.root / "out-bad-suite-hash", calibration_suite=option)
+        self.assertFalse((self.root / "out-bad-suite-hash").exists())
+
     def assert_overlap_refused(self, extra_case, kind, forbidden):
         suite = self.overlap_suite(extra_case["id"], extra_case)
         name = f"out-{extra_case['id']}"

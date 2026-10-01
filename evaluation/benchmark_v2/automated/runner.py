@@ -306,8 +306,8 @@ def _require_certificate(calibration,provenance):
         not certificate.get('complete') or not certificate.get('eligible') or
         cert_provenance.get('rubric_sha256')!=provenance['rubric_sha256'] or
         cert_provenance.get('judge_signature')!=provenance['judge_signature'] or
-        # Leakage cannot be checked without the suite the certificate was issued on.
-        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256']):
+        # Leakage cannot be checked without the suite the certificate was issued on; a blank hash names no suite.
+        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256'].strip()):
         raise ValueError('matching eligible live calibration required')
     return certificate
 
