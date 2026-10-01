@@ -12,8 +12,8 @@ describe owner text, so --out must lie inside WQ_EVAL_PRIVATE_ROOT:
 Run from the repository root. Transcripts are read only when named, so the run needs --allow NAME (repeatable) or
 --allow-all, and only the *.jsonl files directly inside a project folder are read (subfolders hold subagents):
 
-  $env:WQ_EVAL_PRIVATE_ROOT='C:/Dev/Projects/_private/wqp-eval'
-  py -3.11 -m evaluation.benchmark_v2.automated.tools.harvest --allow-all --out C:/Dev/Projects/_private/wqp-eval/harvest/v1
+  $env:WQ_EVAL_PRIVATE_ROOT='<an existing folder outside this repository>'
+  py -3.11 -m evaluation.benchmark_v2.automated.tools.harvest --allow-all --out "$env:WQ_EVAL_PRIVATE_ROOT/harvest/v1"
 
 Standard output carries aggregates only. An existing output file is never overwritten."""
 from __future__ import annotations
