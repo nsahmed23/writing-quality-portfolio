@@ -87,6 +87,17 @@ class ValidatorContractTests(unittest.TestCase):
                          {"valid": False, "winner": None,
                           "error": "decisive or both_bad judgment requires both candidate quotes"})
 
+    def test_both_bad_quoting_only_candidate_b_is_invalid(self):
+        self.assertEqual(self.parse("both_bad", [{"candidate": "B", "quote": "beta"}]),
+                         {"valid": False, "winner": None,
+                          "error": "decisive or both_bad judgment requires both candidate quotes"})
+
+    def test_both_bad_quoting_candidate_a_twice_is_invalid(self):
+        # Two valid quotes are still not one from each candidate.
+        self.assertEqual(self.parse("both_bad", [{"candidate": "A", "quote": "alpha"}, {"candidate": "A", "quote": "text"}]),
+                         {"valid": False, "winner": None,
+                          "error": "decisive or both_bad judgment requires both candidate quotes"})
+
     def test_both_bad_with_both_quotes_is_valid(self):
         self.assertEqual(self.parse("both_bad", [{"candidate": "A", "quote": "alpha"}, {"candidate": "B", "quote": "beta"}]),
                          {"valid": True, "winner": "both_bad", "error": None})

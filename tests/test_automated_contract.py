@@ -91,8 +91,14 @@ class ClusterFieldTests(unittest.TestCase):
 class RequiredCaseFieldTests(unittest.TestCase):
     """Every case field but cluster_id is required; CONTRACT.md promises exactly that."""
 
-    def test_a_case_without_checks_or_expected_is_rejected(self):
-        for key in ("checks", "expected"):
+    # Named here, not read off make_case, so a field the validator stops requiring is caught by name.
+    REQUIRED = ("id", "document_id", "split", "lane", "prompt", "context", "a", "b", "expected", "checks", "provenance")
+
+    def test_the_fixture_case_carries_exactly_the_required_fields(self):
+        self.assertEqual(set(make_case("c1", "d1")), set(self.REQUIRED))
+
+    def test_a_case_missing_any_required_field_is_rejected(self):
+        for key in self.REQUIRED:
             with self.subTest(key=key):
                 case = make_case("c1", "d1")
                 del case[key]
@@ -247,6 +253,8 @@ class ContractDocumentTests(unittest.TestCase):
         "is a merged run; merge the original runs",
         "has writer failures",
         "chunk runs differ in",
+        "chunk runs differ in instructions",
+        "chunk runs differ in tool versions",
         "chunk runs were made with a different",
         "chunk runs overlap",
         "a chunk run changed tool versions while it ran",

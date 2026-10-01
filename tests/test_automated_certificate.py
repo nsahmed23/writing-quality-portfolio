@@ -15,7 +15,7 @@ from unittest import mock
 
 from evaluation.benchmark_v2.automated import runner
 from evaluation.benchmark_v2.automated.__main__ import main
-from evaluation.benchmark_v2.automated.adapters import canonical_bytes, digest, load_config, tool_versions
+from evaluation.benchmark_v2.automated.adapters import _resolved, canonical_bytes, digest, load_config, tool_versions
 from evaluation.benchmark_v2.automated.runner import calibrate, compare
 
 ADAPTER = '''import json, sys
@@ -209,6 +209,17 @@ class SplitAndGuardTests(CertificateCase):
                             self.root / "out-no-suite-hash", calibration_suite=option)
         self.assertFalse((self.root / "out-no-suite-hash").exists())
 
+    def test_a_certificate_with_a_malformed_suite_hash_is_refused_up_front(self):
+        # Empty, whitespace-only and non-string values; the whitespace ones used to get past the check.
+        for index, value in enumerate(("", "   ", "\t\n", 123, ["abc"], True, {"sha256": "abc"})):
+            certificate = self.certificate_copy(f"certificate-bad-hash-{index}", suite_sha256=value)
+            for option in (self.cal_suite, None):
+                with self.subTest(suite_sha256=value, calibration_suite=option):
+                    with self.assertRaisesRegex(ValueError, "matching eligible live calibration required"):
+                        compare(self.cmp_suite, self.rubric, self.config, certificate, self.skill,
+                                self.root / "out-bad-suite-hash", calibration_suite=option)
+        self.assertFalse((self.root / "out-bad-suite-hash").exists())
+
     def assert_overlap_refused(self, extra_case, kind, forbidden):
         suite = self.overlap_suite(extra_case["id"], extra_case)
         name = f"out-{extra_case['id']}"
@@ -332,6 +343,38 @@ class AdapterSignatureTests(CertificateCase):
         with mock.patch.object(runner, "ADAPTER_DIR", converted):
             self.assertNotEqual(runner._judge_signature(config), original_signature)
 
+    def fixture_adapters(self, name, newline):
+        """Three adapter scripts whose bytes this test writes itself, so the result does not depend on how the checkout stores the real ones."""
+        folder = self.root / name
+        folder.mkdir()
+        for index, script in enumerate(runner.ADAPTER_SCRIPTS):
+            lines = [f"# fixture adapter {index}", "import sys", "print(sys.argv)", ""]
+            (folder / script).write_bytes(newline.join(lines).encode("utf-8"))
+        return folder
+
+    def test_adapter_hashes_agree_between_explicit_lf_and_crlf_fixture_folders(self):
+        config = load_config(self.config)
+        lf = self.fixture_adapters("fixture-lf", "\n")
+        crlf = self.fixture_adapters("fixture-crlf", "\r\n")
+        for script in runner.ADAPTER_SCRIPTS:
+            self.assertNotIn(b"\r", (lf / script).read_bytes(), script)
+            self.assertIn(b"\r\n", (crlf / script).read_bytes(), script)
+            self.assertNotEqual((lf / script).read_bytes(), (crlf / script).read_bytes(), script)
+        with mock.patch.object(runner, "ADAPTER_DIR", lf):
+            lf_hashes, lf_signature = runner._adapter_hashes(), runner._judge_signature(config)
+        with mock.patch.object(runner, "ADAPTER_DIR", crlf):
+            crlf_hashes, crlf_signature = runner._adapter_hashes(), runner._judge_signature(config)
+        self.assertEqual(crlf_hashes, lf_hashes)
+        self.assertEqual(crlf_signature, lf_signature)
+        for script in runner.ADAPTER_SCRIPTS:
+            self.assertEqual(lf_hashes[script], hashlib.sha256((lf / script).read_bytes()).hexdigest(), script)
+        # Different content still gives a different signature, so the equality above is not a constant.
+        different = self.fixture_adapters("fixture-different", "\n")
+        with (different / runner.ADAPTER_SCRIPTS[0]).open("ab") as handle:
+            handle.write(b"print('extra')\n")
+        with mock.patch.object(runner, "ADAPTER_DIR", different):
+            self.assertNotEqual(runner._judge_signature(config), lf_signature)
+
     def test_a_certificate_signed_before_adapter_hashing_is_refused(self):
         old = self.root / "certificate-old-signature"
         shutil.copytree(self.certificate_dir, old)
@@ -445,6 +488,32 @@ class ToolVersionTests(unittest.TestCase):
     def test_record_versions_tolerates_a_report_without_lanes(self):
         config = {"version_commands": {"probe": [sys.executable, str(self.probe_script), "noisy"]}}
         report = {"provenance": {}, "checks": [], "eligible": True, "recommendation": "candidate"}
+        runner._record_versions(report, config, {"probe": "tool 0.9"}, "compare")
+        self.assertEqual(report["provenance"]["tool_versions"]["changed"], ["probe"])
+        self.assertFalse(report["eligible"])
+        self.assertEqual(report["recommendation"], "inconclusive")
+
+    def test_a_command_found_through_a_relative_path_entry_runs_from_its_absolute_path(self):
+        # The version command runs in a scratch folder, so a relative result from shutil.which would point nowhere.
+        folder = self.fake_tool("relshim", "7.8.9")
+        original = Path.cwd()
+        os.chdir(self.root)
+        try:
+            with mock.patch.dict(os.environ, {"PATH": folder.name}):
+                argv = _resolved(["relshim", "--version"])
+                self.assertTrue(os.path.isabs(argv[0]), argv[0])
+                self.assertEqual(argv[1:], ["--version"])
+                config = {"version_commands": {"rel": ["relshim", "--version"]}}
+                self.assertEqual(tool_versions(config)["rel"], "relshim 7.8.9")
+        finally:
+            os.chdir(original)
+
+    def test_a_command_that_is_not_found_is_left_as_written(self):
+        self.assertEqual(_resolved(["no-such-tool-anywhere", "--version"]), ["no-such-tool-anywhere", "--version"])
+
+    def test_record_versions_tolerates_a_report_whose_lanes_are_explicitly_none(self):
+        config = {"version_commands": {"probe": [sys.executable, str(self.probe_script), "noisy"]}}
+        report = {"provenance": {}, "checks": [], "eligible": True, "recommendation": "candidate", "by_lane": None}
         runner._record_versions(report, config, {"probe": "tool 0.9"}, "compare")
         self.assertEqual(report["provenance"]["tool_versions"]["changed"], ["probe"])
         self.assertFalse(report["eligible"])

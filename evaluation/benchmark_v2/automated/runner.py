@@ -62,7 +62,7 @@ def _record_versions(report,config,before,mode):
         report['eligible']=False
         if mode=='compare':
             report['recommendation']='inconclusive'
-            for lane in report.get('by_lane',{}).values(): lane['recommendation']='inconclusive'
+            for lane in (report.get('by_lane') or {}).values(): lane['recommendation']='inconclusive'
 
 
 def _prepare(out):
@@ -102,7 +102,9 @@ def _prompt_builder(folder):
         module=importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         return module.build_prompt
-    except (OSError,ImportError,AttributeError,SyntaxError):
+    except Exception:
+        # The builder is a file next to the adapter, so anything it does while loading (not only an import or
+        # syntax error) means the size cannot be measured; the caller then fails open.
         return None
 
 
@@ -120,7 +122,12 @@ def _command_units(command,request):
     if not tail: return None
     build=_prompt_builder(Path(part).resolve().parent)
     if build is None: return None
-    return _units([*tail,'-p',build(request)])
+    try:
+        return _units([*tail,'-p',build(request)])
+    except Exception:
+        # A builder that raises must not stop the run before any call is made: size is unknown, so the call runs
+        # and the adapter decides (it measures and refuses an oversized command line itself).
+        return None
 
 
 def _judge_request(case,judge,order,rubric):
@@ -147,13 +154,15 @@ def _oversized_units(case,rubric,config):
     return worst
 
 
-def _judge_one(case,judge,order,rubric,out,budget,timeout):
+def _judge_one(case,judge,order,rubric,out,budget,timeout,call_offset=0):
     """One judge call for one case in one presentation order; returns its record. Charges the budget once.
-    Part D (rerun-failed) calls this directly, so a re-run builds the same request and the same record."""
+    Part D (rerun-failed) calls this directly, so a re-run builds the same request and the same record.
+    call_offset shifts the call folder number past folders already in out/calls (copied from a source run)
+    without changing what the budget counts."""
     request=_judge_request(case,judge,order,rubric)
     a,b=request['A'],request['B']
     budget.charge()
-    artifact=out/'calls'/f'{budget.used:05d}'
+    artifact=out/'calls'/f'{budget.used+call_offset:05d}'
     result=run_call(judge['command'],request,artifact,timeout_seconds=timeout)
     record={'case_id':case['id'],'document_id':case['document_id'],'lane':case['lane'],
             'split':case['split'],'judge_id':judge['id'],'family':judge['family'],
@@ -299,8 +308,8 @@ def _require_certificate(calibration,provenance):
         not certificate.get('complete') or not certificate.get('eligible') or
         cert_provenance.get('rubric_sha256')!=provenance['rubric_sha256'] or
         cert_provenance.get('judge_signature')!=provenance['judge_signature'] or
-        # Leakage cannot be checked without the suite the certificate was issued on.
-        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256']):
+        # Leakage cannot be checked without the suite the certificate was issued on; a blank hash names no suite.
+        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256'].strip()):
         raise ValueError('matching eligible live calibration required')
     return certificate
 

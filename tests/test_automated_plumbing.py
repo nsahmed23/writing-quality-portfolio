@@ -150,6 +150,19 @@ class CommandUnitsTests(unittest.TestCase):
         command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
         self.assertIsNone(runner._command_units(command, REQUEST))
 
+    def test_a_builder_that_raises_fails_open(self):
+        folder = self.adapter_folder("raising", with_builder=False)
+        (folder / "generic_json_adapter.py").write_text(
+            "def build_prompt(request):\n    raise KeyError('rubric')\n", encoding="utf-8")
+        command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
+        self.assertIsNone(runner._command_units(command, REQUEST))
+
+    def test_a_builder_that_fails_while_loading_fails_open(self):
+        folder = self.adapter_folder("unloadable", with_builder=False)
+        (folder / "generic_json_adapter.py").write_text("raise RuntimeError('cannot load')\n", encoding="utf-8")
+        command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
+        self.assertIsNone(runner._command_units(command, REQUEST))
+
     def test_nothing_after_the_adapter_fails_open(self):
         folder = self.adapter_folder("bare")
         command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--"]
@@ -236,6 +249,15 @@ class JudgeCasesTests(unittest.TestCase):
         self.assertEqual(report["counts"]["skipped_records"], 4)
         self.assertEqual(report["counts"]["invalid_records"], 0)
 
+    def test_a_builder_that_raises_does_not_stop_the_run_and_the_calls_are_made(self):
+        (self.fake_adapter.parent / "generic_json_adapter.py").write_text(
+            "def build_prompt(request):\n    raise KeyError('rubric')\n", encoding="utf-8")
+        budget = Budget(10)
+        config = {"judges": [self.argument_judge()], "timeout_seconds": 60}
+        records = runner._judge_cases([case(1)], RUBRIC, config, self.out, budget)
+        self.assertEqual(budget.used, 2)
+        self.assertEqual([(r["valid"], r.get("failure_kind")) for r in records], [(True, None), (True, None)])
+
     def test_a_stdin_judge_never_skips_a_long_pair(self):
         cases = [case(1, a="alpha " + "x" * 40000)]
         config = {"judges": [self.stdin_judge_entry("s1", "f1"), self.stdin_judge_entry("s2", "f2")],
@@ -283,6 +305,25 @@ class ReportFailureKindTests(unittest.TestCase):
         self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (1, 2))
         self.assertEqual((counts["invalid_records"], counts["missing_records"]), (3, 0))
 
+    def test_a_legacy_record_is_classified_from_its_error_text(self):
+        cases = [case(i) for i in range(1, 9)]
+        errors = {"c1": "timeout", "c2": "launch_error: [WinError 2] The system cannot find the file specified",
+                  "c3": "process_exit_3", "c4": "process_exit_-9",
+                  "c5": "evidence must be nonempty", "c6": "process_exit_", "c7": "my timeout", "c8": None}
+        special = {(cid, "j1", 1): {"valid": False, **({"error": text} if text else {})} for cid, text in errors.items()}
+        records = make_records(cases, special)
+        self.assertTrue(all("failure_kind" not in r for r in records))
+        counts = compare_report(cases, records)["counts"]
+        self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (4, 4))
+        self.assertEqual(counts["invalid_records"], 8)
+
+    def test_an_explicit_failure_kind_wins_over_the_error_text(self):
+        cases = [case(1), case(2)]
+        special = {("c1", "j1", 1): {"valid": False, "kind": "judgment", "error": "timeout"},
+                   ("c2", "j1", 1): {"valid": False, "kind": "plumbing", "error": "evidence must be nonempty"}}
+        counts = compare_report(cases, make_records(cases, special))["counts"]
+        self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (1, 1))
+
     def test_a_malformed_record_counts_as_invalid_only(self):
         cases = [case(i) for i in range(1, 4)]
         records = make_records(cases)
@@ -317,13 +358,33 @@ class ReportFailureKindTests(unittest.TestCase):
         self.assertEqual((report["counts"]["skipped_records"], report["counts"]["unexpected_records"]), (0, 1))
         self.assertFalse(report["complete"])
 
-    def test_all_cases_skipped_is_never_complete(self):
+    def test_a_run_whose_cases_are_all_skipped_stays_complete_and_counts_the_skips(self):
         cases = [case(1), case(2)]
         special = {**skip_all("c1"), **skip_all("c2")}
         report = compare_report(cases, make_records(cases, special))
-        self.assertFalse(report["complete"])
+        counts = report["counts"]
+        self.assertTrue(report["complete"])
+        self.assertEqual((counts["skipped_cases"], counts["skipped_records"]), (2, 8))
+        self.assertEqual((counts["expected_records"], counts["received_records"]), (0, 8))
+        self.assertEqual((counts["invalid_records"], counts["unexpected_records"], counts["missing_records"]), (0, 0, 0))
+        coverage = [c for c in report["checks"] if c["id"] == "coverage"]
+        self.assertEqual([c["passed"] for c in coverage], [True])
+        # Nothing was scored, so the run can never be eligible or recommend either side.
         self.assertFalse(report["eligible"])
-        self.assertEqual(report["counts"]["skipped_cases"], 2)
+        self.assertEqual(report["recommendation"], "inconclusive")
+
+    def test_all_skipped_with_one_stray_judged_record_is_still_incomplete(self):
+        cases = [case(1), case(2)]
+        special = {**skip_all("c1"), **skip_all("c2")}
+        del special[("c2", "j2", 2)]
+        report = compare_report(cases, make_records(cases, special))
+        self.assertEqual(report["counts"]["unexpected_records"], 1)
+        self.assertFalse(report["complete"])
+
+    def test_an_empty_split_is_still_refused(self):
+        with self.assertRaises(ValueError) as caught:
+            compare_report([case(1, split="calibration")], [])
+        self.assertEqual(str(caught.exception), "compare requires test cases")
 
     def test_a_lane_with_only_skipped_cases_blocks_eligibility(self):
         cases = [case(i) for i in range(1, 6)] + [case(6, lane="communication")]
