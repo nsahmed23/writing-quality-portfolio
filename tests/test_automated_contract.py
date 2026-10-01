@@ -376,7 +376,7 @@ class ContractDocumentTests(unittest.TestCase):
                        "net preference", "`decisive`", "`wilson_lower`", "no bootstrap",
                        "lane_stats.py", "`sign_test_p_candidate`", "`sign_test_p_baseline`", "ALPHA_ONE_SIDED", "0.05",
                        "P(X >= wins)", "P(X <= wins)", "Binomial(decisive, 0.5)", "0.125", "0.0625", "0.03515625",
-                       "the p-value of the direction being claimed"):
+                       "the p-value of the direction being claimed", "are inclusive"):
             self.assertIn(phrase, section, phrase)
         self.assertNotIn("`sign_test_p`", section)
 
@@ -388,8 +388,10 @@ class ContractDocumentTests(unittest.TestCase):
 
     def test_readme_describes_the_two_directional_sign_tests_and_the_alpha_rule(self):
         readme = self.readme()
-        for phrase in ("two one-sided sign-test p-values", "at most 0.05", "wq-automated-wilson-lower"):
+        for phrase in ("two one-sided sign-test p-values", "at most 0.05", "wq-automated-editing-wilson-lower",
+                       "compare` report leaves its top-level `metrics` empty"):
             self.assertIn(phrase, readme, phrase)
+        self.assertNotIn("wq-automated-wilson-lower", readme)
         self.assertNotIn("an exact one-sided sign-test p-value", readme)
         self.assertNotIn("sign_test_p`", readme)
 

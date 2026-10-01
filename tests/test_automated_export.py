@@ -175,7 +175,7 @@ class AllowlistTests(unittest.TestCase):
 
     def test_the_retired_one_directional_p_value_is_dropped_and_both_directional_ones_are_kept(self):
         report = sample_report()
-        report["by_lane"]["editing"]["sign_test_p"] = 0.3125
+        report["by_lane"]["editing"]["sign_test_p"] = 0.999
         lane = self.build(report)["by_lane"]["editing"]
         self.assertNotIn("sign_test_p", lane)
         self.assertEqual((lane["sign_test_p_candidate"], lane["sign_test_p_baseline"]), (0.3125, 0.9375))

@@ -72,12 +72,22 @@ class DecisionTests(unittest.TestCase):
         refusal = call(returncode=2, stderr="error: no prompt given\n")
         hang = call(returncode=None, timed_out=True)
         launch = call(returncode=None, launch_error="boom")
+        other = call(stdout="something else\n")  # exit 0, no nonce
         nonce = "PINEAPPLE-ab12"
-        self.assertEqual(measure_agy.stdin_verdict([refusal, reply], nonce), "reads_stdin")
-        self.assertEqual(measure_agy.stdin_verdict([refusal, refusal], nonce), "ignores_stdin")
-        self.assertEqual(measure_agy.stdin_verdict([refusal, hang], nonce), "inconclusive")
-        self.assertEqual(measure_agy.stdin_verdict([launch], nonce), "inconclusive")
-        self.assertEqual(measure_agy.stdin_verdict([hang, reply], nonce), "reads_stdin")
+        # A variant that finished with the nonce proves stdin is read, whatever the control did.
+        self.assertEqual(measure_agy.stdin_verdict([refusal, reply], nonce, refusal), "reads_stdin")
+        self.assertEqual(measure_agy.stdin_verdict([hang, reply], nonce, hang), "reads_stdin")
+        # Ignoring stdin needs proof that the same prompt works as a -p argument.
+        self.assertEqual(measure_agy.stdin_verdict([refusal, refusal], nonce, reply), "ignores_stdin")
+        self.assertEqual(measure_agy.stdin_verdict([other, refusal], nonce, reply), "ignores_stdin")
+        # Without a control that answered, failing variants prove nothing (this was `ignores_stdin` before the control).
+        for control in (refusal, hang, launch, other, None):
+            with self.subTest(control=control):
+                self.assertEqual(measure_agy.stdin_verdict([refusal, refusal], nonce, control), "inconclusive")
+        self.assertEqual(measure_agy.stdin_verdict([refusal, refusal], nonce), "inconclusive")
+        # A variant that hung or could not start may only have been slow, so even a good control cannot rule stdin out.
+        self.assertEqual(measure_agy.stdin_verdict([refusal, hang], nonce, reply), "inconclusive")
+        self.assertEqual(measure_agy.stdin_verdict([launch], nonce, reply), "inconclusive")
 
     def test_canary_loaded(self):
         self.assertTrue(measure_agy.canary_loaded(call(stdout="canary-1\n"), "canary-1"))
@@ -140,6 +150,15 @@ class MeasureTests(unittest.TestCase):
         self.assertNotIn("-p", stdin["variants"][0]["argv"])
         self.assertEqual(stdin["variants"][1]["argv"][-2:], ["-p", ""])
 
+    def test_a_p_control_call_with_the_same_prompt_is_recorded(self):
+        stdin = self.measure(reads_stdin=False)["stdin"]
+        control = stdin["control"]
+        self.assertEqual(control["name"], "p_control")
+        self.assertEqual(control["argv"][-2:], ["-p", measure_agy.STDIN_PROMPT.format(nonce="PINEAPPLE-0123abcd")])
+        self.assertEqual(control["returncode"], 0)
+        self.assertIn("PINEAPPLE-0123abcd", control["stdout"])
+        self.assertEqual(stdin["nonce"], "PINEAPPLE-0123abcd")
+
     def test_an_agy_that_reads_stdin_is_recorded(self):
         stdin = self.measure(reads_stdin=True)["stdin"]
         self.assertEqual(stdin["verdict"], "reads_stdin")
@@ -165,7 +184,7 @@ class MeasureTests(unittest.TestCase):
         self.assertEqual(calls[0]["args"], ["--version"])
         for entry in calls[1:]:
             self.assertEqual(entry["args"][:5], ["--sandbox", "--model", "model-x", "--output-format", "text"])
-        self.assertEqual(len(calls), 1 + 2 + 2)  # version, two stdin variants, two AGENTS.md runs
+        self.assertEqual(len(calls), 1 + 2 + 1 + 2)  # version, two stdin variants, the -p control, two AGENTS.md runs
         for entry in calls:
             self.assertFalse([arg for arg in entry["args"] if arg.startswith("--dangerously")])
 
@@ -184,7 +203,7 @@ class MeasureTests(unittest.TestCase):
     def test_git_variables_do_not_reach_agy(self):
         with mock.patch.dict(os.environ, {"GIT_DIR": str(self.root / "elsewhere"), "GIT_WORK_TREE": str(self.root)}):
             self.measure()
-        self.assertEqual([entry["git_env"] for entry in self.logged()], [[]] * 5)
+        self.assertEqual([entry["git_env"] for entry in self.logged()], [[]] * 6)
 
 
 class CommandLineTests(unittest.TestCase):
@@ -225,7 +244,8 @@ class CommandLineTests(unittest.TestCase):
         result = json.loads(out.read_text(encoding="utf-8"))
         self.assertTrue(result["version"]["text"].startswith("Python"))
         self.assertEqual(result["agents_md"]["verdict"], "inconclusive")
-        self.assertEqual(result["stdin"]["verdict"], "ignores_stdin")
+        self.assertNotEqual(result["stdin"]["control"]["returncode"], 0)  # no working -p call, so nothing can be ruled out
+        self.assertEqual(result["stdin"]["verdict"], "inconclusive")
         self.assertIn(str(out), printed)
 
 

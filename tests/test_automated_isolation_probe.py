@@ -262,6 +262,31 @@ class CompareProbeTests(unittest.TestCase):
                 self.assertFalse((self.root / f"out-{name}").exists())
                 self.assertFalse(counter.exists())
 
+    def test_a_failing_version_command_stops_compare_before_the_probe_is_asked(self):
+        # Version commands cost no model call, so they are read first; the probe is the first model call after them.
+        ticks = self.root / "ticks-versions.txt"
+        command = probe_script(self.root, "versions-probe.py",
+                               f"open({str(ticks)!r}, 'a').write('x')\n" + printing(usage_output(100)))
+        config = self.write_json("versions-config.json", config_of(
+            self.command, isolation_probe={"command": command, "max_prompt_tokens": 10000},
+            version_commands={"gone": [str(self.root / "no-such-tool")]}))
+        with self.assertRaises(ValueError) as caught:
+            self.run_compare("out-versions", config)
+        self.assertEqual(str(caught.exception), "version command failed before the run: gone")
+        self.assertFalse(ticks.exists())
+        self.assertFalse((self.root / "out-versions").exists())
+
+    def test_the_probe_is_not_charged_to_max_calls(self):
+        # max_calls=30 fits the run exactly: 5 test cases x (2 writer calls + 2 judges x 2 calls). The probe still runs.
+        ticks = self.root / "ticks-budget.txt"
+        command = probe_script(self.root, "budget-probe.py",
+                               f"open({str(ticks)!r}, 'a').write('x')\n" + printing(usage_output(100)))
+        config = self.write_json("budget-config.json", config_of(
+            self.command, isolation_probe={"command": command, "max_prompt_tokens": 10000}, max_calls=30))
+        report = self.run_compare("out-budget", config)
+        self.assertEqual(ticks.read_text(encoding="utf-8"), "x")
+        self.assertGreater(report["counts"]["received_records"], 0)
+
     def test_calibrate_does_not_run_the_probe(self):
         # Calibration makes no writer call, so a probe that would refuse is never asked.
         ticks = self.root / "ticks-calibrate.txt"
