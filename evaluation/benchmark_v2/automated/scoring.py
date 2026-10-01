@@ -1,6 +1,7 @@
 """Deterministic checks and document-level evidence aggregation."""
 
 import random
+import re
 from collections import Counter, defaultdict
 
 from evaluation.benchmark_v2.anchors import AnchorError, resolve_anchor
@@ -90,6 +91,26 @@ def literal_tallies(cases):
             entry["candidate_misses"] += candidate_misses
             entry["baseline_misses"] += baseline_misses
     return candidate_fail, baseline_fail, [tally[key] for key in sorted(tally)]
+
+
+# The error text runner._judge_one writes when a call produced no answer (adapters.run_call: 'timeout' and
+# 'launch_error: ...'; a nonzero exit is process_exit_N, and N can be negative after a signal).
+_LEGACY_PLUMBING_ERROR = re.compile(r"timeout|launch_error:.*|process_exit_-?\d+", re.DOTALL)
+
+
+def failure_kind_of(record):
+    """'plumbing' or 'judgment' for an invalid record.
+
+    A record's own failure_kind decides when it has one ('plumbing' is plumbing; any other kind counts as judgment).
+    A record written before failure_kind existed has none, so its error text decides: a timeout, a launch error or
+    a nonzero exit is plumbing, and anything else (including no error text at all) is judgment."""
+    kind = record.get("failure_kind")
+    if kind is not None:
+        return "plumbing" if kind == "plumbing" else "judgment"
+    error = record.get("error")
+    if isinstance(error, str) and _LEGACY_PLUMBING_ERROR.fullmatch(error):
+        return "plumbing"
+    return "judgment"
 
 
 def _is_skip(record):
@@ -183,7 +204,7 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
         grouped[key].append(record)
         if not record["valid"]:
             invalid += 1
-            if record.get("failure_kind") == "plumbing":
+            if failure_kind_of(record) == "plumbing":
                 plumbing += 1
             else:
                 judgment += 1

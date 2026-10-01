@@ -15,7 +15,7 @@ from .contracts import SPLITS,load_rubric,load_suite
 from .private import require_private_output
 from .runner import (_check_calibration_suite,_judge_one,_prepare,_provenance,_record_versions,_require_certificate,
                      _save,_select_documents,_versions_before)
-from .scoring import build_report
+from .scoring import build_report,failure_kind_of
 
 # Provenance keys that must be equal in every chunk of one merged run.
 MERGE_IDENTITY_KEYS=('suite_sha256','rubric_sha256','config_sha256','judge_signature','candidate_skill_sha256',
@@ -155,7 +155,7 @@ def rerun_failed(suite_path,rubric_path,config_path,calibration,source,out,*,cal
         raise ValueError('calibration does not match the run')
     split=provenance.get('split')
     if split not in SPLITS: raise ValueError('the run has no valid split')
-    failed=[r for r in run['records'] if isinstance(r,dict) and r.get('failure_kind')=='plumbing']
+    failed=[r for r in run['records'] if isinstance(r,dict) and r.get('valid') is False and failure_kind_of(r)=='plumbing']
     if not failed: raise ValueError('the run has no plumbing failures to re-run')
     versions=provenance.get('tool_versions')
     if isinstance(versions,dict) and versions.get('changed'): raise ValueError('the run changed tool versions while it ran')

@@ -466,6 +466,34 @@ class RerunFailedTests(VersionedFixture):
         self.assertIn("no plumbing failures", str(caught.exception))
         self.assertFalse((self.root / "again").exists())
 
+    def strip_failure_kinds(self, name):
+        """Rewrite a run's records as an older version wrote them: no failure_kind on any record."""
+        path = self.root / name / "records.json"
+        records = json.loads(path.read_bytes())
+        for record in records:
+            record.pop("failure_kind", None)
+        path.write_bytes(canonical_bytes(records) + b"\n")
+
+    def test_a_run_written_before_failure_kinds_is_rerun_from_its_error_text(self):
+        self.failing_run()
+        self.strip_failure_kinds("source")
+        report = self.rerun("source", "again")
+        self.assertTrue(report["complete"])
+        self.assertEqual(report["counts"]["plumbing_failures"], 0)
+        self.assertEqual(report["provenance"]["rerun"]["rerun_calls"], 4)
+        records = self.read("again", "records.json")
+        self.assertEqual(sorted(r["case_id"] for r in records if r.get("attempt") == 2), ["case-2--repeat-1"] * 4)
+
+    def test_a_legacy_judgment_failure_is_never_rerun(self):
+        (self.flags / "bad.flag").write_text("x")
+        self.compare("source", documents=["doc-1", "doc-2"])
+        (self.flags / "bad.flag").unlink()
+        self.strip_failure_kinds("source")
+        with self.assertRaises(ValueError) as caught:
+            self.rerun("source", "again")
+        self.assertIn("no plumbing failures", str(caught.exception))
+        self.assertFalse((self.root / "again").exists())
+
     def test_a_source_with_writer_failures_is_refused(self):
         (self.flags / "writer.flag").write_text("x")
         self.compare("source", documents=["doc-1", "doc-2"])

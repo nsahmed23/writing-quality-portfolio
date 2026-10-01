@@ -305,6 +305,25 @@ class ReportFailureKindTests(unittest.TestCase):
         self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (1, 2))
         self.assertEqual((counts["invalid_records"], counts["missing_records"]), (3, 0))
 
+    def test_a_legacy_record_is_classified_from_its_error_text(self):
+        cases = [case(i) for i in range(1, 9)]
+        errors = {"c1": "timeout", "c2": "launch_error: [WinError 2] The system cannot find the file specified",
+                  "c3": "process_exit_3", "c4": "process_exit_-9",
+                  "c5": "evidence must be nonempty", "c6": "process_exit_", "c7": "my timeout", "c8": None}
+        special = {(cid, "j1", 1): {"valid": False, **({"error": text} if text else {})} for cid, text in errors.items()}
+        records = make_records(cases, special)
+        self.assertTrue(all("failure_kind" not in r for r in records))
+        counts = compare_report(cases, records)["counts"]
+        self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (4, 4))
+        self.assertEqual(counts["invalid_records"], 8)
+
+    def test_an_explicit_failure_kind_wins_over_the_error_text(self):
+        cases = [case(1), case(2)]
+        special = {("c1", "j1", 1): {"valid": False, "kind": "judgment", "error": "timeout"},
+                   ("c2", "j1", 1): {"valid": False, "kind": "plumbing", "error": "evidence must be nonempty"}}
+        counts = compare_report(cases, make_records(cases, special))["counts"]
+        self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (1, 1))
+
     def test_a_malformed_record_counts_as_invalid_only(self):
         cases = [case(i) for i in range(1, 4)]
         records = make_records(cases)
