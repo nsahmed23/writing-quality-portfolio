@@ -17,7 +17,7 @@ from .scoring import build_report, parse_judgment
 
 
 ADAPTER_DIR=Path(__file__).resolve().parent/'adapters'
-ADAPTER_SCRIPTS=('codex_adapter.py','generic_json_adapter.py','prompt_arg_adapter.py')
+ADAPTER_SCRIPTS=('codex_adapter.py','fresh_repo.py','generic_json_adapter.py','prompt_arg_adapter.py','stdin_repo_adapter.py')  # every *.py in ADAPTER_DIR; a test holds the two equal
 SUITE_SHA256=re.compile(r'[0-9a-f]{64}')  # the shape of adapters.digest(): 64 lowercase hex digits
 
 
