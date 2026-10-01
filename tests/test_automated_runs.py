@@ -170,6 +170,32 @@ class DocumentsTests(Fixture):
         self.assertEqual(json.loads((out / "report.json").read_bytes()), printed)
         self.assertTrue(printed["eligible"])
 
+    def test_compare_command_on_fewer_than_five_documents_judges_only_those_and_is_not_eligible(self):
+        out = self.root / "cli-two"
+        argv = ["compare", "--suite", str(self.suite_path), "--rubric", str(RUBRIC),
+                "--config", str(self.config_path), "--calibration", str(self.certificate),
+                "--candidate-skill", str(self.candidate), "--out", str(out),
+                "--documents", "doc-2", "doc-1"]
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            self.assertEqual(main(argv), 0)
+        printed = json.loads(buffer.getvalue())
+        # Document filtering: only the two requested documents were written, and only they were judged
+        # (two documents, two judges, two presentation orders).
+        self.assertEqual(printed["provenance"]["documents"], ["doc-1", "doc-2"])
+        generated = self.read("cli-two", "generated.json")
+        self.assertEqual(sorted(c["document_id"] for c in generated["cases"]), ["doc-1", "doc-2"])
+        records = self.read("cli-two", "records.json")
+        self.assertEqual(len(records), 8)
+        self.assertEqual({r["document_id"] for r in records}, {"doc-1", "doc-2"})
+        self.assertEqual((printed["counts"]["expected_records"], printed["counts"]["received_records"]), (8, 8))
+        self.assertTrue(printed["complete"])
+        # Lane gate: two documents in the editing lane are fewer than the five a lane needs.
+        self.assertFalse(printed["eligible"])
+        failed = {check["id"] for check in printed["checks"] if not check["passed"]}
+        self.assertIn("lane_documents_editing", failed)
+        self.assertEqual(json.loads((out / "report.json").read_bytes()), printed)
+
 
 class ProvenanceTests(Fixture):
     def test_instructions_json_records_what_the_writer_was_given(self):

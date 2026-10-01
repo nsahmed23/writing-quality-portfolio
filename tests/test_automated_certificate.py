@@ -220,6 +220,18 @@ class SplitAndGuardTests(CertificateCase):
                                 self.root / "out-bad-suite-hash", calibration_suite=option)
         self.assertFalse((self.root / "out-bad-suite-hash").exists())
 
+    def test_a_certificate_suite_hash_must_be_64_lowercase_hex_digits(self):
+        # Non-empty strings of the wrong shape: too short or long, not hex, uppercase, padded, prefixed.
+        shapes = ("abc", "g" * 64, "A" * 64, "a" * 63, "a" * 65, "a" * 64 + "\n", " " + "a" * 64, "0x" + "a" * 62)
+        for index, value in enumerate(shapes):
+            certificate = self.certificate_copy(f"certificate-hash-shape-{index}", suite_sha256=value)
+            for option in (self.cal_suite, None):
+                with self.subTest(suite_sha256=value, calibration_suite=option):
+                    with self.assertRaisesRegex(ValueError, "matching eligible live calibration required"):
+                        compare(self.cmp_suite, self.rubric, self.config, certificate, self.skill,
+                                self.root / "out-hash-shape", calibration_suite=option)
+        self.assertFalse((self.root / "out-hash-shape").exists())
+
     def assert_overlap_refused(self, extra_case, kind, forbidden):
         suite = self.overlap_suite(extra_case["id"], extra_case)
         name = f"out-{extra_case['id']}"
