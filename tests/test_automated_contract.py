@@ -88,6 +88,18 @@ class ClusterFieldTests(unittest.TestCase):
             validate_suite(make_suite(case))
 
 
+class RequiredCaseFieldTests(unittest.TestCase):
+    """Every case field but cluster_id is required; CONTRACT.md promises exactly that."""
+
+    def test_a_case_without_checks_or_expected_is_rejected(self):
+        for key in ("checks", "expected"):
+            with self.subTest(key=key):
+                case = make_case("c1", "d1")
+                del case[key]
+                with self.assertRaisesRegex(ValueError, "invalid case fields"):
+                    validate_suite(make_suite(case))
+
+
 class FingerprintTests(unittest.TestCase):
     def test_fingerprint_ignores_presentation_order_whitespace_and_unicode_form(self):
         first = make_case("c1", "d1")
@@ -209,6 +221,7 @@ class ContractDocumentTests(unittest.TestCase):
         "copied pair assigned to another document id",
         "invalid split",
         "calibrate scores the calibration split",
+        "calibrate requires labeled calibration cases",
         "matching eligible live calibration required",
         "certificate was issued on another suite",
         "calibration suite does not match the certificate",
@@ -221,6 +234,9 @@ class ContractDocumentTests(unittest.TestCase):
 
     def contract(self):
         return (self.AUTOMATED / "CONTRACT.md").read_text(encoding="utf-8")
+
+    def readme(self):
+        return (self.AUTOMATED / "README.md").read_text(encoding="utf-8")
 
     def test_contract_has_every_required_section(self):
         headings = [line for line in self.contract().splitlines() if line.startswith("## ")]
@@ -243,9 +259,32 @@ class ContractDocumentTests(unittest.TestCase):
         self.assertNotIn(chr(0x2014), self.contract())
 
     def test_readme_points_to_the_contract(self):
-        readme = (self.AUTOMATED / "README.md").read_text(encoding="utf-8")
+        readme = self.readme()
         self.assertIn("CONTRACT.md", readme)
         self.assertIn("--calibration-suite", readme)
+
+    def test_docs_say_every_case_field_but_cluster_id_is_required(self):
+        self.assertIn("Every field except `cluster_id` is required", self.contract())
+        # checks and expected are required keys: a case with nothing to say writes {} and null, never omits them.
+        for name, text in (("CONTRACT.md", self.contract()), ("README.md", self.readme())):
+            for phrase in ("may carry `checks`", "may carry `expected`", "optional `checks`", "optional `expected`"):
+                self.assertNotIn(phrase, text, f"{name}: {phrase}")
+
+    def test_docs_say_line_endings_are_read_as_lf_before_hashing(self):
+        for name, text in (("CONTRACT.md", self.contract()), ("README.md", self.readme())):
+            self.assertIn("CRLF", text, name)
+            self.assertNotIn("same line endings", text, name)
+
+    def test_contract_says_a_certificate_must_record_a_suite_hash(self):
+        self.assertIn("records a `suite_sha256`", self.contract())
+
+    def test_docs_say_a_version_command_is_looked_up_on_path(self):
+        for name, text in (("CONTRACT.md", self.contract()), ("README.md", self.readme())):
+            self.assertIn("looked up on `PATH`", text, name)
+        self.assertNotIn("argv is used as written", self.readme())
+
+    def test_contract_lists_only_documents_with_a_miss_under_diagnostics(self):
+        self.assertIn("only the documents and lanes that have at least one miss", self.contract())
 
 
 if __name__ == "__main__":
