@@ -204,6 +204,7 @@ class ContractDocumentTests(unittest.TestCase):
         "## Run provenance",
         "## Judge output",
         "## Literal checks",
+        "## Plumbing and failure kinds",
         "## Claims",
     )
     REQUIRED_NAMES = (
@@ -213,6 +214,10 @@ class ContractDocumentTests(unittest.TestCase):
         "version_commands", "cluster_id", "minItems",
         # The last name carries backticks because the bare word is a substring of the two counts.
         "owner_session", "candidate_check_diagnostics", "baseline_check_diagnostics", "`diagnostics`",
+        "failure_kind", "`plumbing`", "`judgment`", "`skipped`", "`attempt`", "MAX_COMMAND_LINE_UNITS",
+        "instructions.json", "provenance.documents", "provenance.merged_from", "provenance.rerun",
+        "baseline_skill_sha256", "repetitions", "--documents", "`merge`", "rerun-failed",
+        "max_calls", "timeout_seconds",
     )
     REFUSAL_MESSAGES = (
         "document reused across splits",
@@ -230,6 +235,19 @@ class ContractDocumentTests(unittest.TestCase):
         "decisive or both_bad judgment requires both candidate quotes",
         "invalid provenance kind",
         "owner session case cannot have expected winner",
+        "documents must be a nonempty list of distinct document ids",
+        "unknown document in documents",
+        "merge needs at least two runs",
+        "is a merged run; merge the original runs",
+        "has writer failures",
+        "chunk runs differ in",
+        "chunk runs were made with a different",
+        "chunk runs overlap",
+        "a chunk run changed tool versions while it ran",
+        "the run has no plumbing failures to re-run",
+        "a merged run or a re-run cannot be re-run",
+        "tool versions changed since the run",
+        "the run changed tool versions while it ran",
     )
 
     def contract(self):

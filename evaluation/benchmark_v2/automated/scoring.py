@@ -92,6 +92,13 @@ def literal_tallies(cases):
     return candidate_fail, baseline_fail, [tally[key] for key in sorted(tally)]
 
 
+def _is_skip(record):
+    """True for the record the runner writes when a judge prompt was too large to send (runner._skipped_record)."""
+    return (record.get("valid") is False and record.get("winner") is None and
+            record.get("failure_kind") == "skipped" and isinstance(record.get("error"), str) and
+            record["error"].startswith("oversized_prompt:"))
+
+
 def _check(checks, identifier, passed, message):
     checks.append({"id": identifier, "passed": bool(passed), "message": message})
 
@@ -133,10 +140,16 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
         if mode != "score":
             raise ValueError(f"{mode} requires {'labeled calibration' if mode == 'calibrate' else split} cases")
         cases = list(suite["cases"])
-    case_by_id = {c["id"]: c for c in cases}
+    selected = cases
+    case_by_id = {c["id"]: c for c in selected}
+    all_keys = {(c["id"], j, order) for c in selected for j in judge_by_id for order in (1, 2)}
+    skipped_ids = {r["case_id"] for r in records
+                   if isinstance(r, dict) and isinstance(r.get("case_id"), str) and
+                   r["case_id"] in case_by_id and _is_skip(r)}
+    cases = [c for c in selected if c["id"] not in skipped_ids]
     keys = {(c["id"], j, order) for c in cases for j in judge_by_id for order in (1, 2)}
     grouped = defaultdict(list)
-    invalid = unexpected = 0
+    invalid = unexpected = plumbing = judgment = skipped = 0
     for record in records:
         if not isinstance(record, dict):
             invalid += 1
@@ -146,7 +159,7 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
                 type(key[2]) is not int or key[2] not in (1, 2)):
             invalid += 1
             continue
-        if key not in keys:
+        if key not in all_keys:
             unexpected += 1
             continue
         case = case_by_id[key[0]]
@@ -160,9 +173,20 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
                 (not record["valid"] and record["winner"] is not None)):
             invalid += 1
             continue
+        if key not in keys:
+            # The case was skipped: a skip record is expected here, anything else is not.
+            if _is_skip(record):
+                skipped += 1
+            else:
+                unexpected += 1
+            continue
         grouped[key].append(record)
         if not record["valid"]:
             invalid += 1
+            if record.get("failure_kind") == "plumbing":
+                plumbing += 1
+            else:
+                judgment += 1
     missing = len(keys - set(grouped))
     duplicates = sum(max(0, len(items) - 1) for items in grouped.values())
     complete = bool(cases) and not (missing or duplicates or invalid or unexpected)
@@ -205,10 +229,12 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
     for case in cases:
         votes = [results[(case["id"], judge["id"])] for judge in judges]
         decisions[case["id"]] = votes[0] if votes[0] is not None and all(v == votes[0] for v in votes) else None
-    candidate_fail, baseline_fail, diagnostics = literal_tallies(cases)
+    candidate_fail, baseline_fail, diagnostics = literal_tallies(selected)
     counts = {"expected_records": len(keys), "received_records": len(records),
               "missing_records": missing, "duplicate_records": duplicates,
               "invalid_records": invalid, "unexpected_records": unexpected,
+              "plumbing_failures": plumbing, "judgment_failures": judgment,
+              "skipped_records": skipped, "skipped_cases": len(skipped_ids),
               "order_disagreements": disagree,
               "abstentions": sum(v is None for v in decisions.values()),
               "ties": sum(v == "tie" for v in decisions.values()),
@@ -230,6 +256,12 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
     for lane in ("editing", "communication"):
         lane_cases = [c for c in cases if c["lane"] == lane]
         if not lane_cases:
+            if any(c["lane"] == lane for c in selected):
+                # Every case of this lane was skipped. Keep the lane visible so its document gate fails.
+                by_lane[lane] = {"cases": 0, "documents": 0, "mean": None, "recommendation": "inconclusive"}
+                if mode == "compare":
+                    _check(checks, f"lane_documents_{lane}", False,
+                           "at least five independent documents required")
             continue
         docs = defaultdict(list)
         for case in lane_cases:
