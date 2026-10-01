@@ -8,7 +8,7 @@ from .contracts import SPLITS, load_rubric, load_suite, validate_suite
 from .adapters import canonical_bytes
 from .optimize import optimize
 from .runner import calibrate, compare, demo
-from .runs import merge
+from .runs import merge, rerun_failed
 
 
 def main(argv=None):
@@ -38,6 +38,10 @@ def main(argv=None):
     for option in ('--suite','--rubric','--config','--calibration','--out'): merger.add_argument(option,required=True)
     merger.add_argument('--calibration-suite')
     merger.add_argument('--runs',nargs='+',required=True,help='two or more chunk run folders')
+    rerunner=sub.add_parser('rerun-failed',help='run once more the judge calls of a finished run that failed in plumbing')
+    for option in ('--suite','--rubric','--config','--calibration','--out'): rerunner.add_argument(option,required=True)
+    rerunner.add_argument('--calibration-suite')
+    rerunner.add_argument('--from',dest='source',required=True,help='the finished comparison run folder')
     args=parser.parse_args(argv)
     try:
         if args.command=='demo': report=demo(args.out)
@@ -57,6 +61,9 @@ def main(argv=None):
         elif args.command=='merge':
             report=merge(args.suite,args.rubric,args.config,args.calibration,args.runs,args.out,
                          calibration_suite=args.calibration_suite)
+        elif args.command=='rerun-failed':
+            report=rerun_failed(args.suite,args.rubric,args.config,args.calibration,args.source,args.out,
+                                calibration_suite=args.calibration_suite)
         else: report=optimize(args.suite,args.rubric,args.config,args.out,rounds=args.rounds)
     except (ValueError,OSError,KeyError) as exc:
         parser.exit(2,f'error: {exc}\n')

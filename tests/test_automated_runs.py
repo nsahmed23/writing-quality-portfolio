@@ -206,6 +206,7 @@ class ProvenanceTests(Fixture):
         self.assertEqual(str(caught.exception), "matching eligible live calibration required")
         self.assertFalse((self.root / "refused").exists())
 
+
 class VersionedFixture(Fixture):
     """The fixture with a configured tool version that a test can change between chunk runs."""
 
@@ -337,4 +338,107 @@ class MergeTests(VersionedFixture):
             self.assertEqual(main(argv), 0)
         report = json.loads(buffer.getvalue())
         self.assertEqual(len(report["provenance"]["merged_from"]), 2)
+        self.assertTrue(report["complete"])
+
+
+class RerunFailedTests(VersionedFixture):
+    def rerun(self, source, out, **options):
+        from evaluation.benchmark_v2.automated import runs
+        return runs.rerun_failed(self.suite_path, RUBRIC, self.config_path, self.certificate,
+                                 self.root / source, self.root / out, **options)
+
+    def failing_run(self, name="source", documents=("doc-1", "doc-2", "doc-3")):
+        """A comparison in which every judge call for doc-2 fails (exit 3); the flag is gone when it returns."""
+        (self.flags / "judge.flag").write_text("x")
+        report = self.compare(name, documents=list(documents))
+        (self.flags / "judge.flag").unlink()
+        return report
+
+    def test_a_rerun_replaces_plumbing_failures_and_leaves_the_source_alone(self):
+        source = self.failing_run()
+        self.assertEqual(source["counts"]["plumbing_failures"], 4)
+        self.assertFalse(source["complete"])
+        source_bytes = (self.root / "source" / "report.json").read_bytes()
+        report = self.rerun("source", "again")
+        self.assertTrue(report["complete"])
+        self.assertEqual(report["counts"]["plumbing_failures"], 0)
+        records = self.read("again", "records.json")
+        self.assertEqual(len(records), 12)
+        self.assertEqual(sorted(r["case_id"] for r in records if r.get("attempt") == 2), ["case-2--repeat-1"] * 4)
+        rerun = report["provenance"]["rerun"]
+        self.assertEqual(rerun["rerun_calls"], 4)
+        self.assertEqual(rerun["source_report_sha256"], digest(source_bytes))
+        self.assertEqual(report["provenance"]["tool_versions"]["changed"], [])
+        self.assertEqual(len(list((self.root / "again" / "calls").iterdir())), 4)
+        self.assertEqual((self.root / "source" / "report.json").read_bytes(), source_bytes)
+        for name in ("generated.json", "instructions.json", "candidate-SKILL.md"):
+            self.assertEqual((self.root / "again" / name).read_bytes(), (self.root / "source" / name).read_bytes())
+
+    def test_a_rerun_that_fails_again_stays_plumbing_and_cannot_be_run_a_third_time(self):
+        self.failing_run()
+        (self.flags / "judge.flag").write_text("x")
+        report = self.rerun("source", "again")
+        self.assertFalse(report["complete"])
+        self.assertEqual(report["counts"]["plumbing_failures"], 4)
+        self.assertEqual(report["provenance"]["rerun"]["rerun_calls"], 4)
+        (self.flags / "judge.flag").unlink()
+        with self.assertRaises(ValueError) as caught:
+            self.rerun("again", "third")
+        self.assertIn("cannot be re-run", str(caught.exception))
+        self.assertFalse((self.root / "third").exists())
+
+    def test_a_judgment_failure_is_never_rerun(self):
+        (self.flags / "bad.flag").write_text("x")
+        source = self.compare("source", documents=["doc-1", "doc-2"])
+        (self.flags / "bad.flag").unlink()
+        self.assertEqual(source["counts"]["judgment_failures"], 4)
+        self.assertEqual(source["counts"]["plumbing_failures"], 0)
+        with self.assertRaises(ValueError) as caught:
+            self.rerun("source", "again")
+        self.assertIn("no plumbing failures", str(caught.exception))
+        self.assertFalse((self.root / "again").exists())
+
+    def test_a_source_with_writer_failures_is_refused(self):
+        (self.flags / "writer.flag").write_text("x")
+        self.compare("source", documents=["doc-1", "doc-2"])
+        (self.flags / "writer.flag").unlink()
+        with self.assertRaises(ValueError) as caught:
+            self.rerun("source", "again")
+        self.assertIn("writer failures", str(caught.exception))
+        self.assertFalse((self.root / "again").exists())
+
+    def test_changed_tool_versions_since_the_run_are_refused(self):
+        self.failing_run()
+        self.set_version("tool 2.0")
+        with self.assertRaises(ValueError) as caught:
+            self.rerun("source", "again")
+        self.assertIn("tool versions changed", str(caught.exception))
+        self.assertFalse((self.root / "again").exists())
+
+    def test_a_rerun_output_merges_with_another_chunk_but_not_with_its_source(self):
+        from evaluation.benchmark_v2.automated import runs
+        self.failing_run()
+        self.rerun("source", "again")
+        self.compare("other", documents=["doc-4", "doc-5"])
+        merged = runs.merge(self.suite_path, RUBRIC, self.config_path, self.certificate,
+                            [self.root / "again", self.root / "other"], self.root / "merged")
+        self.assertTrue(merged["complete"])
+        self.assertEqual(merged["provenance"]["documents"], ["doc-1", "doc-2", "doc-3", "doc-4", "doc-5"])
+        self.assertEqual([entry["rerun_calls"] for entry in merged["provenance"]["merged_from"]], [4, 0])
+        with self.assertRaises(ValueError) as caught:
+            runs.merge(self.suite_path, RUBRIC, self.config_path, self.certificate,
+                       [self.root / "source", self.root / "again"], self.root / "refused")
+        self.assertIn("overlap", str(caught.exception))
+        self.assertFalse((self.root / "refused").exists())
+
+    def test_rerun_failed_command_prints_the_report(self):
+        self.failing_run()
+        argv = ["rerun-failed", "--suite", str(self.suite_path), "--rubric", str(RUBRIC),
+                "--config", str(self.config_path), "--calibration", str(self.certificate),
+                "--from", str(self.root / "source"), "--out", str(self.root / "cli-again")]
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            self.assertEqual(main(argv), 0)
+        report = json.loads(buffer.getvalue())
+        self.assertEqual(report["provenance"]["rerun"]["rerun_calls"], 4)
         self.assertTrue(report["complete"])

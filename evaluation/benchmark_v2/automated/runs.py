@@ -10,9 +10,10 @@ import copy
 import json
 from pathlib import Path
 
-from .adapters import canonical_bytes,digest,load_config
-from .contracts import SPLITS,load_suite
-from .runner import _check_calibration_suite,_provenance,_require_certificate,_save,_select_documents
+from .adapters import Budget,canonical_bytes,digest,load_config
+from .contracts import SPLITS,load_rubric,load_suite
+from .runner import (_check_calibration_suite,_judge_one,_prepare,_provenance,_record_versions,_require_certificate,
+                     _save,_select_documents,_versions_before)
 from .scoring import build_report
 
 # Provenance keys that must be equal in every chunk of one merged run.
@@ -119,4 +120,69 @@ def merge(suite_path,rubric_path,config_path,calibration,run_dirs,out,*,calibrat
     for name in ('instructions.json','candidate-SKILL.md','baseline-SKILL.md'):
         if (runs[0]['path']/name).exists(): (out/name).write_bytes((runs[0]['path']/name).read_bytes())
     (out/'generated.json').write_bytes(canonical_bytes({'cases':cases,'failures':[]})+b'\n')
+    return _save(out,report,records)
+
+
+def _recorded_before(provenance):
+    """The tool versions a run recorded before it started; {} when the run declared no version commands."""
+    versions=provenance.get('tool_versions')
+    return versions.get('before') if isinstance(versions,dict) else {}
+
+
+def rerun_failed(suite_path,rubric_path,config_path,calibration,source,out,*,calibration_suite=None):
+    """Run once more, and on record, the judge calls of a finished comparison run that failed in plumbing.
+
+    Only records with failure_kind 'plumbing' (a timeout, a launch error or a nonzero exit) are run again. A judge
+    that answered badly ('judgment') and a pair that was never sent ('skipped') are never run again, and a run that
+    is itself a re-run or a merge cannot be re-run, so a pair gets at most two attempts. The source folder is not
+    changed. The new folder holds the full record list, each redone record marked attempt 2, and its report names
+    the source by hash. Every refusal happens before the output folder exists."""
+    suite=load_suite(suite_path); rubric=load_rubric(rubric_path); config=load_config(config_path)
+    current=_provenance(suite_path,rubric_path,config_path,config)
+    try: run=_read_run(source)
+    except ValueError as exc: raise ValueError(f'source run: {exc}') from exc
+    provenance=run['provenance']
+    if 'merged_from' in provenance or 'rerun' in provenance: raise ValueError('a merged run or a re-run cannot be re-run')
+    if run['generated'].get('failures'): raise ValueError('the run has writer failures; run those documents again in a new chunk')
+    for key in CURRENT_KEYS:
+        if canonical_bytes(provenance.get(key))!=canonical_bytes(current[key]): raise ValueError(f'the run was made with a different {key}')
+    certificate=_require_certificate(calibration,current)
+    if certificate.get('provenance',{}).get('suite_sha256')!=provenance.get('certificate_suite_sha256'):
+        raise ValueError('calibration does not match the run')
+    split=provenance.get('split')
+    if split not in SPLITS: raise ValueError('the run has no valid split')
+    failed=[r for r in run['records'] if isinstance(r,dict) and r.get('failure_kind')=='plumbing']
+    if not failed: raise ValueError('the run has no plumbing failures to re-run')
+    versions=provenance.get('tool_versions')
+    if isinstance(versions,dict) and versions.get('changed'): raise ValueError('the run changed tool versions while it ran')
+    before=_versions_before(config)
+    if canonical_bytes(before)!=canonical_bytes(_recorded_before(provenance)): raise ValueError('tool versions changed since the run')
+    cases={case['id']:case for case in run['generated']['cases']}; judges={judge['id']:judge for judge in config['judges']}
+    jobs=[]
+    for record in failed:
+        case=cases.get(record.get('case_id')); judge=judges.get(record.get('judge_id'))
+        if case is None or judge is None or record.get('order') not in (1,2):
+            raise ValueError('a failed record names an unknown case, judge or order')
+        jobs.append((case,judge,record['order']))
+    documents=sorted({case['document_id'] for case in cases.values()})
+    overlap=_overlap(suite,split,documents,current['suite_sha256'],provenance.get('certificate_suite_sha256'),calibration_suite)
+    budget=Budget(config['max_calls']); budget.preflight(len(jobs))
+    out=_prepare(out)
+    redone={}
+    for case,judge,order in jobs:
+        record=_judge_one(case,judge,order,rubric,out,budget,config['timeout_seconds'])
+        record['attempt']=2
+        redone[(case['id'],judge['id'],order)]=record
+    records=[redone.get((r.get('case_id'),r.get('judge_id'),r.get('order')),r) if isinstance(r,dict) else r for r in run['records']]
+    report=build_report({**suite,'cases':run['generated']['cases']},records,config['judges'],mode='compare',
+                        calibration=certificate,execution='live',split=split)
+    new=copy.deepcopy(provenance); new.pop('tool_versions',None)
+    new['calibration_overlap']=overlap
+    new['rerun']={'source_report_sha256':run['report_sha256'],'source_records_sha256':run['records_sha256'],'rerun_calls':len(jobs)}
+    report['provenance']=new
+    _record_versions(report,config,before,'compare')
+    report['artifacts']={'records':'records.json','calls':'calls','generated':'generated.json','candidate_skill':'candidate-SKILL.md',
+                         'instructions':'instructions.json'}
+    for name in ('generated.json','instructions.json','candidate-SKILL.md','baseline-SKILL.md'):
+        if (run['path']/name).exists(): (out/name).write_bytes((run['path']/name).read_bytes())
     return _save(out,report,records)
