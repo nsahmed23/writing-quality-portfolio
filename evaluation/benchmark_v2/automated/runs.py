@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import copy
 import json
+import shutil
 from pathlib import Path
 
 from .adapters import Budget,canonical_bytes,digest,load_config
@@ -132,6 +133,19 @@ def _recorded_before(provenance):
     return versions.get('before') if isinstance(versions,dict) else {}
 
 
+def _copy_calls(source,target):
+    """Copy each numbered call folder of a source run into target unchanged; return the highest call number copied.
+
+    A folder that is not a plain number is not a call folder and is left behind. Returns 0 when the source holds none."""
+    highest=0
+    if source.is_dir():
+        for folder in sorted(source.iterdir()):
+            if folder.is_dir() and folder.name.isdecimal():
+                shutil.copytree(folder,target/folder.name)
+                highest=max(highest,int(folder.name))
+    return highest
+
+
 def rerun_failed(suite_path,rubric_path,config_path,calibration,source,out,*,calibration_suite=None):
     """Run once more, and on record, the judge calls of a finished comparison run that failed in plumbing.
 
@@ -139,7 +153,8 @@ def rerun_failed(suite_path,rubric_path,config_path,calibration,source,out,*,cal
     that answered badly ('judgment') and a pair that was never sent ('skipped') are never run again, and a run that
     is itself a re-run or a merge cannot be re-run, so a pair gets at most two attempts. The source folder is not
     changed. The new folder holds the full record list, each redone record marked attempt 2, and its report names
-    the source by hash. Every refusal happens before the output folder exists."""
+    the source by hash. It also holds a copy of every call folder of the source, so it stands alone; the re-run's
+    own calls are numbered after them. Every refusal happens before the output folder exists."""
     suite=load_suite(suite_path); require_private_output(suite,out)
     rubric=load_rubric(rubric_path); config=load_config(config_path)
     current=_provenance(suite_path,rubric_path,config_path,config)
@@ -172,9 +187,12 @@ def rerun_failed(suite_path,rubric_path,config_path,calibration,source,out,*,cal
     overlap=_overlap(suite,split,documents,current['suite_sha256'],provenance.get('certificate_suite_sha256'),calibration_suite)
     budget=Budget(config['max_calls']); budget.preflight(len(jobs))
     out=_prepare(out)
+    # The new folder must stand alone: every call its records refer to is here, the source's under their own
+    # numbers (the first attempts stay as evidence) and the re-run's own after them. The budget counts only new calls.
+    offset=_copy_calls(run['path']/'calls',out/'calls')
     redone={}
     for case,judge,order in jobs:
-        record=_judge_one(case,judge,order,rubric,out,budget,config['timeout_seconds'])
+        record=_judge_one(case,judge,order,rubric,out,budget,config['timeout_seconds'],call_offset=offset)
         record['attempt']=2
         redone[(case['id'],judge['id'],order)]=record
     records=[redone.get((r.get('case_id'),r.get('judge_id'),r.get('order')),r) if isinstance(r,dict) else r for r in run['records']]

@@ -154,13 +154,15 @@ def _oversized_units(case,rubric,config):
     return worst
 
 
-def _judge_one(case,judge,order,rubric,out,budget,timeout):
+def _judge_one(case,judge,order,rubric,out,budget,timeout,call_offset=0):
     """One judge call for one case in one presentation order; returns its record. Charges the budget once.
-    Part D (rerun-failed) calls this directly, so a re-run builds the same request and the same record."""
+    Part D (rerun-failed) calls this directly, so a re-run builds the same request and the same record.
+    call_offset shifts the call folder number past folders already in out/calls (copied from a source run)
+    without changing what the budget counts."""
     request=_judge_request(case,judge,order,rubric)
     a,b=request['A'],request['B']
     budget.charge()
-    artifact=out/'calls'/f'{budget.used:05d}'
+    artifact=out/'calls'/f'{budget.used+call_offset:05d}'
     result=run_call(judge['command'],request,artifact,timeout_seconds=timeout)
     record={'case_id':case['id'],'document_id':case['document_id'],'lane':case['lane'],
             'split':case['split'],'judge_id':judge['id'],'family':judge['family'],

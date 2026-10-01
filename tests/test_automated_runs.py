@@ -437,10 +437,31 @@ class RerunFailedTests(VersionedFixture):
         self.assertEqual(rerun["rerun_calls"], 4)
         self.assertEqual(rerun["source_report_sha256"], digest(source_bytes))
         self.assertEqual(report["provenance"]["tool_versions"]["changed"], [])
-        self.assertEqual(len(list((self.root / "again" / "calls").iterdir())), 4)
+        # The re-run's folder stands alone: the 18 copied source calls (6 writer, 12 judge) plus its own 4 (next test).
+        self.assertEqual(len(list((self.root / "again" / "calls").iterdir())), 22)
         self.assertEqual((self.root / "source" / "report.json").read_bytes(), source_bytes)
         for name in ("generated.json", "instructions.json", "candidate-SKILL.md"):
             self.assertEqual((self.root / "again" / name).read_bytes(), (self.root / "source" / name).read_bytes())
+
+    def test_a_rerun_folder_holds_its_own_copy_of_every_call_it_refers_to(self):
+        self.failing_run()
+        source_calls = self.root / "source" / "calls"
+        source_names = sorted(entry.name for entry in source_calls.iterdir())
+        # Writer calls and judge calls share one numbering: 6 writer calls, then 12 judge calls.
+        self.assertEqual(source_names, [f"{n:05d}" for n in range(1, 19)])
+        self.rerun("source", "again")
+        again_calls = self.root / "again" / "calls"
+        # Every source call is copied unchanged under its own number, so deleting the source loses nothing.
+        for name in source_names:
+            for part in ("request.json", "response.bin", "stderr.bin", "metadata.json"):
+                self.assertEqual((again_calls / name / part).read_bytes(), (source_calls / name / part).read_bytes(), (name, part))
+        # The four re-run calls follow them under new numbers and all succeeded (the failure flag was lifted).
+        new_names = sorted(entry.name for entry in again_calls.iterdir() if entry.name not in source_names)
+        self.assertEqual(new_names, [f"{n:05d}" for n in range(19, 23)])
+        for name in new_names:
+            self.assertEqual(json.loads((again_calls / name / "metadata.json").read_bytes())["returncode"], 0)
+        # The source folder is not touched by the copy.
+        self.assertEqual(sorted(entry.name for entry in source_calls.iterdir()), source_names)
 
     def test_a_rerun_that_fails_again_stays_plumbing_and_cannot_be_run_a_third_time(self):
         self.failing_run()
