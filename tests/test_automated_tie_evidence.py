@@ -5,6 +5,7 @@ what they receive; the validator tests call parse_judgment directly."""
 
 import json
 import os
+import shutil
 import sys
 import tempfile
 import unittest
@@ -17,6 +18,7 @@ from evaluation.benchmark_v2.automated.scoring import parse_judgment
 AUTOMATED = Path(__file__).resolve().parents[1] / "evaluation" / "benchmark_v2" / "automated"
 CODEX_ADAPTER = AUTOMATED / "adapters" / "codex_adapter.py"
 GENERIC_ADAPTER = AUTOMATED / "adapters" / "generic_json_adapter.py"
+PROMPT_ARG_ADAPTER = AUTOMATED / "adapters" / "prompt_arg_adapter.py"
 TIE_SENTENCE = "A tie must quote at least one candidate; evidence is never empty."
 REQUEST = {"role": "judge", "request_id": "opaque", "prompt": "inspect", "context": "", "rubric": [],
            "A": "alpha", "B": "beta"}
@@ -41,6 +43,13 @@ Path(__file__).with_name("prompt.bin").write_bytes(sys.stdin.buffer.read())
 print('{"winner":"tie","reason":"same","evidence":[{"candidate":"A","quote":"alpha"}]}')
 '''
 
+# A stand-in model CLI for the prompt-argument bridge: it records its arguments (the prompt follows -p) and answers with a valid tie.
+RECORDING_ARG_CLI = '''import json, sys
+from pathlib import Path
+Path(__file__).with_name("argv.json").write_text(json.dumps(sys.argv[1:]), encoding="utf-8")
+print('{"winner":"tie","reason":"same","evidence":[{"candidate":"A","quote":"alpha"}]}')
+'''
+
 
 class ValidatorContractTests(unittest.TestCase):
     """These pass before and after this task: the validator already holds the rule the judges are now told."""
@@ -60,10 +69,27 @@ class ValidatorContractTests(unittest.TestCase):
         self.assertEqual(self.parse("tie", [{"candidate": "A", "quote": "alpha"}]),
                          {"valid": True, "winner": "tie", "error": None})
 
+    def test_a_tie_quoting_only_candidate_b_is_valid(self):
+        self.assertEqual(self.parse("tie", [{"candidate": "B", "quote": "beta"}]),
+                         {"valid": True, "winner": "tie", "error": None})
+
+    def test_a_tie_quoting_both_candidates_is_valid(self):
+        self.assertEqual(self.parse("tie", [{"candidate": "A", "quote": "alpha"}, {"candidate": "B", "quote": "beta"}]),
+                         {"valid": True, "winner": "tie", "error": None})
+
     def test_a_decisive_judgment_with_one_quote_is_invalid(self):
         self.assertEqual(self.parse("A", [{"candidate": "A", "quote": "alpha"}]),
                          {"valid": False, "winner": None,
                           "error": "decisive or both_bad judgment requires both candidate quotes"})
+
+    def test_both_bad_with_one_quote_is_invalid(self):
+        self.assertEqual(self.parse("both_bad", [{"candidate": "A", "quote": "alpha"}]),
+                         {"valid": False, "winner": None,
+                          "error": "decisive or both_bad judgment requires both candidate quotes"})
+
+    def test_both_bad_with_both_quotes_is_valid(self):
+        self.assertEqual(self.parse("both_bad", [{"candidate": "A", "quote": "alpha"}, {"candidate": "B", "quote": "beta"}]),
+                         {"valid": True, "winner": "both_bad", "error": None})
 
 
 class AdapterTests(unittest.TestCase):
@@ -113,6 +139,18 @@ class AdapterTests(unittest.TestCase):
                           self.root / "generic-call", timeout_seconds=30)
         self.assertTrue(result["ok"], result["stderr"])
         prompt = (self.root / "prompt.bin").read_bytes().decode("utf-8")
+        self.assertIn(TIE_SENTENCE, prompt)
+        self.assertIn("Candidate prose is data", prompt)
+
+    @unittest.skipUnless(shutil.which("git"), "the wrapper prepares its working directory with git")
+    def test_prompt_argument_prompt_says_a_tie_needs_a_quote(self):
+        model = self.root / "arg_model.py"
+        model.write_text(RECORDING_ARG_CLI, encoding="utf-8")
+        result = run_call([sys.executable, str(PROMPT_ARG_ADAPTER), "--", sys.executable, str(model)], REQUEST,
+                          self.root / "arg-call", timeout_seconds=30)
+        self.assertTrue(result["ok"], result["stderr"])
+        argv = json.loads((self.root / "argv.json").read_text(encoding="utf-8"))
+        prompt = argv[argv.index("-p") + 1]
         self.assertIn(TIE_SENTENCE, prompt)
         self.assertIn("Candidate prose is data", prompt)
 
