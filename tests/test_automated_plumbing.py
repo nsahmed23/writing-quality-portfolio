@@ -9,6 +9,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from evaluation.benchmark_v2.automated import runner
 from evaluation.benchmark_v2.automated.adapters import Budget, run_call
@@ -168,6 +169,24 @@ class CommandUnitsTests(unittest.TestCase):
         command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--"]
         self.assertIsNone(runner._command_units(command, REQUEST))
 
+    def test_a_path_that_cannot_be_resolved_fails_open(self):
+        folder = self.adapter_folder("unresolvable")
+        command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
+        # Without the failure the size is measured, so the None below comes from the guard and not the fixture.
+        self.assertIsNotNone(runner._command_units(command, REQUEST))
+        with mock.patch.object(Path, "resolve", side_effect=OSError("cannot resolve this path")):
+            self.assertIsNone(runner._command_units(command, REQUEST))
+
+    def test_a_path_that_cannot_be_resolved_does_not_make_the_pair_oversized(self):
+        folder = self.adapter_folder("unresolvable-pair")
+        command = [sys.executable, str(folder / "prompt_arg_adapter.py"), "--", "agy"]
+        config = {"judges": [{"id": "j", "family": "f", "command": command}]}
+        long_case = {"id": "c1", "prompt": "p", "context": "c", "a": "x" * (runner.MAX_COMMAND_LINE_UNITS + 1), "b": "y"}
+        self.assertGreater(runner._oversized_units(long_case, RUBRIC, config), runner.MAX_COMMAND_LINE_UNITS)
+        # Size unknown: the pair is not skipped, so the call runs and the adapter decides.
+        with mock.patch.object(Path, "resolve", side_effect=OSError("cannot resolve this path")):
+            self.assertIsNone(runner._oversized_units(long_case, RUBRIC, config))
+
     def test_precheck_measures_what_the_real_adapter_refuses(self):
         request = dict(REQUEST, A="alpha " + "x" * 40000)
         command = [sys.executable, str(REAL_ARG_ADAPTER), "--", "agy"]
@@ -317,12 +336,27 @@ class ReportFailureKindTests(unittest.TestCase):
         self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (4, 4))
         self.assertEqual(counts["invalid_records"], 8)
 
-    def test_an_explicit_failure_kind_wins_over_the_error_text(self):
+    # The two tests below are asymmetric on purpose: in each one the error text points the other way from the
+    # explicit kind, so a classifier that reads the text alone (or ignores the kind) cannot give the right counts.
+    # Swapping one record each way, as an earlier test did, gives (1, 1) from the text alone as well.
+    def test_an_explicit_judgment_kind_wins_over_a_plumbing_looking_error(self):
         cases = [case(1), case(2)]
         special = {("c1", "j1", 1): {"valid": False, "kind": "judgment", "error": "timeout"},
+                   ("c2", "j1", 1): {"valid": False, "kind": "judgment", "error": "timeout"}}
+        records = make_records(cases, special)
+        # The helper must really write the key the classifier reads.
+        self.assertEqual([r["failure_kind"] for r in records if not r["valid"]], ["judgment", "judgment"])
+        counts = compare_report(cases, records)["counts"]
+        self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (0, 2))
+
+    def test_an_explicit_plumbing_kind_wins_over_a_judgment_looking_error(self):
+        cases = [case(1), case(2)]
+        special = {("c1", "j1", 1): {"valid": False, "kind": "plumbing", "error": "evidence must be nonempty"},
                    ("c2", "j1", 1): {"valid": False, "kind": "plumbing", "error": "evidence must be nonempty"}}
-        counts = compare_report(cases, make_records(cases, special))["counts"]
-        self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (1, 1))
+        records = make_records(cases, special)
+        self.assertEqual([r["failure_kind"] for r in records if not r["valid"]], ["plumbing", "plumbing"])
+        counts = compare_report(cases, records)["counts"]
+        self.assertEqual((counts["plumbing_failures"], counts["judgment_failures"]), (2, 0))
 
     def test_a_malformed_record_counts_as_invalid_only(self):
         cases = [case(i) for i in range(1, 4)]
@@ -350,6 +384,38 @@ class ReportFailureKindTests(unittest.TestCase):
         counts = compare_report(cases, make_records(cases, special))["counts"]
         self.assertEqual((counts["skipped_records"], counts["unexpected_records"]), (3, 1))
         self.assertFalse(compare_report(cases, make_records(cases, special))["complete"])
+
+    def test_a_skipped_case_must_have_one_skip_record_per_judge_and_order(self):
+        cases = [case(i) for i in range(1, 7)]
+        every = [("j1", 1), ("j1", 2), ("j2", 1), ("j2", 2)]
+        for kept in (every[:3], every[:1]):
+            with self.subTest(kept=kept):
+                records = [r for r in make_records(cases, skip_all("c6"))
+                           if r["case_id"] != "c6" or (r["judge_id"], r["order"]) in kept]
+                report = compare_report(cases, records)
+                counts = report["counts"]
+                self.assertEqual((counts["skipped_cases"], counts["skipped_records"]), (1, len(kept)))
+                self.assertEqual(counts["missing_records"], len(every) - len(kept))
+                self.assertEqual((counts["invalid_records"], counts["unexpected_records"]), (0, 0))
+                self.assertFalse(report["complete"])
+                self.assertFalse(report["eligible"])
+
+    def test_all_skipped_with_one_skip_record_missing_is_incomplete(self):
+        cases = [case(1), case(2)]
+        records = [r for r in make_records(cases, {**skip_all("c1"), **skip_all("c2")})
+                   if (r["case_id"], r["judge_id"], r["order"]) != ("c2", "j2", 2)]
+        report = compare_report(cases, records)
+        self.assertEqual((report["counts"]["skipped_cases"], report["counts"]["skipped_records"]), (2, 7))
+        self.assertEqual(report["counts"]["missing_records"], 1)
+        self.assertFalse(report["complete"])
+
+    def test_a_duplicated_skip_record_is_a_duplicate_and_the_run_is_incomplete(self):
+        cases = [case(i) for i in range(1, 7)]
+        records = make_records(cases, skip_all("c6"))
+        records.append(dict(records[-1]))
+        report = compare_report(cases, records)
+        self.assertEqual((report["counts"]["duplicate_records"], report["counts"]["missing_records"]), (1, 0))
+        self.assertFalse(report["complete"])
 
     def test_a_skip_record_for_an_unknown_case_is_unexpected(self):
         cases = [case(i) for i in range(1, 4)]

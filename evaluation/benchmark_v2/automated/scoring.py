@@ -161,6 +161,9 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
                    r["case_id"] in case_by_id and _is_skip(r)}
     cases = [c for c in selected if c["id"] not in skipped_ids]
     keys = {(c["id"], j, order) for c in cases for j in judge_by_id for order in (1, 2)}
+    # A skipped case is owed exactly one skip record per judge and order (the runner writes all of them together).
+    skip_keys = all_keys - keys
+    skip_seen = defaultdict(int)
     grouped = defaultdict(list)
     invalid = unexpected = plumbing = judgment = skipped = 0
     for record in records:
@@ -190,6 +193,7 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
             # The case was skipped: a skip record is expected here, anything else is not.
             if _is_skip(record):
                 skipped += 1
+                skip_seen[key] += 1
             else:
                 unexpected += 1
             continue
@@ -200,8 +204,11 @@ def build_report(suite: dict, records: list[dict], judges: list[dict], *, mode: 
                 plumbing += 1
             else:
                 judgment += 1
-    missing = len(keys - set(grouped))
-    duplicates = sum(max(0, len(items) - 1) for items in grouped.values())
+    # A skip record that never arrived leaves its judge and order unaccounted for, exactly like a missing score,
+    # and a repeated skip record is a duplicate; expected_records still counts only the scored cases.
+    missing = len(keys - set(grouped)) + len(skip_keys - set(skip_seen))
+    duplicates = (sum(max(0, len(items) - 1) for items in grouped.values()) +
+                  sum(max(0, seen - 1) for seen in skip_seen.values()))
     # Completeness asks that the selected cases were handled, not that any were scored: a run whose every case was
     # skipped by the size check is complete with nothing scored (it stays ineligible through the lane document gate).
     complete = bool(selected) and not (missing or duplicates or invalid or unexpected)

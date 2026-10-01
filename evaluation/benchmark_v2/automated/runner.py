@@ -5,6 +5,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -16,6 +17,7 @@ from .scoring import build_report, parse_judgment
 
 ADAPTER_DIR=Path(__file__).resolve().parent/'adapters'
 ADAPTER_SCRIPTS=('codex_adapter.py','generic_json_adapter.py','prompt_arg_adapter.py')
+SUITE_SHA256=re.compile(r'[0-9a-f]{64}')  # the shape of adapters.digest(): 64 lowercase hex digits
 
 
 def _text_digest(path):
@@ -120,13 +122,15 @@ def _command_units(command,request):
     tail=list(command[index+1:])
     if tail[:1]==['--']: tail=tail[1:]
     if not tail: return None
-    build=_prompt_builder(Path(part).resolve().parent)
-    if build is None: return None
     try:
+        # Resolving the adapter's folder touches the file system and can raise OSError (a bad or unreadable path), so
+        # it sits in the guard with the builder lookup and the measurement. Any failure must not stop the run before a
+        # call is made: size is unknown, so the call runs and the adapter decides (it measures and refuses an
+        # oversized command line itself).
+        build=_prompt_builder(Path(part).resolve().parent)
+        if build is None: return None
         return _units([*tail,'-p',build(request)])
     except Exception:
-        # A builder that raises must not stop the run before any call is made: size is unknown, so the call runs
-        # and the adapter decides (it measures and refuses an oversized command line itself).
         return None
 
 
@@ -308,8 +312,9 @@ def _require_certificate(calibration,provenance):
         not certificate.get('complete') or not certificate.get('eligible') or
         cert_provenance.get('rubric_sha256')!=provenance['rubric_sha256'] or
         cert_provenance.get('judge_signature')!=provenance['judge_signature'] or
-        # Leakage cannot be checked without the suite the certificate was issued on; a blank hash names no suite.
-        not isinstance(cert_provenance.get('suite_sha256'),str) or not cert_provenance['suite_sha256'].strip()):
+        # Leakage cannot be checked without the suite the certificate was issued on; only a SHA-256 names one.
+        # fullmatch, not a '$' anchor: '$' would accept a trailing newline.
+        not isinstance(cert_provenance.get('suite_sha256'),str) or not SUITE_SHA256.fullmatch(cert_provenance['suite_sha256'])):
         raise ValueError('matching eligible live calibration required')
     return certificate
 
